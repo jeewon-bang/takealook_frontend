@@ -11,11 +11,16 @@ function App() {
 	return (
 		<div>
 			<Header />
+			<SubNav />
 			<Routes>
 				<Route path='/' element={<HomePage />} />
 				<Route path='/login/' element={<LoginPage />} />
 				<Route path='/join/' element={<JoinPage />} />
 				<Route path='/mycat/' element={<MyCatPage />} />
+				<Route path='/all' element={<AllPage />} />
+				<Route path='/bestcat' element={<BestCatPage />} />
+				<Route path='/findcat' element={<FindCatPage />} />
+				<Route path='/helpcat' element={<HelpCatPage />} />
 				{/* <Route path='/board/' element={<BoardPage />} />
 				<Route path='/board/write/' element={<WritePage />} /> */}
 			</Routes>
