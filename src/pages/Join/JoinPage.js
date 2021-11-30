@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import Location from '../../components/Join/Location';
 
 const JoinPage = () => {
+	// 여기서 로컬스토리지에 담아놓은 jwt 토큰을 통해 인증 요청
+	// 최초 회원가입이면 (추가정보 없는상태) JoinPage 보여주고
+	// 재 로그인이면 바로 홈화면으로 보내기
+
 	const [values, setValues] = useState({
 		nickname: '',
 		phone: '',
