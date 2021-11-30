@@ -8,7 +8,13 @@ const Header = (props) => {
   return (
     <div className='header-container'>
       <div className='menu-container'>
-        <span className='logo'></span>
+        <span className='logo'>
+          <img
+            class='image'
+            src={require('images/logo.png').default}
+            alt='logo'
+          />
+        </span>
         <span className='menu-left'>
           <span>
             <Link to='/mycat' className='menu'>
