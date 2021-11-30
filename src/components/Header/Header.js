@@ -24,6 +24,11 @@ const Header = (props) => {
         </span>
         <span className='menu-right'>
           <span>
+            <Link to='/community' className='menu'>
+              커뮤니티
+            </Link>
+          </span>
+          <span>
             <Link to='/login' className='menu'>
               로그인
             </Link>
