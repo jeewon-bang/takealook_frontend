@@ -5,29 +5,29 @@ const Location = (props) => {
 	const [sidoList, setSidoList] = useState(
 		['선택'].concat(addr.SIDO.map((v) => v.sido))
 	);
-	const [gunguList, setGunguList] = useState(['선택']);
+	const [gugunList, setGugunList] = useState(['선택']);
 	const [dongList, setDongList] = useState(['선택']);
 
 	const [sido, setSido] = useState('');
-	const [gungu, setGungu] = useState('');
+	const [gugun, setGugun] = useState('');
 	const [dong, setDong] = useState('');
 
 	const selectSido = (e) => {
 		setSido(e.target.value);
-		setGunguList(
-			// 선택한 시도에 해당하는 군구 리스트 셋팅
+		setGugunList(
+			// 선택한 시도에 해당하는 구군 리스트 셋팅
 			['선택'].concat(
-				addr.GUNGU.filter((v) => v.sido === e.target.value).map((v) => v.gungu)
+				addr.GUGUN.filter((v) => v.sido === e.target.value).map((v) => v.gugun)
 			)
 		);
 	};
-	const selectGungu = (e) => {
-		setGungu(e.target.value);
+	const selectGUGUN = (e) => {
+		setGugun(e.target.value);
 		setDongList(
-			// 선택한 시도, 군구에 해당하는 동 리스트 셋팅
+			// 선택한 시도, 구군에 해당하는 동 리스트 셋팅
 			['선택'].concat(
 				addr.DONG.filter(
-					(v) => v.sido === sido && v.gungu === e.target.value
+					(v) => v.sido === sido && v.gugun === e.target.value
 				).map((v) => v.dong)
 			)
 		);
@@ -41,7 +41,7 @@ const Location = (props) => {
 			...props.values,
 			location: [
 				...props.values.location,
-				{ sido: sido, gungu: gungu, dong: dong },
+				{ sido: sido, gugun: gugun, dong: dong },
 			],
 		});
 	};
@@ -53,8 +53,8 @@ const Location = (props) => {
 					<option value={v}>{v}</option>
 				))}
 			</select>
-			<select id='gungu' onChange={selectGungu} value={gungu}>
-				{gunguList.map((v) => (
+			<select id='GUGUN' onChange={selectGUGUN} value={gugun}>
+				{gugunList.map((v) => (
 					<option value={v}>{v}</option>
 				))}
 			</select>
