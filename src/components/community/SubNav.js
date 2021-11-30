@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './SubNav.css';
+import './SubNav.scss';
 
 const SubNav = () => {
   const [textColor, setTextColor] = useState('#000');
@@ -13,11 +13,11 @@ const SubNav = () => {
   let navlink = document.getElementById('nav-link');
 
   return (
-    <div>
+    <div className='subnav'>
       <Navbar bg='white' variant='white'>
         <Container>
           <Nav className='me-auto'>
-            <Link to='/all' className='nav-link'>
+            <Link to='/community' className='nav-link'>
               전체보기
             </Link>
             <Link to='/bestcat' className='nav-link'>
