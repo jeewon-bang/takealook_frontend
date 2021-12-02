@@ -1,3 +1,5 @@
+import axios from 'axios';
+import CatImage from 'components/CatRegister/CatImage/CatImage';
 import CatLocation from 'components/CatRegister/CatLocation';
 import CatRegisterForm from 'components/CatRegister/CatRegisterForm';
 import React, { useEffect, useState } from 'react';
@@ -9,9 +11,11 @@ const CatRegisterPage = () => {
 		neutered: '',
 		location: [],
 	});
+	const [data, setData] = useState(null);
+
+	const [imgs, setImgs] = useState([]);
 
 	const handleSubmit = () => {
-		// axios
 		if (!values.name || !values.status || !values.neutered) {
 			document.getElementById('message').innerText =
 				'모든 항목을 입력해주세요!';
@@ -20,13 +24,26 @@ const CatRegisterPage = () => {
 				document.getElementById('message').innerText =
 					'1곳 이상의 위치를 선택해주세요!';
 			} else {
-				console.log(values);
+				for (let keyvalue of data.entries()) {
+					console.log(keyvalue);
+				}
+				axios({
+					url: 'http://localhost:8088/test',
+					method: 'post',
+					data: data,
+				});
 			}
 		}
 	};
 
 	return (
 		<div>
+			<CatImage
+				values={values}
+				setValues={setValues}
+				data={data}
+				setData={setData}
+			/>
 			<CatRegisterForm values={values} setValues={setValues} />
 			<CatLocation values={values} setValues={setValues} />
 			<div id='message'></div>
