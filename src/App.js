@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import PostDetail from './components/community/PostDetail';
+import PostDetail from './components/community/postdetail/PostDetail';
 import Header from './components/Header/Header';
-import CommunityPage from './pages/community/CommunityPage';
-import WritePage from './pages/community/WritePage';
+import CommunityPage from './pages/community/community/CommunityPage';
+import WritePage from './pages/community/write/WritePage';
 import HomePage from './pages/Home/HomePage';
 import JoinPage from './pages/Join/JoinPage';
 import LoginPage from './pages/Login/LoginPage';
