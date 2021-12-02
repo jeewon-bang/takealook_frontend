@@ -1,10 +1,26 @@
 import axios from 'axios';
+import PostList from 'components/community/PostList';
 import MyPageNav from 'components/MyPageForm/Nav/MyPageNav';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './MyPage.scss';
 
 const MyPage = () => {
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      writer: '혜민',
+      title: '노릇노릇',
+      content: '보리전이 익어간다',
+      created_at: '2021-11-22',
+      modified_at: '',
+      img: '../../images/bori2.jpg',
+      like: 10,
+      comment: 3,
+      board: 'bestcat',
+    },
+  ]);
+
   return (
     <div class='content-body'>
       <MyPageNav />
@@ -18,6 +34,11 @@ const MyPage = () => {
           <p>
             <span>박세은</span>
           </p>
+        </div>
+        <div className='MyPost'>
+          {posts.map((post) => (
+            <PostList post={post} />
+          ))}
         </div>
       </div>
     </div>

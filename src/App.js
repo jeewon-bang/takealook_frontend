@@ -9,7 +9,6 @@ import LoginPage from './pages/Login/LoginPage';
 import MyCatPage from './pages/MyCat/MyCatPage';
 import './App.css';
 import MyPage from './pages/MyPage/MyPage';
-import MyPostPage from 'pages/MyPage/MyPostPage';
 import LikePage from 'pages/MyPage/LikePage';
 import ProfilePage from 'pages/MyPage/ProfilePage';
 import CatDetailPage from './pages/CatDetail/CatDetailPage';
@@ -28,7 +27,6 @@ function App() {
         <Route path='/mycat/' element={<MyCatPage />} />
         <Route path='/mycat/:catId' element={<CatDetailPage />} />
         <Route path='/mypage' element={<MyPage />} />
-        <Route path='/mypost' element={<MyPostPage />} />
         <Route path='/like' element={<LikePage />} />
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/community' element={<CommunityPage />} />

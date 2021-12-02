@@ -1,48 +1,35 @@
+import moment from 'moment';
 import React from 'react';
 import './MyCat.scss';
 
 const MyCat = (props) => {
-  const { cats } = props;
+  const { cats, setCats } = props;
+  // const { care, setCare } = props;
+  const today = moment();
+  const timeDiff = (date) => {
+    return Math.floor(
+      moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asHours()
+    );
+  };
   return (
     <div>
       {cats &&
         cats.map((cat) => (
           <div class='cat'>
             <div class='cat-body-left'>
-              {/* <img
-                class='cat'
-                //실제 파일 가지고 있는 사람 주소/이미지경로?
-                src={`${HOST}${cat.image}`}
-                alt='cat'
-              /> */}
               <img class='cat' src={cat.image.default} alt='cat' />
               <h1>{cat.name}</h1>
             </div>
             <div class='cat-body-right'>
-              <h1 class='care'>
-                <img
-                  class='care'
-                  src={require('images/pet-bowl.png').default}
-                  alt='cat'
-                />
-                {cat.username}/{cat.datetime}/{cat.message}
-              </h1>
-              <h1 class='care'>
-                <img
-                  class='care'
-                  src={require('images/pet-bowl.png').default}
-                  alt='cat'
-                />
-                {cat.username}/{cat.datetime}/{cat.message}
-              </h1>
-              <h1 class='care'>
-                <img
-                  class='care'
-                  src={require('images/pet-bowl.png').default}
-                  alt='cat'
-                />
-                {cat.username}/{cat.datetime}/{cat.message}
-              </h1>
+              {cat.catCare.map((v) => (
+                <div className='care'>
+                  <div className='user-img'></div>
+                  <span>{v.user} / </span>
+                  <span>{timeDiff(v.time)}시간 전/</span>
+                  <span>{v.type} / </span>
+                  <span>{v.message}</span>
+                </div>
+              ))}
             </div>
           </div>
         ))}
