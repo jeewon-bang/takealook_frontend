@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { useParams } from 'react-router';
-import CareCalendar from '../../components/CareCalendar/CareCalendar';
+import CareCalendar from '../../components/CatDetail/CareCalendar/CareCalendar';
 import CatCare from '../../components/CatDetail/CatCare/CatCare';
 import CatInfo from '../../components/CatDetail/CatInfo/CatInfo';
 import './CatDetailPage.scss';
