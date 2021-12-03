@@ -1,0 +1,23 @@
+@import 'components/common/common';
+
+@font-face {
+  font-family: 'SurroundAir';
+  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
+}
+
+.title-input {
+  border-bottom: 1px solid black;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  width: 100%;
+}
+
+.title-input:focus {
+  outline: none;
+}
+
+h3 {
+  padding-top: 60px;
+}

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Write.scss';
+import './Writebtn.scss';
 
-const Write = () => {
+const Writebtn = () => {
   return (
     <div>
       <Link to='/community/write'>
         <img
           className='cwrite'
-          src={require('../../images/cwrite.png').default}
+          src={require('images/cwrite.png').default}
           alt='cwrite'
         />
       </Link>
@@ -16,4 +16,4 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default Writebtn;
