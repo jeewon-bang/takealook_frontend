@@ -1,5 +1,5 @@
 import axios from 'axios';
-import PostList from 'components/community/PostList';
+import PostList from 'components/community/postlist/PostList';
 import MyPageNav from 'components/MyPageForm/Nav/MyPageNav';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
