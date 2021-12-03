@@ -2,50 +2,52 @@ import axios from 'axios';
 import CatImage from 'components/CatRegister/CatImage/CatImage';
 import CatLocation from 'components/CatRegister/CatLocation';
 import CatRegisterForm from 'components/CatRegister/CatRegisterForm';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const CatRegisterPage = () => {
-	const [values, setValues] = useState({
+	const [catInfo, setCatInfo] = useState({
 		name: '',
 		status: '',
 		neutered: '',
 		location: [],
 	});
-	const [data, setData] = useState(null);
-
-	const [imgs, setImgs] = useState([]);
+	const [catImg, setCatImg] = useState([]);
 
 	const handleSubmit = () => {
-		if (!values.name || !values.status || !values.neutered) {
+		if (!catInfo.name || !catInfo.status || !catInfo.neutered) {
 			document.getElementById('message').innerText =
 				'모든 항목을 입력해주세요!';
 		} else {
-			if (values.location.length === 0) {
+			if (catInfo.location.length === 0) {
 				document.getElementById('message').innerText =
 					'1곳 이상의 위치를 선택해주세요!';
 			} else {
-				for (let keyvalue of data.entries()) {
-					console.log(keyvalue);
+				const formData = new FormData();
+
+				for (let i = 0; i < catImg.length; i++) {
+					formData.append('catImg', catImg[i]);
 				}
-				axios({
-					url: 'http://localhost:8088/test',
-					method: 'post',
-					data: data,
-				});
+				formData.append(
+					'catInfo',
+					new Blob([JSON.stringify(catInfo)], { type: 'application/json' }) // 객체 추가하고 싶을때 걍 넣으면 안되고 굳이 blob 안에 JSON.stringfy 해서 넣어야 되는듯.. 왤까
+				);
+
+				axios
+					.post('http://localhost/test', formData, {
+						headers: { 'Content-Type': 'multipart/form-data' },
+					})
+					.then((res) => {
+						console.log(res);
+					});
 			}
 		}
 	};
 
 	return (
 		<div>
-			<CatImage
-				values={values}
-				setValues={setValues}
-				data={data}
-				setData={setData}
-			/>
-			<CatRegisterForm values={values} setValues={setValues} />
-			<CatLocation values={values} setValues={setValues} />
+			<CatImage catImg={catImg} setCatImg={setCatImg} />
+			<CatRegisterForm catInfo={catInfo} setCatInfo={setCatInfo} />
+			<CatLocation catInfo={catInfo} setCatInfo={setCatInfo} />
 			<div id='message'></div>
 			<button onClick={handleSubmit}>등록하기</button>
 		</div>

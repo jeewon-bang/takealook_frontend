@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import PostList from '../../components/community/PostList';
-import SubNav from '../../components/community/SubNav';
-import Write from '../../components/community/Write';
+import PostList from 'components/community/postlist/PostList';
+import Category from 'components/community/category/Category';
+import Sorting from 'components/community/sorting/Sorting';
 import './CommunityPage.scss';
+import Writebtn from 'components/community/write/Writebtn';
 
 const CommunityPage = () => {
   const [posts, setPosts] = useState([
@@ -50,8 +51,8 @@ const CommunityPage = () => {
       created_at: '2021-11-25',
       modified_at: '',
       img: '../../images/ritae1.jpg',
-      like: 24,
-      comment: 12,
+      like: 60,
+      comment: 8,
       board: 'helpcat',
     },
     {
@@ -59,11 +60,11 @@ const CommunityPage = () => {
       writer: '지혜',
       title: '서리태',
       content: '서리태 시크냥',
-      created_at: '2021-11-25',
+      created_at: '2021-11-26',
       modified_at: '',
       img: '../../images/ritae1.jpg',
-      like: 24,
-      comment: 12,
+      like: 55,
+      comment: 19,
       board: 'helpcat',
     },
     {
@@ -71,25 +72,25 @@ const CommunityPage = () => {
       writer: '지혜',
       title: '서리태',
       content: '서리태 시크냥',
-      created_at: '2021-11-25',
+      created_at: '2021-11-27',
       modified_at: '',
       img: '../../images/ritae1.jpg',
-      like: 24,
-      comment: 12,
+      like: 200,
+      comment: 15,
       board: 'helpcat',
     },
   ]);
 
-  const [backgroundimgs, setBackgroundimgs] = useState([]);
-  const [board, setBoard] = useState();
-
   return (
     <div>
-      <SubNav board={board} />
+      <Category posts={posts} setPosts={setPosts} />
       <hr />
       <section>
         <div className='right-nav'>
-          <Write />
+          <Writebtn />
+        </div>
+        <div className='sorting-wrapper'>
+          <Sorting posts={posts} setPosts={setPosts} />
         </div>
         <div className='wrapper'>
           {posts.map((post) => (

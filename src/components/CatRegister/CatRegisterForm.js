@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import './CatRegisterForm.scss';
 
 const CatRegisterForm = (props) => {
-	const { values, setValues } = props;
+	const { catInfo, setCatInfo } = props;
 
 	const handleChange = (e) => {
-		setValues({ ...values, [e.target.name]: e.target.value });
+		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
 	};
 
 	return (

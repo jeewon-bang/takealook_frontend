@@ -30,14 +30,14 @@ const PostList = (props) => {
               <i class='icon icon-like_count'></i>
               <img
                 class='image'
-                src={require('../../images/heart.png').default}
+                src={require('images/heart.png').default}
                 alt='like'
               />
               {like}
               <i class='icon icon-comments_count'></i>
               <img
                 class='image'
-                src={require('../../images/chat.png').default}
+                src={require('images/chat.png').default}
                 alt='cmt'
               />
               {comment}
