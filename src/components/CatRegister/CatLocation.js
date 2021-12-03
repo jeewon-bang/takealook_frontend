@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 
 const CatLocation = (props) => {
-	const { values, setValues } = props;
-	const [map, setMap] = useState('');
+	const { catInfo, setCatInfo } = props;
+	// const [map, setMap] = useState('');
 	const [markers, setMarkers] = useState([]);
 
 	useEffect(() => {
@@ -54,8 +54,8 @@ const CatLocation = (props) => {
 	// 부모 페이지로 데이터 보내기
 	const handleClick = (e) => {
 		console.log(markers);
-		setValues({
-			...values,
+		setCatInfo({
+			...catInfo,
 			location: [
 				...markers.map((v) => ({
 					latitude: v.getPosition().getLat(),

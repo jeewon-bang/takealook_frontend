@@ -14,7 +14,6 @@ import LikePage from 'pages/MyPage/LikePage';
 import ProfilePage from 'pages/MyPage/ProfilePage';
 import CatDetailPage from './pages/CatDetail/CatDetailPage';
 import CatRegisterPage from 'pages/CatRegisterPage/CatRegisterPage';
-import ImgUpload from 'components/CatRegister/CatImage/ImgUpload';
 
 // Route : 페이지가 바뀌는게 아니라 화면에서 객체만 바꿔서 그리기 (리액트는 single page application)
 // react-router-dom 6버전 기준 강의내용이랑 좀 다른듯
@@ -24,7 +23,6 @@ function App() {
 			<Header />
 
 			<Routes>
-				<Route path='/test' element={<ImgUpload />} />
 				<Route path='/' element={<HomePage />} />
 				<Route path='/login/' element={<LoginPage />} />
 				<Route path='/join/' element={<JoinPage />} />
