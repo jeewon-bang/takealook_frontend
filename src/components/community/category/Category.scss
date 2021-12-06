@@ -1,27 +1,27 @@
 @import 'components/common/common';
 
 @font-face {
-  font-family: 'Surround';
-  src: url('../../../fonts/Cafe24Ssurround.ttf');
+	font-family: 'Surround';
+	src: url('../../../fonts/Cafe24Ssurround.ttf');
 }
 
 .subnav {
-  width: 1500px;
+	width: 1500px;
 }
 
-button {
-  border: none;
-  background-color: white;
-  font-size: 25px;
-  font-weight: bolder;
-  font-style: 'Surround';
-  margin-left: 30px;
-  margin-right: 30px;
-}
+// button {
+//   border: none;
+//   background-color: white;
+//   font-size: 25px;
+//   font-weight: bolder;
+//   font-style: 'Surround';
+//   margin-left: 30px;
+//   margin-right: 30px;
+// }
 
 button:hover {
-  color: $main-orange;
-  cursor: pointer;
+	color: $main-orange;
+	cursor: pointer;
 }
 
 // .nav-link {
@@ -40,5 +40,5 @@ button:hover {
 // }
 
 .me-auto {
-  text-align: center;
+	text-align: center;
 }

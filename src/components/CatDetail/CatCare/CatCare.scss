@@ -1,9 +1,11 @@
 @import '../../common/common';
 
+.care-container {
+	margin-top: 100px;
+}
 .care-box {
-	margin-top: 50px;
 	background-color: $white-gray;
-	padding: 40px;
+	padding: 30px;
 }
 
 .care-header {
