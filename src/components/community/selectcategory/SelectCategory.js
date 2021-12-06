@@ -1,10 +1,22 @@
 import React from 'react';
 import './SelectCategory.scss';
 
-const SelectCategory = () => {
+const SelectCategory = (props) => {
+  const { setCategory } = props;
+
+  const selectedCategory = (e) => {
+    const value = e.target.value;
+    setCategory(value);
+  };
+
   return (
     <div className='top'>
-      <select name='selects' id='selects' className='selects'>
+      <select
+        name='selects'
+        id='selects'
+        className='selects'
+        onChange={selectedCategory}
+      >
         <option value='' selected disabled hidden>
           -카테고리 선택-
         </option>
