@@ -29,7 +29,6 @@ const CatInfo = (props) => {
     // axios로 변경 요청 전송
     console.log(e.target.innerText);
   };
-
   return loading ? (
     <div>
       <div className='info-container'>

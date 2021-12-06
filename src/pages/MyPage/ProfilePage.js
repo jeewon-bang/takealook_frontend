@@ -1,5 +1,5 @@
-import MyPageNav from 'components/MyPageForm/Nav/MyPageNav';
 import Profile from 'components/MyPageForm/profile/Profile';
+import MyPageNav from 'components/MyPageForm/subnav/MyPageNav';
 import React from 'react';
 
 const ProfilePage = () => {

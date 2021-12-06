@@ -1,5 +1,5 @@
-.cat {
-  width: 70%;
+.match {
+  width: 80%;
   padding: auto;
   margin: auto;
   height: 300px;
@@ -10,20 +10,20 @@
   overflow: hidden;
 }
 
-.cat-body-left {
+.match-mycat {
   float: left;
-  width: 40%;
+  width: 25%;
   box-sizing: border-box;
 }
 
-.cat-body-left > img {
+.match-mycat > img {
   margin: 10px 10px 0px 10px;
-  border-radius: 15px;
-  width: 90%;
+  border-radius: 500px;
+  width: 80%;
   height: 240px;
 }
 
-.cat-body-left > h1 {
+.match-mycat > h1 {
   width: 90%;
   font-size: 20px;
   font-weight: bold;
@@ -31,19 +31,28 @@
   text-align: center;
 }
 
-.cat-body-right {
-  float: right;
-  width: 60%;
+.match-cat {
+  float: left;
+  width: 25%;
   box-sizing: border-box;
 }
 
-.cat-body-right > div {
-  margin: 20px 20px 20px 0px;
-  font-size: 18px;
+.match-cat > img {
+  margin: 10px 10px 0px 10px;
+  border-radius: 500px;
+  width: 80%;
+  height: 240px;
+}
+
+.mat-but {
+  width: 90%;
+  font-size: 20px;
   font-weight: bold;
+  font-family: 'SurroundAir';
+  text-align: center;
 }
 
 @font-face {
   font-family: 'SurroundAir';
-  src: url('../../fonts/Cafe24SsurroundAir.ttf');
+  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
 }
