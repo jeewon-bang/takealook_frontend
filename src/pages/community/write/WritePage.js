@@ -6,9 +6,14 @@ import WriteTitle from 'components/community/writetitle/WriteTitle';
 import Writeguide from 'components/community/writeguide/WriteGuide';
 import './WritePage.scss';
 import Editor from 'components/community/writeeditor/Editor';
+import CatImage from 'components/CatRegister/CatImage/CatImage';
+import WriteThumbnail from 'components/community/writethumbnail/WriteThumbnail';
+import { postPost } from 'api/communityApi';
 
 const WritePage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [catImg, setCatImg] = useState([]);
+  const [category, setCategory] = useState();
 
   return (
     <div>
@@ -16,7 +21,7 @@ const WritePage = () => {
       <hr />
       <div className='write-wrapper'>
         <div className='header'>
-          <SelectCategory />
+          <SelectCategory setCategory={setCategory} />
           <WriteGuidebtn setShowModal={setShowModal} />
           {showModal && <Writeguide setShowModal={setShowModal} />}
         </div>
@@ -24,7 +29,16 @@ const WritePage = () => {
           <WriteTitle />
           <Editor />
         </div>
-        <div className='footer'></div>
+        <div className='footer'>
+          <WriteThumbnail />
+          <CatImage catImg={catImg} setCatImg={setCatImg} />
+        </div>
+        <button
+          className='write-btn'
+          onClick={async () => console.log(await postPost)}
+        >
+          글쓰기 완료 백으로 보내줘~~
+        </button>
       </div>
     </div>
   );
