@@ -21,13 +21,18 @@ const Header = (props) => {
               내 고양이
             </Link>
           </span>
-        </span>
-        <span className='menu-right'>
+          <span>
+            <Link to='/recomendation' className='menu'>
+              매칭 추천
+            </Link>
+          </span>
           <span>
             <Link to='/community' className='menu'>
               커뮤니티
             </Link>
           </span>
+        </span>
+        <span className='menu-right'>
           <span>
             <Link to='/login' className='menu'>
               로그인
