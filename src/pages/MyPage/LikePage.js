@@ -1,5 +1,5 @@
+import MyPageNav from 'components/MyPageForm/SubNav/MyPageNav';
 import PostList from 'components/Community/Post/PostList/PostList';
-import MyPageNav from 'components/MyPageForm/subnav/MyPageNav';
 
 import React, { useState } from 'react';
 
@@ -32,7 +32,7 @@ const LikePage = () => {
   ]);
 
   return (
-    <div class='content-body'>
+    <div class='content-container'>
       <MyPageNav />
       <div class='main-inner'>
         <div class='side-profile'>

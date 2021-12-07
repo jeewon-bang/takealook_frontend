@@ -1,10 +1,11 @@
-import Profile from 'components/MyPageForm/profile/Profile';
-import MyPageNav from 'components/MyPageForm/subnav/MyPageNav';
+import Profile from 'components/MyPageForm/Profile/Profile';
+import MyPageNav from 'components/MyPageForm/SubNav/MyPageNav';
+
 import React from 'react';
 
 const ProfilePage = () => {
   return (
-    <div class='content-body'>
+    <div class='content-container'>
       <MyPageNav />
       <div class='main-inner'>
         <div class='side-profile'>

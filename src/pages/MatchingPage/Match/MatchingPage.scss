@@ -2,11 +2,9 @@
   margin: 40px 10px 10px 10px;
   text-align: center;
 }
-.mat-container {
-  position: relative;
+.content-container {
   width: 1180px;
   margin: 0 auto;
-  zoom: 1;
 }
 
 .matchBox {
@@ -50,7 +48,7 @@
 
 .match-btn {
   display: inline-block;
-  height: 24px px;
+  height: 24px;
   margin-bottom: 10px;
   padding: 0 10px;
   font-size: 13px;
