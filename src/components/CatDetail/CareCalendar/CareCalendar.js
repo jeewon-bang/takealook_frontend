@@ -1,23 +1,28 @@
 import moment from 'moment';
 import React from 'react';
 import { useState } from 'react';
+import CareDetail from '../CareDetail/CareDetail';
 import './CareCalendar.scss';
-import { ToolTip } from 'react-power-tooltip';
 
 const CareCalendar = (props) => {
-	const { showModal, setShowModal, care, setCare } = props;
-	const [date, setDate] = useState(moment()); // 오늘날짜
-	const [showTooltip, setShowTooltip] = useState(false);
+	const { careHistory, setCareHistory } = props;
 
-	const handleDayClick = (current) => setDate(current);
-	const jumpToMonth = (num) =>
-		num
-			? setDate(date.clone().add(30, 'day'))
-			: setDate(date.clone().subtract(30, 'day'));
+	// 달력의 기준날짜가 될 변수 - 초기값: 현재날짜
+	const [date, setDate] = useState(moment());
 
-	/**  달력 생성하는 함수 */
+	// 이전달, 다음달 보여주는 함수
+	const jumpToMonth = (num) => {
+		if (num) {
+			setDate(date.clone().add(30, 'day'));
+		} else {
+			setDate(date.clone().subtract(30, 'day'));
+			console.log('axios 요청전송'); // 이전달 눌렀을 때 이전 달 돌봄기록 요청 전송
+		}
+	};
+
+	// 달력 생성하는 함수
 	const generate = () => {
-		const today = date; // 초기값: 오늘
+		const today = date;
 
 		// startOf('month') : 이번 달의 첫번 째 날로 설정
 		// week() : 이번 년도의 몇번째 주인지 반환
@@ -53,26 +58,57 @@ const CareCalendar = (props) => {
 									? 'selected'
 									: '';
 
-							// 만약, 이번 달이 아닌 다른 달의 날짜라면 회색으로 표시
+							// 이번 달이 아닌 다른 달의 날짜라면 회색으로 표시
 							let isGrayed =
 								current.format('MM') !== today.format('MM') ? 'grayed' : '';
 
 							return (
-								<div
-									className={`box ${isSelected} ${isGrayed}`}
-									key={i}
-									onClick={() => handleDayClick(current)}>
+								<div className={`box ${isSelected} ${isGrayed}`} key={i}>
 									<span className='text'>{current.format('D')}</span>
-									<br />
-									{/* 케어기록  */}
-									<span
-										className='care'
-										onMouseOver={() => setShowTooltip(true)}
-										onMouseLeave={() => setShowTooltip(false)}>
-										{care
-											.filter((v) => v.time === current.format('yyyy-MM-DD'))
-											.map((v) => v.type)}
-									</span>
+									<div>
+										{/* {careDaily
+											.filter(
+												(v) =>
+													v.datetime.split(' ')[0] ===
+													current.format('yyyy-MM-DD')
+											)
+											.map((v) => {
+												return (
+													<CareDetail
+														children={v.type}
+														message={v.type}></CareDetail>
+												);
+											})} */}
+
+										<CareDetail
+											careType={0}
+											careList={careHistory.filter(
+												(v) =>
+													v.datetime.split(' ')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 0
+											)}></CareDetail>
+										<CareDetail
+											careType={1}
+											careList={careHistory.filter(
+												(v) =>
+													v.datetime.split(' ')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 1
+											)}></CareDetail>
+										<CareDetail
+											careType={2}
+											careList={careHistory.filter(
+												(v) =>
+													v.datetime.split(' ')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 2
+											)}></CareDetail>
+										<CareDetail
+											careType={3}
+											careList={careHistory.filter(
+												(v) =>
+													v.datetime.split(' ')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 3
+											)}></CareDetail>
+									</div>
 								</div>
 							);
 						})}
@@ -82,38 +118,25 @@ const CareCalendar = (props) => {
 		return calendar;
 	};
 
-	// 툴팁 추가하는 함수??
-
-	// 캘린더 모달창 끄는 함수
-	const closeModal = (e) => {
-		e.target.className === 'modal-wrapper'
-			? setShowModal(false)
-			: setShowModal(true);
-	};
-
 	return (
-		<div className='modal-background' onClick={closeModal}>
-			<div className='modal-wrapper'>
-				<div className='calendar'>
-					<div className='calendar-head'>
-						<div className='head'>
-							<button onClick={() => jumpToMonth(0)}>이전달</button>
-							<span className='title'>{date.format('MMMM YYYY')}</span>
-							<button onClick={() => jumpToMonth(1)}>다음달</button>
-						</div>
-					</div>
-
-					<div className='calendar-body'>
-						<div className='row'>
-							{['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((el) => (
-								<div className='box-head' key={el}>
-									<span className='text'>{el}</span>
-								</div>
-							))}
-						</div>
-						{generate()}
-					</div>
+		<div className='calendar'>
+			<div className='calendar-head'>
+				<div className='head'>
+					<button onClick={() => jumpToMonth(0)}>◁</button>
+					<span className='title'>{date.format('MMMM YYYY')}</span>
+					<button onClick={() => jumpToMonth(1)}>▷</button>
 				</div>
+			</div>
+
+			<div className='calendar-body'>
+				<div className='row'>
+					{['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((el) => (
+						<div className='box-head' key={el}>
+							<span className='text'>{el}</span>
+						</div>
+					))}
+				</div>
+				{generate()}
 			</div>
 		</div>
 	);
