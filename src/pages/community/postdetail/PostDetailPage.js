@@ -1,6 +1,6 @@
-import PostComment from 'components/community/postcomment/PostComment';
-import WritePostComment from 'components/community/postcomment/WritePostComment';
-import PostDetail from 'components/community/postdetail/PostDetail';
+import PostComment from 'components/Community/Post/PostComment/PostComment';
+import WritePostComment from 'components/Community/Post/PostComment/WritePostComment';
+import PostDetail from 'components/Community/Post/PostDetail/PostDetail';
 import React from 'react';
 
 const PostDetailPage = () => {

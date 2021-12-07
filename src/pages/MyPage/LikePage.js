@@ -1,4 +1,4 @@
-import PostList from 'components/community/postlist/PostList';
+import PostList from 'components/Community/Post/PostList/PostList';
 import MyPageNav from 'components/MyPageForm/subnav/MyPageNav';
 
 import React, { useState } from 'react';

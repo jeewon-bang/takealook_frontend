@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import PostList from 'components/community/postlist/PostList';
-import Category from 'components/community/category/Category';
-import Sorting from 'components/community/sorting/Sorting';
-import './CommunityPage.scss';
-import Writebtn from 'components/community/write/Writebtn';
-import { getPosts } from 'api/communityApi';
+import React, { useEffect, useState } from 'react';
+import './PostListPage.scss';
+import PostList from 'components/Community/Post/PostList/PostList';
+import Writebtn from 'components/Community/Writes/WriteBtn/Writebtn';
+import Sorting from 'components/Community/Sorting/Sorting';
+import Category from 'components/Community/Category/Category';
 
-const CommunityPage = () => {
+const PostListPage = () => {
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -18,7 +17,7 @@ const CommunityPage = () => {
       img: '../../images/bori2.jpg',
       like: 10,
       comment: 3,
-      board: 'bestcat',
+      board: '전국고양이자랑',
     },
     {
       id: 2,
@@ -30,7 +29,7 @@ const CommunityPage = () => {
       img: '../../images/yulmu1.jpg',
       like: 15,
       comment: 5,
-      board: 'bestcat',
+      board: '전국고양이자랑',
     },
     {
       id: 3,
@@ -42,7 +41,7 @@ const CommunityPage = () => {
       img: '../../images/yulmu2.jpg',
       like: 21,
       comment: 10,
-      board: 'findcat',
+      board: '가출냥찾기',
     },
     {
       id: 4,
@@ -54,7 +53,7 @@ const CommunityPage = () => {
       img: '../../images/ritae1.jpg',
       like: 60,
       comment: 8,
-      board: 'helpcat',
+      board: '도와주세요',
     },
     {
       id: 5,
@@ -66,7 +65,7 @@ const CommunityPage = () => {
       img: '../../images/ritae1.jpg',
       like: 55,
       comment: 19,
-      board: 'helpcat',
+      board: '도와주세요',
     },
     {
       id: 6,
@@ -78,31 +77,41 @@ const CommunityPage = () => {
       img: '../../images/ritae1.jpg',
       like: 200,
       comment: 15,
-      board: 'helpcat',
+      board: '도와주세요',
     },
   ]);
 
   // setPosts(getPosts());
 
+  const [activeCat, setActivateCat] = useState('모두보기');
+
+  useEffect(() => {
+    activeCat === '모두보기'
+      ? setPosts(posts)
+      : setPosts(posts.filter((post) => post.board === activeCat));
+  }, [posts, activeCat]);
+
   return (
     <div>
-      <Category posts={posts} setPosts={setPosts} />
+      <Category activeCat={activeCat} setActivateCat={setActivateCat} />
       <hr />
-      <section>
-        <div className='right-nav'>
-          <Writebtn />
-        </div>
-        <div className='sorting-wrapper'>
-          <Sorting posts={posts} setPosts={setPosts} />
-        </div>
-        <div className='wrapper'>
-          {posts.map((post) => (
-            <PostList post={post} />
-          ))}
-        </div>
-      </section>
+      <div className='content-container'>
+        <section>
+          <div className='right-nav'>
+            <Writebtn />
+          </div>
+          <div className='sorting-wrapper'>
+            <Sorting posts={posts} setPosts={setPosts} />
+          </div>
+          <div className='wrapper'>
+            {posts.map((post) => (
+              <PostList post={post} />
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 };
 
-export default CommunityPage;
+export default PostListPage;

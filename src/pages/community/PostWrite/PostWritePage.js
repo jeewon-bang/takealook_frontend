@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import Category from 'components/community/category/Category';
-import SelectCategory from 'components/community/selectcategory/SelectCategory';
-import WriteGuidebtn from 'components/community/writeguide/WriteGuidebtn';
-import WriteTitle from 'components/community/writetitle/WriteTitle';
-import Writeguide from 'components/community/writeguide/WriteGuide';
-import './WritePage.scss';
-import Editor from 'components/community/writeeditor/Editor';
+import Category from 'components/Community/Category/Category';
+import './PostWritePage.scss';
+import WriteCategory from 'components/Community/Writes/WriteCategory/WriteCategory';
+import Editor from 'components/Community/Writes/WriteEditor/Editor';
+import Writeguide from 'components/Community/Writes/WriteGuide/WriteGuide';
+import WriteGuidebtn from 'components/Community/Writes/WriteGuide/WriteGuidebtn';
+import WriteThumbnail from 'components/Community/Writes/WriteThumbnail/WriteThumbnail';
+import WriteTitle from 'components/Community/Writes/WriteTitle/WriteTitle';
 import CatImage from 'components/CatRegister/CatImage/CatImage';
-import WriteThumbnail from 'components/community/writethumbnail/WriteThumbnail';
-import { postPost } from 'api/communityApi';
 
-const WritePage = () => {
+const PostWritePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [catImg, setCatImg] = useState([]);
   const [category, setCategory] = useState();
@@ -21,7 +20,7 @@ const WritePage = () => {
       <hr />
       <div className='write-wrapper'>
         <div className='header'>
-          <SelectCategory setCategory={setCategory} />
+          <WriteCategory setCategory={setCategory} />
           <WriteGuidebtn setShowModal={setShowModal} />
           {showModal && <Writeguide setShowModal={setShowModal} />}
         </div>
@@ -35,7 +34,7 @@ const WritePage = () => {
         </div>
         <button
           className='write-btn'
-          onClick={async () => console.log(await postPost)}
+          // onClick={async () => console.log(await postPost)}
         >
           글쓰기 완료 백으로 보내줘~~
         </button>
@@ -44,4 +43,4 @@ const WritePage = () => {
   );
 };
 
-export default WritePage;
+export default PostWritePage;
