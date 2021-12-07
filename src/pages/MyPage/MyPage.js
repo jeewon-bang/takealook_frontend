@@ -3,7 +3,6 @@ import PostList from 'components/community/postlist/PostList';
 import MyPageNav from 'components/MyPageForm/SubNav/MyPageNav';
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import './MyPage.scss';
 
 const MyPage = () => {

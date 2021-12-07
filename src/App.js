@@ -17,6 +17,7 @@ import PostDetailPage from 'pages/community/postdetail/PostDetailPage';
 import RecomendationPage from 'pages/MatchingPage/Recomendation/RecomendationPage';
 import MyMatchingPage from 'pages/MatchingPage/MyMatch/MyMatchingPage';
 import MatchingPage from 'pages/MatchingPage/Match/MatchingPage';
+import Kakao from 'components/oauth/Kakao';
 
 // Route : 페이지가 바뀌는게 아니라 화면에서 객체만 바꿔서 그리기 (리액트는 single page application)
 // react-router-dom 6버전 기준 강의내용이랑 좀 다른듯
