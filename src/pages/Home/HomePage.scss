@@ -1,0 +1,12 @@
+.main-container {
+	width: 100%;
+	height: calc(100vh - 80px);
+	box-sizing: content-box;
+	margin: 0;
+}
+
+.home-menu-button {
+	position: absolute;
+	z-index: 1000;
+	background-color: white;
+}

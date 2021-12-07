@@ -1,10 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
-import Header from './components/Header/Header';
+import Header from './components/common/Header/Header';
 import HomePage from './pages/Home/HomePage';
 import JoinPage from './pages/Join/JoinPage';
 import LoginPage from './pages/Login/LoginPage';
 import MyCatPage from './pages/MyCat/MyCatPage';
-import './App.css';
 import MyPage from './pages/MyPage/MyPage';
 import LikePage from 'pages/MyPage/LikePage';
 import ProfilePage from 'pages/MyPage/ProfilePage';
@@ -18,6 +17,7 @@ import RecomendationPage from 'pages/matching/Recomendation/RecomendationPage';
 import PostDetailPage from 'pages/Community/PostDetail/PostDetailPage';
 import PostWritePage from 'pages/Community/PostWrite/PostWritePage';
 import PostListPage from 'pages/Community/PostList/PostListPage';
+import CatUpdatePage from 'pages/CatUpdatePage/CatUpdatePage';
 
 // Route : 페이지가 바뀌는게 아니라 화면에서 객체만 바꿔서 그리기 (리액트는 single page application)
 // react-router-dom 6버전 기준 강의내용이랑 좀 다른듯

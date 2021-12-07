@@ -1,9 +1,8 @@
-@import '../common/common';
+@import '../../common/common';
 
 .input-text {
+	@extend %input-text;
 	width: 200px;
-	border: $line;
-	border-radius: 5px;
 }
 
 .input-radio input[type='radio'] {

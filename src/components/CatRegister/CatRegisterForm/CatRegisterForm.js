@@ -8,6 +8,10 @@ const CatRegisterForm = (props) => {
 		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
 	};
 
+	// 성별 0 수컷 1 암컷 2 모름
+	// 0 건강 1 치료필요 2 입양 3 사망
+
+	// 0 거절 1 수락 2 대기중
 	return (
 		<div>
 			<div id='message'></div>
@@ -25,19 +29,14 @@ const CatRegisterForm = (props) => {
 				<input
 					type='radio'
 					name='status'
-					value='건강함'
+					value='0'
 					onChange={handleChange}
 					required
 				/>
 				<span>건강함</span>
 			</label>
 			<label className='input-radio'>
-				<input
-					type='radio'
-					name='status'
-					value='치료 필요'
-					onChange={handleChange}
-				/>
+				<input type='radio' name='status' value='1' onChange={handleChange} />
 				<span>치료 필요</span>
 			</label>
 
@@ -46,28 +45,18 @@ const CatRegisterForm = (props) => {
 				<input
 					type='radio'
 					name='neutered'
-					value='완료'
+					value='1'
 					onChange={handleChange}
 					required
 				/>
 				<span>완료</span>
 			</label>
 			<label className='input-radio'>
-				<input
-					type='radio'
-					name='neutered'
-					value='미완료'
-					onChange={handleChange}
-				/>
+				<input type='radio' name='neutered' value='0' onChange={handleChange} />
 				<span>미완료</span>
 			</label>
 			<label className='input-radio'>
-				<input
-					type='radio'
-					name='neutered'
-					value='모름'
-					onChange={handleChange}
-				/>
+				<input type='radio' name='neutered' value='2' onChange={handleChange} />
 				<span>모름</span>
 			</label>
 		</div>

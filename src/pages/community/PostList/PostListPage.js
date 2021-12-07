@@ -84,16 +84,22 @@ const PostListPage = () => {
   // setPosts(getPosts());
 
   const [activeCat, setActivateCat] = useState('모두보기');
-
-  useEffect(() => {
-    activeCat === '모두보기'
-      ? setPosts(posts)
-      : setPosts(posts.filter((post) => post.board === activeCat));
-  }, [posts, activeCat]);
+  const [posts2, setPosts2] = useState(posts);
+  // useEffect(() => {
+  //   activeCat === '모두보기'
+  //     ? setPosts(posts)
+  //     : setPosts(posts.filter((post) => post.board === activeCat));
+  // }, [posts, activeCat]);
 
   return (
     <div>
-      <Category activeCat={activeCat} setActivateCat={setActivateCat} />
+      <Category
+        posts2={posts2}
+        posts={posts}
+        setPosts={setPosts}
+        activeCat={activeCat}
+        setActivateCat={setActivateCat}
+      />
       <hr />
       <div className='content-container'>
         <section>
@@ -104,7 +110,7 @@ const PostListPage = () => {
             <Sorting posts={posts} setPosts={setPosts} />
           </div>
           <div className='wrapper'>
-            {posts.map((post) => (
+            {posts2.map((post) => (
               <PostList post={post} />
             ))}
           </div>

@@ -7,7 +7,7 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	const responseGoogle = async (response) => {
-		console.log(response);
+		console.log(response); // 구글에서 받은
 		let jwtToken = await axios.post(
 			'http://localhost:8088/oauth/jwt/google', // 프론트에서 구글 로그인한 정보를 받아서 jwt 토큰 생성해서 반환해줄 컨트롤러
 			JSON.stringify(response), // 보낼 로그인 정보

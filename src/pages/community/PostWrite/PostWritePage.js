@@ -7,7 +7,7 @@ import Writeguide from 'components/Community/Writes/WriteGuide/WriteGuide';
 import WriteGuidebtn from 'components/Community/Writes/WriteGuide/WriteGuidebtn';
 import WriteThumbnail from 'components/Community/Writes/WriteThumbnail/WriteThumbnail';
 import WriteTitle from 'components/Community/Writes/WriteTitle/WriteTitle';
-import CatImage from 'components/CatRegister/CatImage/CatImage';
+import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 
 const PostWritePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +30,7 @@ const PostWritePage = () => {
         </div>
         <div className='footer'>
           <WriteThumbnail />
-          <CatImage catImg={catImg} setCatImg={setCatImg} />
+          <CatImageUpload catImg={catImg} setCatImg={setCatImg} />
         </div>
         <button
           className='write-btn'
