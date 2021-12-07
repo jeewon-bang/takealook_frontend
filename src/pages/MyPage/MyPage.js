@@ -1,6 +1,7 @@
 import axios from 'axios';
 import PostList from 'components/community/postlist/PostList';
-import MyPageNav from 'components/MyPageForm/subnav/MyPageNav';
+import MyPageNav from 'components/MyPageForm/SubNav/MyPageNav';
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './MyPage.scss';
@@ -22,7 +23,7 @@ const MyPage = () => {
   ]);
 
   return (
-    <div class='content-body'>
+    <div class='content-container'>
       <MyPageNav />
       <div class='main-inner'>
         <div class='side-profile'>

@@ -116,7 +116,7 @@ const MyCatPage = () => {
   const [cats, setCats] = useState(catData);
 
   return (
-    <div className='MyCat'>
+    <div className='content-container'>
       <MyCat cats={cats} setCats={setCats} />
     </div>
   );

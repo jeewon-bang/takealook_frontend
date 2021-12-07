@@ -29,38 +29,53 @@ const CatInfo = (props) => {
     // axios로 변경 요청 전송
     console.log(e.target.innerText);
   };
-  return loading ? (
-    <div>
-      <div className='info-container'>
-        <img
-          src={require('images/bori2.jpg').default}
-          alt='img'
-          className='cat-img'
-        />
-        <div className='cat-info'>
-          <span className='cat-name'>{catInfo.name}</span>
-          <button
-            className='cat-status'
-            onMouseOver={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}
-          >
-            {catInfo.status}
-            <ToolTip
-              className='cat-status-tooltip'
-              show={showTooltip}
-              fontSize='16px'
-            >
-              <span onClick={changeCatStatus}>건강함</span>
-              <span onClick={changeCatStatus}>치료 필요</span>
-              <span onClick={changeCatStatus}>입양됨</span>
-              <span onClick={changeCatStatus}>고양이별</span>
-            </ToolTip>
-          </button>
-          <div className='info'>{catInfo.gender === 'M' ? '♂' : '♀'}</div>
-          <div className='info'>{catInfo.neutered} 중성화 완료</div>
 
-          <div className='cat-carer'>
-            <div className='carer-header'>돌보는 사람들</div>
+  return loading ? (
+    <div className='info-container'>
+      <div className='info-content'>
+        {/* left */}
+        <span className='cat-img-box'>
+          <img
+            src={require('images/bori2.jpg').default}
+            alt='img'
+            className='cat-img'
+          />
+        </span>
+        {/* right */}
+        <span className='cat-info-box'>
+          <div className='cat-info-head'>
+            <span className='cat-name'>{catInfo.name}</span>
+            <button
+              className='cat-status'
+              onMouseOver={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+            >
+              {catInfo.status}
+              <ToolTip
+                className='cat-status-tooltip'
+                show={showTooltip}
+                fontSize='16px'
+              >
+                <span onClick={changeCatStatus}>건강함</span>
+                <span onClick={changeCatStatus}>치료 필요</span>
+                <span onClick={changeCatStatus}>입양됨</span>
+                <span onClick={changeCatStatus}>고양이별</span>
+              </ToolTip>
+            </button>
+          </div>
+
+          <div className='cat-info-body'>
+            <div className='cat-info-body-text'>2016-05-01</div>
+            <div className='cat-info-body-text'>
+              {catInfo.gender === 'M' ? '♂' : '♀'}
+            </div>
+            <div className='cat-info-body-text'>
+              중성화 {catInfo.neutered} 완료
+            </div>
+          </div>
+
+          <div className='carer-box'>
+            <div className='cat-info-title-text'>돌보는 사람들</div>
             <div className='carer-wrapper'>
               {catInfo.carers.map((v) => (
                 <span className='carer'>
@@ -70,7 +85,7 @@ const CatInfo = (props) => {
               ))}
             </div>
           </div>
-        </div>
+        </span>
       </div>
     </div>
   ) : (

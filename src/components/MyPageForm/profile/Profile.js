@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Location from '../../../components/Join/Location';
+import Location from '../../Join/Location';
 import './Profile.scss';
 
 const Profile = () => {

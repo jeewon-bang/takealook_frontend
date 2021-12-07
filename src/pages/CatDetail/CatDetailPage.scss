@@ -1,3 +1,19 @@
+.container-wrapper {
+	display: flex;
+	justify-content: center;
+	margin-top: 100px;
+}
+
 .container {
-	margin: 60px 300px 0 300px;
+	width: 80%;
+}
+
+.button-box {
+	margin-top: 30px;
+	margin-bottom: 60px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.cat-info-update-button {
 }

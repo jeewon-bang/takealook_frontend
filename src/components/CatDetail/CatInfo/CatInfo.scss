@@ -1,44 +1,62 @@
 @import '../../common/common';
 
-.info-container {
+.info-content {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 }
 
+.cat-img-box {
+	width: 40%;
+	margin-right: 30px;
+}
+
 .cat-img {
-	width: 45%;
+	width: 100%;
 	height: 400px;
-	border-radius: 60px;
+	border-radius: 30px;
 	display: inline-block;
 }
 
-.cat-info {
-	width: 45%;
+.cat-info-box {
+	padding: 20px;
 }
 
-.cat-info > * {
+.cat-info-head {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 	margin-bottom: 20px;
 }
 
 .cat-name {
-	font-size: 30px;
+	font-size: 40px;
 	font-weight: 800;
+	text-align: center;
+	margin-right: 10px;
 }
 
 .cat-status {
 	position: relative; // react-power-tooltip 쓰려면 반드시 relative 설정해줘야한다고 함
 	width: 100px;
+	height: 30px;
 	border: none;
 	border-radius: 10px;
 	font-size: 18px;
-	margin-left: 30px;
 	cursor: pointer;
 }
 
-.carer-header {
+.cat-info-body-text {
+	margin-bottom: 10px;
+}
+
+.carer-box {
+	margin-top: 80px;
+}
+
+.cat-info-title-text {
 	font-weight: 600;
-	margin: 60px 0 10px 0;
+	margin-bottom: 10px;
 }
 
 .carer-wrapper {
@@ -60,4 +78,8 @@
 
 .carer-name {
 	text-align: center;
+}
+
+.map-container {
+	height: 100%;
 }
