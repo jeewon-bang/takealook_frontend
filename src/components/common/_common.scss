@@ -16,44 +16,49 @@ $breakpoint-tablet: 758px;
 $breakpoint-desktop: 1024px;
 
 @mixin mobile {
-	@media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
-		@content;
-	}
+  @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
 }
 
 @mixin tablet {
-	@media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
-		@content;
-	}
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
 }
 
 @mixin desktop {
-	@media (min-width: #{$breakpoint-desktop}) {
-		@content;
-	}
+  @media (min-width: #{$breakpoint-desktop}) {
+    @content;
+  }
 }
 
 // 재사용할 디자인들
 %button-square {
-	background-color: $main-orange;
-	color: white;
-	border-radius: 3px;
-	border: none;
-	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-	cursor: pointer;
+  background-color: $main-orange;
+  color: white;
+  border-radius: 3px;
+  border: none;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
 %button-round {
-	background-color: $main-orange;
-	color: white;
-	border-radius: 50%;
-	border: none;
-	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-	cursor: pointer;
+  background-color: $main-orange;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
 %input-text {
-	border: $line;
-	border-radius: 3px;
-	height: 24px;
+  border: $line;
+  border-radius: 3px;
+  height: 24px;
+}
+
+%user-info {
+  //   float: left;
+  width: 100%;
 }

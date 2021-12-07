@@ -10,6 +10,7 @@ const PostListPage = () => {
     {
       id: 1,
       writer: '혜민',
+      writer_img: '../../images/bori2.jpg',
       title: '노릇노릇',
       content: '보리전이 익어간다',
       created_at: '2021-11-22',
@@ -22,6 +23,7 @@ const PostListPage = () => {
     {
       id: 2,
       writer: '세은',
+      writer_img: '../../images/bori2.jpg',
       title: '율무야ㅠㅠ',
       content: '율무 너무 귀여워 내가 데려오고 싶다',
       created_at: '2021-11-23',
@@ -34,6 +36,7 @@ const PostListPage = () => {
     {
       id: 3,
       writer: '지수',
+      writer_img: '../../images/bori2.jpg',
       title: '부비',
       content: '영종도에서 부비를 잃어버렸어요',
       created_at: '2021-11-24',
@@ -46,6 +49,7 @@ const PostListPage = () => {
     {
       id: 4,
       writer: '지혜',
+      writer_img: '../../images/bori2.jpg',
       title: '서리태',
       content: '서리태 시크냥',
       created_at: '2021-11-25',
@@ -58,6 +62,7 @@ const PostListPage = () => {
     {
       id: 5,
       writer: '지혜',
+      writer_img: '../../images/bori2.jpg',
       title: '서리태',
       content: '서리태 시크냥',
       created_at: '2021-11-26',
@@ -70,6 +75,7 @@ const PostListPage = () => {
     {
       id: 6,
       writer: '지혜',
+      writer_img: '../../images/bori2.jpg',
       title: '서리태',
       content: '서리태 시크냥',
       created_at: '2021-11-27',
@@ -83,25 +89,25 @@ const PostListPage = () => {
 
   // setPosts(getPosts());
 
-  const [activeCat, setActivateCat] = useState('모두보기');
-  const [posts2, setPosts2] = useState(posts);
+  // const [activeCat, setActivateCat] = useState('모두보기');
+  // const [posts2, setPosts2] = useState([...posts]);
+
   // useEffect(() => {
   //   activeCat === '모두보기'
   //     ? setPosts(posts)
   //     : setPosts(posts.filter((post) => post.board === activeCat));
-  // }, [posts, activeCat]);
+  // }, [activeCat]);
 
   return (
-    <div>
-      <Category
-        posts2={posts2}
-        posts={posts}
-        setPosts={setPosts}
-        activeCat={activeCat}
-        setActivateCat={setActivateCat}
-      />
-      <hr />
-      <div className='content-container'>
+    <div className='content-container'>
+      <div>
+        <Category
+          posts={posts}
+          setPosts={setPosts}
+          // activeCat={activeCat}
+          // setActivateCat={setActivateCat}
+        />
+        <hr />
         <section>
           <div className='right-nav'>
             <Writebtn />
@@ -110,7 +116,7 @@ const PostListPage = () => {
             <Sorting posts={posts} setPosts={setPosts} />
           </div>
           <div className='wrapper'>
-            {posts2.map((post) => (
+            {posts.map((post) => (
               <PostList post={post} />
             ))}
           </div>

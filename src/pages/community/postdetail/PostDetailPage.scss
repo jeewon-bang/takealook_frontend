@@ -1,6 +1,13 @@
 @import 'components/common/common';
 
-@font-face {
-  font-family: 'SurroundAir';
-  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
+.post-detail {
+  height: auto;
+}
+
+.post-writecomment {
+  height: 200px;
+}
+
+.post-listcomment {
+  height: auto;
 }

@@ -15,7 +15,7 @@ const PostWritePage = () => {
   const [category, setCategory] = useState();
 
   return (
-    <div>
+    <div className='content-container'>
       <Category />
       <hr />
       <div className='write-wrapper'>
