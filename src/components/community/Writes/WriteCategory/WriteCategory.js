@@ -1,7 +1,7 @@
 import React from 'react';
-import './SelectCategory.scss';
+import './WriteCategory.scss';
 
-const SelectCategory = (props) => {
+const WriteCategory = (props) => {
   const { setCategory } = props;
 
   const selectedCategory = (e) => {
@@ -34,4 +34,4 @@ const SelectCategory = (props) => {
   );
 };
 
-export default SelectCategory;
+export default WriteCategory;

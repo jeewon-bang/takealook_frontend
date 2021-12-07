@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import './PostList.scss';
 
 const PostList = (props) => {
-  const { id, title, content, writer, like, comment, created_at } = props.post;
+  const { id, title, content, writer, like, comment, created_at, board } =
+    props.post;
 
   return (
     <div>
@@ -20,6 +21,13 @@ const PostList = (props) => {
 
           <div class='card-body'>
             <div class='card-body-header'>
+              {/* <h3></h3> */}
+
+              <p>
+                <font size='2' color='#ffa800'>
+                  <strong>{board}</strong>
+                </font>
+              </p>
               <h1>{title}</h1>
               <p>{content}</p>
             </div>

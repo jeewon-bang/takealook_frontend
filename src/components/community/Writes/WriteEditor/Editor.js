@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import ImageResize from 'quill-image-resize';
-import '../../../../node_modules/react-quill/dist/quill.snow.css';
+import '../../../../../node_modules/react-quill/dist/quill.snow.css';
 import axios from 'axios';
 Quill.register('modules/ImageResize', ImageResize);
 
