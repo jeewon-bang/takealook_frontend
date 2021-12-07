@@ -1,3 +1,4 @@
+// colors
 $pink: #fd8a69;
 $dark-orange: #eb7100;
 $main-orange: #ffa800;
@@ -8,3 +9,51 @@ $line-gray: #deddda;
 $gray: #9b9b9b;
 $dark-gray: rgb(77, 77, 77);
 $red: #ff0505;
+
+// 반응형 화면을 위한 Breakpoints
+$breakpoint-mobile: 335px;
+$breakpoint-tablet: 758px;
+$breakpoint-desktop: 1024px;
+
+@mixin mobile {
+	@media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$breakpoint-desktop}) {
+		@content;
+	}
+}
+
+// 재사용할 디자인들
+%button-square {
+	background-color: $main-orange;
+	color: white;
+	border-radius: 3px;
+	border: none;
+	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+%button-round {
+	background-color: $main-orange;
+	color: white;
+	border-radius: 50%;
+	border: none;
+	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+%input-text {
+	border: $line;
+	border-radius: 3px;
+	height: 24px;
+}

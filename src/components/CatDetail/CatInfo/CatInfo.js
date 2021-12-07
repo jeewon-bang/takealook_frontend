@@ -64,7 +64,6 @@ const CatInfo = (props) => {
 					</div>
 
 					<div className='cat-info-body'>
-						<div className='cat-info-body-text'>2016-05-01</div>
 						<div className='cat-info-body-text'>
 							{catInfo.gender === 'M' ? '♂' : '♀'}
 						</div>

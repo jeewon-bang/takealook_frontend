@@ -23,12 +23,6 @@ const PostDetail = (props) => {
         <div>여기는내용</div>
         <hr />
       </div>
-      <div>
-        <input
-          type='submit'
-          placeholder='댓글을 작성하려면 takealook에 로그인 해주세요.'
-        />
-      </div>
     </div>
   );
 };

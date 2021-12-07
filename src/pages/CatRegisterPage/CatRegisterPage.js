@@ -1,8 +1,9 @@
 import axios from 'axios';
-import CatImage from 'components/CatRegister/CatImage/CatImage';
-import CatLocation from 'components/CatRegister/CatLocation';
-import CatRegisterForm from 'components/CatRegister/CatRegisterForm';
+import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
+import CatLocationMap from 'components/CatRegister/CatLocationMap/CatLocationMap';
+import CatRegisterForm from 'components/CatRegister/CatRegisterForm/CatRegisterForm';
 import React, { useState } from 'react';
+import './CatRegisterPage.scss';
 
 const CatRegisterPage = () => {
 	const [catInfo, setCatInfo] = useState({
@@ -44,10 +45,12 @@ const CatRegisterPage = () => {
 	};
 
 	return (
-		<div>
-			<CatImage catImg={catImg} setCatImg={setCatImg} />
-			<CatRegisterForm catInfo={catInfo} setCatInfo={setCatInfo} />
-			<CatLocation catInfo={catInfo} setCatInfo={setCatInfo} />
+		<div className='content-container'>
+			<div className='content-top'>
+				<CatImageUpload catImg={catImg} setCatImg={setCatImg} />
+				<CatRegisterForm catInfo={catInfo} setCatInfo={setCatInfo} />
+			</div>
+			<CatLocationMap catInfo={catInfo} setCatInfo={setCatInfo} />
 			<div id='message'></div>
 			<button onClick={handleSubmit}>등록하기</button>
 		</div>

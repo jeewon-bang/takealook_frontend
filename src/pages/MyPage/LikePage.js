@@ -1,5 +1,6 @@
 import PostList from 'components/community/postlist/PostList';
-import MyPageNav from 'components/MyPageForm/Nav/MyPageNav';
+import MyPageNav from 'components/MyPageForm/subnav/MyPageNav';
+
 import React, { useState } from 'react';
 
 const LikePage = () => {

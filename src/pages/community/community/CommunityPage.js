@@ -4,6 +4,7 @@ import Category from 'components/community/category/Category';
 import Sorting from 'components/community/sorting/Sorting';
 import './CommunityPage.scss';
 import Writebtn from 'components/community/write/Writebtn';
+import { getPosts } from 'api/communityApi';
 
 const CommunityPage = () => {
   const [posts, setPosts] = useState([
@@ -80,6 +81,8 @@ const CommunityPage = () => {
       board: 'helpcat',
     },
   ]);
+
+  // setPosts(getPosts());
 
   return (
     <div>
