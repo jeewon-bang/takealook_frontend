@@ -1,7 +1,6 @@
 import axios from 'axios';
-import PostList from 'components/community/postlist/PostList';
 import MyPageNav from 'components/MyPageForm/SubNav/MyPageNav';
-
+import PostList from 'components/Community/Post/PostList/PostList';
 import React, { useState, useEffect } from 'react';
 import './MyPage.scss';
 

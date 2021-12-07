@@ -1,0 +1,63 @@
+@import 'components/common/common';
+
+@font-face {
+  font-family: 'SurroundAir';
+  src: url('../../../../fonts/Cafe24SsurroundAir.ttf');
+}
+
+.postdetail {
+  //   text-align: center;
+  font-family: 'SurroundAir';
+}
+
+.info {
+  //   color: $;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+  font-family: 'SurroundAir';
+}
+
+h5 {
+  font-family: 'SurroundAir';
+}
+
+.comment {
+  width: 800px;
+  height: 80px;
+  border-radius: 2px;
+  font-size: 15px;
+  border: 1px solid $gray;
+}
+
+.comment-input {
+  width: 70%;
+  height: 100%;
+  border: none;
+  font-size: 1em;
+  padding-left: 5px;
+  font-style: oblique;
+  display: inline;
+  outline: none;
+  box-sizing: border-box;
+  color: black;
+}
+
+.comment-btn {
+  width: 30%;
+  height: 100%;
+  border: none;
+  font-size: 1em;
+  color: #042aac;
+  outline: none;
+  display: inline;
+  margin-left: -10px;
+  box-sizing: border-box;
+  background-color: $main-orange;
+}
+
+.comment-btn:hover {
+  cursor: pointer;
+}

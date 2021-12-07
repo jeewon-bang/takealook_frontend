@@ -1,0 +1,23 @@
+@import '../../common/common';
+
+.input-text {
+	@extend %input-text;
+	width: 200px;
+}
+
+.input-radio input[type='radio'] {
+	display: none;
+}
+
+.input-radio input[type='radio'] + span {
+	display: inline-block;
+	width: 100px;
+	border: $line;
+	border-radius: 5px;
+	background-color: $white-gray;
+	text-align: center;
+	cursor: pointer;
+}
+.input-radio input[type='radio']:checked + span {
+	background-color: $light-orange;
+}
