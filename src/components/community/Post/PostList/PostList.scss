@@ -1,10 +1,5 @@
 @import 'components/common/common';
 
-@font-face {
-  font-family: 'SurroundAir';
-  src: url('../../../../fonts/Cafe24SsurroundAir.ttf');
-}
-
 q {
   quotes: none;
 }
@@ -31,15 +26,15 @@ table {
 }
 
 .card {
-  height: 450px;
-  width: 350px;
+  height: 430px;
+  width: 335px;
   border-radius: 15px;
   display: inline-block;
-  margin-top: 30px;
-  margin-left: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-bottom: 20px;
   position: relative;
-  box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -69,7 +64,6 @@ table {
   background-image: url('../../../../images/yulmu2.jpg');
   background-size: 100% 280px;
   background-repeat: no-repeat;
-  font-family: 'SurroundAir';
 }
 
 .headerimage {
@@ -80,7 +74,6 @@ table {
 .card:hover .card-header {
   opacity: 0.8;
   height: 100px;
-  font-family: 'SurroundAir';
 }
 
 .card-header-is_closed {
@@ -94,24 +87,21 @@ table {
   font-weight: bold;
   padding: 10px 10px;
   line-height: 20px;
-  font-family: 'SurroundAir';
 }
 
 h1 {
   font-size: 22px;
   font-weight: bold;
-  font-family: 'SurroundAir';
 }
 
 .card-body-nickname {
   font-style: normal;
-  font-family: 'SurroundAir';
 }
 
 .card-body-header {
-  line-height: 25px;
-  margin: 10px 20px 0px 20px;
-  font-family: 'SurroundAir';
+  @include ellipsis(1, 1.3); // 글자수 제한 ... 처리
+  // line-height: 25px; //원래 reference 값
+  margin: 5px 10px 15px 10px;
 }
 
 .card-body-description {
@@ -126,7 +116,6 @@ h1 {
   overflow: hidden;
   height: 180px;
   margin: 5px 20px;
-  font-family: 'SurroundAir';
 }
 
 .card:hover .card-body-description {
@@ -137,7 +126,6 @@ h1 {
   -o-transition: 0.5s ease-in-out;
   transition: 0.5s ease-in-out;
   /* overflow: scroll; */
-  font-family: 'SurroundAir';
 }
 
 .card-body-hashtag {
@@ -154,7 +142,6 @@ h1 {
   font-size: 14px;
   color: #9fa5a8;
   padding: 0 15px;
-  font-family: 'SurroundAir';
 }
 
 .image {
@@ -183,5 +170,4 @@ h1 {
 .reg_date {
   float: right;
   font-style: normal;
-  font-family: 'SurroundAir';
 }

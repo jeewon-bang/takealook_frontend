@@ -6,9 +6,14 @@ const WriteGuidebtn = (props) => {
 
   return (
     <div className='top'>
-      <button className='btn' onClick={() => setShowModal(true)}>
+      <button className='guide-btn' onClick={() => setShowModal(true)}>
         게시글 작성 가이드
       </button>
+      <img
+        class='guide-img'
+        src={require('images/note.png').default}
+        alt='like'
+      />
     </div>
   );
 };

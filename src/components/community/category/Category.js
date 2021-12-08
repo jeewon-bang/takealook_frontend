@@ -6,22 +6,6 @@ import CategoryBtn from './CategoryBtn';
 const Category = (props) => {
   const { posts, setPosts } = props;
 
-  // const filterHandler = (e) => {
-  //   const value = e.target.value;
-  //   console.log(value);
-  //   const filtered = [...posts];
-  //   filtered.map((post, index) => console.log(index, post.board));
-
-  //   value === '모두보기'
-  //     ? setPosts(posts)
-  //     : setPosts(
-  //         filtered.filter((post) => {
-  //           return post.board === value;
-  //         })
-  //       );
-  //   filtered.map((post, index) => console.log(index, post.board));
-  // };
-
   const filterHandler = (e) => {
     console.log(e.target.value);
 
@@ -82,16 +66,32 @@ const Category = (props) => {
       <Navbar bg='white' variant='white'>
         <Container>
           <Nav className='me-auto'>
-            <button onClick={filterHandler} value='모두보기'>
+            <button
+              className='category'
+              onClick={filterHandler}
+              value='모두보기'
+            >
               모두보기
             </button>
-            <button onClick={filterHandler} value='전국고양이자랑'>
+            <button
+              className='category'
+              onClick={filterHandler}
+              value='전국고양이자랑'
+            >
               전국고양이자랑
             </button>
-            <button onClick={filterHandler} value='가출냥찾기'>
+            <button
+              className='category'
+              onClick={filterHandler}
+              value='가출냥찾기'
+            >
               가출냥찾기
             </button>
-            <button onClick={filterHandler} value='도와주세요'>
+            <button
+              className='category'
+              onClick={filterHandler}
+              value='도와주세요'
+            >
               도와주세요
             </button>
             {/* <CategoryBtn

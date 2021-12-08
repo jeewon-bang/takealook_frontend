@@ -6,6 +6,7 @@ const WriteCategory = (props) => {
 
   const selectedCategory = (e) => {
     const value = e.target.value;
+    console.log(value);
     setCategory(value);
   };
 
@@ -20,13 +21,13 @@ const WriteCategory = (props) => {
         <option value='' selected disabled hidden>
           -카테고리 선택-
         </option>
-        <option value='best' selected='selected' className='option'>
+        <option value='전국고양이자랑' selected='selected' className='option'>
           전국고양이자랑
         </option>
-        <option value='find' selected='selected' className='option'>
-          가출냥 찾기
+        <option value='가출냥찾기' selected='selected' className='option'>
+          가출냥찾기
         </option>
-        <option value='help' selected='selected' className='option'>
+        <option value='도와주세요' selected='selected' className='option'>
           도와주세요
         </option>
       </select>
