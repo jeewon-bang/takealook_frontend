@@ -5,7 +5,6 @@ import './CatImageUpload.scss';
 const CatImage = (props) => {
 	const { catImg, setCatImg } = props;
 	const imgInput = useRef();
-	const [prevImgUrl, setPrevImgUrl] = useState([]);
 
 	const handleClick = () => {
 		imgInput.current.click(); // imgInput이라는 ref가 걸린 대상(= input type='file')이 클릭되도록 한다
@@ -15,39 +14,25 @@ const CatImage = (props) => {
 	};
 	const preview = () => {
 		if (catImg.length === 0) {
+			// useEffect에서 실행되기 때문에 사용자가 이미지 업로드 하기 전에 바로 오류 뜨는거 방지
 			return false;
 		}
-		const imgEl = document.querySelector('.img-preview');
-		// const reader = new FileReader();
-		// reader.onload = () => {
-		// 	setPrevImgUrl(reader.result);
-		// };
 		for (let i = 0; i < catImg.length; i++) {
-			// reader.readAsDataURL(catImg[i]);
-			const nowImgUrl = URL.createObjectURL(catImg[i]);
-			// prevImgUrl.push(nowImgUrl);
-			let prevImg = document.createElement('img');
-			prevImg.classList.add('img-preview');
-			prevImg.src = nowImgUrl;
+			const nowImgUrl = URL.createObjectURL(catImg[i]); // 사용자가 등록한 catImg for문돌면서 url 생성
+			let prevImg = document.createElement('img'); // img 요소 생성
+			prevImg.classList.add('img-preview'); // 클래스이름 주기
+			prevImg.src = nowImgUrl; // img src 에 아까 만든 url 붙이기
 
-			document.querySelector('.cat-img-upload-box').appendChild(prevImg);
+			document.querySelector('.cat-img-upload-box').appendChild(prevImg); // 미리보기 박스에 img 요소 넣기
 		}
 	};
 
 	useEffect(() => {
 		preview();
-		return () => preview();
-	});
+	}, []);
 
 	return (
 		<div className='cat-img-upload-box'>
-			{/* {prevImgUrl.map((v) => (
-				<img
-					src={v}
-					style={{ width: '200px', height: '200px' }}
-					alt='preview'
-				/>
-			))} */}
 			<input
 				ref={imgInput}
 				className='catImg'
@@ -61,7 +46,6 @@ const CatImage = (props) => {
 			<button className='img-upload-button' onClick={handleClick}>
 				사진 등록
 			</button>
-			{/* <div className='img-preview' ref={preview}></div> */}
 		</div>
 	);
 };

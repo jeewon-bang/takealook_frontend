@@ -18,6 +18,7 @@ const CatCare = (props) => {
 	const openModal = () => {
 		setShowModal(true);
 	};
+	const addCareHistory = () => {};
 
 	const closeModal = () => {
 		setShowModal(false);
@@ -28,6 +29,7 @@ const CatCare = (props) => {
 			<div className='cat-info-title-text'>
 				최근 48시간의 돌봄 기록
 				<span onClick={openModal}> [캘린더보기]</span>
+				<span onClick={addCareHistory}>[돌봄기록추가]</span>
 			</div>
 			<div className='care-box'>
 				{careHistory.map((v) => (

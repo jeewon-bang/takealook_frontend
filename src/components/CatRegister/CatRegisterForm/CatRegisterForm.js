@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import './CatRegisterForm.scss';
 
 const CatRegisterForm = (props) => {
-	const { catInfo, setCatInfo } = props;
+	const { catInfo, setCatInfo, catStatus, setCatStatus } = props;
 
-	const handleChange = (e) => {
+	const handleInfoChange = (e) => {
 		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
+	};
+	const handleStatusChange = (e) => {
+		setCatStatus({ ...catStatus, [e.target.name]: e.target.value });
 	};
 
 	// 성별 0 수컷 1 암컷 2 모름
@@ -19,7 +22,7 @@ const CatRegisterForm = (props) => {
 				className='input-text'
 				type='text'
 				name='name'
-				onBlur={handleChange}
+				onBlur={handleInfoChange}
 			/>
 			<br />
 
@@ -29,17 +32,27 @@ const CatRegisterForm = (props) => {
 					type='radio'
 					name='gender'
 					value='0'
-					onChange={handleChange}
+					onChange={handleInfoChange}
 					required
 				/>
 				<span className='gender'>수컷</span>
 			</label>
 			<label className='input-radio'>
-				<input type='radio' name='gender' value='1' onChange={handleChange} />
+				<input
+					type='radio'
+					name='gender'
+					value='1'
+					onChange={handleInfoChange}
+				/>
 				<span className='gender'>암컷</span>
 			</label>
 			<label className='input-radio'>
-				<input type='radio' name='gender' value='2' onChange={handleChange} />
+				<input
+					type='radio'
+					name='gender'
+					value='2'
+					onChange={handleInfoChange}
+				/>
 				<span className='gender'>모름</span>
 			</label>
 
@@ -49,13 +62,18 @@ const CatRegisterForm = (props) => {
 					type='radio'
 					name='status'
 					value='0'
-					onChange={handleChange}
+					onChange={handleStatusChange}
 					required
 				/>
 				<span className='status'>건강함</span>
 			</label>
 			<label className='input-radio'>
-				<input type='radio' name='status' value='1' onChange={handleChange} />
+				<input
+					type='radio'
+					name='status'
+					value='1'
+					onChange={handleStatusChange}
+				/>
 				<span className='status'>치료 필요</span>
 			</label>
 
@@ -65,17 +83,27 @@ const CatRegisterForm = (props) => {
 					type='radio'
 					name='neutered'
 					value='1'
-					onChange={handleChange}
+					onChange={handleInfoChange}
 					required
 				/>
 				<span className='neutered'>완료</span>
 			</label>
 			<label className='input-radio'>
-				<input type='radio' name='neutered' value='0' onChange={handleChange} />
+				<input
+					type='radio'
+					name='neutered'
+					value='0'
+					onChange={handleInfoChange}
+				/>
 				<span className='neutered'>미완료</span>
 			</label>
 			<label className='input-radio'>
-				<input type='radio' name='neutered' value='2' onChange={handleChange} />
+				<input
+					type='radio'
+					name='neutered'
+					value='2'
+					onChange={handleInfoChange}
+				/>
 				<span className='neutered'>모름</span>
 			</label>
 		</div>
