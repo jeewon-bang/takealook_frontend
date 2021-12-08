@@ -61,11 +61,18 @@ const CatRegisterPage = () => {
 
 	return (
 		<div className='content-container'>
-			<div className='content-top'>
+			<span className='cat-img-form'>
 				<CatImageUpload catImg={catImg} setCatImg={setCatImg} />
-				<CatRegisterForm catInfo={catInfo} setCatInfo={setCatInfo} />
+			</span>
+			<div className='info-map-box'>
+				<span className='cat-info-form'>
+					<CatRegisterForm catInfo={catInfo} setCatInfo={setCatInfo} />
+				</span>
+				<span className='cat-map'>
+					<CatLocationMap catInfo={catInfo} setCatInfo={setCatInfo} />
+				</span>
 			</div>
-			<CatLocationMap catInfo={catInfo} setCatInfo={setCatInfo} />
+
 			<div id='message'></div>
 			<button onClick={handleSubmit}>등록하기</button>
 		</div>

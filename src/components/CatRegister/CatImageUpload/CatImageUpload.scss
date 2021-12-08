@@ -1,9 +1,12 @@
 @import 'components/common/common';
 
 .cat-img-upload-box {
-	width: 500px;
+	width: 100%;
 	height: 300px;
 	background-color: $white-gray;
+	margin-bottom: 30px;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .img-upload-button {
@@ -13,8 +16,8 @@
 }
 
 .img-preview {
-	width: 350px;
-	height: 350px;
+	width: 200px;
+	height: 200px;
 	background-repeat: no-repeat;
 	background-size: 300px;
 }

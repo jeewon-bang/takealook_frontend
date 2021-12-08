@@ -1,6 +1,7 @@
 /* global kakao */
 
 import React, { useEffect, useState } from 'react';
+import Map, { map } from 'components/common/Map';
 
 const CatLocation = (props) => {
 	const { catInfo, setCatInfo } = props;
@@ -8,25 +9,6 @@ const CatLocation = (props) => {
 	const [markers, setMarkers] = useState([]);
 
 	useEffect(() => {
-		/** 지도 생성하기 */
-		let mapContainer = document.getElementById('map'); // 지도를 표시할 div
-		let mapOption = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level: 2, // 지도의 확대 레벨
-		};
-		let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
-
-		/** GeoLocation을 이용해서 현 접속 위치 가져오기 */
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				var lat = position.coords.latitude; // 위도
-				var lon = position.coords.longitude; // 경도
-				var locPosition = new kakao.maps.LatLng(lat, lon);
-
-				map.setCenter(locPosition); // 지도 중심위치를 현 접속위치로 변경
-			});
-		}
-
 		/** 마커 생성하기 */
 		kakao.maps.event.addListener(map, 'click', (mouseEvent) => {
 			let latlng = mouseEvent.latLng; // 클릭한 위치의 위도경도
@@ -66,11 +48,9 @@ const CatLocation = (props) => {
 	};
 
 	return (
-		<div>
-			<div
-				id='map'
-				style={{ width: '800px', height: '600px' }}
-				onClick={handleClick}></div>
+		<div style={{ width: '100%', height: '100%' }}>
+			<span className='cat-info-form-inner input-label'>최근 발견된 위치</span>
+			<Map onClick={handleClick} />
 			<button onClick={deleteMarker}>초기화</button>
 		</div>
 	);
