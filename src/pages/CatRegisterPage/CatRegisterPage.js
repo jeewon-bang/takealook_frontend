@@ -2,8 +2,10 @@ import axios from 'axios';
 import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 import CatLocationMap from 'components/CatRegister/CatLocationMap/CatLocationMap';
 import CatRegisterForm from 'components/CatRegister/CatRegisterForm/CatRegisterForm';
+import catApi from 'api/catApi';
 import React, { useState } from 'react';
 import './CatRegisterPage.scss';
+import axiosInstance from 'api/customAxios';
 
 const CatRegisterPage = () => {
 	const [catInfo, setCatInfo] = useState({
@@ -33,13 +35,26 @@ const CatRegisterPage = () => {
 					new Blob([JSON.stringify(catInfo)], { type: 'application/json' }) // 객체 추가하고 싶을때 걍 넣으면 안되고 굳이 blob 안에 JSON.stringfy 해서 넣어야 되는듯.. 왤까
 				);
 
-				axios
-					.post('http://localhost/test', formData, {
-						headers: { 'Content-Type': 'multipart/form-data' },
-					})
-					.then((res) => {
-						console.log(res);
-					});
+				for (let pair of formData.entries()) {
+					console.log(pair[0] + ', ' + pair[1]);
+				}
+
+				// // 일반 axios
+				// axios
+				// 	.post('http://localhost/test', formData, {
+				// 		headers: { 'Content-Type': 'multipart/form-data' },
+				// 	})
+				// 	.then((res) => {
+				// 		console.log(res);
+				// 	});
+
+				// // custom axios만 사용 - 난 이게 나은거같음 ㅠㅠ
+				axiosInstance.post('/test', formData, {
+					headers: { 'Content-Type': 'multipart/form-data' },
+				});
+
+				// custom axios로 만든 api 모듈 사용
+				// catApi.catRegister(formData);
 			}
 		}
 	};

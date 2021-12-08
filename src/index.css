@@ -11,13 +11,28 @@ body {
 	font-family: 'SurroundAir';
 }
 
+a {
+	text-decoration: none;
+}
+
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
 }
 
-.content-wrapper {
+.content-container {
+	margin: 0 auto;
+	width: 1180px;
 }
 
-.content-container {
+@media screen and (max-width: 768px) {
+	.content-container {
+		width: 700px;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.content-container {
+		width: 280px;
+	}
 }
