@@ -76,7 +76,11 @@ const MatchingPage = () => {
           <div class='content-container'>
             <div class='matchBox'>
               <div class='match1'>
-                <MyCatCard match={match} setMatch={setMatch} />
+                <MyCatCard
+                  mycatname={match.mycatname}
+                  mycatimgs={match.mycatimgs}
+                  mycatchar={match.mycatchar}
+                />
               </div>
 
               <div class='match2'>

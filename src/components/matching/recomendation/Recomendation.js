@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination } from 'swiper';
+import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
 
 const Recomendation = (props) => {
-  const { myCats, setMyCats, match, setMatch } = props;
-  SwiperCore.use([Navigation, Pagination]);
+  SwiperCore.use([Navigation, Pagination, Autoplay]);
+  const { recCats } = props;
+
   return (
     <div>
       <Swiper
@@ -13,11 +17,18 @@ const Recomendation = (props) => {
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
+        autoplay={{ delay: 4000 }}
       >
-        {match &&
-          match.matchcatIds.map((id) => (
+        {recCats &&
+          recCats.map((recCat) => (
             <SwiperSlide>
-              <p>{id.matchcatIds}</p>
+              <img
+                class='mat-img'
+                src={recCat.catimgs[0].img.default}
+                alt='cat'
+              />
+              <h1>{recCat.catname}</h1>
+              <p class='catChar'>{recCat.catchar}</p>
             </SwiperSlide>
           ))}
       </Swiper>

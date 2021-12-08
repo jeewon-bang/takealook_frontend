@@ -82,7 +82,11 @@ const MyMatchingPage = () => {
           <div class='content-container'>
             <div class='matchBox'>
               <div class='match1'>
-                <MyCatCard match={match} setMatch={setMatch} />
+                <MyCatCard
+                  mycatname={match.mycatname}
+                  mycatimgs={match.mycatimgs}
+                  mycatchar={match.mycatchar}
+                />
               </div>
 
               <div class='match2'>
@@ -100,6 +104,7 @@ const MyMatchingPage = () => {
                   }
                 })()}
 
+                {/* 매칭요청취소(Delete) */}
                 <button class='match-btn'>요청취소</button>
               </div>
             </div>
