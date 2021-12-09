@@ -1,23 +1,46 @@
 @import '../../common/common';
 
-.input-text {
-	@extend %input-text;
-	width: 200px;
-}
+.cat-info-form-inner {
+	width: 100%;
+	height: 400px;
 
-.input-radio input[type='radio'] {
-	display: none;
-}
+	.input-label {
+		font-weight: 800;
+		margin: 30px 0px 10px 0px;
+	}
 
-.input-radio input[type='radio'] + span {
-	display: inline-block;
-	width: 100px;
-	border: $line;
-	border-radius: 5px;
-	background-color: $white-gray;
-	text-align: center;
-	cursor: pointer;
-}
-.input-radio input[type='radio']:checked + span {
-	background-color: $light-orange;
+	.input-text {
+		@extend %input-text;
+		width: 97%;
+	}
+
+	.input-radio input[type='radio'] {
+		display: none;
+		width: 100%;
+
+		& + span {
+			display: inline-block;
+			border: $line;
+			border-radius: 5px;
+			background-color: $white-gray;
+			text-align: center;
+			cursor: pointer;
+			height: 30px;
+			line-height: 30px;
+			margin: 3px;
+
+			&.status {
+				width: 48%;
+			}
+
+			&.neutered,
+			&.gender {
+				width: 31.5%;
+			}
+		}
+
+		&:checked + span {
+			background-color: $light-orange;
+		}
+	}
 }

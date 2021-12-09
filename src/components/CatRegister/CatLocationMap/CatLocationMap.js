@@ -1,9 +1,10 @@
 /* global kakao */
 
 import React, { useEffect, useState } from 'react';
+// import Map, { map } from 'components/common/Map';
 
 const CatLocation = (props) => {
-	const { catInfo, setCatInfo } = props;
+	const { catLoc, setCatLoc } = props;
 	// const [map, setMap] = useState('');
 	const [markers, setMarkers] = useState([]);
 
@@ -26,7 +27,6 @@ const CatLocation = (props) => {
 				map.setCenter(locPosition); // 지도 중심위치를 현 접속위치로 변경
 			});
 		}
-
 		/** 마커 생성하기 */
 		kakao.maps.event.addListener(map, 'click', (mouseEvent) => {
 			let latlng = mouseEvent.latLng; // 클릭한 위치의 위도경도
@@ -53,23 +53,22 @@ const CatLocation = (props) => {
 
 	// 부모 페이지로 데이터 보내기
 	const handleClick = (e) => {
-		console.log(markers);
-		setCatInfo({
-			...catInfo,
-			location: [
-				...markers.map((v) => ({
-					latitude: v.getPosition().getLat(),
-					longtitude: v.getPosition().getLng(),
-				})),
-			],
-		});
+		setCatLoc([
+			...markers.map((v) => ({
+				latitude: v.getPosition().getLat(),
+				longitude: v.getPosition().getLng(),
+			})),
+		]);
+		console.log(catLoc);
 	};
 
 	return (
-		<div>
+		<div style={{ width: '100%', height: '100%' }}>
+			<span className='cat-info-form-inner input-label'>최근 발견된 위치</span>
+			{/* <Map handleClick={handleClick} /> */}
 			<div
 				id='map'
-				style={{ width: '800px', height: '600px' }}
+				style={{ width: '400px', height: '400px' }}
 				onClick={handleClick}></div>
 			<button onClick={deleteMarker}>초기화</button>
 		</div>
