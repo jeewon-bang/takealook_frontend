@@ -3,6 +3,7 @@ import MyCatCard from 'components/Matching/MyCatCard/MyCatCard';
 import MatchingNav from 'components/Matching/SubNav/MatchingNav';
 import React, { useState } from 'react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
+import '../MatchingPage.scss';
 
 const MyMatchingPage = () => {
   SwiperCore.use([Navigation, Pagination]);
@@ -71,7 +72,7 @@ const MyMatchingPage = () => {
   // const [matchCats, setMatchCats] = useState(matchcatData);
   const [match, setMatch] = useState(matchData);
   return (
-    <div>
+    <div class='content-container'>
       <MatchingNav />
 
       <hr />

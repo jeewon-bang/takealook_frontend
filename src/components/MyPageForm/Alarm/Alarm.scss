@@ -1,0 +1,56 @@
+.section-alarm {
+  padding-top: 60px;
+  width: 300px;
+  margin-left: 40px;
+
+  h3 {
+    position: relative;
+    padding: 11px 10px 11px 29px;
+    background: #65c1da
+      url(http://fiximage.10x10.co.kr/web2015/my10x10/bg_sprite.png) no-repeat 0 -112px;
+    color: #fff;
+    span {
+      position: absolute;
+      top: 11px;
+      left: 10px;
+      width: 13px;
+      height: 14px;
+      background-image: url(http://fiximage.10x10.co.kr/web2015/layout/element.png);
+      background-repeat: no-repeat;
+      background-position: 0 0;
+    }
+  }
+}
+.alarmListV15 {
+  padding-top: 20px;
+  position: relative;
+  padding: 0 20px;
+  .almTodayV15 {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+    padding: 15px 0;
+    background: url(//fiximage.10x10.co.kr/web2015/common/dotline01.gif) 0 100%
+      repeat-x;
+    .boxRd0V15 {
+      margin: 0 auto;
+      width: 140px;
+      height: 22px;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+      font-size: 12px;
+      line-height: 22px;
+      vertical-align: middle;
+      background: url(//fiximage.10x10.co.kr/web2015/common/box_round00.png) 50%
+        50% no-repeat;
+    }
+  }
+  p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+}

@@ -4,10 +4,19 @@ import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
+import Modal from 'components/common/Modal';
+import CatDetailModal from '../CatDetailModal/CatDetailModal';
+import './Recomendation.scss';
 
 const Recomendation = (props) => {
   SwiperCore.use([Navigation, Pagination, Autoplay]);
   const { recCats } = props;
+  const [detailCat, setDetailCat] = useState();
+  const [showModal, setShowModal] = useState(false);
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <div>
@@ -28,9 +37,23 @@ const Recomendation = (props) => {
                 alt='cat'
               />
               <h1>{recCat.catname}</h1>
+              <button
+                class='detail-btn'
+                onClick={() => {
+                  setDetailCat(recCat);
+                  setShowModal(true);
+                }}
+              >
+                자세히보기>
+              </button>
               <p class='catChar'>{recCat.catchar}</p>
             </SwiperSlide>
           ))}
+        {showModal && (
+          <Modal showModal={showModal} maskClosable={true} onClose={closeModal}>
+            <CatDetailModal detailCat={detailCat} />
+          </Modal>
+        )}
       </Swiper>
     </div>
   );

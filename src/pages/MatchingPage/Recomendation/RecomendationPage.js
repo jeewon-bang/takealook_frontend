@@ -1,7 +1,8 @@
 import MyCatCard from 'components/Matching/MyCatCard/MyCatCard';
-import Recomendation from 'components/Matching/Recomendation/Recomendation';
+import Recomendation from 'components/Matching/Recomendation/Recomendation/Recomendation';
 import MatchingNav from 'components/Matching/SubNav/MatchingNav';
 import React, { useState } from 'react';
+import '../MatchingPage.scss';
 
 const RecomendationPage = () => {
   let recomendationData = [
@@ -154,7 +155,7 @@ const RecomendationPage = () => {
   const [reco, setReco] = useState(recomendationData);
 
   return (
-    <div>
+    <div class='content-container'>
       <MatchingNav />
       <hr />
       <p class='mat-p'>혹시 같은 고양이를 돌보고 있나요?</p>

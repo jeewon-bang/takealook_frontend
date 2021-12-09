@@ -1,9 +1,9 @@
 import React, { useState, useHistory, useEffect } from 'react';
 import {
-	KAKAO_JAVASCRIPT_KEY,
-	REDIRECT_URI,
-	REST_API_KEY,
-	CLIENT_SECRET,
+  KAKAO_JAVASCRIPT_KEY,
+  REDIRECT_URI,
+  REST_API_KEY,
+  CLIENT_SECRET,
 } from 'config/config';
 import qs from 'qs';
 import axios from 'axios';
@@ -34,7 +34,7 @@ import axios from 'axios';
 // 		getToken();
 // 	}, []);
 
-// 	return null;
+// 	return null;s
 // };
 
-export default Oauth;
+// export default Oauth;

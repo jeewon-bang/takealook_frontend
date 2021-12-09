@@ -1,5 +1,12 @@
 .rec-modal {
-  width: 50px;
-  height: 50px;
+  width: 500px;
+  height: 500px;
   padding: 30px;
+  .rec-img {
+    margin: 20px 10px 10px 10px;
+    width: 410px;
+    height: 410px;
+    border-radius: 80px;
+    display: inline-block;
+  }
 }

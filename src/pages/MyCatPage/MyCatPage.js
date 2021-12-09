@@ -8,6 +8,7 @@ let catData = [
     id: 1,
     image: require('images/bori2.jpg'),
     name: '보리',
+    catStatus : '건강함',
     catCare: [
       {
         id: 1,
@@ -40,6 +41,7 @@ let catData = [
     id: 2,
     image: require('images/ritae1.jpg'),
     name: '리태',
+    catStatus : '건강함',
     catCare: [
       {
         id: 1,
@@ -72,6 +74,7 @@ let catData = [
     id: 3,
     image: require('images/yulmu2.jpg'),
     name: '율무',
+    catStatus : '건강함',
     catCare: [
       {
         id: 1,

@@ -8,9 +8,26 @@ import './CatDetailModal.scss';
 
 const CatDetailModal = (props) => {
   SwiperCore.use([Navigation, Pagination]);
-  const { recCat } = props;
+  const { detailCat } = props;
 
-  return <div className='rec-modal'></div>;
+  return (
+    <div class='rec-modal'>
+      <Swiper
+        className='swiper-slide'
+        spaceBetween={50}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+      >
+        {detailCat &&
+          detailCat.catimgs.map((img) => (
+            <SwiperSlide>
+              <img class='rec-img' src={img.img.default} alt='cat' />
+            </SwiperSlide>
+          ))}
+      </Swiper>
+    </div>
+  );
 };
 
 export default CatDetailModal;
