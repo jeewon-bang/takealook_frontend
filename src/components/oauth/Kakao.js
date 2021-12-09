@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { KAKAO_AUTH_URL } from './Oauth';
 import KakaoLogin from 'react-kakao-login';
 import styled from 'styled-components';
+import { KAKAO_JAVASCRIPT_KEY, REDIRECT_URI } from 'config/config';
+import axiosInstance from 'api/customAxios';
 
 const KakaoBtn = styled(KakaoLogin)`
 	padding: 0;
@@ -21,14 +22,26 @@ const KakaoBtn = styled(KakaoLogin)`
 	}
 `;
 
-// const Kakao = () => {
-//   return (
-//     <div>
-//       <KakaoBtn href={KAKAO_AUTH_URL} buttonText='카카오계정 로그인'>
-//         {/* <img src={kakaologo} /> */}
-//       </KakaoBtn>
-//     </div>
-//   );
-// };
+const Kakao = () => {
+	return (
+		<div>
+			<KakaoLogin
+				token={KAKAO_JAVASCRIPT_KEY}
+				callbackUrl={REDIRECT_URI}
+				render={(renderProps) => (
+					<div onClick={renderProps.onClick} disabled={renderProps.disabled}>
+						카카오로그인
+					</div>
+				)}
+				onSuccess={(res) => {
+					console.log(res);
+					axiosInstance.post('', res, { 'Content-Type': 'application/json' });
+				}}
+				onFaile={(err) => {
+					console.log(err);
+				}}></KakaoLogin>
+		</div>
+	);
+};
 
-// export default Kakao;
+export default Kakao;

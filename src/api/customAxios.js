@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-	baseURL: 'http://192.168.1.150',
+	baseURL: 'http://192.168.1.249',
 	// headers: {
 	//Authorization: 'bearer accessKey',  (토큰 설정 해야함)
 	//timeout: 1000
