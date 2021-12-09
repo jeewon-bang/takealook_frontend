@@ -13,14 +13,15 @@
   border-color: $line-gray;
   color: $gray;
   float: left;
-}
+  border-radius: 10px;
 
-.selects:focus {
-  outline: none;
-}
+  .selects:focus {
+    outline: none;
+  }
 
-.selects .option {
-  color: black;
-  //   height: 200px;
-  //   border-radius: 5px;
+  .select option {
+    color: black;
+    height: 200px;
+    border-radius: 10px;
+  }
 }

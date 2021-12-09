@@ -16,7 +16,9 @@ const Writeguide = (props) => {
       <div className='modal-wrapper'>
         <div className='guide'>
           <div className='guide-header'>
-            <h2>게시글 작성 가이드</h2>
+            <font font-size='6'>
+              <strong>게시글 작성 가이드</strong>
+            </font>
           </div>
           <div className='guide-body'>
             <ul>

@@ -1,12 +1,17 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import './CatDetailModal.scss';
 
-const Recomendation = (props) => {
-  const { myCats, setMyCats, match, setMatch } = props;
+const CatDetailModal = (props) => {
   SwiperCore.use([Navigation, Pagination]);
+  const { detailCat } = props;
+
   return (
-    <div>
+    <div class='rec-modal'>
       <Swiper
         className='swiper-slide'
         spaceBetween={50}
@@ -14,10 +19,10 @@ const Recomendation = (props) => {
         navigation
         pagination={{ clickable: true }}
       >
-        {match &&
-          match.matchcatIds.map((id) => (
+        {detailCat &&
+          detailCat.catimgs.map((img) => (
             <SwiperSlide>
-              <p>{id.matchcatIds}</p>
+              <img class='rec-img' src={img.img.default} alt='cat' />
             </SwiperSlide>
           ))}
       </Swiper>
@@ -25,4 +30,4 @@ const Recomendation = (props) => {
   );
 };
 
-export default Recomendation;
+export default CatDetailModal;

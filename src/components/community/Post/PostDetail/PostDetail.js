@@ -2,27 +2,44 @@ import React, { useEffect, useState } from 'react';
 import './PostDetail.scss';
 
 const PostDetail = (props) => {
-  const [data, setData] = useState({});
+  const { id, postDetails, setPostDetails } = props;
 
-  useEffect(() => {
-    // setData(getPostByNo(no));
-  });
   return (
     <div className='postdetail'>
-      {/* <div className='wrapper'> */}
-      <div>
-        <h5>게시판종류</h5>
+      <div className='info-header'>
+        <h5>
+          <font color='#ffa800'>{postDetails[id].board}</font>
+        </h5>
         <div className='info'>
-          <h6>여기는좋아요댓글날짜</h6>
+          <span className='info-like'>
+            <img
+              class='image'
+              src={require('images/heart.png').default}
+              alt='like'
+            />
+            {postDetails[id].like}
+          </span>
+          <span className='info-comment'>
+            <img
+              class='image'
+              src={require('images/chat.png').default}
+              alt='cmt'
+            />
+            {postDetails[id].comment}
+          </span>
+          <span className='info-created_at'>{postDetails[id].created_at}</span>
         </div>
-        <h1>제목</h1>
-        <h5>글쓴이</h5>
-        <hr />
+        <h1 className='top-title'>{postDetails[id].title}</h1>
+        <div className='writer-info'>
+          <div className='user-img'></div>
+          <h5 className='writer-name'>{postDetails[id].writer}</h5>
+        </div>
       </div>
-      <div>
-        <div>여기는내용</div>
-        <hr />
+      <hr />
+      <div className='content'>
+        <div>{postDetails[id].content}</div>
       </div>
+      <hr />
     </div>
   );
 };

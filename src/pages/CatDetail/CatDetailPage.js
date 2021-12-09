@@ -1,90 +1,115 @@
-import React, { useState } from 'react';
+/* global kakao */
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import CatCare from 'components/CatDetail/CatCare/CatCare';
 import CatInfo from 'components/CatDetail/CatInfo/CatInfo';
 import CatMap from 'components/CatDetail/CatMap/CatMap';
 import './CatDetailPage.scss';
 import { Link } from 'react-router-dom';
+import axiosInstance from 'api/customAxios';
+import axios from 'axios';
+import { map } from 'components/common/Map';
 
-// 0 : 밥, 1: 간식, 2: 약, 3:병원  4:기타
-let data = [
+let catInfoData = {
+	id: 1,
+	name: '보리',
+	gender: 1,
+	neutered: 0,
+	status: 0,
+	patter: 1,
+	createdAt: '2021-12-09T04:23:05.279',
+	carers: [
+		{
+			id: 1,
+			userName: '혜민',
+			userImage: 'url~~',
+		},
+		{
+			id: 2,
+			userName: '지수',
+			userImage: 'url~~',
+		},
+	],
+};
+
+let catLocData = [
 	{
-		id: 1,
-		user: '혜민',
-		userImg: '',
-		datetime: '2021-11-10 12:40:33',
-		type: 0,
-		message: '사료 바꿨어요!',
+		latitude: 37.54732777835966,
+		longitude: 126.8609590137254,
 	},
 	{
+		latitude: 37.54511236317026,
+		longitude: 126.86184575808647,
+	},
+];
+
+let catImgData = ['url1', 'url2', 'url3'];
+
+let careHistoryData = [
+	{
 		id: 2,
-		user: '지원',
-		userImg: '',
-		datetime: '2021-11-29 22:24:10',
-		type: 2,
-		message: '',
+		type: 0,
+		message: '건식사료를 줬어요!',
+		userId: 1,
+		userName: '배지수',
+		userImage: 'url',
+		createdAt: '2021-12-09T04:05:52.476',
+		modifiedAt: '2021-12-09T04:05:52.476',
 	},
 	{
 		id: 3,
-		user: '세은',
-		userImg: '',
-		datetime: '2021-11-30 10:55:00',
-		type: 3,
-		message: '구내염 처방받으러 병원갔다왔어요ㅠㅠ',
-	},
-	{
-		id: 4,
-		user: '지수',
-		userImg: '',
-		datetime: '2021-11-30 14:55:00',
-		type: 2,
-		message: '츄르 짭짭',
-	},
-	{
-		id: 5,
-		user: '지혜',
-		userImg: '',
-		datetime: '2021-11-30 15:55:00',
-		type: 2,
-		message: '앗 나도 간식줬는데',
-	},
-
-	{
-		id: 6,
-		user: '혜민',
-		userImg: '',
-		datetime: '2021-11-30 15:55:00',
 		type: 0,
-		message: '밥먹자',
-	},
-	{
-		id: 7,
-		user: '혜민',
-		userImg: '',
-		datetime: '2021-11-30 15:55:00',
-		type: 1,
-		message: '간식먹쟝',
-	},
-	{
-		id: 7,
-		user: '지혜',
-		userImg: '',
-		datetime: '2021-11-30 20:55:00',
-		type: 2,
-		message: '귀여우니까 간식 또줘야징',
+		message: '물을 줬어요!',
+		userId: 2,
+		userName: '신지혜',
+		userImage: 'url',
+		createdAt: '2021-12-09T04:05:52.476',
+		modifiedAt: '2021-12-09T04:05:52.476',
 	},
 ];
 
 const CatDetailPage = () => {
 	const { catId } = useParams();
 	const [showModal, setShowModal] = useState(false);
-	const [careHistory, setCareHistory] = useState(data);
+	const [catInfo, setCatInfo] = useState('');
+	const [catLoc, setCatLoc] = useState([]);
+	const [catImg, setCatImg] = useState([]);
+	const [careHistory, setCareHistory] = useState([]);
+	const [loaded, setLoaded] = useState(false);
 
-	return (
+	useEffect(() => {
+		console.log('CatDetailPage');
+
+		axios
+			.all([
+				axiosInstance.get(`/user/1/cat/1`),
+				axiosInstance.get(`/user/1/cat/1/images`),
+				axiosInstance.get(`/user/1/cat/1/locations`),
+				axiosInstance.get(`/user/1/cat/1/48hours-catcares`),
+			])
+			.then(
+				axios.spread((catInfoRes, catImgRes, catLocRes, careHistoryRes) => {
+					setCatInfo(catInfoRes.data);
+					setCatImg(catImgRes.data);
+					setCatLoc(catLocRes.data);
+					setCareHistory(careHistoryRes.data);
+					setLoaded(true);
+				})
+			);
+	}, []);
+
+	// map.setCenter(new kakao.maps.LatLng(catLoc[0].latitude, catLoc[0].longitude));
+
+	return loaded ? (
 		<div className='container-wrapper'>
 			<div className='container'>
-				<CatInfo catId={catId} />
-				<CatMap />
+				<CatInfo
+					catInfo={catInfo}
+					setCatInfo={setCatInfo}
+					catImg={catImg}
+					setCatImg={setCatImg}
+				/>
+				<CatMap catLoc={catLoc} setCatLoc={setCatLoc} />
 				<div class='button-box'>
 					<Link to='/mycat/update'>
 						<button className='cat-info-update-button'>정보 수정하기</button>
@@ -102,16 +127,10 @@ const CatDetailPage = () => {
 						<button className='cat-info-update-button'>돌봄 기록 추가</button>
 					</Link>
 				</div>
-				{/* {showModal && (
-					<CareCalendar
-						showModal={showModal}
-						setShowModal={setShowModal}
-						careHistory={careHistory}
-						setCareHistory={setCareHistory}
-					/>
-				)} */}
 			</div>
 		</div>
+	) : (
+		<div>로딩중</div>
 	);
 };
 

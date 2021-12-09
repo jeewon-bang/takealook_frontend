@@ -4,31 +4,23 @@ import React, { useEffect, useState } from 'react';
 import { map } from 'components/common/Map';
 import './CatMap.scss';
 
-const CatMap = () => {
-	let data = [
-		{
-			latitude: 37.54732777835966,
-			longtitude: 126.8609590137254,
-		},
-		{
-			latitude: 37.54511236317026,
-			longtitude: 126.86184575808647,
-		},
-	];
-
-	const [location, setLocation] = useState(data);
+const CatMap = (props) => {
+	const { catLoc, setCatLoc } = props;
 
 	useEffect(() => {
-		location.forEach((v) => {
+		console.log('CatMap');
+		console.log(catLoc);
+		console.log(map);
+		catLoc.forEach((v) => {
 			let marker = new kakao.maps.Marker({
 				map: map,
-				position: new kakao.maps.LatLng(v.latitude, v.longtitude),
+				position: new kakao.maps.LatLng(v.latitude, v.longitude),
 			});
+			console.log('중심위치 바꿀거야');
+			map.setCenter(
+				new kakao.maps.LatLng(catLoc[0].latitude, catLoc[0].longitude)
+			);
 		});
-
-		map.setCenter(
-			new kakao.maps.LatLng(location[0].latitude, location[0].longtitude)
-		);
 	}, []);
 
 	return (

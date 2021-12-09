@@ -2,7 +2,20 @@ import axios from 'axios';
 import MyCat from 'components/MyCat/MyCat';
 import React, { useState, useEffect } from 'react';
 
-//id, 고양이사진, 이름
+let myCatData = {
+  id: 1,
+  name: '보리',
+  status: 0,
+  care: [
+    {
+      userName: '',
+      userImage: '',
+      type: '',
+      message: '',
+    },
+  ],
+};
+
 let catData = [
   {
     id: 1,

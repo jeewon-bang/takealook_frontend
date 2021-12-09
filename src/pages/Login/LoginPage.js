@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import Login from '../../components/Login/Login';
+import { REST_API_KEY, REDIRECT_URI } from 'config/config';
+import axiosInstance from 'api/customAxios';
 import Kakao from 'components/oauth/Kakao';
-
 const LoginPage = () => {
-  const [user, setUser] = useState(null);
+	// const [user, setUser] = useState(null);
 
-  const getUser = async () => {
-    let res = await axios.get('http://localhost:8088/user', {
-      headers: { Authorization: 'Bearer' + localStorage.getItem('jwtToken') },
-    });
-    console.log(res);
-    setUser(res.data);
-  };
+	// const kakaoLogin = () => {
+	// 	window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+	// };
 
-  return (
-    <div>
-      <Login />
-      <h3>user : {user}</h3>
-      <button onClick={getUser}>유저 정보 가져오기</button>
+	const [provider, setProvider] = useState('');
+	const loginRequest = () => {
+		axiosInstance.get('/login/kakao');
+	};
 
-      <Kakao />
-    </div>
-  );
+	return (
+		<div>
+			{/* <button className='kakao-login-button' onClick={kakaoLogin}>
+				카카오 로그인
+			</button> */}
+			{/* <button onClick={loginRequest}>카카오로그인</button> */}
+			{/* <button onClick={loginRequest}>구글로그인</button>  */}
+			<Kakao />
+		</div>
+	);
 };
 
 export default LoginPage;

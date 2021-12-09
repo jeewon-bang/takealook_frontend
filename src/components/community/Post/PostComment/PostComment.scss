@@ -1,0 +1,16 @@
+@import 'components/common/common';
+
+.post-comment {
+  display: grid;
+}
+
+.writer-info {
+  @extend %user-info;
+  width: 10%;
+}
+
+.content-comment {
+  width: 90%;
+  margin-left: 20px;
+  margin-top: 20px;
+}
