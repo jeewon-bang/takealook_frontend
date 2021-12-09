@@ -22,6 +22,7 @@ const PostWritePage = () => {
   console.log(content);
   const [postImage, setPostImage] = useState([]);
   console.log(postImage);
+  console.log(typeof postImage);
 
   const [postText, setPostText] = useState({
     writerId: 1,
