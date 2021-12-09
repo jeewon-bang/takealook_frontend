@@ -1,10 +1,5 @@
 @import 'components/common/common';
 
-@font-face {
-  font-family: 'SurroundAir';
-  src: url('../../../../fonts/Cafe24SsurroundAir.ttf');
-}
-
 .title-input {
   @extend %input-text;
   border-bottom: 1px solid black;
@@ -12,13 +7,15 @@
   border-left: none;
   border-right: none;
   border-radius: 0;
-  width: 100%;
+  width: 800px;
+  margin-bottom: 50px;
+  margin-left: 0;
 }
 
 .title-input:focus {
   outline: none;
 }
 
-h3 {
+.write-title {
   padding-top: 60px;
 }

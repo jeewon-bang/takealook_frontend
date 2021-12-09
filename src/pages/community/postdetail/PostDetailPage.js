@@ -50,9 +50,6 @@ const PostDetailPage = () => {
     },
   ]);
 
-  //포스트당 댓글 개수
-  const [commentCnt, setCommentCnt] = useState(0);
-
   return (
     <div className='content-container'>
       <div className='post-detail'>
@@ -65,7 +62,7 @@ const PostDetailPage = () => {
         ))}
       </div>
       <div className='post-writecomment'>
-        <WritePostComment />
+        <WritePostComment postId={postDetails[0].id} />
       </div>
       <div className='post-listcomment'>
         <h1>

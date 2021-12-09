@@ -24,9 +24,9 @@ const KakaoBtn = styled(KakaoLogin)`
 const Kakao = () => {
   return (
     <div>
-      <KakaoBtn href={KAKAO_AUTH_URL} buttonText='카카오계정 로그인'>
-        {/* <img src={kakaologo} /> */}
-      </KakaoBtn>
+      {/* <KakaoBtn href={KAKAO_AUTH_URL} buttonText='카카오계정 로그인'>
+        <img src={kakaologo} />
+      </KakaoBtn> */}
     </div>
   );
 };

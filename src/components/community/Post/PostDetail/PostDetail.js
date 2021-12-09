@@ -2,17 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './PostDetail.scss';
 
 const PostDetail = (props) => {
-  const [data, setData] = useState({});
-
   const { id, postDetails, setPostDetails } = props;
-
-  useEffect(() => {
-    // setData(getPostByNo(no));
-  });
 
   return (
     <div className='postdetail'>
-      <div>
+      <div className='info-header'>
         <h5>
           <font color='#ffa800'>{postDetails[id].board}</font>
         </h5>

@@ -25,7 +25,7 @@ const PostListPage = () => {
     {
       id: 2,
       board: '전국고양이자랑',
-      like: 15,
+      like: 10,
       comment: 5,
       created_at: '2021-11-23',
       modified_at: '',
@@ -110,19 +110,17 @@ const PostListPage = () => {
           // setActivateCat={setActivateCat}
         />
         <hr />
-        <section>
-          <div className='right-nav'>
-            <Writebtn />
-          </div>
-          <div className='sorting-wrapper'>
-            <Sorting posts={posts} setPosts={setPosts} />
-          </div>
-          <div className='wrapper'>
-            {posts.map((post) => (
-              <PostList post={post} />
-            ))}
-          </div>
-        </section>
+        <div className='right-nav'>
+          <Writebtn />
+        </div>
+        <div className='sorting-wrapper'>
+          <Sorting posts={posts} setPosts={setPosts} />
+        </div>
+        <div className='wrapper'>
+          {posts.map((post) => (
+            <PostList post={post} />
+          ))}
+        </div>
       </div>
     </div>
   );

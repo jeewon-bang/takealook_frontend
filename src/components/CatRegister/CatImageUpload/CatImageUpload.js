@@ -1,63 +1,60 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './CatImageUpload.scss';
 
-const CatImage = (props) => {
-	const { catImg, setCatImg } = props;
-	const imgInput = useRef();
+const CatImageUpload = (props) => {
+  const { postImage, setPostImage } = props;
+  const imgInput = useRef();
 
-	const handleClick = () => {
-		imgInput.current.click(); // imgInput이라는 ref가 걸린 대상(= input type='file')이 클릭되도록 한다
-	};
+  const handleClick = () => {
+    imgInput.current.click(); // imgInput이라는 ref가 걸린 대상(= input type='file')이 클릭되도록 한다
+  };
+  const handleChange = (e) => {
+    setPostImage(e.target.files);
+  };
 
-	const preview = useRef();
+  const preview = () => {
+    if (postImage.length === 0) {
+      // useEffect에서 실행되기 때문에 사용자가 이미지 업로드 하기 전에 바로 오류 뜨는거 방지
+      return false;
+    }
+    for (let i = 0; i < postImage.length; i++) {
+      const nowImgUrl = URL.createObjectURL(postImage[i]); // 사용자가 등록한 catImg for문돌면서 url 생성
+      let prevImg = document.createElement('img'); // img 요소 생성
+      prevImg.classList.add('img-preview'); // 클래스이름 주기
+      prevImg.src = nowImgUrl; // img src 에 아까 만든 url 붙이기
 
-	//   const [imgBase64, setImgBase64] = useState('');
-	const handleChange = (e) => {
-		console.log(e);
-		console.log(e.target.files[0]);
+      document.querySelector('.cat-img-upload-box').appendChild(prevImg); // 미리보기 박스에 img 요소 넣기
+    }
+    // console.log(catImg); //0: File {name: 's.jpg', lastModified: 1636706961304, lastModifiedDate: Fri Nov 12 2021 17:49:21 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 246808, …}length: 1
+  };
 
-		let reader = new FileReader();
+  //   const memoizedValue = useMemo(() => preview(), []);
 
-		reader.onloadend = () => {
-			// 읽기가 완료되면 이 코드가 실행
-			const base64 = reader.result; //reader.result는 이미지를 인코딩(base64->이미지를 text인코딩)한 결과값이 나옴
-			if (base64) {
-				setCatImg(base64.toString()); //파일 base64 상태 없데이트
-			}
-			//   const imgEL = document.getElementById('img-preview');
-			//   imgEL.style.backgroundImage = `url(${imgBase64})`;
+  useEffect(() => {
+    preview();
+  }, []);
 
-			preview.current.style.backgroundImage = `url(${catImg})`;
-			console.log(preview.current);
-		};
-
-		if (e.target.files[0]) {
-			reader.readAsDataURL(e.target.files[0]); //파일을 읽어 버퍼에 저장. 저장후 onloadend트리거
-			setCatImg(e.target.files); //파일 상태 업데이트 업로드하는 것은 파일이기 때문에 관리가 필요
-
-			console.log('여기까지 왔니');
-		}
-	};
-
-	return (
-		<div className='cat-img-upload-box'>
-			<input
-				ref={imgInput}
-				className='catImg'
-				type='file'
-				multiple
-				accept='image/*'
-				name='file'
-				style={{ display: 'none' }}
-				onChange={handleChange}
-			/>
-			<button className='img-upload-button' onClick={handleClick}>
-				사진 등록
-			</button>
-			<div className='img-preview' ref={preview}></div>
-		</div>
-	);
+  return (
+    <div className='cat-img-upload-box'>
+      <input
+        ref={imgInput}
+        className='catImg'
+        type='file'
+        multiple
+        accept='image/*'
+        name='file'
+        style={{ display: 'none' }}
+        onChange={handleChange}
+      />
+      <div>
+        <button className='img-upload-button' onClick={handleClick}>
+          사진 등록
+          <div className='img-preview' ref={preview}></div>
+        </button>
+      </div>
+    </div>
+  );
 };
 
-export default CatImage;
+export default CatImageUpload;
