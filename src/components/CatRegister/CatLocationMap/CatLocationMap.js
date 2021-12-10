@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 // import Map, { map } from 'components/common/Map';
+import './CatLocationMap.scss';
 
 const CatLocation = (props) => {
 	const { catLoc, setCatLoc } = props;
@@ -59,16 +60,15 @@ const CatLocation = (props) => {
 				longitude: v.getPosition().getLng(),
 			})),
 		]);
-		console.log(catLoc);
 	};
 
 	return (
-		<div style={{ width: '100%', height: '100%' }}>
-			<span className='cat-info-form-inner input-label'>최근 발견된 위치</span>
+		<div className='map-container'>
+			<div className='input-label'>최근 발견된 위치</div>
 			{/* <Map handleClick={handleClick} /> */}
 			<div
 				id='map'
-				style={{ width: '400px', height: '400px' }}
+				style={{ width: '100%', height: '500px' }}
 				onClick={handleClick}></div>
 			<button onClick={deleteMarker}>초기화</button>
 		</div>

@@ -88,11 +88,7 @@ const CatCare = (props) => {
 					</div>
 				))}
 			</div>
-			{/* 모달 사용하기 
-				- showModal 변수 정의, openModal, closeModal 함수 정의
-				- { showModal && <Modal showModal={showModal} maskClosable={true} onClose={closeModal}>안에넣을내용</Modal> } 
-				  형태로 사용하기
-			 */}
+
 			{showModal && (
 				<Modal showModal={showModal} maskClosable={true} onClose={closeModal}>
 					<CareCalendar

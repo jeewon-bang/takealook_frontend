@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Map from 'components/common/Map';
 import './HomePage.scss';
 import Modal from 'components/common/Modal';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
 	const isLogin = true;
@@ -17,9 +18,9 @@ const HomePage = () => {
 
 	return isLogin ? (
 		<div className='main-container'>
-			<button className='home-menu-button' onClick={openModal}>
-				Click
-			</button>
+			<Link to='/mycat/new'>
+				<button className='home-menu-button'>고양이 등록</button>
+			</Link>
 			{showModal && (
 				<Modal showModal={showModal} maskClosable={true} onClose={closeModal}>
 					<div style={{ width: '300px', height: '300px' }}>매칭</div>

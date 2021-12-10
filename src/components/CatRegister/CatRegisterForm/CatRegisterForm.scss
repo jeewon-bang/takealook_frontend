@@ -2,7 +2,6 @@
 
 .cat-info-form-inner {
 	width: 100%;
-	height: 400px;
 
 	.input-label {
 		font-weight: 800;
@@ -11,12 +10,16 @@
 
 	.input-text {
 		@extend %input-text;
-		width: 97%;
+		width: 100%;
+	}
+
+	.input-select {
+		@extend %input-text;
+		width: 100%;
 	}
 
 	.input-radio input[type='radio'] {
 		display: none;
-		width: 100%;
 
 		& + span {
 			display: inline-block;
@@ -25,7 +28,7 @@
 			background-color: $white-gray;
 			text-align: center;
 			cursor: pointer;
-			height: 30px;
+			height: 40px;
 			line-height: 30px;
 			margin: 3px;
 
@@ -35,7 +38,7 @@
 
 			&.neutered,
 			&.gender {
-				width: 31.5%;
+				width: 32.5%;
 			}
 		}
 

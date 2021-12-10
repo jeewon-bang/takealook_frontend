@@ -1,0 +1,16 @@
+@import 'components/common/common';
+
+.cat-match-modal {
+	box-sizing: border-box;
+	width: 80vh;
+	height: 90vh;
+	text-align: center;
+	padding: 50px;
+
+	.cat-image {
+		background-color: $white-gray;
+		width: 300px;
+		height: 300px;
+		border-radius: 80px;
+	}
+}
