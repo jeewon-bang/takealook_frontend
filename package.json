@@ -55,5 +55,8 @@
 			"last 1 safari version"
 		]
 	},
-	"proxy": "http://192.168.1.249"
+	"proxy": "http://192.168.1.249",
+	"optionalDependencies": {
+  		"fsevents": "*"
+ 	}
 }
