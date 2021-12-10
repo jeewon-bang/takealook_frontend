@@ -33,6 +33,18 @@ $breakpoint-desktop: 1024px;
 	}
 }
 
+// 멀티라인 말줄임 표시
+@mixin ellipsis($line-cnt, $line-height) {
+	overflow: hidden;
+	text-overflow: ellipsis; //넘치는 텍스트를 숨긴 후 '...' 처리
+	white-space: nowrap; //줄바꿈 처리 => 금지
+	-webkit-line-clamp: $line-cnt; /* 라인수 */
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	line-height: $line-height;
+	height: $line-cnt * $line-height;
+}
+
 // 재사용할 디자인들
 %button-square {
 	background-color: $main-orange;
@@ -56,4 +68,9 @@ $breakpoint-desktop: 1024px;
 	border: $line;
 	border-radius: 3px;
 	height: 40px;
+}
+
+%user-info {
+	//   float: left;
+	width: 100%;
 }

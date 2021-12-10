@@ -28,7 +28,7 @@ const PostList = (props) => {
                   <strong>{board}</strong>
                 </font>
               </p>
-              <h1>{title}</h1>
+              <h1 className='card-body-header-title'>{title}</h1>
               <p>{content}</p>
             </div>
             <p class='card-body-description'>{content}</p>

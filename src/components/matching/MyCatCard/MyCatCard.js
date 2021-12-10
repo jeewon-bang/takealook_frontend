@@ -6,7 +6,7 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 
 const MyCatCard = (props) => {
-  const { match, setMatch } = props;
+  const { mycatname, mycatimgs, mycatchar } = props;
   SwiperCore.use([Navigation, Pagination]);
   return (
     <div>
@@ -17,15 +17,14 @@ const MyCatCard = (props) => {
         navigation
         pagination={{ clickable: true }}
       >
-        <h1>{match.mycatname}</h1>
-        {match &&
-          match.mycatimgs.map((img) => (
-            <SwiperSlide>
-              <img class='mat-img' src={img.img.default} alt='cat' />
-            </SwiperSlide>
-          ))}
+        <h1>{mycatname}</h1>
+        {mycatimgs.map((img) => (
+          <SwiperSlide>
+            <img class='mat-img' src={img.img.default} alt='cat' />
+          </SwiperSlide>
+        ))}
 
-        <p class='catChar'>{match.mycatchar}</p>
+        <p class='catChar'>{mycatchar}</p>
       </Swiper>
     </div>
   );

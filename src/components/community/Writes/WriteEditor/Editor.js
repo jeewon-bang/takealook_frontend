@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
-import ImageResize from 'quill-image-resize';
 import '../../../../../node_modules/react-quill/dist/quill.snow.css';
 import axios from 'axios';
+import ImageResize from 'quill-image-resize';
 Quill.register('modules/ImageResize', ImageResize);
 
-const Editor = () => {
+const Editor = (props) => {
+  const { content, setContent } = props;
   // const [body, setBody] = useState('');
 
   // const handleBody = (e) => {
@@ -20,6 +21,8 @@ const Editor = () => {
   // useEffect(() => {
   //   setOpen(true);
   // }, []);
+
+  //https://velog.io/@wiostz98kr/React-Quill%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EA%B2%8C%EC%8B%9C%EA%B8%80-%EC%97%90%EB%94%94%ED%84%B0-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0
 
   const imageHandler = () => {
     console.log('에디터에서 이미지 버튼을 클릭하면 이 핸들러가 시작됩니다!');
@@ -38,6 +41,7 @@ const Editor = () => {
       // multer에 맞는 형식으로 데이터 만들어준다.
       const formData = new FormData();
       formData.append('img', file); // formData는 키-밸류 구조
+
       // 백엔드 multer라우터에 이미지를 보낸다.
       try {
         const result = await axios.post('http://localhost:4050/img', formData);
@@ -66,35 +70,6 @@ const Editor = () => {
   };
 
   // useMemo를 사용한 이유는 modules가 렌더링마다 변하면 에디터에서 입력이 끊기는 버그가 발생
-  // const modules = useMemo(
-  //   () => ({
-  //     toolbar: [
-  //       [
-  //         { header: '1' },
-  //         { header: '2' },
-  //         { header: [3, 4, 5, 6] },
-  //         { font: [] },
-  //       ],
-  //       [{ size: [] }, { color: [] }],
-  //       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-
-  //       [{ list: 'ordered' }, { list: 'bullet' }],
-  //       ['link', 'image', 'video'],
-  //       ['clean'],
-  //       ['code-block'],
-  //     ],
-  //     ImageResize: {
-  //       parchment: Quill.import('parchment'),
-  //     },
-  //     handlers: {
-  //       //이미지 처리는 우리가 직접 imageHandler라는 함수로 처리할 것이다.
-  //       image: imageHandler,
-  //     },
-  //   }),
-  //   []
-  // );
-
-  // useMemo를 사용한 이유는 modules가 렌더링마다 변하면 에디터에서 입력이 끊기는 버그가 발생
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -113,12 +88,12 @@ const Editor = () => {
           ['clean'],
           ['code-block'],
         ],
-        ImageResize: {
-          parchment: Quill.import('parchment'),
-        },
-        handlers: {
-          image: imageHandler,
-        },
+        // handlers: {
+        //   image: imageHandler,
+        // },
+      },
+      ImageResize: {
+        parchment: Quill.import('parchment'),
       },
     }),
     []
@@ -141,8 +116,9 @@ const Editor = () => {
     'code-block',
   ];
 
-  const [value, setValue] = useState('');
   const quillRef = useRef();
+
+  console.log(content);
 
   return (
     <div>
@@ -151,8 +127,8 @@ const Editor = () => {
         placeholder='내용을 입력해주세요😸'
         modules={modules}
         formats={formats}
-        onChange={setValue}
-        value={value}
+        onChange={setContent}
+        value={content}
         ref={quillRef}
       />
       {/* )} */}

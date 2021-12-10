@@ -8,12 +8,21 @@
 .right-nav {
   float: right;
   width: 10%;
-  padding: 20px;
 }
 
 .sorting-wrapper {
   float: right;
-  // right: 100px;
-  margin-right: 200px;
+  margin-right: 5px;
   margin-top: 50px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 365px);
+  column-gap: 3px;
+  row-gap: 5px;
+  justify-content: center;
+  width: 90%;
+  float: left;
+  padding-left: 20px;
 }

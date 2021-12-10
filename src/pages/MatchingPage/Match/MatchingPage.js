@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './MatchingPage.scss';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import MatchingNav from 'components/Matching/SubNav/MatchingNav';
 import MyCatCard from 'components/Matching/MyCatCard/MyCatCard';
 import MatchCatCard from 'components/Matching/MatchCatCard/MatchCatCard';
+import '../MatchingPage.scss';
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -66,7 +66,7 @@ const MatchingPage = () => {
   ];
   const [match, setMatch] = useState(matchData);
   return (
-    <div>
+    <div class='content-container'>
       <MatchingNav />
 
       <hr />
@@ -76,12 +76,18 @@ const MatchingPage = () => {
           <div class='content-container'>
             <div class='matchBox'>
               <div class='match1'>
-                <MyCatCard match={match} setMatch={setMatch} />
+                <MyCatCard
+                  mycatname={match.mycatname}
+                  mycatimgs={match.mycatimgs}
+                  mycatchar={match.mycatchar}
+                />
               </div>
 
               <div class='match2'>
                 <MatchCatCard match={match} setMatch={setMatch} />
+                {/* 매칭신청수락(patch) */}
                 <button class='match-btn'>수락하기</button>
+                {/* 매칭신청거절(patch) */}
                 <button class='match-btn'>거절하기</button>
               </div>
             </div>
