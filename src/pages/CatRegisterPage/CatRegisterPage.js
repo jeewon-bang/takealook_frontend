@@ -72,7 +72,7 @@ const CatRegisterPage = () => {
   return (
     <div className='content-container'>
       <span className='cat-img-form'>
-        <CatImageUpload catImg={catImg} setCatImg={setCatImg} />
+        <CatImageUpload image={catImg} setImage={setCatImg} />
       </span>
       <div className='info-map-box'>
         <span className='cat-info-form'>

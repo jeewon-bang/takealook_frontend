@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Category from 'components/Community/Category/Category';
 import './PostWritePage.scss';
 import WriteCategory from 'components/Community/Writes/WriteCategory/WriteCategory';
@@ -14,48 +14,47 @@ import { useNavigate } from 'react-router';
 const PostWritePage = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const [boardId, setBoardId] = useState(0);
-  console.log(boardId); //카테고리값 변경시마다 state 변경
+  //과연 이렇게 useState를 남용해도 되는 것인가.. 리액트 고수 구합니다
+  const [boardId, setBoardId] = useState(1);
+  // console.log(boardId);
   const [title, setTitle] = useState('');
-  console.log(title);
+  // console.log(title);
   const [content, setContent] = useState('');
-  console.log(content);
+  // console.log(content);
   const [postImage, setPostImage] = useState([]);
-  console.log(postImage);
-  console.log(typeof postImage);
+  // console.log(postImage);
 
   const [postText, setPostText] = useState({
-    writerId: 1,
+    writerId: 2,
     boardId: 1,
-    title: '제목',
-    content: '내용',
+    title: '',
+    content: '',
   });
+  console.log(postText);
 
-  const handleCategory = (e) => {
-    setPostText({
-      ...postText,
-      [e.target.name]: boardId,
-    });
-  };
-
-  const handleTitle = (e) => {
-    setPostText({
-      ...postText,
-      [e.target.name]: title,
-    });
-  };
+  // useEffect(() => {
+  //   console.log('백만번 실행되고 있니?');
+  // }, []);
 
   const handleSubmit = () => {
+    setPostText({
+      ...postText,
+      boardId: boardId,
+      title: title,
+      content: content,
+    });
+
     if (!boardId || !title || !content || !postImage) {
       alert('모든 항목을 입력해주세요!');
     } else {
+      console.log(postText);
+
       const formData = new FormData();
 
       formData.append(
         'postText',
         new Blob([JSON.stringify(postText)], { type: 'application/json' })
       );
-
       for (let i = 0; i < postImage.length; i++) {
         formData.append('postImage', postImage[i]);
       }
@@ -80,11 +79,7 @@ const PostWritePage = () => {
       <hr />
       <div className='write-wrapper'>
         <div className='header'>
-          <WriteCategory
-            setBoardId={setBoardId}
-            name='boardId'
-            onChange={handleCategory}
-          />
+          <WriteCategory boardId={boardId} setBoardId={setBoardId} />
           <WriteGuidebtn setShowModal={setShowModal} />
           {showModal && <Writeguide setShowModal={setShowModal} />}
         </div>
@@ -94,14 +89,16 @@ const PostWritePage = () => {
         </div>
         <div className='footer'>
           <WriteThumbnail />
-          <CatImageUpload postImage={postImage} setPostImage={setPostImage} />
+          <CatImageUpload image={postImage} setImage={setPostImage} />
         </div>
-        <button className='write-btn' onClick={handleSubmit}>
-          글쓰기 완료 백으로 보내줘~~
-        </button>
-        <button className='cancel-btn' onClick={() => navigate(-1)}>
-          취소
-        </button>
+        <div className='register'>
+          <button className='write-btn' onClick={handleSubmit}>
+            등록하기
+          </button>
+          <button className='cancel-btn' onClick={() => navigate(-1)}>
+            취소
+          </button>
+        </div>
       </div>
     </div>
   );

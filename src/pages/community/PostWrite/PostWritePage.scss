@@ -21,6 +21,11 @@
   .footer {
     height: auto;
     margin-bottom: 60px;
+    position: static;
+  }
+
+  .register {
+    position: static;
   }
 
   .write-btn {
@@ -45,7 +50,7 @@
     border-radius: 8px;
     font-weight: bold;
     font-size: 25px;
-    color: $dark-gray;
+    color: $white-gray;
     margin: 20px;
   }
 }

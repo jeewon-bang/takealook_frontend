@@ -8,7 +8,7 @@ const WritePostComment = (props) => {
   // console.log(postId);
 
   const [commentInfo, setCommentInfo] = useState({
-    writerId: 1,
+    writerId: 2,
     content: '댓글내용',
   });
 
@@ -22,7 +22,7 @@ const WritePostComment = (props) => {
     if (!commentInfo) {
       alert('댓글을 입력해주세요!');
     } else {
-      console.log(commentInfo); // {postId: '', writerId: '', content: '댓글내용'}
+      console.log(commentInfo); // { writerId: 2, content: '댓글내용'}
 
       // const formData = new FormData();
       // formData.append(

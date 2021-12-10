@@ -1,23 +1,37 @@
 @import 'components/common/common';
 
+.cat-img-upload {
+  height: 290px;
+}
+
 .cat-img-upload-box {
-	width: 100%;
-	height: 300px;
-	background-color: $white-gray;
-	margin-bottom: 30px;
-	text-align: center;
-	vertical-align: middle;
+  width: 100%;
+  height: auto;
+  display: relative;
+  // display: flex;
+  background-color: $white-gray;
+  margin-bottom: 30px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 5px;
 }
 
 .img-upload-button {
-	@extend %button-square;
-	width: 100px;
-	height: 30px;
+  @extend %button-square;
+  width: 100px;
+  height: 40px;
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
 .img-preview {
-	width: 200px;
-	height: 200px;
-	background-repeat: no-repeat;
-	background-size: 300px;
+  width: 200px;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-size: 300px;
+  margin: 10px;
+  margin-top: 40px;
+  border-radius: 10px;
 }

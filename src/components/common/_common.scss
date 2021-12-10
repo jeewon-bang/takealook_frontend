@@ -49,9 +49,9 @@ $breakpoint-desktop: 1024px;
 %button-square {
   background-color: $main-orange;
   color: white;
-  border-radius: 3px;
+  border-radius: 5px;
   border: none;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -60,7 +60,7 @@ $breakpoint-desktop: 1024px;
   color: white;
   border-radius: 50%;
   border: none;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 

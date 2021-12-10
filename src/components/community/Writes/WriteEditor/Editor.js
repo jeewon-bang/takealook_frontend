@@ -118,8 +118,6 @@ const Editor = (props) => {
 
   const quillRef = useRef();
 
-  console.log(content);
-
   return (
     <div>
       {/* {!!ReactQuill && isOpen && ( */}
@@ -127,7 +125,7 @@ const Editor = (props) => {
         placeholder='내용을 입력해주세요😸'
         modules={modules}
         formats={formats}
-        onChange={setContent}
+        onChange={setContent} //quill 에디터는 깊은복사 필요없는듯 ??
         value={content}
         ref={quillRef}
       />
@@ -137,4 +135,4 @@ const Editor = (props) => {
   );
 };
 
-export default Editor;
+export default React.memo(Editor);

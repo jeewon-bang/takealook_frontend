@@ -66,7 +66,7 @@ const PostDetailPage = () => {
       </div>
       <div className='post-listcomment'>
         <h1>
-          <font color='#ffa800'>3</font>
+          <font color='#ffa800'>{postDetails[0].comment}</font>
           개의 댓글
         </h1>
         {comments.map((cmt) => (

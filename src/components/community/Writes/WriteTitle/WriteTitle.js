@@ -5,9 +5,9 @@ const WriteTitle = (props) => {
   const { title, setTitle } = props;
 
   const writeTitle = (e) => {
-    const title = document.getElementById('title').value; //content id에서 받아온 value값
-    setTitle({ ...title, [e.target.name]: title });
-    // console.log(title);
+    // const title = document.getElementById('title').value; //content id에서 받아온 value값
+    // setTitle({ ...title, [e.target.name]: title }); //깊은복사 해야되나 고민했음
+    setTitle(e.target.value);
   };
 
   return (
@@ -35,4 +35,4 @@ const WriteTitle = (props) => {
   );
 };
 
-export default WriteTitle;
+export default React.memo(WriteTitle);

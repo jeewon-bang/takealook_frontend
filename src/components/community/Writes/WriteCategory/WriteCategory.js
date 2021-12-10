@@ -2,12 +2,11 @@ import React from 'react';
 import './WriteCategory.scss';
 
 const WriteCategory = (props) => {
-  const { setBoardId } = props;
+  const { boardId, setBoardId } = props;
 
   const selectedBoard = (e) => {
-    const value = e.target.value;
-    // console.log(value);
-    setBoardId(value);
+    // setBoardId({ ...boardId, boardId: e.target.value }); //깊은복사 해야되나 고민했음
+    setBoardId(e.target.value);
   };
 
   return (
@@ -35,4 +34,4 @@ const WriteCategory = (props) => {
   );
 };
 
-export default WriteCategory;
+export default React.memo(WriteCategory);
