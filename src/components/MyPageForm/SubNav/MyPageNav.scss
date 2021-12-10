@@ -1,0 +1,51 @@
+.list-title {
+  text-align: center;
+  color: #1e262c;
+}
+
+.list-title > h2 {
+  font-family: 'SurroundAir';
+  font-size: 39px;
+  font-weight: 800;
+}
+.tab-content {
+  padding-top: 18px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid rgba(228, 228, 228, 0.5);
+}
+.tab-inner {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+.MyPage-Nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-link {
+  float: left;
+  cursor: pointer;
+  margin-right: 50px;
+  line-height: 29px;
+  padding-bottom: 6px;
+  position: relative;
+  font-family: 'SurroundAir';
+  font-size: 20px;
+  text-align: center;
+  color: #000;
+}
+.nav-link:hover {
+  color: #ffa800;
+}
+
+@font-face {
+  font-family: 'SurroundAir';
+  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
+}

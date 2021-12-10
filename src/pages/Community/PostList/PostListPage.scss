@@ -1,0 +1,28 @@
+@import 'components/common/common';
+
+@font-face {
+  font-family: 'SurroundAir';
+  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
+}
+
+.right-nav {
+  float: right;
+  width: 10%;
+}
+
+.sorting-wrapper {
+  float: right;
+  margin-right: 5px;
+  margin-top: 50px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 365px);
+  column-gap: 3px;
+  row-gap: 5px;
+  justify-content: center;
+  width: 90%;
+  float: left;
+  padding-left: 20px;
+}
