@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import Modal from 'components/common/Modal';
+import Modal from 'components/Common/Modal';
 import './CatCare.scss';
 import CareCalendar from '../CareCalendar/CareCalendar';
 import axiosInstance from 'api/customAxios';

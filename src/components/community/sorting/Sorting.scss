@@ -1,0 +1,31 @@
+@import 'components/common/common';
+
+@font-face {
+  font-family: 'SurroundAir';
+  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
+}
+
+.sorting {
+  width: 120px;
+  text-align: center;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 5px;
+  border-color: $line-gray;
+  color: $gray;
+}
+
+.sorting:focus {
+  outline: none;
+}
+
+.sorting .option {
+  color: black;
+  //   height: 200px;
+  //   border-radius: 5px;
+}
+
+// .sorting .option:hover {
+//   background-color: $pink;
+//   cursor: pointer;
+// }

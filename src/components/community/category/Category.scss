@@ -1,0 +1,30 @@
+@import 'components/common/common';
+
+@font-face {
+  font-family: 'Surround';
+  src: url('../../../fonts/Cafe24Ssurround.ttf');
+}
+
+.subnav {
+  width: 1500px;
+}
+
+.category {
+  border: none;
+  background-color: white;
+  font-size: 25px;
+  font-weight: bolder;
+  font-style: 'Surround';
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.category:hover {
+  color: $main-orange;
+  cursor: pointer;
+}
+
+.me-auto {
+  text-align: center;
+  margin-top: 10px;
+}
