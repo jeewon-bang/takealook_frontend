@@ -45,37 +45,16 @@ const CatRegisterForm = (props) => {
 					선택
 				</option>
 				<option value='0'>고등어태비</option>
-				<option value='1'>치즈태비</option>
-				<option value='2'>실버태비</option>
-				<option value='3'>삼색이</option>
-				<option value='4'>카오스</option>
-				<option value='5'>턱시도</option>
-				<option value='6'>젖소</option>
-				<option value='7'>블랙</option>
-				<option value='8'>화이트</option>
+				<option value='1'>치즈</option>
+				<option value='2'>삼색이</option>
+				<option value='3'>카오스</option>
+				<option value='4'>턱시도</option>
+				<option value='5'>젖소</option>
+				<option value='6'>블랙</option>
+				<option value='7'>화이트</option>
+				<option value='8'>실버</option>
 				<option value='9'>기타</option>
 			</select>
-
-			{/* <div className='input-label'>상태</div>
-			<label className='input-radio'>
-				<input
-					type='radio'
-					name='status'
-					value='0' 
-					onChange={handleStatusChange}
-					required
-				/>
-				<span className='status'>건강함</span>
-			</label>
-			<label className='input-radio'>
-				<input
-					type='radio'
-					name='status'
-					value='1'
-					onChange={handleStatusChange}
-				/>
-				<span className='status'>치료 필요</span>
-			</label> */}
 
 			<div className='input-label'>중성화</div>
 			<label className='input-radio'>

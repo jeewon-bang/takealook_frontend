@@ -1,93 +1,105 @@
-import React, { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/swiper-react';
-import SwiperCore, { Navigation, Pagination } from 'swiper';
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
+import React, { useEffect, useState } from 'react';
+
 import './CatMatch.scss';
+import Map from 'components/common/Map';
+import CatMap from 'components/CatDetail/CatMap/CatMap';
+import CatMarkerMap from 'components/common/CatMarkerMap';
 
 const CatMatch = (props) => {
-	const { catInfo, setCatInfo, onClose } = props;
+	const { moreInfo, setMoreInfo, matchedCat } = props;
 
-	const [showInput, setShowInput] = useState(false);
 	const matchCat = () => {};
-	const handleChange = (e) => {
-		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
-	};
-	const handleSubmit = () => {
-		console.log(catInfo);
-		// 비동기 보내기
-		alert('완료되었습니다');
-		// window.location.replace('/mycat');
-	};
 
-	const matchedCat = [
-		{
-			id: 1,
-			name: '보리',
-		},
-		{
-			id: 2,
-			name: '율무',
-		},
-	];
+	useEffect(() => {
+		console.log('CatMatch 모달 렌더링!');
+	});
 
 	return (
 		<div className='cat-match-modal'>
-			<div>
-				비슷한 고양이가 이미 등록되어 있어요! 혹시 이 고양이를 발견하셨나요?
-			</div>
+			<div className='message'>비슷한 고양이가 이미 등록되어 있어요!</div>
+			<div>혹시 이 고양이를 발견하셨나요?</div>
 			<img
 				className='cat-image'
 				src={require('images/bori2.jpg').default}
 				alt='img'
 			/>
-			<div className='cat-name'>보리</div>
-			<button onClick={matchCat}>네, 이 고양이를 내 도감에 추가할래요.</button>
-			<button onClick={() => setShowInput(true)}>
-				아니오, 새로운 고양이로 등록할래요.
+			<div className='cat-name'>{matchedCat.name}</div>
+			<div className='cat-info'>
+				{matchedCat.gender === 0 ? '♂' : 1 ? '♀' : '성별 모름'}&nbsp;·&nbsp;
+				{matchedCat.pattern === 0
+					? '고등어태비'
+					: 1
+					? '치즈태비'
+					: 2
+					? '실버태비'
+					: 3
+					? '삼색이'
+					: 4
+					? '카오스'
+					: 5
+					? '턱시도'
+					: 6
+					? '젖소'
+					: 7
+					? '블랙'
+					: 8
+					? '화이트'
+					: '기타'}{' '}
+				&nbsp;·&nbsp;중성화{' '}
+				{matchedCat.neutered === 0 ? '미완료' : 1 ? '완료' : '모름'}
+			</div>
+
+			<div className='cat-location-map'>
+				<div className='title'>최근 발견 위치</div>
+				<CatMarkerMap
+					mapId={`${matchedCat.id}-map`}
+					catLoc={matchedCat.locations}
+					width={'100%'}
+					height={'90%'}
+				/>
+			</div>
+
+			<button className='yes-button' onClick={matchCat}>
+				이 고양이를 내 도감에 추가
 			</button>
-			{showInput && (
-				<Swiper
-					spaceBetween={50}
-					slidesPerView={1}
-					navigation
-					pagination={{ clickable: true }}>
-					{matchedCat.map((cat) => {
-						<SwiperSlide>
-							<div className='input-label'>이름</div>
-							<input
-								className='input-text'
-								type='text'
-								name='name'
-								onBlur={handleChange}
-							/>
-							<br />
-							<div className='input-label'>상태</div>
-							<label className='input-radio'>
-								<input
-									type='radio'
-									name='status'
-									value='0'
-									onChange={handleChange}
-									required
-								/>
-								<span className='status'>건강함</span>
-							</label>
-							<label className='input-radio'>
-								<input
-									type='radio'
-									name='status'
-									value='1'
-									onChange={handleChange}
-								/>
-								<span className='status'>치료 필요</span>
-							</label>
-							<button onClick={handleSubmit}>새로운 고양이 등록</button>
-						</SwiperSlide>;
-					})}
-				</Swiper>
-			)}
+			<br />
+			<button className='no-button' onClick={() => setMoreInfo(true)}>
+				일치하는 고양이 없음
+			</button>
+
+			{/* {showInput && (
+				<div>
+					<div className='input-label'>이름</div>
+					<input
+						className='input-text'
+						type='text'
+						name='name'
+						onBlur={handleChange}
+					/>
+					<br />
+					<div className='input-label'>상태</div>
+					<label className='input-radio'>
+						<input
+							type='radio'
+							name='status'
+							value='0'
+							onChange={handleChange}
+							required
+						/>
+						<span className='status'>건강함</span>
+					</label>
+					<label className='input-radio'>
+						<input
+							type='radio'
+							name='status'
+							value='1'
+							onChange={handleChange}
+						/>
+						<span className='status'>치료 필요</span>
+					</label>
+					<button onClick={handleSubmit}>새로운 고양이 등록</button>
+				</div>
+			)} */}
 		</div>
 	);
 };

@@ -11,7 +11,7 @@ const CatLocation = (props) => {
 
 	useEffect(() => {
 		/** 지도 생성하기 */
-		let mapContainer = document.getElementById('map'); // 지도를 표시할 div
+		let mapContainer = document.getElementById('register-map'); // 지도를 표시할 div
 		let mapOption = {
 			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 			level: 2, // 지도의 확대 레벨
@@ -39,7 +39,7 @@ const CatLocation = (props) => {
 				// image: 설정가능
 			});
 			marker.setDraggable(true);
-			markers.push(marker);
+			setMarkers([...markers, marker]);
 		});
 	}, []);
 
@@ -67,7 +67,7 @@ const CatLocation = (props) => {
 			<div className='input-label'>최근 발견된 위치</div>
 			{/* <Map handleClick={handleClick} /> */}
 			<div
-				id='map'
+				id='register-map'
 				style={{ width: '100%', height: '500px' }}
 				onClick={handleClick}></div>
 			<button onClick={deleteMarker}>초기화</button>

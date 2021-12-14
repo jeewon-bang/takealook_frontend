@@ -47,11 +47,13 @@ $breakpoint-desktop: 1024px;
 
 // 재사용할 디자인들
 %button-square {
+	height: 30px;
+	font-size: 18px;
 	background-color: $main-orange;
 	color: white;
 	border-radius: 3px;
 	border: none;
-	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+	// box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.3);
 	cursor: pointer;
 }
 

@@ -11,6 +11,7 @@ const CatCare = (props) => {
 		type: '',
 		message: '',
 	});
+	const [showCareInput, setShowCareInput] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const today = moment();
 
@@ -30,10 +31,13 @@ const CatCare = (props) => {
 		});
 	};
 
+	const openCareInput = () => {
+		showCareInput ? setShowCareInput(false) : setShowCareInput(true);
+	};
+
 	const openModal = () => {
 		setShowModal(true);
 	};
-	const addCare = () => {};
 
 	const closeModal = () => {
 		setShowModal(false);
@@ -45,48 +49,52 @@ const CatCare = (props) => {
 
 	return (
 		<div className='care-container'>
-			<div className='title-text'>
-				최근 48시간의 돌봄 기록
-				<span onClick={openModal}> [캘린더보기]</span>
-			</div>
-			<div className='care-box'>
-				<span onClick={addCare}>[돌봄기록추가]</span>
-				<div className='history-add-box'>
-					<select name='type' onBlur={handleValueChange}>
-						<option>선택</option>
-						<option value='0'>밥 주기</option>
-						<option value='1'>간식 주기</option>
-						<option value='2'>약 먹이기</option>
-						<option value='3'>병원 치료</option>
-						<option value='4'>기타</option>
-					</select>
-					<input
-						type='text'
-						name='message'
-						className='history-input-text'
-						onBlur={handleValueChange}></input>
-					<button onClick={handleCareSubmit}>등록</button>
-				</div>
-				{careHistory.map((v) => (
-					<div className='care'>
-						<div className='user-img'></div>
-						<span>{v.carer.userName} / </span>
-						<span>{v.createdAt} 시간 전/</span>
-						<span>
-							{v.type === 0
-								? '밥 주기'
-								: 1
-								? '간식 주기'
-									? 2
-									: '약 먹이기'
-								: 3
-								? '병원 치료'
-								: '기타'}{' '}
-							/{' '}
-						</span>
-						<span>{v.message}</span>
+			<div className='new-care'>
+				<button className='care-add-button' onClick={openCareInput}>
+					돌봄기록추가
+				</button>
+				{showCareInput && (
+					<div className='care-input'>
+						<select name='type' onBlur={handleValueChange}>
+							<option selected disabled>
+								선택
+							</option>
+							<option value='0'>밥 주기</option>
+							<option value='1'>간식 주기</option>
+							<option value='2'>약 먹이기</option>
+							<option value='3'>병원 치료</option>
+							<option value='4'>기타</option>
+						</select>
+						<input
+							type='text'
+							name='message'
+							className='history-input-text'
+							onBlur={handleValueChange}></input>
+						<button onClick={handleCareSubmit}>등록</button>
 					</div>
-				))}
+				)}
+				<div onClick={openModal}>
+					{careHistory.map((v) => (
+						<div className='care'>
+							<div className='user-img'></div>
+							<span>{v.carer.userName} / </span>
+							<span>{v.createdAt} 시간 전/</span>
+							<span>
+								{v.type === 0
+									? '밥 주기'
+									: 1
+									? '간식 주기'
+										? 2
+										: '약 먹이기'
+									: 3
+									? '병원 치료'
+									: '기타'}{' '}
+								/{' '}
+							</span>
+							<span>{v.message}</span>
+						</div>
+					))}
+				</div>
 			</div>
 
 			{showModal && (
