@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Header from './components/common/Header/Header';
+import Header from './components/Common/Header/Header';
 import HomePage from './pages/Home/HomePage';
 import JoinPage from './pages/Join/JoinPage';
 import LoginPage from './pages/Login/LoginPage';
@@ -8,7 +8,7 @@ import './App.css';
 import MyPage from './pages/MyPage/MyPage/MyPage';
 import CatDetailPage from './pages/CatDetail/CatDetailPage';
 import CatRegisterPage from 'pages/CatRegisterPage/CatRegisterPage';
-import OAuth2RedirectHandler from 'components/oauth/OAuth2RedirectHandeler';
+import OAuth2RedirectHandler from 'components/Oauth/OAuth2RedirectHandeler';
 import PostDetailPage from 'pages/Community/PostDetail/PostDetailPage';
 import PostWritePage from 'pages/Community/PostWrite/PostWritePage';
 import PostListPage from 'pages/Community/PostList/PostListPage';

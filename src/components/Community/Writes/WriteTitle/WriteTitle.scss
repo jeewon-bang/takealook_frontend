@@ -1,0 +1,21 @@
+@import 'components/Common/common';
+
+.title-input {
+  @extend %input-text;
+  border-bottom: 1px solid black;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  width: 800px;
+  margin-bottom: 50px;
+  margin-left: 0;
+}
+
+.title-input:focus {
+  outline: none;
+}
+
+.write-title {
+  padding-top: 60px;
+}

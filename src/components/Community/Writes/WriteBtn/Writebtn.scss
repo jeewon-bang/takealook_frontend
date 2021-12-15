@@ -1,0 +1,10 @@
+@import 'components/Common/common';
+
+.cwrite {
+  width: 150px;
+  height: 150px;
+  position: fixed;
+  float: right;
+  top: 600px;
+  z-index: 9999;
+}
