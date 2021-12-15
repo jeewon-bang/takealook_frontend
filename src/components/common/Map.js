@@ -3,10 +3,6 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-export const StyledMapDiv = styled.div`
-	width: 100%;
-	height: 100%;
-`;
 export let map = null;
 
 const Map = () => {
@@ -31,7 +27,7 @@ const Map = () => {
 		// }
 	}, []);
 
-	return <StyledMapDiv id='map'></StyledMapDiv>;
+	return <div id='map' style={{ width: '100%', height: '100%' }}></div>;
 };
 
 export default Map;
