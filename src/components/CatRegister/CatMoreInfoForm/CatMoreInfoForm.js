@@ -1,9 +1,11 @@
 import axiosInstance from 'api/customAxios';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './CatMoreInfoForm.scss';
 
 const CatMoreInfoForm = (props) => {
 	const { catInfo, setCatInfo, catImg, catLoc } = props;
+
 	let previewUrl = '';
 	if (catImg.length === 0) {
 	} else {

@@ -1,5 +1,4 @@
 import axiosInstance from 'api/customAxios';
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import ToolTip from 'react-power-tooltip';
 import './CatInfo.scss';
@@ -9,20 +8,40 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 
 const CatInfo = (props) => {
-	const { catImg, setCatImg, catInfo, setCatInfo } = props;
+	const { catId, catInfo, setCatInfo, catImg, setCatImg } = props;
 
 	const [loaded, setLoaded] = useState(false); // axios로 데이터 받아서 화면그릴때 사용할 변수
 	const [showTooltip, setShowTooltip] = useState(false);
 
-	// 고양이 상태만 수정하기
 	const changeCatStatus = (e) => {
-		// (axios로 변경 요청 전송)
-		console.log(e.target.innerText);
+		let newStatus;
+		switch (e.target.innerText) {
+			case '건강함':
+				newStatus = '0';
+				break;
+			case '치료 필요':
+				newStatus = '1';
+				break;
+			case '입양됨':
+				newStatus = '2';
+				break;
+			default:
+				newStatus = '3';
+		}
+		axiosInstance
+			.patch(`/user/1/cat/${catId}?status=${newStatus}`)
+			.then((res) => {
+				console.log(res);
+				setCatInfo({ ...catInfo, status: newStatus });
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	useEffect(() => {
-		console.log('CatInfo', catImg[0]);
-	}, []);
+		console.log('상태변경됐당');
+	}, [catInfo]);
 
 	return (
 		<div className='info-container'>
@@ -31,7 +50,12 @@ const CatInfo = (props) => {
 					<Swiper slidesPerView={1} navigation pagination={{ clickable: true }}>
 						{catImg.map((img) => (
 							<SwiperSlide>
-								<img src={img} alt='img' className='cat-img' />
+								<img
+									src={'takealook/images/catImages/1/20211214-bori3.jpg'}
+									alt='img'
+									className='cat-img'
+								/>
+								{img}
 								{/* <img
 									src={require('images/bori2.jpg').default}
 									alt='img'

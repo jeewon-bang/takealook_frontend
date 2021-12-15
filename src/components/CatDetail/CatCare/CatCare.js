@@ -4,6 +4,7 @@ import Modal from 'components/common/Modal';
 import './CatCare.scss';
 import CareCalendar from '../CareCalendar/CareCalendar';
 import axiosInstance from 'api/customAxios';
+import { useParams } from 'react-router';
 
 const CatCare = (props) => {
 	const { catId, careHistory, setCareHistory } = props;
@@ -20,25 +21,37 @@ const CatCare = (props) => {
 			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asHours()
 		);
 	};
-
 	const handleValueChange = (e) => {
 		setNewCare({ ...newCare, [e.target.name]: e.target.value });
 	};
 	const handleCareSubmit = () => {
-		console.log(newCare);
-		axiosInstance.post('user/1/cat/1/catcare', newCare, {
-			'Content-Type': 'application/json',
-		});
-	};
+		axiosInstance
+			.post(`user/1/cat/${catId}/catcare`, newCare, {
+				'Content-Type': 'application/json',
+			})
+			.then((res) => {
+				console.log(res);
 
+				axiosInstance
+					.get(`/user/1/cat/${catId}/48hours-catcares`)
+					.then((res) => {
+						console.log(res);
+						setCareHistory(res.data);
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	const openCareInput = () => {
 		showCareInput ? setShowCareInput(false) : setShowCareInput(true);
 	};
-
 	const openModal = () => {
 		setShowModal(true);
 	};
-
 	const closeModal = () => {
 		setShowModal(false);
 	};
@@ -49,6 +62,12 @@ const CatCare = (props) => {
 
 	return (
 		<div className='care-container'>
+			<button
+				onClick={() => {
+					setShowModal(true);
+				}}>
+				캘린더 보기
+			</button>
 			<div className='new-care'>
 				<button className='care-add-button' onClick={openCareInput}>
 					돌봄기록추가
