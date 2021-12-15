@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { REST_API_KEY, REDIRECT_URI } from 'config/config';
 import axiosInstance from 'api/customAxios';
-import Kakao from 'components/oauth/Kakao';
+import { KAKAO_JAVASCRIPT_KEY, REDIRECT_URI } from 'config/config';
+import KakaoLogin from 'react-kakao-login';
 const LoginPage = () => {
 	// const [user, setUser] = useState(null);
 
@@ -21,7 +21,20 @@ const LoginPage = () => {
 			</button> */}
 			{/* <button onClick={loginRequest}>카카오로그인</button> */}
 			{/* <button onClick={loginRequest}>구글로그인</button>  */}
-			<Kakao />
+			<KakaoLogin
+				token={KAKAO_JAVASCRIPT_KEY}
+				callbackUrl={REDIRECT_URI}
+				render={(renderProps) => (
+					<div onClick={renderProps.onClick} disabled={renderProps.disabled}>
+						카카오로그인
+					</div>
+				)}
+				onSuccess={(res) => {
+					console.log(res);
+				}}
+				onFaile={(err) => {
+					console.log(err);
+				}}></KakaoLogin>
 		</div>
 	);
 };

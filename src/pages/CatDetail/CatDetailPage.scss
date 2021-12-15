@@ -1,16 +1,30 @@
-.container-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 100px;
-}
+@import 'components/common/common';
 
-.container {
-  width: 80%;
-}
+.content-container {
+	.title {
+		font-size: 24px;
+		font-weight: 800;
+		margin-bottom: 10px;
+	}
 
-.button-box {
-  margin-top: 30px;
-  margin-bottom: 60px;
-  display: flex;
-  justify-content: flex-end;
+	.button-box {
+		margin: 80px 0px 80px 0px;
+
+		.cat-delete-button {
+			@extend %button-square;
+			box-sizing: border-box;
+			width: 49%;
+			height: 40px;
+			background-color: gray;
+			margin-right: 1%;
+		}
+
+		.cat-other-button {
+			@extend %button-square;
+			box-sizing: border-box;
+			width: 49%;
+			height: 40px;
+			margin-left: 1%;
+		}
+	}
 }
