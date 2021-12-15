@@ -154,9 +154,8 @@ const CatDetailPage = () => {
 		setShowModal(false);
 	};
 
-	useEffect(() => {
-		console.log('CatDetailPage');
-
+  useEffect(() => {
+    console.log('CatDetailPage');
 		axios
 			.all([
 				axiosInstance.get(`/user/1/cat/${catId}`),
