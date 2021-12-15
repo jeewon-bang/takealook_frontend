@@ -1,34 +1,39 @@
+import axiosInstance from 'api/customAxios';
 import axios from 'axios';
-import MyCat from 'components/MyCat/MyCat';
+import MyCat from 'components/MyCat/MyCat/MyCat';
+import MyLeftCat from 'components/MyCat/MyLeftCat/MyLeftCat';
 import React, { useState, useEffect } from 'react';
+import './MyCatPage.scss';
 
-let myCatData = {
-  id: 1,
-  name: '보리',
-  status: 0,
-  care: [
-    {
-      userName: '',
-      userImage: '',
-      type: '',
-      message: '',
-    },
-  ],
-};
+// let myCatData = {
+//   id: 1,
+//   name: '보리',
+//   status: 0,
 
-let catData = [
+//   care: [
+//     {
+//       userName: '',
+//       userImage: '',
+//       type: '',
+//       message: '',
+//     },
+//   ],
+// };
+
+let myCatData = [
   {
     id: 1,
     image: require('images/bori2.jpg'),
     name: '보리',
+    catStatus: '건강함',
     catCare: [
       {
         id: 1,
         user: '혜민',
         userImg: '',
         time: '2021-11-10 12:40:33',
-        type: '사료 급여',
-        message: '사료 바꿨어요!',
+        type: 0,
+        message: '츄르줬어요!!',
       },
 
       {
@@ -36,16 +41,16 @@ let catData = [
         user: '지원',
         userImg: '',
         time: '2021-11-29 22:24:10',
-        type: '약 급여',
-        message: '',
+        type: 1,
+        message: '사료 바꿨어요!',
       },
       {
         id: 3,
         user: '세은',
         userImg: '',
         time: '2021-11-30 10:55:00',
-        type: '치료',
-        message: '구내염 처방받으러 병원갔다왔어요ㅠㅠ',
+        type: 2,
+        message: '심장사상충약 급여했어요',
       },
     ],
   },
@@ -53,13 +58,14 @@ let catData = [
     id: 2,
     image: require('images/ritae1.jpg'),
     name: '리태',
+    catStatus: '치료필요',
     catCare: [
       {
         id: 1,
         user: '지혜',
         userImg: '',
         time: '2021-11-10 12:40:33',
-        type: '사료 급여',
+        type: 1,
         message: '사료 바꿨어요!',
       },
 
@@ -68,15 +74,15 @@ let catData = [
         user: '형림',
         userImg: '',
         time: '2021-11-29 22:24:10',
-        type: '약 급여',
-        message: '',
+        type: 2,
+        message: '심장사상충약 급여했어요',
       },
       {
         id: 3,
         user: '세은',
         userImg: '',
         time: '2021-11-30 10:55:00',
-        type: '치료',
+        type: 3,
         message: '구내염 처방받으러 병원갔다왔어요ㅠㅠ',
       },
     ],
@@ -85,14 +91,15 @@ let catData = [
     id: 3,
     image: require('images/yulmu2.jpg'),
     name: '율무',
+    catStatus: '건강함',
     catCare: [
       {
         id: 1,
         user: '지수',
         userImg: '',
         time: '2021-11-10 12:40:33',
-        type: '사료 급여',
-        message: '사료 바꿨어요!',
+        type: 4,
+        message: '물급여했어요',
       },
 
       {
@@ -100,37 +107,160 @@ let catData = [
         user: '지원',
         userImg: '',
         time: '2021-11-29 22:24:10',
-        type: '약 급여',
-        message: '',
+        type: 2,
+        message: '심장사상충약 급여했어요',
       },
       {
         id: 3,
         user: '지혜',
         userImg: '',
         time: '2021-11-30 10:55:00',
-        type: '치료',
+        type: 3,
         message: '구내염 처방받으러 병원갔다왔어요ㅠㅠ',
       },
     ],
   },
 ];
 
+let adoptedCatData = [
+  {
+    id: 1,
+    image: require('images/bori2.jpg'),
+    name: '보리',
+  },
+  {
+    id: 2,
+    image: require('images/ritae1.jpg'),
+    name: '리태',
+  },
+  {
+    id: 3,
+    image: require('images/yulmu2.jpg'),
+    name: '율무',
+  },
+];
+
+let catStarData = [
+  {
+    id: 1,
+    image: require('images/bori2.jpg'),
+    name: '보리보리',
+  },
+  {
+    id: 2,
+    image: require('images/ritae1.jpg'),
+    name: '리태',
+  },
+  {
+    id: 3,
+    image: require('images/yulmu2.jpg'),
+    name: '율무',
+  },
+];
+
 const MyCatPage = () => {
+  const [myCats, setMyCats] = useState(myCatData);
+  const [adoptedCats, setAdoptedCats] = useState(adoptedCatData);
+  const [catStar, setCatStar] = useState(catStarData);
+  const [selectType, setSelectType] = useState('mycat');
+  const [loaded, setLoaded] = useState(false);
+
+  const sortHandler = (e) => {
+    console.log(e.target.value);
+
+    const value = e.target.value;
+    switch (value) {
+      case 'mycat':
+        moveToMycat();
+        break;
+      case 'adopted':
+        moveToAdopted();
+        break;
+      case 'cat-star':
+        moveToCatstar();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const moveToMycat = () => {
+    setSelectType('mycat');
+  };
+
+  const moveToAdopted = () => {
+    setSelectType('adopted');
+  };
+
+  const moveToCatstar = () => {
+    setSelectType('cat-star');
+  };
+
   // useEffect(() => {
-  //   // data : {status: true, cats: sadklfjaskldf}
-  //   const { data } = axios.post('http://192.168.0.10:5414/list');
-  //   if (data.status) {
-  //     setCats(data);
-  //   } else {
-  //     // 에러 처리하는곳
-  //   }
+  //   axios
+  //     .all([
+  //       axiosInstance.get(`/user/1/cats`),
+  //       axiosInstance.get(`/user/1/cat-stars`),
+  //       axiosInstance.get(`/user/1/adopted`),
+  //     ])
+  //     .then(
+  //       axios.spread((myCatsRes, adoptedCatsRes, catStarRes) => {
+  //         setMyCats(myCatsRes.data);
+  //         setAdoptedCats(adoptedCatsRes.data);
+  //         setCatStar(catStarRes.data);
+  //         setLoaded(true);
+  //       })
+  //     );
   // }, []);
 
-  const [cats, setCats] = useState(catData);
-
   return (
-    <div className='content-container'>
-      <MyCat cats={cats} setCats={setCats} />
+    <div className='mycat-container'>
+      <div className='mycat-sorting'>
+        <select name='choice' className='sorting' onChange={sortHandler}>
+          <option value='mycat' className='option'>
+            내 고양이
+          </option>
+          <option value='adopted' className='option'>
+            입양된 고양이
+          </option>
+          <option value='cat-star' className='option'>
+            고양이 별
+          </option>
+        </select>
+      </div>
+      {(() => {
+        switch (selectType) {
+          case 'mycat':
+            return <MyCat cats={myCats} setCats={setMyCats} />;
+          case 'adopted':
+            return (
+              <div className='catCard-container'>
+                {adoptedCats.map((cat) => (
+                  <MyLeftCat
+                    catId={cat.id}
+                    catName={cat.name}
+                    catImg={cat.image}
+                  />
+                ))}
+              </div>
+            );
+          case 'cat-star':
+            return (
+              <div className='catCard-container'>
+                {catStar.map((cat) => (
+                  <MyLeftCat
+                    catId={cat.id}
+                    catName={cat.name}
+                    catImg={cat.image}
+                  />
+                ))}
+              </div>
+            );
+
+          default:
+            return '잘못된 접근입니다.';
+        }
+      })()}
     </div>
   );
 };

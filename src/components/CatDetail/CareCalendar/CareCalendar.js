@@ -84,28 +84,28 @@ const CareCalendar = (props) => {
 											careType={0}
 											careList={careHistory.filter(
 												(v) =>
-													v.datetime.split(' ')[0] ===
+													v.createdAt.split('T')[0] ===
 														current.format('yyyy-MM-DD') && v.type === 0
 											)}></CareDetail>
 										<CareDetail
 											careType={1}
 											careList={careHistory.filter(
 												(v) =>
-													v.datetime.split(' ')[0] ===
+													v.createdAt.split('T')[0] ===
 														current.format('yyyy-MM-DD') && v.type === 1
 											)}></CareDetail>
 										<CareDetail
 											careType={2}
 											careList={careHistory.filter(
 												(v) =>
-													v.datetime.split(' ')[0] ===
+													v.createdAt.split('T')[0] ===
 														current.format('yyyy-MM-DD') && v.type === 2
 											)}></CareDetail>
 										<CareDetail
 											careType={3}
 											careList={careHistory.filter(
 												(v) =>
-													v.datetime.split(' ')[0] ===
+													v.createdAt.split('T')[0] ===
 														current.format('yyyy-MM-DD') && v.type === 3
 											)}></CareDetail>
 									</div>

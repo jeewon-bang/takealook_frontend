@@ -1,0 +1,88 @@
+.cat-detail {
+  color: #000;
+}
+.cat {
+  margin-top: 20px;
+  width: 900px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
+    0 100% repeat-x;
+
+  .cat-body-left {
+    float: left;
+    width: 40%;
+    box-sizing: border-box;
+
+    .catimg {
+      margin: 10px 10px 0px 10px;
+      border-radius: 15px;
+      width: 90%;
+      height: 240px;
+    }
+    h1 {
+      width: 90%;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: 'SurroundAir';
+      text-align: center;
+    }
+  }
+
+  .cat-body-right {
+    margin-left: 30px;
+    float: right;
+    width: 60%;
+    box-sizing: border-box;
+
+    .cat-name {
+      font-size: 30px;
+      font-weight: 800;
+      text-align: center;
+      margin-right: 10px;
+    }
+
+    .cat-status {
+      border: none;
+      font-style: 'Surround';
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      display: inline-block;
+      height: 24px;
+      margin-bottom: 10px;
+      padding: 0 10px;
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: normal;
+      color: #000;
+      background-color: #eee;
+      border-radius: 12px;
+    }
+  }
+  .care {
+    margin: 20px 20px 20px 0px;
+    font-size: 18px;
+    display: flex;
+    .icon {
+      width: 35px;
+      height: 35px;
+      margin-right: 20px;
+    }
+    .time {
+      margin-top: 5px;
+      margin-right: 40px;
+      margin-bottom: 10px;
+    }
+    .message {
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@font-face {
+  font-family: 'SurroundAir';
+  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
+}

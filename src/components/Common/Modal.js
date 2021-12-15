@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+/* 모달 사용하기 
+- showModal 변수 정의, openModal, closeModal 함수 정의
+- { showModal && <Modal showModal={showModal} maskClosable={true} onClose={closeModal}>안에넣을내용</Modal> } 
+	형태로 사용하기
+*/
+
 const Modal = (props) => {
 	const { onClose, maskClosable, showModal, children } = props;
 
