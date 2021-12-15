@@ -7,7 +7,6 @@ import Writeguide from 'components/Community/Writes/WriteGuide/WriteGuide';
 import WriteGuidebtn from 'components/Community/Writes/WriteGuide/WriteGuidebtn';
 import WriteThumbnail from 'components/Community/Writes/WriteThumbnail/WriteThumbnail';
 import WriteTitle from 'components/Community/Writes/WriteTitle/WriteTitle';
-import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
 
@@ -88,8 +87,13 @@ const PostWritePage = () => {
           <Editor content={content} setContent={setContent} />
         </div>
         <div className='footer'>
-          <WriteThumbnail />
-          <CatImageUpload image={postImage} setImage={setPostImage} />
+          <h3>
+            썸네일 선택하기<font color='#ff0505'>*</font>
+            <font size='2' color='#deddda'>
+              &nbsp;파일첨부 필수
+            </font>
+          </h3>
+          <WriteThumbnail image={postImage} setImage={setPostImage} />
         </div>
         <div className='register'>
           <button className='write-btn' onClick={handleSubmit}>

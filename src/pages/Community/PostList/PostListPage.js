@@ -4,6 +4,7 @@ import PostList from 'components/Community/Post/PostList/PostList';
 import Writebtn from 'components/Community/Writes/WriteBtn/Writebtn';
 import Sorting from 'components/Community/Sorting/Sorting';
 import Category from 'components/Community/Category/Category';
+import Searching from 'components/Community/Searching/Searching';
 
 const PostListPage = () => {
   const [posts, setPosts] = useState([
@@ -12,7 +13,7 @@ const PostListPage = () => {
       board: '전국고양이자랑',
       like: 10,
       comment: 3,
-      created_at: '2021-11-22',
+      created_at: '2021-12-14 11:40:52',
       modified_at: '',
       title:
         '고양이와 함께 하는 재택근무 드디어 편하게 일할 수 있게 되었습니다',
@@ -100,6 +101,9 @@ const PostListPage = () => {
   //     : setPosts(posts.filter((post) => post.board === activeCat));
   // }, [activeCat]);
 
+  // const [search, setSearch] = useState('');
+  // console.log(search);
+
   return (
     <div className='content-container'>
       <div>
@@ -112,6 +116,9 @@ const PostListPage = () => {
         <hr />
         <div className='right-nav'>
           <Writebtn />
+        </div>
+        <div className='searching-wrapper'>
+          <Searching />
         </div>
         <div className='sorting-wrapper'>
           <Sorting posts={posts} setPosts={setPosts} />

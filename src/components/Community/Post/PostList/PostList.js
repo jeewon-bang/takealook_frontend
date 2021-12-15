@@ -6,15 +6,29 @@ const PostList = (props) => {
   const { id, title, content, writer, like, comment, created_at, board } =
     props.post;
 
+  let today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const date = today.getDate();
+  // const todayCustom = year + '-' + month + '-' + date;
+  const todayCustom = `${year}-${month >= 10 ? month : '0' + month}-${
+    date >= 10 ? date : '0' + date
+  }`;
+
+  // console.log(todayCustom); //2021-12-14
+  // console.log(created_at.substring(0, 10));
+
   return (
     <div>
       <Link to={'/community/post/' + id} className='link'>
         <div class='card'>
           <div class='card-header'>
-            <div class='card-header-is_closed'>
-              <div class='card-header-text'> new! </div>
-              {/* <div class='card-header-number'> 2 / 5 </div> */}
-            </div>
+            {todayCustom === created_at.substring(0, 10) ? (
+              <div class='card-header-is_closed'>
+                <div class='card-header-text'>new!</div>
+              </div>
+            ) : null}
+            {/* <div class='card-header-number'> 2 / 5 </div> */}
             {/* <img src={post.img} alt='img' /> */}
             {/* <img class='headerimage' src={backgroundimgs} alt='img' /> */}
           </div>
@@ -22,7 +36,6 @@ const PostList = (props) => {
           <div class='card-body'>
             <div class='card-body-header'>
               {/* <h3></h3> */}
-
               <p>
                 <font size='2' color='#ffa800'>
                   <strong>{board}</strong>
@@ -49,7 +62,7 @@ const PostList = (props) => {
                 alt='cmt'
               />
               {comment}
-              <i class='reg_date'> {created_at} </i>
+              <i class='reg_date'> {created_at.substring(0, 10)} </i>
             </div>
           </div>
         </div>

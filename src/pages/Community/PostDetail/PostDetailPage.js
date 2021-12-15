@@ -1,8 +1,10 @@
 import PostComment from 'components/Community/Post/PostComment/PostComment';
 import WritePostComment from 'components/Community/Post/PostComment/WritePostComment';
 import PostDetail from 'components/Community/Post/PostDetail/PostDetail';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PostDetailPage.scss';
+import axios from 'axios';
+import axiosInstance from 'api/customAxios';
 
 const PostDetailPage = () => {
   const [postDetails, setPostDetails] = useState([
@@ -50,6 +52,19 @@ const PostDetailPage = () => {
     },
   ]);
 
+  // const [loaded, setLoaded] = useState(false);
+
+  // useEffect(() => {
+  //   console.log('PostDetailPage');
+
+  //   axios.all([axiosInstance.get(`/post/1`)]).then(
+  //     axios.spread((postDetailRes) => {
+  //       setPostDetails(postDetailRes.data);
+  //       setLoaded(true);
+  //     })
+  //   );
+  // });
+
   return (
     <div className='content-container'>
       <div className='post-detail'>
@@ -74,6 +89,8 @@ const PostDetailPage = () => {
         ))}
       </div>
     </div>
+    // ) : (
+    //   <div>로딩중</div>
   );
 };
 

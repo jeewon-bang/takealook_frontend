@@ -6,13 +6,14 @@
 }
 
 .sorting {
-  width: 120px;
+  width: 150px;
   text-align: center;
   height: 30px;
   font-size: 15px;
   border-radius: 5px;
   border-color: $line-gray;
   color: $gray;
+  margin-right: 150px;
 }
 
 .sorting:focus {

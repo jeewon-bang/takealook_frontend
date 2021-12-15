@@ -8,7 +8,7 @@ const WritePostComment = (props) => {
   // console.log(postId);
 
   const [commentInfo, setCommentInfo] = useState({
-    writerId: 2,
+    writerId: 1,
     content: '댓글내용',
   });
 
