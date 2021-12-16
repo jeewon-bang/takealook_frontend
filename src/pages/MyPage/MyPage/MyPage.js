@@ -11,10 +11,10 @@ import '../MyPage.scss';
 const MyPage = () => {
   let userData = {
     id: 1,
-    login_id: 'seeun',
+    loginId: 'seeun',
     nickname: '즐거운보리차',
     phone: '01097920214',
-    image: '',
+    image: '/images/bori2.jpg',
   };
 
   let LikeData = [
@@ -248,7 +248,7 @@ const MyPage = () => {
     },
   ];
 
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(userData);
   const [likePosts, setLikePosts] = useState(LikeData);
   const [MyPosts, setMyPosts] = useState(MyPostData);
   const [alarm, setAlarm] = useState(notiData);
@@ -261,21 +261,21 @@ const MyPage = () => {
         axiosInstance.get(`/user/1`),
         // axiosInstance.get(``),
         // axiosInstance.get(``),
-        // axiosInstance.get(`/user/{userId}/notifications`),
+        axiosInstance.get(`/user/1/notifications`),
       ])
       .then(
-        axios.spread((userRes) => {
+        axios.spread((userRes, alarmRes) => {
           //, likePostsRes, MyPostsRes, alarmRes
           setUser(userRes.data);
           // setLikePosts(likePostsRes.data);
           // setMyPosts(MyPostsRes.data);
-          // setAlarm(alarmRes.data);
+          setAlarm(alarmRes.data);
           setLoaded(true);
         })
       );
   }, []);
 
-  return loaded ? (
+  return (
     <div class='mypage-container'>
       <div class='section1'>
         <Profile user={user} setUser={setUser} />
@@ -288,8 +288,6 @@ const MyPage = () => {
         <Alarm alarm={alarm} setAlarm={setAlarm} />
       </div>
     </div>
-  ) : (
-    <div>로딩중</div>
   );
 };
 

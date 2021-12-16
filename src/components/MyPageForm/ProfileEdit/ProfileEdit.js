@@ -1,5 +1,5 @@
 import axiosInstance from 'api/customAxios';
-import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
+import ImgUpload from 'components/Common/ImgUpload';
 import React, { useState } from 'react';
 import './ProfileEdit.scss';
 
@@ -12,10 +12,10 @@ const ProfileEdit = (props) => {
       ? setShowModal(false)
       : setShowModal(true);
   };
+  const [fileUrl, setFileUrl] = useState(null);
   const [userInfo, setUserInfo] = useState({
     nickname: user.nickname,
     phone: user.phone,
-    user_img: user.user_img,
   });
 
   // form 내의 값들이 변경되었을때 실행
@@ -23,43 +23,75 @@ const ProfileEdit = (props) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const submit = async () => {
-    //탈퇴요청
-    try {
-      const response = await axiosInstance.patch(`/user/1`);
-      console.log(response);
-      response.data ? alert('탈퇴가 완료되었습니다.') : alert('오류발생');
-    } catch (err) {
-      console.log('Error >>', err);
-    }
-  };
-
-  const checkSubmit = async () => {
-    //닉네임 중복 체크 요청 - true - 사용가능한 닉네임입니다.
-    // false - 이미 사용중인 닉네임입니다.(정보수정 버튼 클릭시 닉네임 중복알림 뜨도록 처리하기)
-    try {
-      const response = await axiosInstance.post(
-        `/user/check`,
-        userInfo.nickname,
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-      console.log(response);
-      response.data
-        ? alert('사용가능한 닉네임입니다.')
-        : alert('이미 사용중인 닉네임입니다.');
-    } catch (err) {
-      console.log('Error >>', err);
-    }
-  };
-
   const userInfosubmit = async () => {
-    try {
-      const response = await axiosInstance.put(`/user/1`, userInfo, {
-        headers: { 'Content-Type': 'application/json' },
+    console.log(fileUrl);
+    console.log(userInfo);
+
+    const formData = new FormData();
+
+    formData.append('fileUrl', fileUrl[0]);
+
+    formData.append(
+      'userInfo',
+      new Blob([JSON.stringify(userInfo)], { type: 'application/json' })
+    );
+
+    // 콘솔에 찍어보기
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+    axiosInstance
+      .put('/user/1', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((res) => {
+        console.log(res);
+        res.data === user.id
+          ? alert('수정이 완료되었습니다.')
+          : alert('오류가 발생하였습니다.');
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      console.log(response);
-    } catch (err) {
-      console.log('Error >>', err);
+  };
+
+  const nicknameCheck = () => {
+    let nickname = {
+      nickname: userInfo.nickname,
+    };
+
+    axiosInstance
+      .post(`/user/check`, nickname, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then((res) => {
+        console.log(res);
+        res.data
+          ? alert('사용가능한 닉네임입니다.')
+          : alert('이미 사용중인 닉네임입니다.');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // false일때 .(정보수정 버튼 클릭시 닉네임 중복알림 뜨도록 처리하기)
+  };
+
+  const withdrawalSubmit = () => {
+    //탈퇴요청
+    if (window.confirm('탈퇴하시겠습니까?')) {
+      axiosInstance
+        .patch(`/user/{userId}`)
+        .then((res) => {
+          console.log(res);
+          res.data === user.id
+            ? alert('탈퇴가 완료되었습니다.')
+            : alert('오류발생');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert('취소합니다.');
     }
   };
 
@@ -69,7 +101,7 @@ const ProfileEdit = (props) => {
         <div className='MyProfile'>
           <div className='edit-titleBox'>
             <h2 className='edit-title'>정보수정</h2>
-            <button className='submitButton' type='button' onclick={submit}>
+            <button className='submitButton' onClick={withdrawalSubmit}>
               회원탈퇴하기
             </button>
           </div>
@@ -92,7 +124,7 @@ const ProfileEdit = (props) => {
                 placeholder={user.nickname}
                 onChange={handleChange}
               />
-              <button className='checkButton' onClick={checkSubmit}>
+              <button className='checkButton' onClick={nicknameCheck}>
                 중복확인
               </button>
             </div>
@@ -110,23 +142,7 @@ const ProfileEdit = (props) => {
 
             <div className='input-label'>
               <label>프로필 사진</label>
-              <img
-                className='care'
-                src={require('images/happy.png').default}
-                alt='defaltImg'
-              />
-              <input
-                type='file'
-                id='user_img'
-                accept='image/*, .jfif'
-                name='user_img'
-                autocomplete='off'
-                onChange={handleChange}
-              />
-              {/* <CatImageUpload
-                image={userInfo.image}
-                setImage={setUserInfo.image}
-              /> */}
+              <ImgUpload fileUrl={fileUrl} setFileUrl={setFileUrl} />
             </div>
 
             <button className='update' onClick={userInfosubmit}>
