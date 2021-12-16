@@ -1,9 +1,9 @@
 /* global kakao */
 import Map from 'components/Common/Map';
 import React, { useEffect, useState } from 'react';
-import map from 'components/Common/Map';
 import './CatMap.scss';
 import styled from 'styled-components';
+import { map } from 'components/Common/Map';
 
 const CatMap = (props) => {
   const { catLoc, width, height } = props;
