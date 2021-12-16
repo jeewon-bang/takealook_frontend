@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
 import './CatMatch.scss';
-import Map from 'components/common/Map';
-import CatMap from 'components/CatDetail/CatMap/CatMap';
-import CatMarkerMap from 'components/common/CatMarkerMap';
+import CatMarkerMap from 'components/Common/CatMarkerMap';
+import axiosInstance from 'api/customAxios';
+import { useNavigate } from 'react-router';
 
 const CatMatch = (props) => {
-	const { moreInfo, setMoreInfo, matchedCat } = props;
+	const { catId, moreInfo, setMoreInfo, matchedCat } = props;
+	const navigate = useNavigate();
 
-	const matchCat = () => {};
+	// 추천받은 고양이를 내도감에 추가
+	const selectMatchedCat = () => {
+		axiosInstance
+			.post(`/user/2/cat/${catId}/selection`)
+			.then((res) => {
+				console.log(res);
+				navigate('/mycat');
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	useEffect(() => {
 		console.log('CatMatch 모달 렌더링!');
@@ -59,47 +71,14 @@ const CatMatch = (props) => {
 				/>
 			</div>
 
-			<button className='yes-button' onClick={matchCat}>
+			<button className='yes-button' onClick={selectMatchedCat}>
 				이 고양이를 내 도감에 추가
 			</button>
 			<br />
+			{/* 일치하는 고양이 없는경우 추가정보 받아서 새 고양이 등록하기위해 부모컴포넌트(CatDetailPage)에 있는 MoreInfoForm을 연다 */}
 			<button className='no-button' onClick={() => setMoreInfo(true)}>
 				일치하는 고양이 없음
 			</button>
-
-			{/* {showInput && (
-				<div>
-					<div className='input-label'>이름</div>
-					<input
-						className='input-text'
-						type='text'
-						name='name'
-						onBlur={handleChange}
-					/>
-					<br />
-					<div className='input-label'>상태</div>
-					<label className='input-radio'>
-						<input
-							type='radio'
-							name='status'
-							value='0'
-							onChange={handleChange}
-							required
-						/>
-						<span className='status'>건강함</span>
-					</label>
-					<label className='input-radio'>
-						<input
-							type='radio'
-							name='status'
-							value='1'
-							onChange={handleChange}
-						/>
-						<span className='status'>치료 필요</span>
-					</label>
-					<button onClick={handleSubmit}>새로운 고양이 등록</button>
-				</div>
-			)} */}
 		</div>
 	);
 };

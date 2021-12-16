@@ -10,15 +10,6 @@ const CatRegisterForm = (props) => {
 
 	return (
 		<div className='cat-info-form-inner'>
-			{/* <div className='input-label'>이름</div>
-			<input
-				className='input-text'
-				type='text'
-				name='name'
-				onBlur={handleInfoChange}
-			/>
-			<br /> */}
-
 			<div className='input-label'>성별</div>
 			<label className='input-radio'>
 				<input

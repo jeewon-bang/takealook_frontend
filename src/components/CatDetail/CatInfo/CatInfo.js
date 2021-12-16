@@ -75,9 +75,9 @@ const CatInfo = (props) => {
 							onMouseLeave={() => setShowTooltip(false)}>
 							{catInfo.status === 0
 								? '건강함'
-								: 1
+								: catInfo.status === 1
 								? '치료 필요'
-								: 2
+								: catInfo.status === 2
 								? '입양됨'
 								: '고양이별'}
 							<ToolTip
@@ -94,38 +94,38 @@ const CatInfo = (props) => {
 
 					<div className='cat-info-body'>
 						<div className='cat-info-body-text'>
-							{catInfo.gender === '0'
+							{catInfo.gender === 0
 								? '♂'
-								: catInfo.gender === '1'
+								: catInfo.gender === 1
 								? '♀'
 								: '성별 모름'}
 						</div>
 						<div className='cat-info-body-text'>
-							{catInfo.pattern === '0'
+							{catInfo.pattern === 0
 								? '고등어태비'
-								: catInfo.pattern === '1'
+								: catInfo.pattern === 1
 								? '치즈태비'
-								: catInfo.pattern === '2'
+								: catInfo.pattern === 2
 								? '실버태비'
-								: catInfo.pattern === '3'
+								: catInfo.pattern === 3
 								? '삼색이'
-								: catInfo.pattern === '4'
+								: catInfo.pattern === 4
 								? '카오스'
-								: catInfo.pattern === '5'
+								: catInfo.pattern === 5
 								? '턱시도'
-								: catInfo.pattern === '6'
+								: catInfo.pattern === 6
 								? '젖소'
-								: catInfo.pattern === '7'
+								: catInfo.pattern === 7
 								? '블랙'
-								: catInfo.pattern === '8'
+								: catInfo.pattern === 8
 								? '화이트'
 								: '기타 생김새'}
 						</div>
 						<div className='cat-info-body-text'>
 							중성화{' '}
-							{catInfo.neutered === '0'
+							{catInfo.neutered === 0
 								? '미완료'
-								: catInfo.neutered === '1'
+								: catInfo.neutered === 1
 								? '완료'
 								: '모름'}
 						</div>
