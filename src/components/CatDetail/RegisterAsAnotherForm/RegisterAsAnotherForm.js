@@ -1,28 +1,48 @@
 import axiosInstance from 'api/customAxios';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import './CatMoreInfoForm.scss';
-import { useNavigate } from 'react-router';
+import React, { useState } from 'react';
 
-const CatMoreInfoForm = (props) => {
-	const { catInfo, setCatInfo, catImg, catLoc } = props;
-	const navigate = useNavigate();
+const RegisterAsAnotherForm = (props) => {
+	const { catInfo, catImg, catLoc, careHistory } = props;
 
-	let previewUrl = '';
-	if (catImg.length === 0) {
-	} else {
-		previewUrl = URL.createObjectURL(catImg[0]);
-	}
+	const [newCatInfo, setNewCatInfo] = useState({
+		name: '',
+		gender: catInfo.gender,
+		neutered: catInfo.neutered,
+		status: '',
+		pattern: catInfo.pattern,
+	});
 
 	const handleChange = (e) => {
-		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
+		setNewCatInfo({ ...newCatInfo, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmitNewCat = () => {
+		if (!newCatInfo.name || !newCatInfo.status) {
+			document.getElementById('warning').innerText =
+				'모든 항목을 입력해주세요!';
+		} else {
+			document.getElementById('warning').innerText = '';
+
+			console.log(newCatInfo);
+
+			axiosInstance
+				.patch(`/user/2/cat/${catInfo.id}/selection/new`, newCatInfo, {
+					headers: { 'Content-Type': 'application/json' },
+				})
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
 
 	return (
 		<div className='content-container'>
 			<div className='content-inner'>
 				<div className='input-info'>
-					<img className='img-preview' src={previewUrl} alt='img'></img>
+					<img className='img-preview' src='' alt='img'></img>
 					<div>
 						{catInfo.gender === '0'
 							? '♂'
@@ -56,7 +76,9 @@ const CatMoreInfoForm = (props) => {
 							? '완료'
 							: '모름'}
 					</div>
+					<div>나의 돌봄 내역</div>
 				</div>
+
 				<div className='more-info'>
 					<div className='input-label'>이름</div>
 					<input
@@ -95,9 +117,13 @@ const CatMoreInfoForm = (props) => {
 					<br />
 					혹시 누군가 이미 돌보고 있는 고양이가 아닌지 꼭 확인해주세요.
 				</div>
+				<div id='warning'></div>
+				<button className='submit-button' onClick={handleSubmitNewCat}>
+					새로운 고양이로 등록
+				</button>
 			</div>
 		</div>
 	);
 };
 
-export default CatMoreInfoForm;
+export default RegisterAsAnotherForm;

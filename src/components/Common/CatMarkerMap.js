@@ -2,7 +2,6 @@
 import React from 'react';
 import { useEffect } from 'react';
 
-let map = null;
 const CatMarkerMap = (props) => {
 	const { mapId, catLoc, width, height } = props;
 
@@ -15,7 +14,7 @@ const CatMarkerMap = (props) => {
 			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 			level: 2, // 지도의 확대 레벨
 		};
-		map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
+		let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
 
 		// 고양이 마커 찍기
 		if (catLoc.length > 0) {

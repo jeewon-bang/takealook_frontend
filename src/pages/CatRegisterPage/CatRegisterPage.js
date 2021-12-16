@@ -2,17 +2,18 @@ import axios from 'axios';
 import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 import CatLocationMap from 'components/CatRegister/CatLocationMap/CatLocationMap';
 import CatRegisterForm from 'components/CatRegister/CatRegisterForm/CatRegisterForm';
-import catApi from 'api/catApi';
 import React, { useState } from 'react';
 import './CatRegisterPage.scss';
 import axiosInstance from 'api/customAxios';
+import Modal from 'components/Common/Modal';
 import CatMatch from 'components/CatRegister/CatMatch/CatMatch';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import CatMoreInfoForm from 'components/CatRegister/CatMoreInfoForm/CatMoreInfoForm';
-import Modal from 'components/Common/Modal';
+import { useNavigate } from 'react-router-dom';
+import { setDefaultLocale } from 'react-datepicker';
 
 let matchedCatData = [
   {
@@ -62,6 +63,8 @@ const CatRegisterPage = () => {
   // 일치하는 고양이가 없을때 추가정보 입력창을 보여줄지 여부
   const [moreInfo, setMoreInfo] = useState(false);
 
+  const navigate = useNavigate();
+
   const closeModal = () => {
     setShowModal(false);
   };
@@ -71,18 +74,67 @@ const CatRegisterPage = () => {
     console.log(catInfo);
     console.log(catLoc); // 기본 array 타입
 
-    if (!catInfo.neutered || !catInfo.gender || !catInfo.pattern) {
+    if (catImg.length === 0) {
       document.getElementById('message').innerText =
+        '최소 1장 이상의 사진을 업로드해 주세요!';
+    } else {
+      if (!catInfo.neutered || !catInfo.gender || !catInfo.pattern) {
+        document.getElementById('message').innerText =
+          '모든 항목을 입력해주세요!';
+      } else {
+        if (catLoc.length === 0) {
+          document.getElementById('message').innerText =
+            '1곳 이상의 위치를 선택해주세요!';
+        } else {
+          document.getElementById('message').innerText = '';
+          // 동일 추정 고양이 모달 팝업
+          setShowModal(true);
+        }
+      }
+    }
+  };
+
+  // 다른고양이로 등록 - 추천중에 동일고양이 없어서 새로운 고양이로 등록
+  const handleSubmitNewCat = () => {
+    if (!catInfo.name || !catInfo.status) {
+      document.getElementById('warning').innerText =
         '모든 항목을 입력해주세요!';
     } else {
-      if (catLoc.length === 0) {
-        document.getElementById('message').innerText =
-          '1곳 이상의 위치를 선택해주세요!';
-      } else {
-        document.getElementById('message').innerText = '';
-        // 동일 추정 고양이 모달 팝업
-        setShowModal(true);
+      document.getElementById('warning').innerText = '';
+
+      console.log(catInfo);
+      console.log(catImg);
+
+      const formData = new FormData();
+
+      // 고양이 대표이미지
+      formData.append('catMainImg', catImg[0]);
+      // 고양이 이미지 나머지
+      if (catImg.length > 1) {
+        for (let i = 1; i < catImg.length; i++) {
+          formData.append('catImg', catImg[i]);
+        }
       }
+      // 고양이 위치
+      formData.append(
+        'catLoc',
+        new Blob([JSON.stringify(catLoc)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
+      );
+      // 고양이 정보들
+      formData.append(
+        'catInfo',
+        new Blob([JSON.stringify(catInfo)], { type: 'application/json' })
+      );
+
+      // 콘솔에 찍어보기
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
+
+      const response = axiosInstance.post(`/user/1/cat/selection/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      navigate('/mycat'); // ?????? 되나?
     }
   };
 
@@ -116,6 +168,7 @@ const CatRegisterPage = () => {
               {matchedCatList.map((matchedCat) => (
                 <SwiperSlide>
                   <CatMatch
+                    catId={matchedCat.id}
                     moreInfo={moreInfo}
                     setMoreInfo={setMoreInfo}
                     matchedCat={matchedCat}
@@ -128,12 +181,18 @@ const CatRegisterPage = () => {
       )}
     </div>
   ) : (
-    <CatMoreInfoForm
-      catInfo={catInfo}
-      setCatInfo={setCatInfo}
-      catImg={catImg}
-      catLoc={catLoc}
-    />
+    <div className='content-container'>
+      <CatMoreInfoForm
+        catInfo={catInfo}
+        setCatInfo={setCatInfo}
+        catImg={catImg}
+        catLoc={catLoc}
+      />
+      <div id='warning'></div>
+      <button className='submit-button' onClick={handleSubmitNewCat}>
+        새로운 고양이로 등록
+      </button>
+    </div>
   );
 };
 
