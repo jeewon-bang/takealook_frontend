@@ -20,30 +20,30 @@ import MyPostPage from 'pages/MyPage/MyPostPage/MyPostPage';
 import Test from 'components/CatRegister/CatImageUpload/Test';
 
 function App() {
-	return (
-		<div>
-			<Header />
-			<Routes>
-				<Route path='/' element={<HomePage />} />
-				<Route path='/login/' element={<LoginPage />} />
-				<Route path='/join/' element={<JoinPage />} />
-				<Route path='/mycat/' element={<MyCatPage />} />
-				<Route path='/mycat/:catId' element={<CatDetailPage />} />
-				<Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
-				<Route path='/mycat/new' element={<CatRegisterPage />} />
-				<Route path='/recomendation' element={<RecomendationPage />} />
-				<Route path='/mymatch' element={<MyMatchingPage />} />
-				<Route path='/match' element={<MatchingPage />} />
-				<Route path='/mypage' element={<MyPage />} />
-				<Route path='/mypage/mylike' element={<MyLikePage />} />
-				<Route path='/mypage/mypost' element={<MyPostPage />} />
-				<Route path='/community' element={<PostListPage />} />
-				<Route path='/community/write' element={<PostWritePage />} />
-				<Route path='/community/post/:id' element={<PostDetailPage />} />
-				<Route path='/test' element={<Test />} />
-			</Routes>
-		</div>
-	);
+  return (
+    <div>
+      <Header />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/login/' element={<LoginPage />} />
+        <Route path='/join/' element={<JoinPage />} />
+        <Route path='/mycat/' element={<MyCatPage />} />
+        <Route path='/mycat/:catId' element={<CatDetailPage />} />
+        <Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
+        <Route path='/mycat/new' element={<CatRegisterPage />} />
+        <Route path='/recomendation' element={<RecomendationPage />} />
+        <Route path='/mymatch' element={<MyMatchingPage />} />
+        <Route path='/match' element={<MatchingPage />} />
+        <Route path='/mypage' element={<MyPage />} />
+        <Route path='/mypage/mylike' element={<MyLikePage />} />
+        <Route path='/mypage/mypost' element={<MyPostPage />} />
+        <Route path='/community' element={<PostListPage />} />
+        <Route path='/community/write' element={<PostWritePage />} />
+        <Route path='/community/post/:index' element={<PostDetailPage />} />
+        <Route path='/test' element={<Test />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

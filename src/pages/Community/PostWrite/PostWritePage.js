@@ -9,45 +9,27 @@ import WriteThumbnail from 'components/Community/Writes/WriteThumbnail/WriteThum
 import WriteTitle from 'components/Community/Writes/WriteTitle/WriteTitle';
 import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
+import WritePostForm from 'components/Community/Writes/WritePostForm/WritePostForm';
 
 const PostWritePage = () => {
   const [showModal, setShowModal] = useState(false);
 
   //과연 이렇게 useState를 남용해도 되는 것인가.. 리액트 고수 구합니다
-  const [boardId, setBoardId] = useState(1);
-  // console.log(boardId);
-  const [title, setTitle] = useState('');
-  // console.log(title);
-  const [content, setContent] = useState('');
-  // console.log(content);
   const [postImage, setPostImage] = useState([]);
-  // console.log(postImage);
 
   const [postText, setPostText] = useState({
-    writerId: 2,
+    writerId: 1,
     boardId: 1,
     title: '',
     content: '',
   });
-  console.log(postText);
-
-  useEffect(() => {
-    console.log('백만번 실행되고 있니?');
-  }, []);
 
   const handleSubmit = () => {
-    setPostText({
-      ...postText,
-      boardId: boardId,
-      title: title,
-      content: content,
-    });
+    console.log(postText);
 
-    if (!boardId || !title || !content || !postImage) {
+    if (!postText.title || !postText.content || !postImage) {
       alert('모든 항목을 입력해주세요!');
     } else {
-      console.log(postText);
-
       const formData = new FormData();
 
       formData.append(
@@ -63,10 +45,17 @@ const PostWritePage = () => {
         console.log(pair[0] + ', ' + pair[1]); //commentInfo, [object File]
       }
 
-      axiosInstance.post('/post', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        // headers: { 'Content-Type': 'application/json' },
-      });
+      axiosInstance
+        .post('/post', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          // headers: { 'Content-Type': 'application/json' },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -74,17 +63,11 @@ const PostWritePage = () => {
 
   return (
     <div className='content-container'>
-      <Category />
-      <hr />
       <div className='write-wrapper'>
         <div className='header'>
-          <WriteCategory boardId={boardId} setBoardId={setBoardId} />
           <WriteGuidebtn setShowModal={setShowModal} />
           {showModal && <Writeguide setShowModal={setShowModal} />}
-        </div>
-        <div className='body'>
-          <WriteTitle title={title} setTitle={setTitle} />
-          <Editor content={content} setContent={setContent} />
+          <WritePostForm postText={postText} setPostText={setPostText} />
         </div>
         <div className='footer'>
           <h3>

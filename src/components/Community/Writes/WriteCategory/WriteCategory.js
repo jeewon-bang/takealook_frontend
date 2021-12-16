@@ -2,11 +2,11 @@ import React from 'react';
 import './WriteCategory.scss';
 
 const WriteCategory = (props) => {
-  const { boardId, setBoardId } = props;
+  const { postText, setPostText } = props;
 
   const selectedBoard = (e) => {
     // setBoardId({ ...boardId, boardId: e.target.value }); //깊은복사 해야되나 고민했음
-    setBoardId(e.target.value);
+    setPostText({ ...postText, boardId: e.target.value });
   };
 
   return (
