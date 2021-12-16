@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './HomePage.scss';
 import { Link } from 'react-router-dom';
-import CatMarkerMap from 'components/common/CatMarkerMap';
+import CatMarkerMap from 'components/Common/CatMarkerMap';
 import axiosInstance from 'api/customAxios';
 
 // let data = [
