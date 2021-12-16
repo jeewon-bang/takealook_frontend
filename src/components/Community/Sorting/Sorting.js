@@ -29,7 +29,7 @@ const Sorting = (props) => {
   const sortByCreated_At = () => {
     const sorted = [...posts];
     sorted.sort(function (a, b) {
-      return b.id - a.id;
+      return sorted.indexOf(b) - sorted.indexOf(a);
     });
     setPosts(sorted);
   };
@@ -37,15 +37,15 @@ const Sorting = (props) => {
   const sortByReverseCreated_At = () => {
     const sorted = [...posts];
     sorted.sort(function (a, b) {
-      return a.id - b.id;
-    });
+      return sorted.indexOf(a) - sorted.indexOf(b);
+    }); //왜 과거순은 안되는거같지???
     setPosts(sorted);
   };
 
   const sortByLike = () => {
     const sorted = [...posts];
     sorted.sort(function (a, b) {
-      return b.like - a.like;
+      return b.postLike - a.postLike;
     });
     setPosts(sorted);
   };
@@ -53,7 +53,7 @@ const Sorting = (props) => {
   const sortByCmt = () => {
     const sorted = [...posts];
     sorted.sort(function (a, b) {
-      return b.comment - a.comment;
+      return b.commentListCount - a.commentListCount;
     });
     setPosts(sorted);
   };

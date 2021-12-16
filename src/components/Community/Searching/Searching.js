@@ -13,7 +13,7 @@ const Searching = (props) => {
 
   const handleEnter = () => {
     if (!search) {
-      alert('댓글을 입력해주세요!');
+      alert('검색어를 입력해주세요!');
     } else {
       console.log(search);
 

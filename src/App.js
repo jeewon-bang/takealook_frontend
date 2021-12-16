@@ -20,7 +20,6 @@ import MyLikePage from 'pages/MyPage/MyLikePage/MyLikePage';
 import MyPostPage from 'pages/MyPage/MyPostPage/MyPostPage';
 import Test from 'components/CatRegister/CatImageUpload/Test';
 
-
 function App() {
   return (
     <div>
@@ -42,13 +41,12 @@ function App() {
         <Route path='/mypage/mypost' element={<MyPostPage />} />
         <Route path='/community' element={<PostListPage />} />
         <Route path='/community/write' element={<PostWritePage />} />
-        <Route path='/community/post/:id' element={<PostDetailPage />} />
+        <Route path='/community/post/:index' element={<PostDetailPage />} />
         <Route path='/oauth/callback/*' element={<OAuth2RedirectHandler />} />
         <Route path='/test' element={<Test />} />
       </Routes>
     </div>
   );
-
 }
 
 export default App;

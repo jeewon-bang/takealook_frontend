@@ -1,13 +1,12 @@
 @import 'components/Common/common';
 
-@font-face {
-  font-family: 'SurroundAir';
-  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
-}
-
 .right-nav {
   float: right;
   width: 10%;
+}
+
+.nav-wrapper {
+  padding-bottom: 40px;
 }
 
 .sorting-wrapper {

@@ -3,11 +3,8 @@ import React, { useState } from 'react';
 import './WritePostComment.scss';
 
 const WritePostComment = (props) => {
-  const { postId } = props;
-
-  // console.log(postId);
-
-  const [commentInfo, setCommentInfo] = useState({
+  const { postDetails } = props;
+  const [commentId, setCommentId] = useState({
     writerId: 1,
     content: '댓글내용',
   });
@@ -15,14 +12,14 @@ const WritePostComment = (props) => {
   // commentInfo.constructor  => array인지 object인지
   const writeComment = (e) => {
     const content = document.getElementById('content').value; //content id에서 받아온 value값
-    setCommentInfo({ ...commentInfo, [e.target.name]: content });
+    setCommentId({ ...commentId, [e.target.name]: content });
   };
 
   const handleSubmit = () => {
-    if (!commentInfo) {
+    if (!commentId) {
       alert('댓글을 입력해주세요!');
     } else {
-      console.log(commentInfo); // { writerId: 2, content: '댓글내용'}
+      console.log(commentId);
 
       // const formData = new FormData();
       // formData.append(
@@ -36,7 +33,7 @@ const WritePostComment = (props) => {
       //   console.log(pair[0] + ', ' + pair[1]); //commentInfo, [object File]
       // }
 
-      axiosInstance.post(`/post/1/comment`, commentInfo, {
+      axiosInstance.post(`/post/${postDetails.postId}/comment`, commentId, {
         // headers: { 'Content-Type': 'multipart/form-data' },
         headers: { 'Content-Type': 'application/json' },
       });
