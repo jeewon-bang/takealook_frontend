@@ -11,7 +11,7 @@ const Profile = (props) => {
 
   return (
     <div class='mypage-profile'>
-      <p class='hello'>Hello, {user.login_id}</p>
+      <p class='hello'>Hello, {user.loginId}</p>
       <div class='figure' id='myProfile'>
         <div class='profile_container'>
           <img
