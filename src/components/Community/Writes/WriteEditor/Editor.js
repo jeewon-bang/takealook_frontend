@@ -6,7 +6,8 @@ import ImageResize from 'quill-image-resize';
 Quill.register('modules/ImageResize', ImageResize);
 
 const Editor = (props) => {
-  const { content, setContent } = props;
+  const { postText, setPostText } = props;
+  const [content, setContent] = useState('');
   // const [body, setBody] = useState('');
 
   // const handleBody = (e) => {

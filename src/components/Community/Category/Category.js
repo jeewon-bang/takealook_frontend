@@ -4,97 +4,29 @@ import './Category.scss';
 import CategoryBtn from './CategoryBtn';
 
 const Category = (props) => {
-  const { posts, setPosts } = props;
+  const { setBoardId } = props;
 
-  const filterHandler = (e) => {
-    console.log(e.target.value);
-
-    const value = e.target.value;
-    switch (value) {
-      case '모두보기':
-        sortByCreated_At();
-        break;
-      case '전국고양이자랑':
-        sortByReverseCreated_At();
-        break;
-      case '가출냥찾기':
-        sortByLike();
-        break;
-      case '도와주세요':
-        sortByCmt();
-        break;
-      default:
-        break;
-    }
-  };
-
-  const [postList, setPostList] = useState(posts);
-
-  const sortByCreated_At = () => {
-    const filtered = [...posts];
-    const c = filtered.filter((post) => {
-      return post.board === '모두보기';
-    });
-    setPostList(c);
-  };
-  const sortByReverseCreated_At = () => {
-    const filtered = [...posts];
-    const c = filtered.filter((post) => {
-      return post.board === '전국고양이자랑';
-    });
-    setPostList(c);
-    console.log(posts);
-  };
-  const sortByLike = () => {
-    const filtered = [...posts];
-    const c = filtered.filter((post) => {
-      return post.board === '가출냥찾기';
-    });
-    setPosts(c);
-    console.log(posts);
-  };
-  const sortByCmt = () => {
-    const filtered = [...posts];
-    const c = filtered.filter((post) => {
-      return post.board === '도와주세요';
-    });
-    setPosts(c);
+  const handleBoardId = (e) => {
+    setBoardId(e.target.value);
   };
 
   return (
-    <div className='subnav'>
-      <Navbar bg='white' variant='white'>
-        <Container>
-          <Nav className='me-auto'>
-            <button
-              className='category'
-              onClick={filterHandler}
-              value='모두보기'
-            >
-              모두보기
-            </button>
-            <button
-              className='category'
-              onClick={filterHandler}
-              value='전국고양이자랑'
-            >
-              전국고양이자랑
-            </button>
-            <button
-              className='category'
-              onClick={filterHandler}
-              value='가출냥찾기'
-            >
-              가출냥찾기
-            </button>
-            <button
-              className='category'
-              onClick={filterHandler}
-              value='도와주세요'
-            >
-              도와주세요
-            </button>
-            {/* <CategoryBtn
+    <div className='category'>
+      <ul className='category-ul' onClick={handleBoardId}>
+        <li className='category-li' value='0'>
+          모두보기
+        </li>
+        <li className='category-li' value='1'>
+          전국고양이자랑
+        </li>
+        <li className='category-li' value='2'>
+          가출냥찾기
+        </li>
+        <li className='category-li' value='3'>
+          도와주세요
+        </li>
+      </ul>
+      {/* <CategoryBtn
               name='모두보기'
               catActive={activeCat === '모두보기' ? true : false}
               handleSetCat={setActivateCat}
@@ -104,7 +36,7 @@ const Category = (props) => {
               catActive={activeCat === '전국고양이자랑' ? true : false}
               handleSetCat={setActivateCat}
             /> */}
-            {/*
+      {/*
             <CategoryBtn
               name='가출냥찾기'
               catActive={activateCat === '가출냥찾기' ? true : false}
@@ -115,9 +47,6 @@ const Category = (props) => {
               catActive={activateCat === '도와주세요' ? true : false}
               handleSetCat={setActivateCat}
             /> */}
-          </Nav>
-        </Container>
-      </Navbar>
     </div>
   );
 };

@@ -2,7 +2,6 @@ import CatMarkerMap from 'components/Common/CatMarkerMap';
 import React, { useEffect, useState } from 'react';
 
 import './CatMatch.scss';
-import CatMarkerMap from 'components/Common/CatMarkerMap';
 import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
 

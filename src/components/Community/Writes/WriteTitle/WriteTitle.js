@@ -2,12 +2,12 @@ import React from 'react';
 import './WriteTitle.scss';
 
 const WriteTitle = (props) => {
-  const { title, setTitle } = props;
+  const { postText, setPostText } = props;
 
   const writeTitle = (e) => {
     // const title = document.getElementById('title').value; //content id에서 받아온 value값
     // setTitle({ ...title, [e.target.name]: title }); //깊은복사 해야되나 고민했음
-    setTitle(e.target.value);
+    setPostText({ ...postText, title: e.target.value });
   };
 
   return (
