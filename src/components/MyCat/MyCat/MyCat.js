@@ -18,7 +18,7 @@ const MyCat = (props) => {
 					<Link class='cat-detail' to={`/mycat/${cat.id}`}>
 						<div class='cat'>
 							<div class='cat-body-left'>
-								<img class='catimg' src='' alt='cat' />
+								<img class='catimg' src={cat.mainImage} alt='cat' />
 							</div>
 
 							<div class='cat-body-right'>
