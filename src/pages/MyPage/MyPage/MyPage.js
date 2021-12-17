@@ -274,8 +274,9 @@ const MyPage = () => {
         })
       );
   }, []);
+  console.log(user);
 
-  return (
+  return loaded ? (
     <div class='mypage-container'>
       <div class='section1'>
         <Profile user={user} setUser={setUser} />
@@ -288,6 +289,8 @@ const MyPage = () => {
         <Alarm alarm={alarm} setAlarm={setAlarm} />
       </div>
     </div>
+  ) : (
+    <div>로딩중</div>
   );
 };
 

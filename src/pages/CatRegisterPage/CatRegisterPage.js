@@ -151,7 +151,9 @@ const CatRegisterPage = () => {
       </span>
       <div id='message' className='warning-message'></div>
       <div className='button-box'>
-        <button className='cancel-button'>취소하기</button>
+        <button className='cancel-button' onClick={() => navigate(-1)}>
+          취소하기
+        </button>
         <button className='submit-button' onClick={handleSubmit}>
           등록하기
         </button>

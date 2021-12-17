@@ -20,7 +20,7 @@ import CatRegisterForm from 'components/CatRegister/CatRegisterForm/CatRegisterF
 
 let matchedCatData = [
   {
-    id: 1,
+    id: 100,
     name: '보리',
     gender: 0,
     neutered: 1,
@@ -33,7 +33,7 @@ let matchedCatData = [
     ],
   },
   {
-    id: 2,
+    id: 101,
     name: '부비',
     gender: 0,
     neutered: 1,
@@ -75,19 +75,15 @@ const CatDetailPage = () => {
   });
   const [newCatImg, setNewCatImg] = useState([]);
 
-  // 내 도감에서 삭제 메소드
+  // 내 도감에서 삭제
   const deleteMyCat = () => {
     alert('삭제한 고양이는 복구할 수 없습니다. 정말 삭제하시겠습니까?');
 
     axiosInstance
       .patch(`user/1/cat/${catId}/selection/soft-delete`)
       .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
+        navigate('/mycat');
       });
-    navigate('/mycat');
   };
 
   // 다른고양이로 등록 - 고양이 정보 다시받기
@@ -98,17 +94,17 @@ const CatDetailPage = () => {
   // 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
   const openMatchedCatModal = () => {
     // if (!newCatInfo.neutered || !newCatInfo.gender || !newCatInfo.pattern) {
-    // 	document.getElementById('message').innerText =
-    // 		'모든 항목을 입력해주세요!';
+    //    document.getElementById('message').innerText =
+    //       '모든 항목을 입력해주세요!';
     // } else {
-    // 	if (catLoc.length === 0) {
-    // 		document.getElementById('message').innerText =
-    // 			'1곳 이상의 위치를 선택해주세요!';
-    // 	} else {
-    // 		document.getElementById('message').innerText = '';
-    // 		// 동일 추정 고양이 모달 팝업
-    // 		setShowMatchedCatModal(true);
-    // 	}
+    //    if (catLoc.length === 0) {
+    //       document.getElementById('message').innerText =
+    //          '1곳 이상의 위치를 선택해주세요!';
+    //    } else {
+    //       document.getElementById('message').innerText = '';
+    //       // 동일 추정 고양이 모달 팝업
+    //       setShowMatchedCatModal(true);
+    //    }
     // }
 
     console.log(newCatInfo);
@@ -132,16 +128,16 @@ const CatDetailPage = () => {
       const formData = new FormData();
       // 새로받은 이미지들은 저장 안하나...?
       // for (let i = 0; i < newCatImg.length; i++) {
-      // 	formData.append('catImg', newCatImg[i]);
+      //    formData.append('catImg', newCatImg[i]);
       // }
       // formData.append(
-      // 	'catInfo',
-      // 	new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
+      //    'catInfo',
+      //    new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
       // );
 
       // 콘솔에 찍어보기
       // for (let pair of formData.entries()) {
-      // 	console.log(pair[0] + ', ' + pair[1]);
+      //    console.log(pair[0] + ', ' + pair[1]);
       // }
 
       axiosInstance
@@ -199,7 +195,7 @@ const CatDetailPage = () => {
         />
 
         <div>
-          <Link to='/mycat/update'>
+          <Link to={`/mycat/${catId}/update`}>
             <button className='cat-info-update-button'>정보 수정하기</button>
           </Link>
         </div>
@@ -236,6 +232,7 @@ const CatDetailPage = () => {
           </div>
           <CatImageUpload image={newCatImg} setImage={setNewCatImg} />
 
+          {/* 이 아래에서부터 컴포넌트 분리해야겠다 수정폼 만든이후에 갖다써야지 */}
           <div className='input-label'>성별</div>
           <label className='input-radio'>
             <input

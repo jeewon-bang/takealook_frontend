@@ -50,9 +50,7 @@ const ProfileEdit = (props) => {
           ? alert('수정이 완료되었습니다.')
           : alert('오류가 발생하였습니다.');
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const nicknameCheck = () => {
@@ -70,9 +68,7 @@ const ProfileEdit = (props) => {
           ? alert('사용가능한 닉네임입니다.')
           : alert('이미 사용중인 닉네임입니다.');
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
     // false일때 .(정보수정 버튼 클릭시 닉네임 중복알림 뜨도록 처리하기)
   };
 
@@ -87,18 +83,16 @@ const ProfileEdit = (props) => {
             ? alert('탈퇴가 완료되었습니다.')
             : alert('오류발생');
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     } else {
       alert('취소합니다.');
     }
   };
 
   return (
-    <div className='modal-background' onClick={closeModal}>
+    <div className='editModal-background' onClick={closeModal}>
       <div className='modal-wrapper'>
-        <div className='MyProfile'>
+        <div className='MyProfileEdit'>
           <div className='edit-titleBox'>
             <h2 className='edit-title'>정보수정</h2>
             <button className='submitButton' onClick={withdrawalSubmit}>
