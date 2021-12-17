@@ -29,7 +29,7 @@ import { Link } from 'react-router-dom';
 // }
 
 const PostListPage = () => {
-  const [boardId, setBoardId] = useState(1);
+  const [boardId, setBoardId] = useState(0);
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -39,21 +39,29 @@ const PostListPage = () => {
   useEffect(() => {
     console.log('PostListPage.js');
 
-    axiosInstance
-      .get(`/posts/${boardId}`)
-      .then((res) => {
-        console.log(res);
-        console.log(typeof res);
-        console.log(res.data);
-        console.log(typeof res.data);
-        console.log(res.data.length);
-        setPosts(res.data);
-        console.log(typeof posts);
-        setLoaded(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (boardId !== 0) {
+      axiosInstance
+        //카테고리별
+        .get(`/posts/${boardId}`)
+        .then((res) => {
+          setPosts(res.data);
+          setLoaded(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (boardId === 0) {
+      axiosInstance
+        //모두보기
+        .get(`/posts`)
+        .then((res) => {
+          setPosts(res.data);
+          setLoaded(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [boardId]);
 
   return loaded ? (
@@ -70,7 +78,7 @@ const PostListPage = () => {
       <div className='sorting-wrapper'>
         <Sorting posts={posts} setPosts={setPosts} />
       </div>
-      <div className='wrapper'>
+      <div className='postlist-wrapper'>
         {posts &&
           posts.map((post) => (
             <Link to={`/community/post/${post.postId}`} className='link'>

@@ -26,43 +26,100 @@ import { useParams } from 'react-router-dom';
 //   "commentListCount": 0
 // }
 
+// 댓글리스트
+// [
+//   {
+//       "writer": {
+//           "id": 1,
+//           "userName": "신지혜",
+//           "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
+//           "dflag": false
+//       },
+//       "content": "댓글 달거야",
+//       "modifiedAt": "2021-12-16T17:53:56.304",
+//       "commentLike": 0
+//   },
+//   {
+//       "writer": {
+//           "id": 1,
+//           "userName": "신지혜",
+//           "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
+//           "dflag": false
+//       },
+//       "content": "댓글 달거야",
+//       "modifiedAt": "2021-12-16T17:53:58.978",
+//       "commentLike": 0
+//   }
+// ]
+let doubleClickFlag = false;
+
 const PostDetailPage = () => {
   const { index } = useParams();
-  console.log(index);
   const [postDetails, setPostDetails] = useState('');
-  const [comments, setComments] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [postLike, setPostLike] = useState(0);
 
   useEffect(() => {
     console.log('PostDetailPage.js');
 
+    //게시글 상세 조회
     axiosInstance
       .get(`/post/${index}`)
       .then((res) => {
         setPostDetails(res.data);
+        setPostLike(res.data.postLike);
         setLoaded(true);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [comments]);
+  }, []);
+
+  const handlePostLike = () => {
+    if (!doubleClickFlag) {
+      setPostLike(postLike + 1);
+      doubleClickFlag = true;
+      //like api
+      // axiosInstance
+      //   .post(`/post/${index}/comment/{commentId}/like`) //여기 commentId 수정
+      //   .then()
+      //   .catch((err) => console.log(err));
+    } else {
+      console.log('여기서 아무것도 하지 않을거야...');
+      setPostLike(postLike - 1);
+      //unlike api
+      // axiosInstance
+      //   .post(`/post/${index}/comment/{commentId}/like`) //여기 commentId 수정
+      //   .then()
+      //   .catch((err) => console.log(err));
+    }
+  };
 
   return loaded ? (
     <div className='content-container'>
+      <div className='right-nav'>
+        <img
+          class='postlike'
+          src={require('images/postlike.png').default}
+          alt='postlike'
+          onClick={handlePostLike}
+        />
+      </div>
       <div className='post-detail'>
-        <PostDetail postDetails={postDetails} setPostDetails={setPostDetails} />
+        <PostDetail
+          postLike={postLike}
+          postDetails={postDetails}
+          setPostDetails={setPostDetails}
+        />
       </div>
       <div className='post-writecomment'>
         <WritePostComment postDetails={postDetails} />
       </div>
-      <div className='post-listcomment'>
-        <h1>
-          <font color='#ffa800'>{postDetails.commentList.length}</font>
+      <div className='postdetail-listcomment'>
+        <h2>
+          <font color='#ffa800'>{postDetails.commentListCount}</font>
           개의 댓글
-        </h1>
-        {/* {comments.map((cmt) => (
-          <PostComment id={cmt.id} comments={comments} />
-        ))} */}
+        </h2>
       </div>
     </div>
   ) : (

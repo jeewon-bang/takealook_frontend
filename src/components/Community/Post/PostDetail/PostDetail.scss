@@ -33,6 +33,12 @@
 .writer-info {
   @extend %user-info;
   display: flex;
+  .detail-btn {
+    @extend %button-square;
+    margin: 10px;
+    width: 80px;
+    border-radius: 8px;
+  }
 }
 
 .content {
