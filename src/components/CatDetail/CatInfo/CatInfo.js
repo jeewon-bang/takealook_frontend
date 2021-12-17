@@ -9,10 +9,9 @@ import 'swiper/components/pagination/pagination.scss';
 
 const CatInfo = (props) => {
 	const { catId, catInfo, setCatInfo, catImg, setCatImg } = props;
-
-	const [loaded, setLoaded] = useState(false); // axios로 데이터 받아서 화면그릴때 사용할 변수
 	const [showTooltip, setShowTooltip] = useState(false);
 
+	// 고양이 상태만 바로 바꾸는 함수
 	const changeCatStatus = (e) => {
 		let newStatus;
 		switch (e.target.innerText) {
@@ -31,17 +30,11 @@ const CatInfo = (props) => {
 		axiosInstance
 			.patch(`/user/1/cat/${catId}?status=${newStatus}`)
 			.then((res) => {
-				console.log(res);
-				setCatInfo({ ...catInfo, status: newStatus });
-			})
-			.catch((err) => {
-				console.log(err);
+				axiosInstance.get(`user/1/cat/${catId}`).then((res) => {
+					setCatInfo(res.data);
+				});
 			});
 	};
-
-	useEffect(() => {
-		console.log('상태변경됐당');
-	}, [catInfo]);
 
 	return (
 		<div className='info-container'>
@@ -50,17 +43,7 @@ const CatInfo = (props) => {
 					<Swiper slidesPerView={1} navigation pagination={{ clickable: true }}>
 						{catImg.map((img) => (
 							<SwiperSlide>
-								<img
-									src={'takealook/images/catImages/1/20211214-bori3.jpg'}
-									alt='img'
-									className='cat-img'
-								/>
-								{img}
-								{/* <img
-									src={require('images/bori2.jpg').default}
-									alt='img'
-									className='cat-img'
-								/> */}
+								<img src={img.path} alt='img' className='cat-img' />
 							</SwiperSlide>
 						))}
 					</Swiper>
@@ -104,9 +87,9 @@ const CatInfo = (props) => {
 							{catInfo.pattern === 0
 								? '고등어태비'
 								: catInfo.pattern === 1
-								? '치즈태비'
+								? '치즈 / 치즈태비'
 								: catInfo.pattern === 2
-								? '실버태비'
+								? '실버 / 실버태비'
 								: catInfo.pattern === 3
 								? '삼색이'
 								: catInfo.pattern === 4
@@ -119,7 +102,7 @@ const CatInfo = (props) => {
 								? '블랙'
 								: catInfo.pattern === 8
 								? '화이트'
-								: '기타 생김새'}
+								: '생김새 기타'}
 						</div>
 						<div className='cat-info-body-text'>
 							중성화{' '}

@@ -59,7 +59,7 @@ const CatImageUpload = (props) => {
 					className='catImg'
 					type='file'
 					multiple
-					accept='image/*'
+					accept='image/jpg, image/jpeg, image/gif, image/png'
 					name='file'
 					style={{ display: 'none' }}
 					onChange={handleChange}
@@ -68,7 +68,7 @@ const CatImageUpload = (props) => {
 					<button className='img-upload-button' onClick={handleClick}>
 						<FontAwesomeIcon icon={faCamera} />
 						<br />
-						{imgUrlList.length} / 10 {imgList.length}
+						{imgUrlList.length} / 10
 					</button>
 					{imgUrlList.map((v) => (
 						<span
@@ -80,16 +80,6 @@ const CatImageUpload = (props) => {
 							</button>
 						</span>
 					))}
-					{/* {Array.from({ length: 10 }, (v, i) => i).map((v) => (
-						<span
-							id={v}
-							className='img-preview'
-							style={{ backgroundColor: 'gray' }}>
-							<button className='img-delete-button' onClick={deleteImg}>
-								X
-							</button>
-						</span>
-					))} */}
 					<br />
 				</div>
 			</div>

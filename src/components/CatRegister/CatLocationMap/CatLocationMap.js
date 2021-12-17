@@ -69,18 +69,18 @@ const CatLocation = (props) => {
 
 	// 마커 클릭할때마다 부모 페이지로 데이터 보내기
 	const handleClick = (e) => {
-		setCatLoc([
-			...markers.map((v) => ({
-				latitude: v.getPosition().getLat(),
-				longitude: v.getPosition().getLng(),
-			})),
-		]);
 		// setCatLoc([
-		// 	...newMarkers.map((v) => ({
+		// 	...markers.map((v) => ({
 		// 		latitude: v.getPosition().getLat(),
 		// 		longitude: v.getPosition().getLng(),
 		// 	})),
 		// ]);
+		setCatLoc([
+			...newMarkers.map((v) => ({
+				latitude: v.getPosition().getLat(),
+				longitude: v.getPosition().getLng(),
+			})),
+		]);
 	};
 
 	return (
