@@ -36,14 +36,14 @@ const CatRegisterForm = (props) => {
 					선택
 				</option>
 				<option value='0'>고등어태비</option>
-				<option value='1'>치즈</option>
-				<option value='2'>삼색이</option>
-				<option value='3'>카오스</option>
-				<option value='4'>턱시도</option>
-				<option value='5'>젖소</option>
-				<option value='6'>블랙</option>
-				<option value='7'>화이트</option>
-				<option value='8'>실버</option>
+				<option value='1'>치즈 / 치즈태비</option>
+				<option value='2'>실버 / 실버태비</option>
+				<option value='3'>삼색이</option>
+				<option value='4'>카오스</option>
+				<option value='5'>턱시도</option>
+				<option value='6'>젖소</option>
+				<option value='7'>블랙</option>
+				<option value='8'>화이트</option>
 				<option value='9'>기타</option>
 			</select>
 

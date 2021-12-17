@@ -12,10 +12,11 @@ const StyledTooltipBox = styled.div`
 const CareDetail = (props) => {
 	const { careType, careList } = props;
 	const careIcon = {
-		0: 'food.png',
-		1: 'food.png',
-		2: 'pills.png',
-		3: 'hospital.png',
+		0: 'cat-food1.png',
+		1: 'cat-food2.png',
+		2: 'pill.png',
+		3: 'first-aid-kit.png',
+		4: 'water-dispenser.png',
 	};
 
 	const [showTooltip, setShowTooltip] = useState(false);

@@ -15,6 +15,13 @@ const CatCare = (props) => {
 	const [showCareInput, setShowCareInput] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const today = moment();
+	const careIcon = {
+		0: 'cat-food1.png',
+		1: 'cat-food2.png',
+		2: 'pill.png',
+		3: 'first-aid-kit.png',
+		4: 'water-dispenser.png',
+	};
 
 	const timeDiff = (date) => {
 		return Math.floor(
@@ -30,20 +37,11 @@ const CatCare = (props) => {
 				'Content-Type': 'application/json',
 			})
 			.then((res) => {
-				console.log(res);
-
 				axiosInstance
 					.get(`/user/1/cat/${catId}/48hours-catcares`)
 					.then((res) => {
-						console.log(res);
 						setCareHistory(res.data);
-					})
-					.catch((err) => {
-						console.log(err);
 					});
-			})
-			.catch((err) => {
-				console.log(err);
 			});
 	};
 	const openCareInput = () => {
@@ -93,26 +91,33 @@ const CatCare = (props) => {
 					</div>
 				)}
 				<div onClick={openModal}>
-					{careHistory.map((v) => (
-						<div className='care'>
-							<div className='user-img'></div>
-							<span>{v.carer.userName} / </span>
-							<span>{v.createdAt} 시간 전/</span>
-							<span>
-								{v.type === 0
-									? '밥 주기'
-									: 1
-									? '간식 주기'
-										? 2
-										: '약 먹이기'
-									: 3
-									? '병원 치료'
-									: '기타'}{' '}
-								/{' '}
-							</span>
-							<span>{v.message}</span>
-						</div>
-					))}
+					{careHistory.length === 0 ? (
+						<div>최근 48시간 내의 돌봄 내역이 없습니다.</div>
+					) : (
+						careHistory.map((v) => (
+							<div className='care'>
+								<img
+									src={require(`images/${careIcon[v.type]}`).default}
+									className='user-img'
+									alt='care'></img>
+								<span>{v.carer.userName} / </span>
+								<span>{v.createdAt} 시간 전/</span>
+								<span>
+									{v.type === 0
+										? '밥 주기'
+										: 1
+										? '간식 주기'
+											? 2
+											: '약 먹이기'
+										: 3
+										? '병원 치료'
+										: '기타'}{' '}
+									/{' '}
+								</span>
+								<span>{v.message}</span>
+							</div>
+						))
+					)}
 				</div>
 			</div>
 
