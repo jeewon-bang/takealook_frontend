@@ -66,20 +66,6 @@ const CareCalendar = (props) => {
 								<div className={`box ${isSelected} ${isGrayed}`} key={i}>
 									<span className='text'>{current.format('D')}</span>
 									<div>
-										{/* {careDaily
-											.filter(
-												(v) =>
-													v.datetime.split(' ')[0] ===
-													current.format('yyyy-MM-DD')
-											)
-											.map((v) => {
-												return (
-													<CareDetail
-														children={v.type}
-														message={v.type}></CareDetail>
-												);
-											})} */}
-
 										<CareDetail
 											careType={0}
 											careList={careHistory.filter(

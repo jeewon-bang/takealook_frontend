@@ -17,7 +17,7 @@ import { setDefaultLocale } from 'react-datepicker';
 
 let matchedCatData = [
   {
-    id: 1,
+    id: 100,
     name: '보리',
     gender: 0,
     neutered: 1,
@@ -30,7 +30,7 @@ let matchedCatData = [
     ],
   },
   {
-    id: 2,
+    id: 101,
     name: '부비',
     gender: 0,
     neutered: 1,
@@ -131,10 +131,13 @@ const CatRegisterPage = () => {
         console.log(pair[0] + ', ' + pair[1]);
       }
 
-      const response = axiosInstance.post(`/user/1/cat/selection/`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      navigate('/mycat'); // ?????? 되나?
+      axiosInstance
+        .post(`/user/1/cat/selection/`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((res) => {
+          navigate('/mycat');
+        });
     }
   };
 
@@ -151,9 +154,7 @@ const CatRegisterPage = () => {
       </span>
       <div id='message' className='warning-message'></div>
       <div className='button-box'>
-        <button className='cancel-button' onClick={() => navigate(-1)}>
-          취소하기
-        </button>
+        <button className='cancel-button'>취소하기</button>
         <button className='submit-button' onClick={handleSubmit}>
           등록하기
         </button>

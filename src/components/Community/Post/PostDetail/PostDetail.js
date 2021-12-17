@@ -1,4 +1,6 @@
+import axiosInstance from 'api/customAxios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './PostDetail.scss';
 
 // {
@@ -23,7 +25,16 @@ import './PostDetail.scss';
 // }
 
 const PostDetail = (props) => {
-  const { postDetails, setPostDetails } = props;
+  const { postLike, postDetails, setPostDetails } = props;
+  console.log(postDetails.content);
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    axiosInstance
+      .delete(`/post/${postDetails.postId}`)
+      .then(navigate('/community'))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className='postdetail'>
@@ -38,7 +49,8 @@ const PostDetail = (props) => {
               src={require('images/heart.png').default}
               alt='like'
             />
-            {postDetails.postLike}
+            {postLike}
+            {/* {postDetails.postLike} */}
           </span>
           <span className='info-comment'>
             <img
@@ -55,7 +67,11 @@ const PostDetail = (props) => {
         <h1 className='top-title'>{postDetails.title}</h1>
         <div className='writer-info'>
           <div className='user-img'></div>
-          <h5 className='writer-name'>{postDetails.writer.name}</h5>
+          <h5 className='writer-name'>{postDetails.writer.userName}</h5>
+          <button className='detail-btn'>글 수정</button>
+          <button className='detail-btn' onClick={handleDelete}>
+            글 삭제
+          </button>
         </div>
       </div>
       <hr />

@@ -1,6 +1,5 @@
 import { call, delay, put } from 'redux-saga/effects';
-
-/**  */
+import { useNavigate } from 'react-router-dom';
 
 // type을 인자로 받아서 type_REQUEST, type_SUCCESS, type_FAILURE 형태로 만들어주는 함수
 export const createRequestActionTypes = (type) => {
@@ -11,27 +10,24 @@ export const createRequestActionTypes = (type) => {
 	return [REQUEST, SUCCESS, FAILURE];
 };
 
-// type_SUCCESS 형태를 REQUEST_SUCCESS 형태로 만들어주는 함수
 export function createRequestSaga(type, request) {
+	// type_SUCCESS 형태를 GOOGLE_SUCCESS / KAKAO_SUCCESS 형태로 만들어줌
 	const SUCCESS = type.replace(/REQUEST/g, 'SUCCESS');
 	const FAILURE = type.replace(/REQUEST/g, 'FAILURE');
 
-	//SUCCESS = LOGIN_SUCCEESS //
-
 	return function* (action) {
-		//* 붙은 게 제너레이터 문법이라고 해가지고, 계속 감시할 수 있어요. 액션을 감지할
-		//yield put
-
 		try {
+			console.log('보낼거야');
 			const response = yield call(request, action.payload); //call 은 사가 문법인데,
-			//async await 랑 같다고 생각하면 되요.  저희 시큐리티 서버가 주는 response 를 받아와요.
-
-			console.log('여기서 직접 확인', response);
+			console.log('보냈다');
+			console.log(response);
 
 			const token = response.headers.authorization;
+			const userData = response.data;
 			console.log('token', token);
 
 			localStorage.setItem('jwt', token);
+			localStorage.setItem('user', JSON.stringify(userData));
 
 			yield put({
 				//사가 문법 중의 액션 타입을 실행시켜줘요.

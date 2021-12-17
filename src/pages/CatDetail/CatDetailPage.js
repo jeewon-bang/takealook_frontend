@@ -94,17 +94,17 @@ const CatDetailPage = () => {
   // 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
   const openMatchedCatModal = () => {
     // if (!newCatInfo.neutered || !newCatInfo.gender || !newCatInfo.pattern) {
-    //    document.getElementById('message').innerText =
-    //       '모든 항목을 입력해주세요!';
+    // 	document.getElementById('message').innerText =
+    // 		'모든 항목을 입력해주세요!';
     // } else {
-    //    if (catLoc.length === 0) {
-    //       document.getElementById('message').innerText =
-    //          '1곳 이상의 위치를 선택해주세요!';
-    //    } else {
-    //       document.getElementById('message').innerText = '';
-    //       // 동일 추정 고양이 모달 팝업
-    //       setShowMatchedCatModal(true);
-    //    }
+    // 	if (catLoc.length === 0) {
+    // 		document.getElementById('message').innerText =
+    // 			'1곳 이상의 위치를 선택해주세요!';
+    // 	} else {
+    // 		document.getElementById('message').innerText = '';
+    // 		// 동일 추정 고양이 모달 팝업
+    // 		setShowMatchedCatModal(true);
+    // 	}
     // }
 
     console.log(newCatInfo);
@@ -128,16 +128,16 @@ const CatDetailPage = () => {
       const formData = new FormData();
       // 새로받은 이미지들은 저장 안하나...?
       // for (let i = 0; i < newCatImg.length; i++) {
-      //    formData.append('catImg', newCatImg[i]);
+      // 	formData.append('catImg', newCatImg[i]);
       // }
       // formData.append(
-      //    'catInfo',
-      //    new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
+      // 	'catInfo',
+      // 	new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
       // );
 
       // 콘솔에 찍어보기
       // for (let pair of formData.entries()) {
-      //    console.log(pair[0] + ', ' + pair[1]);
+      // 	console.log(pair[0] + ', ' + pair[1]);
       // }
 
       axiosInstance
@@ -195,7 +195,7 @@ const CatDetailPage = () => {
         />
 
         <div>
-          <Link to={`/mycat/${catId}/update`}>
+          <Link to='/mycat/update'>
             <button className='cat-info-update-button'>정보 수정하기</button>
           </Link>
         </div>
