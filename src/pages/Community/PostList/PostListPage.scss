@@ -15,7 +15,7 @@
   margin-top: 50px;
 }
 
-.wrapper {
+.postlist-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 365px);
   column-gap: 3px;
@@ -24,4 +24,5 @@
   width: 90%;
   float: left;
   padding-left: 20px;
+  margin: 0;
 }
