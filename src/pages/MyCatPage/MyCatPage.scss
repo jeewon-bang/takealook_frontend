@@ -1,26 +1,36 @@
 @import 'components/common/common';
 
 @font-face {
-  font-family: 'SurroundAir';
-  src: url('../../fonts/Cafe24SsurroundAir.ttf');
+	font-family: 'SurroundAir';
+	src: url('../../fonts/Cafe24SsurroundAir.ttf');
 }
 
 .mycat-container {
-  width: 900px;
-  margin: 0 auto;
+	width: 900px;
+	margin: 0 auto;
 
-  .mycat-sorting {
-    float: right;
-    margin-top: 20px;
+	.mycat-sorting {
+		float: right;
+		margin-top: 20px;
 
-    .sorting {
-      width: 120px;
-      text-align: center;
-      height: 30px;
-      font-size: 15px;
-      border-radius: 5px;
-      border-color: $line-gray;
-      color: $gray;
-    }
-  }
+		.sorting {
+			width: 120px;
+			text-align: center;
+			height: 30px;
+			font-size: 15px;
+			border-radius: 5px;
+			border-color: $line-gray;
+			color: $gray;
+		}
+	}
+
+	.new-cat-button {
+		@extend %button-round;
+		width: 80px;
+		height: 80px;
+		position: fixed;
+		z-index: 1000;
+		top: 80%;
+		left: 80%;
+	}
 }

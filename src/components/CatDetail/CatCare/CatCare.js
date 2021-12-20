@@ -5,9 +5,11 @@ import './CatCare.scss';
 import CareCalendar from '../CareCalendar/CareCalendar';
 import axiosInstance from 'api/customAxios';
 import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const CatCare = (props) => {
 	const { catId, careHistory, setCareHistory } = props;
+	const user = useSelector((state) => state.auth.user);
 	const [newCare, setNewCare] = useState({
 		type: '',
 		message: '',
@@ -33,12 +35,12 @@ const CatCare = (props) => {
 	};
 	const handleCareSubmit = () => {
 		axiosInstance
-			.post(`user/1/cat/${catId}/catcare`, newCare, {
+			.post(`user/${user.id}/cat/${catId}/catcare`, newCare, {
 				'Content-Type': 'application/json',
 			})
 			.then((res) => {
 				axiosInstance
-					.get(`/user/1/cat/${catId}/48hours-catcares`)
+					.get(`/user/${user.id}/cat/${catId}/48hours-catcares`)
 					.then((res) => {
 						setCareHistory(res.data);
 					});

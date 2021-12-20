@@ -2,20 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from 'store/store';
+import history from 'utils/history';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = configureStore();
 
 ReactDOM.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			{/* store를 모든 곳에서 쓸수있게 하기위해 App을 Provider로 감싸준다 */}
-			<Provider store={store}>
-				<App />
-			</Provider>
+	<Provider store={store}>
+		{/* BrowserRouter가 아니라 Router로 감싸줘야 사가 코드에서 페이지 이동이 정상적으로 작동함 */}
+		<BrowserRouter history={history}>
+			{/* <Router history={history}> */}
+			<App />
+			{/* </Router> */}
 		</BrowserRouter>
-	</React.StrictMode>,
+	</Provider>,
 	document.getElementById('root')
 );
