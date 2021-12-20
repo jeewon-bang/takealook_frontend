@@ -1,35 +1,58 @@
 @import 'components/Common/common';
 
-.post-comment {
-  display: grid;
-}
+.postcomment {
+  display: flex;
 
-.writer-info {
-  @extend %user-info;
-  width: 10%;
-  .writer-name {
-    width: 50px;
+  .postcomment-writer-info {
+    width: 10%;
+    margin-left: 10px;
+    .postcomment-userimg {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: gray;
+      margin-right: 10px;
+    }
+    .postcomment-writer-name {
+      width: 50px;
+      float: left;
+      margin: 0 auto;
+      margin-left: 5px;
+      margin-bottom: 10px;
+    }
   }
-  .comment-update-btn {
-    @extend %button-square;
-    margin: 8px;
-    width: 50px;
-    font-weight: normal;
-    color: black;
-    background-color: white;
-  }
-  .comment-delete-btn {
-    @extend %button-square;
-    margin: 8px;
-    width: 50px;
-    font-weight: normal;
-    color: red;
-    background-color: white;
-  }
-}
 
-.content-comment {
-  width: 90%;
-  margin-left: 20px;
-  margin-top: 20px;
+  .postcomment-content {
+    width: 70%;
+    float: left;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+
+  .postcomment-content-update {
+    width: 1200px;
+  }
+
+  .postcomment-btn {
+    width: 20%;
+    float: left;
+    margin-top: 20px;
+    margin-left: 100px;
+    .postcomment-update-btn {
+      @extend %button-square;
+      left: 500px;
+      font-weight: normal;
+      color: black;
+      background-color: white;
+      margin-left: 40px;
+    }
+    .postcomment-delete-btn {
+      @extend %button-square;
+      left: 500px;
+      font-weight: normal;
+      color: red;
+      background-color: white;
+      margin-left: 45px;
+    }
+  }
 }

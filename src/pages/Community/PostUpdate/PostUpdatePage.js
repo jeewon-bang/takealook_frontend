@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './PostWritePage.scss';
+import { useParams } from 'react-router-dom';
+import './PostUpdatePage.scss';
 import Writeguide from 'components/Community/Writes/WriteGuide/WriteGuide';
 import WriteGuidebtn from 'components/Community/Writes/WriteGuide/WriteGuidebtn';
 import WriteThumbnail from 'components/Community/Writes/WriteThumbnail/WriteThumbnail';
@@ -7,18 +8,43 @@ import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
 import WritePostForm from 'components/Community/Writes/WritePostForm/WritePostForm';
 
-const PostWritePage = () => {
+const PostUpdatePage = () => {
+  const { postId } = useParams();
   const [showModal, setShowModal] = useState(false);
-  //과연 이렇게 useState를 남용해도 되는 것인가.. 리액트 고수 구합니다
   const [postImage, setPostImage] = useState([]);
   const [postText, setPostText] = useState({
     writerId: 1,
     boardId: 1,
     title: '',
     content: '',
+    imgUrl: '',
   });
+  // const [newPostText, setNewPostText] = useState({
+  //   writerId: 1,
+  //   boardId: 1,
+  //   title: '',
+  //   content: '',
+  //   imgUrl: '',
+  // });
+  const [updatePage, setUpdatePage] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axiosInstance
+      .get(`/post/${postId}`)
+      .then((res) => {
+        // 코드를 수정하니까 input 태그에 title이 뜨넹..
+        setPostText({
+          ...postText,
+          title: res.data.title,
+          content: res.data.content,
+          imgUrl: res.data.thumbnail,
+        });
+        setUpdatePage(true);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleSubmit = () => {
     if (!postText.title || !postText.content || !postImage) {
@@ -39,13 +65,11 @@ const PostWritePage = () => {
       }
 
       axiosInstance
-        .post('/post', formData, {
+        .post(`/post/${postId}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
-          // headers: { 'Content-Type': 'application/json' },
         })
         .then((res) => {
-          console.log(res);
-          navigate('/community');
+          navigate(`/community/post/${postId}`);
         })
         .catch((err) => {
           console.log(err);
@@ -59,7 +83,11 @@ const PostWritePage = () => {
         <div className='write-title-content'>
           <WriteGuidebtn setShowModal={setShowModal} />
           {showModal && <Writeguide setShowModal={setShowModal} />}
-          <WritePostForm postText={postText} setPostText={setPostText} />
+          <WritePostForm
+            postText={postText}
+            setPostText={setPostText}
+            updatePage={updatePage}
+          />
         </div>
         <div className='write-thumbnail'>
           <h3>
@@ -70,7 +98,12 @@ const PostWritePage = () => {
               &nbsp;파일첨부 필수
             </font>
           </h3>
-          <WriteThumbnail image={postImage} setImage={setPostImage} />
+          <WriteThumbnail
+            image={postImage}
+            setImage={setPostImage}
+            postText={postText}
+            updatePage={updatePage}
+          />
         </div>
         <div className='write-footer'>
           <button className='register-btn' onClick={handleSubmit}>
@@ -85,4 +118,4 @@ const PostWritePage = () => {
   );
 };
 
-export default PostWritePage;
+export default PostUpdatePage;

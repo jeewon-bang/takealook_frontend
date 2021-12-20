@@ -1,21 +1,32 @@
 @import 'components/Common/common';
 
-.right-nav {
+.list-top-nav {
+}
+
+.list-right-nav {
   float: right;
   width: 10%;
+  .list-write-btn {
+    //브라우저 크기에 따라 이동 o
+    width: 100px;
+    height: 100px;
+    top: 580px;
+    right: 310px;
+    position: fixed;
+    z-index: 9999;
+  }
 }
 
-.nav-wrapper {
-  padding-bottom: 40px;
+.list-searching {
 }
 
-.sorting-wrapper {
+.list-sorting {
   float: right;
   margin-right: 5px;
   margin-top: 50px;
 }
 
-.postlist-wrapper {
+.postlist {
   display: grid;
   grid-template-columns: repeat(3, 365px);
   column-gap: 3px;

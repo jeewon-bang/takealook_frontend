@@ -9,6 +9,7 @@ import CatDetailPage from './pages/CatDetail/CatDetailPage';
 import CatRegisterPage from 'pages/CatRegisterPage/CatRegisterPage';
 import PostDetailPage from 'pages/Community/PostDetail/PostDetailPage';
 import PostWritePage from 'pages/Community/PostWrite/PostWritePage';
+import PostUpdatePage from 'pages/Community/PostUpdate/PostUpdatePage';
 import PostListPage from 'pages/Community/PostList/PostListPage';
 import CatUpdatePage from 'pages/CatUpdatePage/CatUpdatePage';
 import RecomendationPage from 'pages/MatchingPage/Recomendation/RecomendationPage';
@@ -23,6 +24,7 @@ import { useDispatch } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
 
 function App() {
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		console.log('자동 재로그인');
@@ -48,11 +50,13 @@ function App() {
 				<Route path='/community' element={<PostListPage />} />
 				<Route path='/community/write' element={<PostWritePage />} />
 				<Route path='/community/post/:index' element={<PostDetailPage />} />
+          <Route path='/community/update/:postId' element={<PostUpdatePage />} />
 				<Route path='/test' element={<Test />} />
 				<Route path='/oauth/:accesstoken' element={<OauthRedirectHandler />} />
 			</Routes>
 		</div>
 	);
+
 }
 
 export default App;

@@ -1,50 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './PostListPage.scss';
 import PostList from 'components/Community/Post/PostList/PostList';
-import Writebtn from 'components/Community/Writes/WriteBtn/Writebtn';
 import Sorting from 'components/Community/Sorting/Sorting';
 import Category from 'components/Community/Category/Category';
 import Searching from 'components/Community/Searching/Searching';
 import axiosInstance from 'api/customAxios';
 import { Link } from 'react-router-dom';
-// {
-//   "board": {
-//       "id": 2,
-//       "name": "가출냥 찾기"
-//   },
-//   "postId": 19,
-//   "writer": {
-//       "id": 1,
-//       "userName": "신지혜",
-//       "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
-//       "dflag": false
-//   },
-//   "thumbnail": "https://takealook-bucket.s3.ap-northeast-2.amazonaws.com/static/998c2c95-f2c4-4245-8710-c940259775c7digits.png",
-//   "title": "png1 체인지",
-//   "content": "png1 체인지",
-//   "modifiedAt": "2021-12-16T13:15:13.837",
-//   "postLike": 0,
-//   "commentList": [],
-//   "commentListCount": 0
-// }
 
 const PostListPage = () => {
   const [boardId, setBoardId] = useState(0);
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
-
   // const [search, setSearch] = useState('');
-  // console.log(search);
 
   useEffect(() => {
-    console.log('PostListPage.js');
-
     if (boardId !== 0) {
       axiosInstance
         //카테고리별
         .get(`/posts/${boardId}`)
         .then((res) => {
           setPosts(res.data);
+          // setPosts([...posts, content: res.data.content.replace(/(<([^>]+)>)/gi, '')])
           setLoaded(true);
         })
         .catch((err) => {
@@ -62,23 +38,29 @@ const PostListPage = () => {
           console.log(err);
         });
     }
-  }, [boardId]);
+  }, []);
 
   return loaded ? (
     <div className='content-container'>
-      <div className='nav-wrapper'>
+      <div className='list-top-nav'>
         <Category setBoardId={setBoardId} />
       </div>
-      <div className='right-nav'>
-        <Writebtn />
+      <div className='list-right-nav'>
+        <Link to='/community/write'>
+          <img
+            className='list-write-btn'
+            src={require('images/write.png').default}
+            alt='글쓰기'
+          />
+        </Link>
       </div>
-      <div className='searching-wrapper'>
+      <div className='list-searching'>
         <Searching />
       </div>
-      <div className='sorting-wrapper'>
+      <div className='list-sorting'>
         <Sorting posts={posts} setPosts={setPosts} />
       </div>
-      <div className='postlist-wrapper'>
+      <div className='postlist'>
         {posts &&
           posts.map((post) => (
             <Link to={`/community/post/${post.postId}`} className='link'>

@@ -29,7 +29,7 @@ const Sorting = (props) => {
   const sortByCreated_At = () => {
     const sorted = [...posts];
     sorted.sort(function (a, b) {
-      return sorted.indexOf(b) - sorted.indexOf(a);
+      return b.postId - a.postId;
     });
     setPosts(sorted);
   };
@@ -37,7 +37,7 @@ const Sorting = (props) => {
   const sortByReverseCreated_At = () => {
     const sorted = [...posts];
     sorted.sort(function (a, b) {
-      return sorted.indexOf(a) - sorted.indexOf(b);
+      return a.postId - b.postId;
     }); //왜 과거순은 안되는거같지???
     setPosts(sorted);
   };
@@ -66,16 +66,19 @@ const Sorting = (props) => {
         className='sorting'
         onChange={sortHandler}
       >
-        <option value='lately' selected='selected' className='option'>
+        <option defaultValue='' className='option' selected disabled hidden>
+          -정렬-
+        </option>
+        <option value='lately' className='option'>
           최근순
         </option>
-        <option value='past' selected='selected' className='option'>
+        <option value='past' className='option'>
           과거순
         </option>
-        <option value='like' selected='selected' className='option'>
+        <option value='like' className='option'>
           좋아요순
         </option>
-        <option value='cmt' selected='selected' className='option'>
+        <option value='cmt' className='option'>
           댓글순
         </option>
       </select>

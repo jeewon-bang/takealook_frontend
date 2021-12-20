@@ -5,42 +5,51 @@
   background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
     0 100% repeat-x;
 
-  .info-header {
+  .postdetail-header {
     background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
       0 100% repeat-x;
   }
 }
 
-.info {
+.postdetail-header-info {
   display: flex;
-  .info-like {
+  .postdetail-header-info-like {
     margin-right: 50px;
   }
-  .info-comment {
+  .postdetail-header-info-comment {
     margin-right: 50px;
   }
-  .info-created_at {
+  .postdetail-header-info-created_at {
     margin-right: 50px;
   }
 }
 
-.top-title {
+.postdetail-title {
   display: flex;
   margin-right: 100px;
   font-size: 30px;
 }
 
-.writer-info {
+.postdetail-writer-info {
   @extend %user-info;
   display: flex;
-  .detail-btn {
+  .postdetail-btn {
     @extend %button-square;
     margin: 10px;
     width: 80px;
     border-radius: 8px;
   }
+  .postdetail-userimg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: gray;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
 }
 
-.content {
+.postdetail-content {
   margin: 0 auto;
+  width: 1000px;
 }

@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useMemo, useRef } from 'react';
 import './WritePostForm.scss';
 import ReactQuill, { Quill } from 'react-quill';
 import '../../../../../node_modules/react-quill/dist/quill.snow.css';
@@ -13,18 +7,10 @@ import axiosInstance from 'api/customAxios';
 Quill.register('modules/ImageResize', ImageResize);
 
 const WritePostForm = (props) => {
-  const { postText, setPostText } = props;
-  const [value, setValue] = useState(postText.content);
+  const { postText, setPostText, updatePage } = props;
+  console.log(postText.title);
+  // const [value, setValue] = useState(postText.content);
   const quillRef = useRef('');
-
-  const handleChange = (e) => {
-    setPostText({ ...postText, [e.target.name]: e.target.value });
-  };
-
-  // 현재 에디터 커서 위치값을 가져온다
-  // const quill = quillRef.current.getEditor();
-  // console.log('여기까지 왔니');
-  // console.log(quill);
 
   const imageHandler = () => {
     const input = document.createElement('input'); // input 태그를 동적으로 생성하기
@@ -45,28 +31,27 @@ const WritePostForm = (props) => {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((res) => {
-          console.log(res.data);
-          const img = document.createElement('img');
-          img.src = res.data;
-          // quill = quillRef.current.getEditor();
-          // const range = quill.getSelection()?.index;
-          // quill.setSelection(range, 1);
-          // quill.clipboard.dangerouslyPasteHtml(
-          //   range,
-          //   `<img src=${res.data} alt='image'`
-          // );
+          console.log(res.data); //url
+          //에디터 정보를 가져올 수 있다.
+          const quill = quillRef.current.getEditor();
+          //현재 에디터 커서 위치를 알려준다.
+          const range = quill.getSelection();
+          //에디터의 특정 위치에 원하는 요소를 넣어 준다.
+          quill.insertEmbed(range, 'image', res.data);
         })
-        .catch();
+        .catch((err) => console.log(err));
     };
   };
 
-  const handleContent = (e) => {
-    setValue(e);
-    const span = document.createElement('SPAN');
-    span.innerHTML = value;
+  //카테고리 & 제목
+  const handleChange = (e) => {
+    setPostText({ ...postText, [e.target.name]: e.target.value });
+  };
 
-    console.log(span.innerText);
-    setPostText({ ...postText, content: span.innerText });
+  //내용 - quill
+  const handleContent = (e) => {
+    // setValue(e);
+    setPostText({ ...postText, content: e });
   };
 
   // useMemo를 사용한 이유는 modules가 렌더링마다 변하면 에디터에서 입력이 끊기는 버그가 발생
@@ -125,16 +110,16 @@ const WritePostForm = (props) => {
           className='selects'
           onChange={handleChange}
         >
-          <option value='' selected disabled hidden>
+          <option defaultValue='' className='option' selected disabled hidden>
             -카테고리 선택-
           </option>
-          <option value='1' selected='selected' className='option'>
+          <option value='1' className='option'>
             전국고양이자랑
           </option>
-          <option value='2' selected='selected' className='option'>
+          <option value='2' className='option'>
             가출냥찾기
           </option>
-          <option value='3' selected='selected' className='option'>
+          <option value='3' className='option'>
             도와주세요
           </option>
         </select>
@@ -151,6 +136,7 @@ const WritePostForm = (props) => {
             className='title-input'
             placeholder='제목을 입력해주세요'
             onChange={handleChange}
+            value={postText.title}
           />
           <h3>
             글작성<font color='#ff0505'>*</font>
@@ -164,8 +150,8 @@ const WritePostForm = (props) => {
         placeholder='내용을 입력해주세요😸'
         modules={modules}
         formats={formats}
-        onChange={handleContent} //quill 에디터는 깊은복사 필요없는듯 ??
-        value={value}
+        onChange={handleContent}
+        value={postText.content}
         ref={quillRef}
       />
     </div>

@@ -1,6 +1,6 @@
 @import 'components/Common/common';
 
-.search {
+.list-search {
   position: relative;
   // text-align: center;
   width: 400px;
@@ -8,17 +8,17 @@
   margin: 0 auto;
   margin: 0;
 
-  input {
+  .list-searching-ipt {
     width: 100%;
     border-radius: 20px;
     border: 1px solid #bbb;
     margin: 50px 0;
     padding: 10px 12px;
   }
-}
-.fa-search {
-  position: absolute;
-  right: 10px;
-  top: 60px;
-  margin: 0;
+  .fa-search {
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    margin: 0;
+  }
 }
