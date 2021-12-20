@@ -1,17 +1,47 @@
-.kakao-login-button {
-	padding: 0;
-	width: 300px;
-	height: 45px;
-	line-height: 44px;
-	color: #783c00;
-	background-color: #ffeb00;
-	border: 1px solid transparent;
-	border-radius: 3px;
-	font-size: 14px;
-	font-weight: bold;
+@import 'components/Common/common';
+
+.content-inner {
 	text-align: center;
-	cursor: pointer;
-	&:hover {
-		box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
+
+	.kakao-login-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		margin: 10px;
+		width: 600px;
+		height: 45px;
+		color: #783c00;
+		background-color: #ffeb00;
+		border: 1px solid $line-gray;
+		border-radius: 3px;
+		font-size: 14px;
+		font-weight: bold;
+		text-align: center;
+		cursor: pointer;
+		&:hover {
+			box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
+		}
+	}
+
+	.google-login-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		margin: 10px;
+		width: 600px;
+		height: 45px;
+		color: $dark-gray;
+		background-color: #ffffff;
+		border: 1px solid $line-gray;
+		border-radius: 3px;
+		font-size: 14px;
+		font-weight: bold;
+		text-align: center;
+		cursor: pointer;
+		&:hover {
+			box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
+		}
 	}
 }

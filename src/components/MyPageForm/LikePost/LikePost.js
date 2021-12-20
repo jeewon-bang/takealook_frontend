@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 
 const LikePost = (props) => {
   const { likePosts, setLikePosts } = props;
+  const timeDiff = (date) => {
+    return date.substring(0, 10);
+  };
+
   return (
     <div class='article'>
       <div class='block-title'>
@@ -20,15 +24,15 @@ const LikePost = (props) => {
                   <li class='active'>
                     <div class='list-title'>
                       <p>
-                        [<span>{post.board}</span>]
+                        [<span>{post.board.name}</span>]
                       </p>
                     </div>
                     <div class='postList2'>
                       <p class='title'>{post.title}</p>
-                      <div class='modified_at'>{post.modified_at}</div>
+                      <div class='modified_at'>{timeDiff(post.modifiedAt)}</div>
                     </div>
                     <div class='profile'>
-                      <p>{post.writer}</p>
+                      <p>{post.writer.userName}</p>
                     </div>
                   </li>
                 </ul>

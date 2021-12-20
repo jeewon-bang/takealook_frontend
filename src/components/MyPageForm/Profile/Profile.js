@@ -11,14 +11,10 @@ const Profile = (props) => {
 
   return (
     <div class='mypage-profile'>
-      <p class='hello'>Hello, {user.loginId}</p>
+      <p class='hello'>Hello {user.loginId}</p>
       <div class='figure' id='myProfile'>
         <div class='profile_container'>
-          <img
-            class='img-circle'
-            src={require('images/happy.png').default}
-            alt='cat'
-          />
+          <img class='img-circle' src={user.image} alt='cat' />
         </div>
         <div class='pro_info_area'>
           <p class='nick_name'>{user.nickname}</p>
