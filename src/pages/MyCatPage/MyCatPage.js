@@ -61,7 +61,7 @@ const MyCatPage = () => {
       );
   }, []);
 
-  return loaded ? (
+  return (
     <div className='mycat-container'>
       <div className='mycat-sorting'>
         <select name='choice' className='sorting' onChange={sortHandler}>
@@ -77,7 +77,7 @@ const MyCatPage = () => {
         </select>
       </div>
       <Link to='/mycat/new'>
-        <button>새 고양이 등록</button>
+        <button className='new-cat-button'>새 고양이 등록</button>
       </Link>
       {(() => {
         switch (selectType) {
@@ -113,8 +113,6 @@ const MyCatPage = () => {
         }
       })()}
     </div>
-  ) : (
-    <div>로딩중</div>
   );
 };
 

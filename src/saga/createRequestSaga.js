@@ -1,39 +1,30 @@
-import { call, delay, put } from 'redux-saga/effects';
-import { useNavigate } from 'react-router-dom';
-
-// type을 인자로 받아서 type_REQUEST, type_SUCCESS, type_FAILURE 형태로 만들어주는 함수
-export const createRequestActionTypes = (type) => {
-	const REQUEST = `${type}_REQUEST`;
-	const SUCCESS = `${type}_SUCCESS`;
-	const FAILURE = `${type}_FAILURE`;
-
-	return [REQUEST, SUCCESS, FAILURE];
-};
+import { call, delay, getContext, put } from 'redux-saga/effects';
+import { startLoading, finishLoading } from 'reducer/loading';
+import history from 'utils/history';
 
 export function createRequestSaga(type, request) {
-	// type_SUCCESS 형태를 GOOGLE_SUCCESS / KAKAO_SUCCESS 형태로 만들어줌
 	const SUCCESS = type.replace(/REQUEST/g, 'SUCCESS');
 	const FAILURE = type.replace(/REQUEST/g, 'FAILURE');
 
 	return function* (action) {
+		yield put(startLoading(type));
+
 		try {
-			console.log('보낼거야');
-			const response = yield call(request, action.payload); //call 은 사가 문법인데,
-			console.log('보냈다');
-			console.log(response);
+			console.log('사가 실행');
+			const response = yield call(request, action.payload); //call : async await와 비슷.
 
 			const token = response.headers.authorization;
-			const userData = response.data;
-			console.log('token', token);
-
 			localStorage.setItem('jwt', token);
-			localStorage.setItem('user', JSON.stringify(userData));
 
 			yield put({
-				//사가 문법 중의 액션 타입을 실행시켜줘요.
+				// put: (사가 문법) 액션 타입 실행
 				type: SUCCESS,
-				payload: response.data.data,
+				payload: response,
 			});
+
+			const history = yield getContext('history');
+			history.push('/'); // 왜? 주소는 바뀌는데 ? 화면 리렌더링이 안되나????
+			// history.go(0); // 이렇게 새로고침을 해야하나....???
 		} catch (e) {
 			const errorData = e.response.data;
 
@@ -45,5 +36,7 @@ export function createRequestSaga(type, request) {
 				error: true,
 			});
 		}
+
+		yield put(finishLoading(type)); //로딩 끝
 	};
 }

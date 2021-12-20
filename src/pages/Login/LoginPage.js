@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GOOGLE_CLIENTID } from 'config/config';
 import { NAVER_CLIENTID } from 'config/config';
 import { useNavigate } from 'react-router-dom';
+import './LoginPage.scss';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -29,41 +30,48 @@ const LoginPage = () => {
 	};
 
 	return (
-		<div>
-			<KakaoLogin
-				token={KAKAO_JAVASCRIPT_KEY}
-				onSuccess={kakaoLogin}
-				onFaile={kakaoLogin}
-				onLogout={''}
-				render={(renderProps) => (
-					<div onClick={renderProps.onClick} disabled={renderProps.disabled}>
-						<h1>카카오 로그인</h1>
-					</div>
-				)}
-			/>
-			<GoogleLogin
-				clientId={GOOGLE_CLIENTID}
-				onSuccess={googleLogin}
-				onFailure={googleLogin}
-				cookiePolicy={'single_host_origin'} // 구글로그인의 경우 넣어줘야함
-				render={(renderProps) => (
-					<div onClick={renderProps.onClick} disabled={renderProps.disabled}>
-						<h1>구글로그인</h1>
-					</div>
-				)}
-			/>
-			<NaverLogin
-				clientId={NAVER_CLIENTID}
-				callbackUrl={REDIRECT_URI} // 네이버로그인에서 특이한점..
-				callbackHandle={false}
-				onSuccess={naverLogin}
-				onFailure={naverLogin}
-				render={(renderProps) => (
-					<div onClick={renderProps.onClick} disabled={renderProps.disabled}>
-						<h1>네이버 로그인</h1>
-					</div>
-				)}
-			/>
+		<div className='content-container'>
+			<div className='content-inner'>
+				<KakaoLogin
+					token={KAKAO_JAVASCRIPT_KEY}
+					onSuccess={kakaoLogin}
+					onFaile={kakaoLogin}
+					onLogout={''}
+					render={(renderProps) => (
+						<button
+							className='kakao-login-button'
+							onClick={renderProps.onClick}
+							disabled={renderProps.disabled}>
+							<img
+								src={require('images/kakao.png').default}
+								style={{ width: '30px', marginRight: '10px' }}
+								alt='kakao'
+							/>
+							카카오 계정으로 로그인
+						</button>
+					)}
+				/>
+				<br />
+				<GoogleLogin
+					clientId={GOOGLE_CLIENTID}
+					onSuccess={googleLogin}
+					onFailure={googleLogin}
+					cookiePolicy={'single_host_origin'} // 구글로그인의 경우 넣어줘야함
+					render={(renderProps) => (
+						<button
+							className='google-login-button'
+							onClick={renderProps.onClick}
+							disabled={renderProps.disabled}>
+							<img
+								src={require('images/google.png').default}
+								style={{ width: '30px', marginRight: '10px' }}
+								alt='kakao'
+							/>
+							구글 계정으로 로그인
+						</button>
+					)}
+				/>
+			</div>
 		</div>
 	);
 };

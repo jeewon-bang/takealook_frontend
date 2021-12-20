@@ -6,10 +6,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
+import { useSelector } from 'react-redux';
 
 const CatInfo = (props) => {
   const { catId, catInfo, setCatInfo, catImg, setCatImg } = props;
   const [showTooltip, setShowTooltip] = useState(false);
+  const user = useSelector((state) => state.auth.user);
 
   // 고양이 상태만 바로 바꾸는 함수
   const changeCatStatus = (e) => {
@@ -28,9 +30,9 @@ const CatInfo = (props) => {
         newStatus = '3';
     }
     axiosInstance
-      .patch(`/user/1/cat/${catId}?status=${newStatus}`)
+      .patch(`/user/${user.id}/cat/${catId}?status=${newStatus}`)
       .then((res) => {
-        axiosInstance.get(`user/1/cat/${catId}`).then((res) => {
+        axiosInstance.get(`user/${user.id}/cat/${catId}`).then((res) => {
           setCatInfo(res.data);
         });
       });
@@ -41,6 +43,9 @@ const CatInfo = (props) => {
       <div className='info-content'>
         <span className='cat-img-box'>
           <Swiper slidesPerView={1} navigation pagination={{ clickable: true }}>
+            <SwiperSlide>
+              <img src={catInfo.mainImage} alt='img' className='cat-img' />
+            </SwiperSlide>
             {catImg.map((img) => (
               <SwiperSlide>
                 <img src={img.path} alt='img' className='cat-img' />
