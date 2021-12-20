@@ -25,9 +25,14 @@ const Searching = (props) => {
 
   return (
     <div>
-      <div class='search'>
+      <div class='list-search'>
         <i class='fas fa-search'></i>
-        <input type='text' onChange={handleSearch} onKeyPress={handleEnter} />
+        <input
+          className='list-searching-ipt'
+          type='text'
+          onChange={handleSearch}
+          onKeyPress={handleEnter}
+        />
       </div>
     </div>
   );

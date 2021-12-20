@@ -1,97 +1,119 @@
 import PostComment from 'components/Community/Post/PostComment/PostComment';
-import WritePostComment from 'components/Community/Post/PostComment/WritePostComment';
 import PostDetail from 'components/Community/Post/PostDetail/PostDetail';
 import React, { useState, useEffect } from 'react';
 import './PostDetailPage.scss';
 import axiosInstance from 'api/customAxios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import WriteComment from 'components/Community/Writes/WriteComment/WriteComment';
+import axios from 'axios';
 // {
 //   "board": {
 //       "id": 2,
 //       "name": "가출냥 찾기"
 //   },
-//   "postId": 19,
+//   "postId": 17,
 //   "writer": {
 //       "id": 1,
 //       "userName": "신지혜",
 //       "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
 //       "dflag": false
 //   },
-//   "thumbnail": "https://takealook-bucket.s3.ap-northeast-2.amazonaws.com/static/998c2c95-f2c4-4245-8710-c940259775c7digits.png",
-//   "title": "png1 체인지",
-//   "content": "png1 체인지",
-//   "modifiedAt": "2021-12-16T13:15:13.837",
-//   "postLike": 0,
-//   "commentList": [],
-//   "commentListCount": 0
+//   "thumbnail": "https://takealook-bucket.s3.ap-northeast-2.amazonaws.com/static/8f31ec06-b73a-45bd-8af4-b28852122685s.jpg",
+//   "title": "테스트테스트",
+//   "content": "테스트ㅇ",
+//   "createdAt": "2021-12-19T02:25:48.287",
+//   "modifiedAt": "2021-12-19T02:25:48.287",
+//   "postLike": 1,
+//   "commentList": [
+//       {
+//           "writer": {
+//               "id": 1,
+//               "userName": "신지혜",
+//               "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
+//               "dflag": false
+//           },
+//           "commentId": 40,
+//           "content": "댓글",
+//           "modifiedAt": "2021-12-19T02:37:25.101",
+//           "commentLike": 0
+//       },
+//       {
+//           "writer": {
+//               "id": 1,
+//               "userName": "신지혜",
+//               "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
+//               "dflag": false
+//           },
+//           "commentId": 41,
+//           "content": "댓글이다",
+//           "modifiedAt": "2021-12-19T12:04:20.07",
+//           "commentLike": 0
+//       },
+//       {
+//           "writer": {
+//               "id": 1,
+//               "userName": "신지혜",
+//               "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
+//               "dflag": false
+//           },
+//           "commentId": 42,
+//           "content": "고양이 최고",
+//           "modifiedAt": "2021-12-19T12:07:48.909",
+//           "commentLike": 0
+//       }
+//   ],
+//   "commentListCount": 3
 // }
 
-// 댓글리스트
-// [
-//   {
-//       "writer": {
-//           "id": 1,
-//           "userName": "신지혜",
-//           "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
-//           "dflag": false
-//       },
-//       "content": "댓글 달거야",
-//       "modifiedAt": "2021-12-16T17:53:56.304",
-//       "commentLike": 0
-//   },
-//   {
-//       "writer": {
-//           "id": 1,
-//           "userName": "신지혜",
-//           "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
-//           "dflag": false
-//       },
-//       "content": "댓글 달거야",
-//       "modifiedAt": "2021-12-16T17:53:58.978",
-//       "commentLike": 0
-//   }
-// ]
-let doubleClickFlag = false;
-
 const PostDetailPage = () => {
-  const { index } = useParams();
-  const [postDetails, setPostDetails] = useState('');
+  const { postId } = useParams();
+  const [postDetails, setPostDetails] = useState({});
+  const [comments, setComments] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [postLike, setPostLike] = useState(0);
+  const [like, setLike] = useState(0);
+  const [doubleClickFlag, setDoubleClickFlag] = useState(false);
+  const [postLikeInfo, setPostLikeInfo] = useState({
+    postId: postId,
+    userId: 1,
+  });
 
   useEffect(() => {
-    console.log('PostDetailPage.js');
-
-    //게시글 상세 조회
-    axiosInstance
-      .get(`/post/${index}`)
-      .then((res) => {
-        setPostDetails(res.data);
-        setPostLike(res.data.postLike);
-        setLoaded(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios
+      .all([
+        axiosInstance.get(`/post/${postId}`),
+        axiosInstance.get(`/post/${postId}/comment`),
+      ])
+      .then(
+        axios.spread((postDetailsRes, commentsRes) => {
+          setPostDetails(postDetailsRes.data);
+          setLike(postDetailsRes.data.postLike);
+          setComments(commentsRes.data);
+          setLoaded(true);
+        })
+      );
   }, []);
 
   const handlePostLike = () => {
     if (!doubleClickFlag) {
-      setPostLike(postLike + 1);
-      doubleClickFlag = true;
+      setLike(like + 1);
+      setDoubleClickFlag(true);
       //like api
-      // axiosInstance
-      //   .post(`/post/${index}/comment/{commentId}/like`) //여기 commentId 수정
-      //   .then()
-      //   .catch((err) => console.log(err));
+      axiosInstance
+        .post(`/post/${postId}/like`, postLikeInfo, {
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .then()
+        .catch((err) => console.log(err));
     } else {
-      console.log('여기서 아무것도 하지 않을거야...');
-      setPostLike(postLike - 1);
+      setLike(like - 1);
+      setDoubleClickFlag(false);
       //unlike api
-      // axiosInstance
-      //   .post(`/post/${index}/comment/{commentId}/like`) //여기 commentId 수정
-      //   .then()
-      //   .catch((err) => console.log(err));
+      axiosInstance
+        .delete(`/post/${postId}/like`, postLikeInfo, {
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .then()
+        .catch((err) => console.log(err));
     }
   };
 
@@ -99,27 +121,45 @@ const PostDetailPage = () => {
     <div className='content-container'>
       <div className='right-nav'>
         <img
-          class='postlike'
+          class='detail-like-btn'
           src={require('images/postlike.png').default}
-          alt='postlike'
+          alt='좋아요'
           onClick={handlePostLike}
         />
+        <Link to='/community/write'>
+          <img
+            className='detail-write-btn'
+            src={require('images/write.png').default}
+            alt='글쓰기'
+          />
+        </Link>
       </div>
-      <div className='post-detail'>
+      <div className='detail-postdetail'>
         <PostDetail
-          postLike={postLike}
           postDetails={postDetails}
-          setPostDetails={setPostDetails}
+          like={like}
+          doubleClickFlag={doubleClickFlag}
         />
       </div>
-      <div className='post-writecomment'>
-        <WritePostComment postDetails={postDetails} />
+      <div className='detail-commentwrite'>
+        <WriteComment
+          postDetails={postDetails}
+          setPostDetails={setPostDetails}
+          comments={comments}
+          setComments={setComments}
+          setLoaded={setLoaded}
+        />
       </div>
-      <div className='postdetail-listcomment'>
+      <div className='detail-commentlist-info'>
         <h2>
           <font color='#ffa800'>{postDetails.commentListCount}</font>
           개의 댓글
         </h2>
+        <div className='detail-commentlist'>
+          {comments.map((comment) => (
+            <PostComment postDetails={postDetails} comment={comment} />
+          ))}
+        </div>
       </div>
     </div>
   ) : (

@@ -1,9 +1,16 @@
 import axiosInstance from 'api/customAxios';
-import React from 'react';
+import WriteComment from 'components/Community/Writes/WriteComment/WriteComment';
+import React, { useState } from 'react';
 import './PostComment.scss';
 
 const PostComment = (props) => {
   const { postDetails, comment } = props;
+  const [newComment, setNewComment] = useState({
+    newContent: comment.content,
+    commentId: comment.commentId,
+  });
+  console.log(newComment);
+  const [commentUpdate, setCommentUpdate] = useState(false);
 
   const handleDelete = () => {
     axiosInstance
@@ -12,14 +19,37 @@ const PostComment = (props) => {
       .catch((err) => console.log(err));
   };
 
+  const handleUpdate = () => {
+    setCommentUpdate(true);
+    console.log(newComment);
+  };
+
   return (
-    <div className='post-comment'>
-      <div className='writer-info'>
-        <div className='user-img'></div>
-        <h5 className='writer-name'>{comment.writer.userName}</h5>
-        <div className='content-comment'>{comment.content}</div>
-        <button className='comment-update-btn'>수정</button>
-        <button className='comment-delete-btn' onClick={handleDelete}>
+    <div className='postcomment'>
+      <div className='postcomment-writer-info'>
+        <img
+          src={postDetails.writer.userImage}
+          className='postcomment-userimg'
+          alt='user'
+        />
+        <h5 className='postcomment-writer-name'>{comment.writer.userName}</h5>
+      </div>
+      {commentUpdate === false ? (
+        <div className='postcomment-content'>{comment.content}</div>
+      ) : (
+        <div className='postcomment-content-update'>
+          <WriteComment newComment={newComment} commentUpdate={commentUpdate} />
+        </div>
+      )}
+
+      <div className='postcomment-btn'>
+        {commentUpdate === false ? (
+          <button className='postcomment-update-btn' onClick={handleUpdate}>
+            수정
+          </button>
+        ) : null}
+
+        <button className='postcomment-delete-btn' onClick={handleDelete}>
           삭제
         </button>
       </div>

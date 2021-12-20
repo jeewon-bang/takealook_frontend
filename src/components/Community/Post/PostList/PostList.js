@@ -4,8 +4,9 @@ import './PostList.scss';
 
 const PostList = (props) => {
   const { post } = props;
-  console.log(post.postId);
-  console.log(typeof post.postId);
+  const newContent = post.content.replace(/(<([^>]+)>)/gi, '');
+  console.log(typeof newContent);
+  console.log(typeof post.content);
 
   let today = new Date();
   const year = today.getFullYear();
@@ -17,7 +18,7 @@ const PostList = (props) => {
 
   return (
     <div>
-      <div class='card'>
+      <div class='cards'>
         <div
           class='card-header'
           style={{
@@ -36,16 +37,17 @@ const PostList = (props) => {
 
         <div class='card-body'>
           <div class='card-body-header'>
-            {/* <h3></h3> */}
             <p>
               <font size='2' color='#ffa800'>
                 <strong>{post.board.name}</strong>
               </font>
             </p>
             <h1 className='card-body-header-title'>{post.title}</h1>
-            <p>{post.content}</p>
+            <p>{newContent}</p>
           </div>
-          <p class='card-body-description'>{post.content}</p>
+          {/* <p class='card-body-description'>
+            {newContent} hover할때 내용부분
+          </p> */}
 
           <div class='card-body-footer'>
             <i class='card-body-nickname'>
