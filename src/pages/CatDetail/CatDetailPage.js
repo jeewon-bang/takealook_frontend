@@ -195,7 +195,7 @@ const CatDetailPage = () => {
         />
 
         <div>
-          <Link to='/mycat/update'>
+          <Link to={`/mycat/${catId}/update`}>
             <button className='cat-info-update-button'>정보 수정하기</button>
           </Link>
         </div>

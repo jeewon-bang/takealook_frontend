@@ -3,7 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 
 const CatImgUpdate = (props) => {
-  const { image, setImage, catImg, setCatImg } = props;
+  const {
+    catImg,
+    setCatImg,
+    deleteImgURl,
+    setDeleteImgUrl,
+    addImg,
+    setAddImg,
+  } = props;
+
   const [imgList, setImgList] = useState([]);
   const [imgUrlList, setImgUrlList] = useState([]);
 
@@ -17,19 +25,23 @@ const CatImgUpdate = (props) => {
   const handleChange = (e) => {
     setImgList([...imgList, ...e.target.files]);
     // 부모컴포넌트 이미지배열에도 값 넣어준다
-    setImage([...e.target.files]);
+    setAddImg([...imgList, ...e.target.files]);
   };
 
   // 업로드한 이미지 삭제
   const deleteImg = (e) => {
     let index = e.target.parentNode.id;
-
-    imgList.splice(index - catImg.length, 1);
-    imgUrlList.splice(index, 1);
-    setImgList([...imgList]);
-    setImgUrlList([...imgUrlList]);
-    // 부모컴포넌트 이미지배열에도 변경된사항 넣는다
-    setImage([...imgList]);
+    if (index <= catImg.length - 1) {
+      setDeleteImgUrl([...deleteImgURl, ...catImg.splice(index, 1)]);
+      imgUrlList.splice(index, 1);
+      setCatImg([...catImg]);
+      setImgUrlList([...imgUrlList]);
+    } else {
+      imgList.splice(index - catImg.length, 1);
+      imgUrlList.splice(index, 1);
+      setImgList([...imgList]);
+      setImgUrlList([...imgUrlList]);
+    }
   };
 
   // 화면에 그릴 이미지 주소값(imgUrlList) 생성 : useEffect로 imgList 배열이 변경됐을때마다 실행
@@ -60,10 +72,8 @@ const CatImgUpdate = (props) => {
       setImgUrlList([...pastUrls, ...urls]);
     }
   }, [imgList, catImg]);
+  console.log(deleteImgURl);
 
-  console.log('리스트에 합쳐줘');
-  console.log(imgList);
-  console.log(imgUrlList);
   return (
     <div className='cat-img-upload'>
       <div className='cat-img-upload-box'>
@@ -81,7 +91,7 @@ const CatImgUpdate = (props) => {
           <button className='img-upload-button' onClick={handleClick}>
             <FontAwesomeIcon icon={faCamera} />
             <br />
-            {imgUrlList.length} / 10 {imgList.length}
+            {imgUrlList.length} / 10
           </button>
           {imgUrlList.map((v) => (
             <span
@@ -94,16 +104,7 @@ const CatImgUpdate = (props) => {
               </button>
             </span>
           ))}
-          {/* {Array.from({ length: 10 }, (v, i) => i).map((v) => (
-                          <span
-                              id={v}
-                              className='img-preview'
-                              style={{ backgroundColor: 'gray' }}>
-                              <button className='img-delete-button' onClick={deleteImg}>
-                                  X
-                              </button>
-                          </span>
-                      ))} */}
+
           <br />
         </div>
       </div>

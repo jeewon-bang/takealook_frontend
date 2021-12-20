@@ -76,6 +76,7 @@ const CatLocation = (props) => {
     // 	})),
     // ]);
     setCatLoc([
+      ...catLoc,
       ...newMarkers.map((v) => ({
         latitude: v.getPosition().getLat(),
         longitude: v.getPosition().getLng(),

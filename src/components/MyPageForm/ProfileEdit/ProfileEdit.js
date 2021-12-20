@@ -12,7 +12,7 @@ const ProfileEdit = (props) => {
       ? setShowModal(false)
       : setShowModal(true);
   };
-  const [fileUrl, setFileUrl] = useState(null);
+  const [newUserImg, setNewUserImg] = useState(null);
   const [userInfo, setUserInfo] = useState({
     nickname: user.nickname,
     phone: user.phone,
@@ -24,12 +24,12 @@ const ProfileEdit = (props) => {
   };
 
   const userInfosubmit = async () => {
-    console.log(fileUrl);
+    console.log(newUserImg);
     console.log(userInfo);
 
     const formData = new FormData();
 
-    formData.append('fileUrl', fileUrl[0]);
+    formData.append('profileImg', newUserImg);
 
     formData.append(
       'userInfo',
@@ -101,7 +101,7 @@ const ProfileEdit = (props) => {
           </div>
           <div className='Profile-form'>
             <div className='input-label'>
-              <label>아이디</label>
+              <label className='profile-label'>아이디</label>
               <input
                 className='id-input'
                 type='text'
@@ -110,7 +110,7 @@ const ProfileEdit = (props) => {
               />
             </div>
             <div className='input-label'>
-              <label>닉네임</label>
+              <label className='profile-label'>닉네임</label>
               <input
                 className='profile-input'
                 type='text'
@@ -124,22 +124,14 @@ const ProfileEdit = (props) => {
             </div>
 
             <div className='input-label'>
-              <label>휴대폰 번호</label>
-              <input
-                className='phone-input'
-                type='text'
-                name='phone'
-                placeholder={user.phone}
-                onChange={handleChange}
+              <label className='profile-label'>프로필 사진</label>
+              <ImgUpload
+                user={user}
+                newUserImg={newUserImg}
+                setNewUserImg={setNewUserImg}
               />
             </div>
-
-            <div className='input-label'>
-              <label>프로필 사진</label>
-              <ImgUpload fileUrl={fileUrl} setFileUrl={setFileUrl} />
-            </div>
-
-            <button className='update' onClick={userInfosubmit}>
+            <button className='profile-update' onClick={userInfosubmit}>
               정보수정
             </button>
           </div>

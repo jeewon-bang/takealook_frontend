@@ -1,10 +1,14 @@
+import moment from 'moment';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './MyPost.scss';
 
 const MyPost = (props) => {
   const { MyPosts, setMyPosts } = props;
-  const [count, setCount] = useState(0);
+  const timeDiff = (date) => {
+    return date.substring(0, 10);
+  };
+
   return (
     <div class='article'>
       <div class='block-title'>
@@ -22,13 +26,12 @@ const MyPost = (props) => {
                   <li class='active'>
                     <div class='list-title'>
                       <p>
-                        [<span>{post.board}</span>]
+                        [<span>{post.board.name}</span>]
                       </p>
                     </div>
                     <div class='postList2'>
                       <p class='title'>{post.title}</p>
-
-                      <p class='modified_at'>{post.modified_at}</p>
+                      <p class='modified_at'>{timeDiff(post.modifiedAt)}</p>
                     </div>
                     <div class='profile'>
                       <p class='title'>
@@ -37,14 +40,14 @@ const MyPost = (props) => {
                           src={require('images/heart.png').default}
                           alt='like'
                         />
-                        {post.like}
+                        {post.postLike}
                         <i class='icon'></i>
                         <img
                           class='image'
                           src={require('images/chat.png').default}
                           alt='cmt'
                         />
-                        {post.comment}
+                        {post.commentListCount}
                       </p>
                     </div>
                   </li>

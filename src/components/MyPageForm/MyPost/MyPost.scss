@@ -32,7 +32,7 @@
 .PostList {
   display: block;
   margin-top: 0;
-  height: 60px;
+  height: 80px;
 
   .Board {
     list-style: none;
@@ -63,11 +63,10 @@
         .title {
           width: 350px;
           float: right;
-          font-size: 16px;
-
+          font-size: 17px;
           color: #48484d;
           text-align: left;
-          margin-bottom: 0;
+          margin-bottom: 10px;
         }
         .modified_at {
           font-size: 10px;

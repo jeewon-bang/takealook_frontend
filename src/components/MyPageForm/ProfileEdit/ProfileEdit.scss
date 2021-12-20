@@ -1,4 +1,4 @@
-@import 'components/common/common';
+@import 'components/Common/common';
 
 .editModal-background {
   position: fixed;
@@ -21,7 +21,7 @@
       position: relative;
       background-color: white;
       width: 600px;
-      height: 450px;
+      height: 500px;
       top: 50%;
       left: 50%;
       transform: translateY(-50%) translateX(-50%);
@@ -66,8 +66,10 @@
 
         .input-label {
           margin-bottom: 20px;
+          height: 50px;
+          position: relative;
 
-          label {
+          .profile-label {
             float: left;
             width: 110px;
             line-height: 30px;
@@ -75,21 +77,21 @@
             font-size: 15px;
             font-weight: 400;
           }
+
           .id-input {
-            width: 55%;
-            height: 3px;
+            width: 65%;
             border-radius: 10px;
             color: #48484d;
             font-size: 12px;
             font-weight: 600;
-            padding: 10px 10px;
             border: 1px solid #e4e4e4;
             padding-right: 50px;
             background-color: #949494;
+            padding: 10px 10px;
           }
+
           .profile-input {
             width: 38%;
-            height: 3px;
             border-radius: 10px;
             color: #48484d;
             font-size: 12px;
@@ -99,17 +101,7 @@
             padding-right: 50px;
             margin-right: 2%;
           }
-          .phone-input {
-            width: 55%;
-            height: 3px;
-            border-radius: 10px;
-            color: #48484d;
-            font-size: 12px;
-            font-weight: 600;
-            padding: 10px 10px;
-            border: 1px solid #e4e4e4;
-            padding-right: 50px;
-          }
+
           .checkButton {
             @extend %button-square;
             width: 15%;
@@ -128,23 +120,56 @@
             width: 18%;
             height: 80px;
           }
+          .cat-img-upload {
+            height: 220px;
+            .cat-img-upload-box {
+              width: 72%;
+              height: 230px;
+              display: relative;
+              background-color: #ffffff;
+              margin-bottom: 30px;
+              text-align: center;
+              vertical-align: middle;
+              border-radius: 5px;
+              .oneimg-upload-button {
+                background-color: #ffffff;
+
+                .img-preview {
+                  display: flex;
+                  vertical-align: middle;
+                  width: 160px;
+                  height: 160px;
+                  background-color: #ffffff;
+                  background-size: 100px;
+                  background-position: center center;
+                  background-repeat: no-repeat;
+                  border-radius: 10px;
+                  margin: 10px;
+                }
+              }
+            }
+          }
+        }
+        .profile-update {
+          @extend %button-square;
+          left: 50%;
+          transform: translateX(-50%);
+          justify-content: center;
+          position: absolute;
+          margin-bottom: 10px;
+          bottom: 0;
+          width: 300px;
+          height: 25px;
+          background: #ffbb00;
+          color: #fff;
+          border: none;
+          box-shadow: none;
+          border-radius: 8px;
+          font-weight: bold;
+          font-size: 12px;
         }
       }
     }
-  }
-
-  .update {
-    @extend %button-square;
-    margin-top: 10px;
-    width: 300px;
-    height: 25px;
-    background: #ffbb00;
-    color: #fff;
-    border: none;
-    box-shadow: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 12px;
   }
 }
 
