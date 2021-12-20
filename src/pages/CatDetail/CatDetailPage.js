@@ -17,6 +17,7 @@ import CatMoreInfoForm from 'components/CatRegister/CatMoreInfoForm/CatMoreInfoF
 import RegisterAsAnotherForm from 'components/CatDetail/RegisterAsAnotherForm/RegisterAsAnotherForm';
 import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 import CatRegisterForm from 'components/CatRegister/CatRegisterForm/CatRegisterForm';
+import { useSelector } from 'react-redux';
 
 let matchedCatData = [
 	{
@@ -55,6 +56,7 @@ const CatDetailPage = () => {
 	const [careHistory, setCareHistory] = useState([]); // 상세조회할 고양이 돌봄이력들
 	const [loaded, setLoaded] = useState(false); // 상세조회할 고양이 정보들이 다 받아졌는지 여부
 
+	const user = useSelector((state) => state.auth.user);
 	const navigate = useNavigate();
 
 	// 다른고양이로 등록하려고 할때 보여줄 화면
@@ -80,7 +82,7 @@ const CatDetailPage = () => {
 		alert('삭제한 고양이는 복구할 수 없습니다. 정말 삭제하시겠습니까?');
 
 		axiosInstance
-			.patch(`user/1/cat/${catId}/selection/soft-delete`)
+			.patch(`user/${user.id}/cat/${catId}/selection/soft-delete`)
 			.then((res) => {
 				navigate('/mycat');
 			});

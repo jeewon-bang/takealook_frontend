@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import Alarm from './Alarm/Alarm';
 import AlarmModal from './Alarm/AlarmModal';
 import './Header.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutAction } from 'reducer/auth';
 
 const Header = (props) => {
-	const isLogin = true;
+	const user = useSelector((state) => state.auth.user);
+	const dispatch = useDispatch();
 
 	const [showModal, setShowModal] = useState(false);
 
@@ -15,6 +18,11 @@ const Header = (props) => {
 
 	const closeModal = () => {
 		setShowModal(false);
+	};
+
+	const logout = () => {
+		console.log('로그아웃 버튼 누름');
+		dispatch(logoutAction());
 	};
 
 	return (
@@ -42,14 +50,24 @@ const Header = (props) => {
 					</span>
 				</span>
 				<span className='menu-right'>
-					<span className='menu'>
-						<img
-							class='image'
-							src={require('images/bell.png').default}
-							alt='alarm'
-							onClick={openModal}
-						/>
-						{/* {showModal && (
+					{user && (
+						<span className='menu'>
+							<img
+								src={`${user.image}`}
+								style={{ width: '50px', borderRadius: '50%' }}
+								alt='profile'
+							/>
+						</span>
+					)}
+					{user && (
+						<span className='menu'>
+							<img
+								class='image'
+								src={require('images/bell.png').default}
+								alt='alarm'
+								onClick={openModal}
+							/>
+							{/* {showModal && (
               <AlarmModal
                 showModal={showModal}
                 maskClosable={true}
@@ -58,17 +76,27 @@ const Header = (props) => {
                 <Alarm />
               </AlarmModal>
             )} */}
-					</span>
-					<span>
-						<Link to='/login' className='menu'>
-							로그인
-						</Link>
-					</span>
-					<span>
-						<Link to='/mypage' className='menu'>
-							마이페이지
-						</Link>
-					</span>
+						</span>
+					)}
+					{user && (
+						<span>
+							<Link to='/mypage' className='menu'>
+								마이페이지
+							</Link>
+						</span>
+					)}
+
+					{!user ? (
+						<span>
+							<Link to='/login' className='menu'>
+								로그인
+							</Link>
+						</span>
+					) : (
+						<span className='menu' onClick={logout}>
+							로그아웃
+						</span>
+					)}
 				</span>
 			</div>
 		</div>

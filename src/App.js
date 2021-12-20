@@ -1,7 +1,6 @@
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Common/Header/Header';
 import HomePage from './pages/Home/HomePage';
-import JoinPage from './pages/Join/JoinPage';
 import LoginPage from './pages/Login/LoginPage';
 import MyCatPage from './pages/MyCatPage/MyCatPage';
 import './App.css';
@@ -19,15 +18,23 @@ import MyLikePage from 'pages/MyPage/MyLikePage/MyLikePage';
 import MyPostPage from 'pages/MyPage/MyPostPage/MyPostPage';
 import Test from 'components/CatRegister/CatImageUpload/Test';
 import OauthRedirectHandler from 'pages/Login/OauthRedirectHandler';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadUserAction } from 'reducer/auth';
 
 function App() {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		console.log('자동 재로그인');
+		dispatch(loadUserAction());
+	}, []);
+
 	return (
 		<div>
 			<Header />
 			<Routes>
 				<Route path='/' element={<HomePage />} />
 				<Route path='/login/' element={<LoginPage />} />
-				<Route path='/join/' element={<JoinPage />} />
 				<Route path='/mycat/' element={<MyCatPage />} />
 				<Route path='/mycat/:catId' element={<CatDetailPage />} />
 				<Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
