@@ -1,3 +1,4 @@
+import axiosInstance from 'api/customAxios';
 import React, { useEffect, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import './Category.scss';

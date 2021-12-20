@@ -7,6 +7,25 @@
 .writer-info {
   @extend %user-info;
   width: 10%;
+  .writer-name {
+    width: 50px;
+  }
+  .comment-update-btn {
+    @extend %button-square;
+    margin: 8px;
+    width: 50px;
+    font-weight: normal;
+    color: black;
+    background-color: white;
+  }
+  .comment-delete-btn {
+    @extend %button-square;
+    margin: 8px;
+    width: 50px;
+    font-weight: normal;
+    color: red;
+    background-color: white;
+  }
 }
 
 .content-comment {

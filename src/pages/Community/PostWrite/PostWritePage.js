@@ -24,6 +24,8 @@ const PostWritePage = () => {
     content: '',
   });
 
+  const navigate = useNavigate();
+
   const handleSubmit = () => {
     console.log(postText);
 
@@ -52,14 +54,13 @@ const PostWritePage = () => {
         })
         .then((res) => {
           console.log(res);
+          navigate('/community');
         })
         .catch((err) => {
           console.log(err);
         });
     }
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className='content-container'>
