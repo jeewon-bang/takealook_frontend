@@ -1,10 +1,17 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './CatImageUpload.scss';
+import React, { useEffect, useRef, useState } from 'react';
 
-const CatImageUpload = (props) => {
-  const { image, setImage } = props;
+const CatImgUpdate = (props) => {
+  const {
+    catImg,
+    setCatImg,
+    deleteImgURl,
+    setDeleteImgUrl,
+    addImg,
+    setAddImg,
+  } = props;
+
   const [imgList, setImgList] = useState([]);
   const [imgUrlList, setImgUrlList] = useState([]);
 
@@ -18,22 +25,37 @@ const CatImageUpload = (props) => {
   const handleChange = (e) => {
     setImgList([...imgList, ...e.target.files]);
     // 부모컴포넌트 이미지배열에도 값 넣어준다
-    setImage([...image, ...e.target.files]);
+    setAddImg([...imgList, ...e.target.files]);
   };
 
   // 업로드한 이미지 삭제
   const deleteImg = (e) => {
     let index = e.target.parentNode.id;
-    imgList.splice(index, 1);
-    imgUrlList.splice(index, 1);
-    setImgList([...imgList]);
-    setImgUrlList([...imgUrlList]);
-    // 부모컴포넌트 이미지배열에도 변경된사항 넣는다
-    setImage([...imgList]);
+    if (index <= catImg.length - 1) {
+      setDeleteImgUrl([...deleteImgURl, ...catImg.splice(index, 1)]);
+      imgUrlList.splice(index, 1);
+      setCatImg([...catImg]);
+      setImgUrlList([...imgUrlList]);
+    } else {
+      imgList.splice(index - catImg.length, 1);
+      imgUrlList.splice(index, 1);
+      setImgList([...imgList]);
+      setImgUrlList([...imgUrlList]);
+    }
   };
 
   // 화면에 그릴 이미지 주소값(imgUrlList) 생성 : useEffect로 imgList 배열이 변경됐을때마다 실행
   useEffect(() => {
+    let pastUrls = [];
+    // 회원이 기존에 등록한 고양이 이미지가 있다면 실행
+    if (catImg) {
+      for (let i = 0; i < catImg.length; i++) {
+        let nowImgUrl = catImg[i];
+        pastUrls.push({ id: i, url: nowImgUrl });
+        setImgUrlList(pastUrls);
+      }
+    }
+
     if (imgList.length === 0) {
       // useEffect에서 실행되기 때문에 렌더링직후 사용자가 이미지 업로드 하기 전에 바로 오류 뜨는거 방지
       return false;
@@ -45,11 +67,12 @@ const CatImageUpload = (props) => {
       let urls = [];
       for (let i = 0; i < imgList.length; i++) {
         let nowImgUrl = URL.createObjectURL(imgList[i]); // 사용자가 등록한 이미지들 for문돌면서 url 생성
-        urls.push({ id: i, url: nowImgUrl });
+        urls.push({ id: catImg.length + i, url: nowImgUrl });
       }
-      setImgUrlList([...urls]);
+      setImgUrlList([...pastUrls, ...urls]);
     }
-  }, [imgList]);
+  }, [imgList, catImg]);
+  console.log(deleteImgURl);
 
   return (
     <div className='cat-img-upload'>
@@ -59,7 +82,7 @@ const CatImageUpload = (props) => {
           className='catImg'
           type='file'
           multiple
-          accept='image/jpg, image/jpeg, image/gif, image/png'
+          accept='image/*'
           name='file'
           style={{ display: 'none' }}
           onChange={handleChange}
@@ -81,6 +104,7 @@ const CatImageUpload = (props) => {
               </button>
             </span>
           ))}
+
           <br />
         </div>
       </div>
@@ -88,4 +112,4 @@ const CatImageUpload = (props) => {
   );
 };
 
-export default React.memo(CatImageUpload);
+export default CatImgUpdate;

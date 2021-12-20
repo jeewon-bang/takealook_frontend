@@ -5,54 +5,54 @@
 }
 
 .cat-img-upload-box {
-	box-sizing: border-box;
-	width: 100%;
-	height: 300px;
-	padding: 20px;
-	background-color: $white-gray;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	white-space: nowrap; // 줄바꿈 하지않고 계속 가로로 나열
-	overflow-x: auto;
+  box-sizing: border-box;
+  width: 100%;
+  height: 300px;
+  padding: 20px;
+  background-color: $white-gray;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap; // 줄바꿈 하지않고 계속 가로로 나열
+  overflow-x: auto;
 
-	#0 {
-		border: 5px solid $main-orange;
-	}
+  #0 {
+    border: 5px solid $main-orange;
+  }
 
-	.img-upload-button {
-		// @extend %button-square;
-		vertical-align: middle;
-		font-size: 24px;
-		color: rgb(168, 168, 168);
-		border: 2px solid rgb(201, 201, 201);
-		background-color: $white-gray;
-		width: 200px;
-		height: 200px;
-		border-radius: 10px;
-		margin: 10px;
-		cursor: pointer;
-	}
+  .img-upload-button {
+    // @extend %button-square;
+    vertical-align: middle;
+    font-size: 24px;
+    color: rgb(168, 168, 168);
+    border: 2px solid rgb(201, 201, 201);
+    background-color: $white-gray;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+  }
 
-	.img-preview {
-		vertical-align: middle;
-		display: inline-block;
-		width: 200px;
-		height: 200px;
-		background-color: $dark-gray;
-		background-size: 200px;
-		background-position: center center;
-		background-repeat: no-repeat;
-		border-radius: 10px;
-		margin: 10px;
+  .img-preview {
+    vertical-align: middle;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background-color: $dark-gray;
+    background-size: 200px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    margin: 10px;
 
-		.img-delete-button {
-			background-color: black;
-			color: white;
-			border: none;
-			border-radius: 50%;
-			float: right;
-			margin: 5px;
-		}
-	}
+    .img-delete-button {
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      float: right;
+      margin: 5px;
+    }
+  }
 }

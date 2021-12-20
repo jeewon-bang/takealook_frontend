@@ -12,7 +12,7 @@ const ProfileEdit = (props) => {
       ? setShowModal(false)
       : setShowModal(true);
   };
-  const [fileUrl, setFileUrl] = useState(null);
+  const [newUserImg, setNewUserImg] = useState(null);
   const [userInfo, setUserInfo] = useState({
     nickname: user.nickname,
     phone: user.phone,
@@ -24,12 +24,12 @@ const ProfileEdit = (props) => {
   };
 
   const userInfosubmit = async () => {
-    console.log(fileUrl);
+    console.log(newUserImg);
     console.log(userInfo);
 
     const formData = new FormData();
 
-    formData.append('fileUrl', fileUrl[0]);
+    formData.append('profileImg', newUserImg);
 
     formData.append(
       'userInfo',
@@ -50,9 +50,7 @@ const ProfileEdit = (props) => {
           ? alert('수정이 완료되었습니다.')
           : alert('오류가 발생하였습니다.');
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const nicknameCheck = () => {
@@ -70,9 +68,7 @@ const ProfileEdit = (props) => {
           ? alert('사용가능한 닉네임입니다.')
           : alert('이미 사용중인 닉네임입니다.');
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
     // false일때 .(정보수정 버튼 클릭시 닉네임 중복알림 뜨도록 처리하기)
   };
 
@@ -87,18 +83,16 @@ const ProfileEdit = (props) => {
             ? alert('탈퇴가 완료되었습니다.')
             : alert('오류발생');
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     } else {
       alert('취소합니다.');
     }
   };
 
   return (
-    <div className='modal-background' onClick={closeModal}>
+    <div className='editModal-background' onClick={closeModal}>
       <div className='modal-wrapper'>
-        <div className='MyProfile'>
+        <div className='MyProfileEdit'>
           <div className='edit-titleBox'>
             <h2 className='edit-title'>정보수정</h2>
             <button className='submitButton' onClick={withdrawalSubmit}>
@@ -107,7 +101,7 @@ const ProfileEdit = (props) => {
           </div>
           <div className='Profile-form'>
             <div className='input-label'>
-              <label>아이디</label>
+              <label className='profile-label'>아이디</label>
               <input
                 className='id-input'
                 type='text'
@@ -116,7 +110,7 @@ const ProfileEdit = (props) => {
               />
             </div>
             <div className='input-label'>
-              <label>닉네임</label>
+              <label className='profile-label'>닉네임</label>
               <input
                 className='profile-input'
                 type='text'
@@ -130,22 +124,14 @@ const ProfileEdit = (props) => {
             </div>
 
             <div className='input-label'>
-              <label>휴대폰 번호</label>
-              <input
-                className='phone-input'
-                type='text'
-                name='phone'
-                placeholder={user.phone}
-                onChange={handleChange}
+              <label className='profile-label'>프로필 사진</label>
+              <ImgUpload
+                user={user}
+                newUserImg={newUserImg}
+                setNewUserImg={setNewUserImg}
               />
             </div>
-
-            <div className='input-label'>
-              <label>프로필 사진</label>
-              <ImgUpload fileUrl={fileUrl} setFileUrl={setFileUrl} />
-            </div>
-
-            <button className='update' onClick={userInfosubmit}>
+            <button className='profile-update' onClick={userInfosubmit}>
               정보수정
             </button>
           </div>
