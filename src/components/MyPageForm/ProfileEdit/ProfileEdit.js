@@ -20,7 +20,7 @@ const ProfileEdit = (props) => {
       : setShowModal(true);
   };
 
-  const [newUserImg, setNewUserImg] = useState();
+  const [newUserImg, setNewUserImg] = useState(user.image);
   const [userInfo, setUserInfo] = useState({
     nickname: user.nickname,
   });
@@ -41,7 +41,9 @@ const ProfileEdit = (props) => {
     } else if (userInfo.nickname === user.nickname || check === true) {
       const formData = new FormData();
 
-      formData.append('profileImg', newUserImg[0]);
+      if (newUserImg[0]) {
+        formData.append('profileImg', newUserImg[0]);
+      }
 
       formData.append(
         'userInfo',

@@ -19,56 +19,53 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
 
 function App() {
-	const dispatch = useDispatch();
-	const { logoutDone, loginDone, loadUserDone, user } = useSelector(
-		({ auth }) => ({
-			logoutDone: auth.logoutDone,
-			loginDone: auth.loginDone,
-			loadUserDone: auth.loadUserDone,
-			user: auth.user,
-		})
-	);
+  const dispatch = useDispatch();
+  const { logoutDone, loginDone, loadUserDone, user } = useSelector(
+    ({ auth }) => ({
+      logoutDone: auth.logoutDone,
+      loginDone: auth.loginDone,
+      loadUserDone: auth.loadUserDone,
+      user: auth.user,
+    })
+  );
 
-	useEffect(() => {
-		console.log('자동 재로그인');
-		dispatch(loadUserAction());
-	}, []);
+  useEffect(() => {
+    console.log('자동 재로그인');
+    dispatch(loadUserAction());
+  }, []);
 
-	if (user) {
-		return (
-			<div>
-				<Header />
-				<Routes>
-					<Route path='/' element={<HomePage />} />
-					<Route path='/login' element={<LoginPage />} />
-					<Route path='/mycat/' element={<MyCatPage />} />
-					<Route path='/mycat/:catId' element={<CatDetailPage />} />
-					<Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
-					<Route path='/mycat/new' element={<CatRegisterPage />} />
-					<Route path='/recomendation' element={<RecomendationPage />} />
-					<Route path='/mymatch' element={<MyMatchingPage />} />
-					<Route path='/match' element={<MatchingPage />} />
-					<Route path='/mypage' element={<MyPage />} />
-					<Route path='/mypage/mylike' element={<MyLikePage />} />
-					<Route path='/mypage/mypost' element={<MyPostPage />} />
-					<Route path='/community' element={<PostListPage />} />
-					<Route path='/community/write' element={<PostWritePage />} />
-					<Route path='/community/post/:index' element={<PostDetailPage />} />
-					<Route
-						path='/community/update/:postId'
-						element={<PostUpdatePage />}
-					/>
-				</Routes>
-			</div>
-		);
-	} else {
-		return (
-			<div>
-				<Header />
-				<LoginPage />
-			</div>
-		);
-	}
+  if (user) {
+    return (
+      <div>
+        <Header />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/mycat/' element={<MyCatPage />} />
+          <Route path='/mycat/:catId' element={<CatDetailPage />} />
+          <Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
+          <Route path='/mycat/new' element={<CatRegisterPage />} />
+          <Route path='/mypage' element={<MyPage />} />
+          <Route path='/mypage/mylike' element={<MyLikePage />} />
+          <Route path='/mypage/mypost' element={<MyPostPage />} />
+          <Route path='/community' element={<PostListPage />} />
+          <Route path='/community/write' element={<PostWritePage />} />
+          <Route path='/community/post/:index' element={<PostDetailPage />} />
+          <Route
+            path='/community/update/:postId'
+            element={<PostUpdatePage />}
+          />
+        </Routes>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Header />
+        <LoginPage />
+      </div>
+    );
+  }
 }
 
 export default App;
