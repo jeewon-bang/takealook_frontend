@@ -4,16 +4,20 @@ import React, { useEffect, useState } from 'react';
 import './CatMatch.scss';
 import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const CatMatch = (props) => {
 	const { catId, moreInfo, setMoreInfo, matchedCat } = props;
+	const user = useSelector((state) => state.auth.user);
 	const navigate = useNavigate();
 
 	// 추천받은 고양이를 내도감에 추가
 	const selectMatchedCat = () => {
-		axiosInstance.post(`/user/1/cat/${matchedCat.id}/selection`).then((res) => {
-			navigate('/mycat');
-		});
+		axiosInstance
+			.post(`/user/${user.id}/cat/${matchedCat.id}/selection`)
+			.then((res) => {
+				navigate('/mycat');
+			});
 	};
 
 	return (
@@ -51,7 +55,7 @@ const CatMatch = (props) => {
 				{matchedCat.neutered === 0 ? '미완료' : 1 ? '완료' : '모름'}
 			</div>
 
-			<div className='cat-location-map'>
+			{/* <div className='cat-location-map'>
 				<div className='title'>최근 발견 위치</div>
 				<CatMarkerMap
 					mapId={`${matchedCat.id}-map`}
@@ -59,7 +63,7 @@ const CatMatch = (props) => {
 					width={'100%'}
 					height={'90%'}
 				/>
-			</div>
+			</div> */}
 
 			<button className='yes-button' onClick={selectMatchedCat}>
 				이 고양이를 내 도감에 추가

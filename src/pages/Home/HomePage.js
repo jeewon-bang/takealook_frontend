@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './HomePage.scss';
 import { Link } from 'react-router-dom';
 import axiosInstance from 'api/customAxios';
+import { useSelector } from 'react-redux';
 
 // let data = [
 // 	{
@@ -40,12 +41,19 @@ const HomePage = () => {
 	const [myCats, setMyCats] = useState([]);
 	const [error, setError] = useState(null);
 	const [loaded, setLoaded] = useState(false);
+	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
+		user: auth.user,
+		loginDone: auth.loginDone,
+		logoutDone: auth.logoutDone,
+	}));
 
 	useEffect(() => {
-		axiosInstance.get(`/user/1/cats/recent-location`).then((res) => {
-			setMyCats(res.data);
-			setLoaded(true);
-		});
+		if (user) {
+			axiosInstance.get(`/user/${user.id}/cats/recent-location`).then((res) => {
+				setMyCats(res.data);
+				setLoaded(true);
+			});
+		}
 	}, []);
 
 	useEffect(() => {
@@ -54,26 +62,25 @@ const HomePage = () => {
 			imageSize,
 			imageOption
 		);
-		console.log(myCats);
 
-		// /*** 지도 생성하기 ***/
-		let mapContainer = document.getElementById('home-map'); // 지도를 표시할 div
-		let mapOption = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level: 3, // 지도의 확대 레벨
-		};
-		let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
+    // /*** 지도 생성하기 ***/
+    let mapContainer = document.getElementById('home-map'); // 지도를 표시할 div
+    let mapOption = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+      level: 3, // 지도의 확대 레벨
+    };
+    let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
 
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function (position) {
-				// GeoLocation을 이용해서 현 접속 위치 가져오기
-				let lat = position.coords.latitude; // 위도
-				let lon = position.coords.longitude; // 경도
-				let locPosition = new kakao.maps.LatLng(lat, lon);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        // GeoLocation을 이용해서 현 접속 위치 가져오기
+        let lat = position.coords.latitude; // 위도
+        let lon = position.coords.longitude; // 경도
+        let locPosition = new kakao.maps.LatLng(lat, lon);
 
-				map.setCenter(locPosition); // 지도 중심위치를 현 접속위치로 변경
-			});
-		}
+        map.setCenter(locPosition); // 지도 중심위치를 현 접속위치로 변경
+      });
+    }
 
 		// /*** 지도에 마커 표시 ***/
 		myCats.forEach((cat) => {
@@ -81,7 +88,6 @@ const HomePage = () => {
 				cat.recentLocation.latitude,
 				cat.recentLocation.longitude
 			);
-			console.log(markerPosition);
 
 			// 결과값으로 받은 위치를 마커로 표시
 			let marker = new kakao.maps.Marker({
@@ -89,35 +95,34 @@ const HomePage = () => {
 				image: markerImg,
 				position: markerPosition,
 			});
-			console.log(marker);
 			marker.setMap(map);
 
-			// 인포윈도우에 표시할 내용 정의
-			let iwContent = `
+      // 인포윈도우에 표시할 내용 정의
+      let iwContent = `
 							<div style="padding:10px; width:300px;">
 								<b style="font-size:20px;">${cat.name}</b><br>
 							</div>
 						`;
 
-			// 인포윈도우 생성
-			let infowindow = new kakao.maps.InfoWindow({
-				content: iwContent,
-			});
+      // 인포윈도우 생성
+      let infowindow = new kakao.maps.InfoWindow({
+        content: iwContent,
+      });
 
-			// 마커에 이벤트 등록
-			kakao.maps.event.addListener(marker, 'mouseover', function () {
-				infowindow.open(map, marker);
-			});
-			kakao.maps.event.addListener(marker, 'mouseout', function () {
-				infowindow.close();
-			});
-			kakao.maps.event.addListener(marker, 'click', function () {
-				document.location.href = `http://localhost:3000/mycat/${cat.id}`;
-			});
-		});
-	}, [myCats]);
+      // 마커에 이벤트 등록
+      kakao.maps.event.addListener(marker, 'mouseover', function () {
+        infowindow.open(map, marker);
+      });
+      kakao.maps.event.addListener(marker, 'mouseout', function () {
+        infowindow.close();
+      });
+      kakao.maps.event.addListener(marker, 'click', function () {
+        document.location.href = `http://localhost:3000/mycat/${cat.id}`;
+      });
+    });
+  }, [myCats]);
 
-	if (error) return <div>에러가 발생했습니다</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
 
 	return (
 		<div className='main-container'>
@@ -125,14 +130,13 @@ const HomePage = () => {
 			{myCats.length === 0 ? (
 				loaded ? (
 					<div className='message-box'>
-						<div className='message'>
-							아직 등록한 고양이가 없으신가요? // <br />
-							도감에 고양이를 등록해서 관리하고 이웃들과도 공유해보세요! //{' '}
-							<br />
+						<span className='message'>
+							아직 등록한 고양이가 없으신가요? <br />
+							도감에 고양이를 등록해서 관리하고 이웃들과도 공유해보세요!
 							<Link to='/mycat/new'>
 								<button className='message-button'>고양이 등록하기</button>
 							</Link>
-						</div>
+						</span>
 					</div>
 				) : (
 					<span></span>
@@ -143,8 +147,6 @@ const HomePage = () => {
 				</Link>
 			)}
 		</div>
-		// ) : (
-		// 	<div>로딩중</div>
 	);
 };
 

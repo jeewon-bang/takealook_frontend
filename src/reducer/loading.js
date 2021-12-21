@@ -16,7 +16,7 @@ export const finishLoading = createAction(
 
 // 초기 상태 선언
 const initialState = {
-	//check: null,
+	check: null,
 };
 
 // 리듀서

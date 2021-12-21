@@ -6,18 +6,23 @@ import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import CatImgUpdate from 'components/CatRegister/CatImgUpdate/CatImgUpdate';
+import { useSelector } from 'react-redux';
+import ImgUpload from 'components/Common/ImgUpload';
 
 const CatUpdatePage = () => {
   const { catId } = useParams();
 
-  const [deleteImgURl, setDeleteImgUrl] = useState([]);
+  const [deleteImgURl, setDeleteImgUrl] = useState([]); // 삭제된 기존 이미지 url
 
   const [mainImg, setMainImg] = useState(''); // 메인 이미지
+  const [newMainImg, setNewMainImg] = useState(''); // 새로운 메인 이미지
   const [catImg, setCatImg] = useState([]); // 기존 이미지
   const [addImg, setAddImg] = useState([]); // 추가된 이미지
   const [catInfo, setCatInfo] = useState([]);
   const [catLoc, setCatLoc] = useState([]);
   const [loaded, setLoaded] = useState(false);
+
+  const user = useSelector((state) => state.auth.user);
 
   const navigate = useNavigate();
 
@@ -28,8 +33,10 @@ const CatUpdatePage = () => {
   const handleSubmit = () => {
     const formData = new FormData();
 
-    // 메인이미지
-    // formData.append('catMainImg', mainImg);
+    //메인이미지
+    if (newMainImg[0]) {
+      formData.append('catMainImg', newMainImg[0]);
+    }
 
     //삭제된 이미지 더하기
     for (let i = 0; i < deleteImgURl.length; i++) {
@@ -70,7 +77,7 @@ const CatUpdatePage = () => {
     }
 
     axiosInstance
-      .post(`/user/1/cat/${catId}`, formData, {
+      .post(`/user/${user.id}/cat/${catId}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {
@@ -79,19 +86,25 @@ const CatUpdatePage = () => {
   };
 
   useEffect(() => {
-    axios.all([axiosInstance.get(`/user/1/cat/${catId}/past-info`)]).then(
-      axios.spread((pastInfoRes) => {
-        setCatInfo(pastInfoRes.data);
-        setMainImg(pastInfoRes.data.mainImage);
-        setCatImg(pastInfoRes.data.userUploadImages);
-        setCatLoc(pastInfoRes.data.userUploadLocations);
-        setLoaded(true);
-      })
-    );
+    axios
+      .all([axiosInstance.get(`/user/${user.id}/cat/${catId}/past-info`)])
+      .then(
+        axios.spread((pastInfoRes) => {
+          setCatInfo(pastInfoRes.data);
+          setMainImg(pastInfoRes.data.mainImage);
+          setCatImg(pastInfoRes.data.userUploadImages);
+          setCatLoc(pastInfoRes.data.userUploadLocations);
+          setLoaded(true);
+        })
+      );
   }, []);
 
   return loaded ? (
     <div className='content-container'>
+      <span className='cat-mainImg-form'>
+        <div className='input-label'>메인이미지</div>
+        <ImgUpload pastImg={mainImg} img={newMainImg} setImg={setNewMainImg} />
+      </span>
       <span className='cat-img-form'>
         <CatImgUpdate
           catImg={catImg}

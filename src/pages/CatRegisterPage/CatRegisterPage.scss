@@ -1,14 +1,52 @@
 @import 'components/Common/common';
 
+.cat-mainImg-form {
+  .cat-mainImg-form-inner {
+    width: 100%;
+    .input-label {
+      font-weight: 800;
+      margin: 30px 0px 10px 0px;
+    }
+  }
+  .cat-img-upload {
+    height: 350px;
+    .cat-img-upload-box {
+      display: flex;
+      height: 350px;
+      background-color: #ffffff;
+      text-align: center;
+      vertical-align: middle;
+      border-radius: 5px;
+      .oneimg-upload-button {
+        // border: none;
+        background-color: #ffffff;
+        border-color: #d5d5d5;
+        .img-preview {
+          display: flex;
+          vertical-align: middle;
+          width: 230px;
+          height: 230px;
+          background-color: #ffffff;
+          background-size: 200px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          border-radius: 10px;
+          margin: 10px;
+        }
+      }
+    }
+  }
+}
+
 .cat-img-form {
-  display: inline-block;
-  width: 100%;
-  height: 400px;
+	display: inline-block;
+	width: 100%;
+	height: 400px;
 }
 
 .cat-map {
-	width: 60%;
-	height: 400px;
+  width: 60%;
+  height: 400px;
 }
 
 .warning-message {
@@ -16,20 +54,24 @@
 	font-weight: 800;
 	font-size: 24px;
 	color: red;
+	margin-top: 50px;
 }
 
 .button-box {
 	width: 100%;
-	margin-top: 30px;
+	display: flex;
+	justify-content: space-between;
 
 	.cancel-button {
 		@extend %button-square;
-		width: 50%;
+		width: 49%;
+		height: 40px;
 		background-color: $gray;
 	}
 
 	.submit-button {
 		@extend %button-square;
-		width: 50%;
+		width: 49%;
+		height: 40px;
 	}
 }
