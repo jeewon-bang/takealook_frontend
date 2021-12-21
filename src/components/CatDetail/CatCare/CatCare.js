@@ -26,13 +26,28 @@ const CatCare = (props) => {
 	};
 
 	const timeDiff = (date) => {
-		return Math.floor(
+		const hourDiff = Math.floor(
 			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asHours()
 		);
+		const minuteDiff = Math.floor(
+			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asMinutes()
+		);
+		if (hourDiff === 0) {
+			return minuteDiff + '분 전';
+		} else {
+			return hourDiff + '시간 전';
+		}
 	};
 	const handleValueChange = (e) => {
 		setNewCare({ ...newCare, [e.target.name]: e.target.value });
 	};
+
+	// 돌봄기록 추가 입력창 열기
+	const openCareInput = () => {
+		showCareInput ? setShowCareInput(false) : setShowCareInput(true);
+	};
+
+	// 돌봄기록 등록
 	const handleCareSubmit = () => {
 		axiosInstance
 			.post(`user/${user.id}/cat/${catId}/catcare`, newCare, {
@@ -46,9 +61,21 @@ const CatCare = (props) => {
 					});
 			});
 	};
-	const openCareInput = () => {
-		showCareInput ? setShowCareInput(false) : setShowCareInput(true);
+
+	// 돌봄기록 삭제
+	const deleteCare = (e) => {
+		console.log(e.target.id);
+		axiosInstance
+			.delete(`user/${user.id}/cat/${catId}/catcare/${e.target.id}`)
+			.then(
+				axiosInstance
+					.get(`/user/${user.id}/cat/${catId}/48hours-catcares`)
+					.then((res) => {
+						setCareHistory(res.data);
+					})
+			);
 	};
+
 	const openModal = () => {
 		setShowModal(true);
 	};
@@ -92,7 +119,7 @@ const CatCare = (props) => {
 						<button onClick={handleCareSubmit}>등록</button>
 					</div>
 				)}
-				<div onClick={openModal}>
+				<div>
 					{careHistory.length === 0 ? (
 						<div>최근 48시간 내의 돌봄 내역이 없습니다.</div>
 					) : (
@@ -103,7 +130,7 @@ const CatCare = (props) => {
 									className='user-img'
 									alt='care'></img>
 								<span>{v.carer.userName} / </span>
-								<span>{v.createdAt} 시간 전/</span>
+								<span>{timeDiff(v.createdAt)}/</span>
 								<span>
 									{v.type === 0
 										? '밥 주기'
@@ -117,6 +144,9 @@ const CatCare = (props) => {
 									/{' '}
 								</span>
 								<span>{v.message}</span>
+								<button id={v.id} onClick={deleteCare}>
+									삭제
+								</button>
 							</div>
 						))
 					)}

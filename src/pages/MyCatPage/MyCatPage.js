@@ -19,35 +19,33 @@ const MyCatPage = (props) => {
 	const [selectType, setSelectType] = useState('mycat');
 
 	const sortHandler = (e) => {
-		console.log(e.target.value);
-
 		const value = e.target.value;
 		switch (value) {
 			case 'mycat':
-				moveToMycat();
+				setSelectType('mycat');
 				break;
 			case 'adopted':
-				moveToAdopted();
+				setSelectType('adopted');
 				break;
-			case 'cat-star':
-				moveToCatstar();
+			case 'dead':
+				setSelectType('dead');
 				break;
 			default:
 				break;
 		}
 	};
 
-	const moveToMycat = () => {
-		setSelectType('mycat');
-	};
+	// const moveToMycat = () => {
+	// 	setSelectType('mycat');
+	// };
 
-	const moveToAdopted = () => {
-		setSelectType('adopted');
-	};
+	// const moveToAdopted = () => {
+	// 	setSelectType('adopted');
+	// };
 
-	const moveToCatstar = () => {
-		setSelectType('cat-star');
-	};
+	// const moveToCatstar = () => {
+	// 	setSelectType('cat-star');
+	// };
 
 	useEffect(() => {
 		console.log('myCatPage 요청');
@@ -90,17 +88,18 @@ const MyCatPage = (props) => {
 						return <MyCat cats={myCats} />;
 					case 'adopted':
 						return (
-							<div className='catCard-container'>
-								{adoptedCats.map((cat) => (
-									<MyLeftCat
-										catId={cat.id}
-										catName={cat.name}
-										catImg={cat.image}
-									/>
-								))}
-							</div>
+							<MyLeftCat adoptedCats={adoptedCats} />
+							// <div className='catCard-container'>
+							// 	{adoptedCats.map((cat) => (
+							// 		<MyLeftCat
+							// 			catId={cat.id}
+							// 			catName={cat.name}
+							// 			catImg={cat.image}
+							// 		/>
+							// 	))}
+							// </div>
 						);
-					case 'cat-star':
+					case 'dead':
 						return (
 							<div className='catCard-container'>
 								{deadCats.map((cat) => (

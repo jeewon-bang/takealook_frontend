@@ -90,17 +90,22 @@ const CatRegisterPage = () => {
 						'1곳 이상의 위치를 선택해주세요!';
 				} else {
 					console.log(catLoc[0]);
-					// axiosInstance
-					// 	.get(
-					// 		`/user/${user.id}/cat/recommendation?latitude=${catLoc[0].latitude}&longitude=${catLoc[0].longitude}`
-					// 	)
-					// 	.then((res) => {
-					// 		console.log(res.data);
-					// 		setMatchedCatList(res.data);
-					// 		document.getElementById('message').innerText = '';
-					// 		// 동일 추정 고양이 모달 팝업
-					// 		setShowModal(true);
-					// 	});
+					axiosInstance
+						.get(
+							`/user/${user.id}/cat/recommendation?latitude=${catLoc[0].latitude}&longitude=${catLoc[0].longitude}`
+						)
+						.then((res) => {
+							console.log(res.data);
+							setMatchedCatList(res.data);
+							document.getElementById('message').innerText = '';
+
+							if (res.data.length > 0) {
+								// 동일 추정 고양이 모달 팝업
+								setShowModal(true);
+							} else {
+								setMoreInfo(true);
+							}
+						});
 				}
 			}
 		}
@@ -196,6 +201,7 @@ const CatRegisterPage = () => {
 								</SwiperSlide>
 							))}
 						</Swiper>
+						) :
 					</div>
 				</Modal>
 			)}
