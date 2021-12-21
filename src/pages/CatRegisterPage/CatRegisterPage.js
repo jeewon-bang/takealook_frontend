@@ -56,6 +56,7 @@ const CatRegisterPage = () => {
 	});
 	const [catLoc, setCatLoc] = useState([]);
 	const [catImg, setCatImg] = useState([]);
+  const [mainImg, setMainImg] = useState([]);
 
 	// 새로 등록할 고양이와 매칭될 기존 고양이들 리스트
 	const [matchedCatList, setMatchedCatList] = useState([]);
@@ -120,13 +121,14 @@ const CatRegisterPage = () => {
 			const formData = new FormData();
 
 			// 고양이 대표이미지
-			formData.append('catMainImg', catImg[0]);
-			// 고양이 이미지 나머지
-			if (catImg.length > 1) {
-				for (let i = 1; i < catImg.length; i++) {
-					formData.append('catImg', catImg[i]);
-				}
-			}
+      formData.append('catMainImg', mainImg[0]);
+      // 고양이 이미지 나머지
+      if (catImg.length > 1) {
+        for (let i = 0; i < catImg.length; i++) {
+          formData.append('catImg', catImg[i]);
+        }
+      }
+      
 			// 고양이 위치
 			formData.append(
 				'catLoc',
@@ -155,6 +157,12 @@ const CatRegisterPage = () => {
 
 	return !moreInfo ? (
 		<div className='content-container'>
+      <span className='cat-mainImg-form'>
+        <div className='cat-mainImg-form-inner'>
+          <div className='input-label'>메인이미지</div>
+        </div>
+        <ImgUpload img={mainImg} setImg={setMainImg} />
+      </span>
 			<span className='cat-img-form'>
 				<CatImageUpload image={catImg} setImage={setCatImg} />
 			</span>

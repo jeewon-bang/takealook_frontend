@@ -18,15 +18,16 @@ const LoginPage = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const kakaoLogin = (res) => {
-		console.log(res);
-		dispatch(kakaoAction(res));
-	};
 
-	const googleLogin = (res) => {
-		// console.log(res); // 구글이 로그인 다하고 준 정보
-		dispatch(googleAction(res)); // auth reducer에서 만든 googleAction이라는 액션 호출한다
-	};
+  const kakaoLogin = (res) => {
+    console.log(res);
+    dispatch(kakaoAction(res));
+  };
+
+  const googleLogin = (res) => {
+    // console.log(res); // 구글이 로그인 다하고 준 정보
+    dispatch(googleAction(res)); // auth reducer에서 만든 googleAction이라는 액션 호출한다
+  };
 
 	useUpdateEffect(() => {
 		navigate('/');

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Alarm from './Alarm/Alarm';
-import AlarmModal from './Alarm/AlarmModal';
 import './Header.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutAction } from 'reducer/auth';
@@ -15,24 +13,14 @@ const Header = (props) => {
 	}));
 	const dispatch = useDispatch();
 
-	const [showModal, setShowModal] = useState(false);
-
-	const openModal = () => {
-		setShowModal(true);
-	};
-
-	const closeModal = () => {
-		setShowModal(false);
-	};
-
 	const logout = () => {
 		console.log('로그아웃 버튼 누름');
 		dispatch(logoutAction());
 	};
 
-	// useUpdateEffect(() => {
-	// 	dispatch('/');
-	// }, [logoutDone]);
+	useUpdateEffect(() => {
+	  dispatch('/');
+	}, [logoutDone]);
 
 	return (
 		<div className='header-container'>
@@ -76,15 +64,6 @@ const Header = (props) => {
 								alt='alarm'
 								onClick={openModal}
 							/>
-							{/* {showModal && (
-              <AlarmModal
-                showModal={showModal}
-                maskClosable={true}
-                onClose={closeModal}
-              >
-                <Alarm />
-              </AlarmModal>
-            )} */}
 						</span>
 					)}
 					{user && (

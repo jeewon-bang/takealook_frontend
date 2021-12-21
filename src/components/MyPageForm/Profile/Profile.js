@@ -5,13 +5,14 @@ import './Profile.scss';
 const Profile = (props) => {
   const { user, setUser } = props;
   const [showModal, setShowModal] = useState(false);
+
   const openModal = () => {
     setShowModal(true);
   };
 
   return (
     <div class='mypage-profile'>
-      <p class='hello'>Hello {user.loginId}</p>
+      <p class='hello'>Hello</p>
       <div class='figure' id='myProfile'>
         <div class='profile_container'>
           <img class='img-circle' src={user.image} alt='cat' />

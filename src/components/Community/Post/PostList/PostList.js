@@ -5,8 +5,6 @@ import './PostList.scss';
 const PostList = (props) => {
   const { post } = props;
   const newContent = post.content.replace(/(<([^>]+)>)/gi, '');
-  console.log(typeof newContent);
-  console.log(typeof post.content);
 
   let today = new Date();
   const year = today.getFullYear();

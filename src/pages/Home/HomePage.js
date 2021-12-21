@@ -63,24 +63,24 @@ const HomePage = () => {
 			imageOption
 		);
 
-		// /*** 지도 생성하기 ***/
-		let mapContainer = document.getElementById('home-map'); // 지도를 표시할 div
-		let mapOption = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level: 3, // 지도의 확대 레벨
-		};
-		let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
+    // /*** 지도 생성하기 ***/
+    let mapContainer = document.getElementById('home-map'); // 지도를 표시할 div
+    let mapOption = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+      level: 3, // 지도의 확대 레벨
+    };
+    let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
 
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function (position) {
-				// GeoLocation을 이용해서 현 접속 위치 가져오기
-				let lat = position.coords.latitude; // 위도
-				let lon = position.coords.longitude; // 경도
-				let locPosition = new kakao.maps.LatLng(lat, lon);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        // GeoLocation을 이용해서 현 접속 위치 가져오기
+        let lat = position.coords.latitude; // 위도
+        let lon = position.coords.longitude; // 경도
+        let locPosition = new kakao.maps.LatLng(lat, lon);
 
-				map.setCenter(locPosition); // 지도 중심위치를 현 접속위치로 변경
-			});
-		}
+        map.setCenter(locPosition); // 지도 중심위치를 현 접속위치로 변경
+      });
+    }
 
 		// /*** 지도에 마커 표시 ***/
 		myCats.forEach((cat) => {
@@ -97,32 +97,32 @@ const HomePage = () => {
 			});
 			marker.setMap(map);
 
-			// 인포윈도우에 표시할 내용 정의
-			let iwContent = `
+      // 인포윈도우에 표시할 내용 정의
+      let iwContent = `
 							<div style="padding:10px; width:300px;">
 								<b style="font-size:20px;">${cat.name}</b><br>
 							</div>
 						`;
 
-			// 인포윈도우 생성
-			let infowindow = new kakao.maps.InfoWindow({
-				content: iwContent,
-			});
+      // 인포윈도우 생성
+      let infowindow = new kakao.maps.InfoWindow({
+        content: iwContent,
+      });
 
-			// 마커에 이벤트 등록
-			kakao.maps.event.addListener(marker, 'mouseover', function () {
-				infowindow.open(map, marker);
-			});
-			kakao.maps.event.addListener(marker, 'mouseout', function () {
-				infowindow.close();
-			});
-			kakao.maps.event.addListener(marker, 'click', function () {
-				document.location.href = `http://localhost:3000/mycat/${cat.id}`;
-			});
-		});
-	}, [myCats]);
+      // 마커에 이벤트 등록
+      kakao.maps.event.addListener(marker, 'mouseover', function () {
+        infowindow.open(map, marker);
+      });
+      kakao.maps.event.addListener(marker, 'mouseout', function () {
+        infowindow.close();
+      });
+      kakao.maps.event.addListener(marker, 'click', function () {
+        document.location.href = `http://localhost:3000/mycat/${cat.id}`;
+      });
+    });
+  }, [myCats]);
 
-	if (error) return <div>에러가 발생했습니다</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
 
 	return (
 		<div className='main-container'>

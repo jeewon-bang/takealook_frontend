@@ -8,131 +8,134 @@ import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 
 const CatCare = (props) => {
-	const { catId, careHistory, setCareHistory } = props;
-	const user = useSelector((state) => state.auth.user);
-	const [newCare, setNewCare] = useState({
-		type: '',
-		message: '',
-	});
-	const [showCareInput, setShowCareInput] = useState(false);
-	const [showModal, setShowModal] = useState(false);
-	const today = moment();
-	const careIcon = {
-		0: 'cat-food1.png',
-		1: 'cat-food2.png',
-		2: 'pill.png',
-		3: 'first-aid-kit.png',
-		4: 'water-dispenser.png',
-	};
+  const { catId, careHistory, setCareHistory } = props;
+  const user = useSelector((state) => state.auth.user);
+  const [newCare, setNewCare] = useState({
+    type: '',
+    message: '',
+  });
+  const [showCareInput, setShowCareInput] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const today = moment();
+  const careIcon = {
+    0: 'cat-food1.png',
+    1: 'cat-food2.png',
+    2: 'pill.png',
+    3: 'first-aid-kit.png',
+    4: 'water-dispenser.png',
+  };
 
-	const timeDiff = (date) => {
-		return Math.floor(
-			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asHours()
-		);
-	};
-	const handleValueChange = (e) => {
-		setNewCare({ ...newCare, [e.target.name]: e.target.value });
-	};
-	const handleCareSubmit = () => {
-		axiosInstance
-			.post(`user/${user.id}/cat/${catId}/catcare`, newCare, {
-				'Content-Type': 'application/json',
-			})
-			.then((res) => {
-				axiosInstance
-					.get(`/user/${user.id}/cat/${catId}/48hours-catcares`)
-					.then((res) => {
-						setCareHistory(res.data);
-					});
-			});
-	};
-	const openCareInput = () => {
-		showCareInput ? setShowCareInput(false) : setShowCareInput(true);
-	};
-	const openModal = () => {
-		setShowModal(true);
-	};
-	const closeModal = () => {
-		setShowModal(false);
-	};
+  const timeDiff = (date) => {
+    return Math.floor(
+      moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asHours()
+    );
+  };
+  const handleValueChange = (e) => {
+    setNewCare({ ...newCare, [e.target.name]: e.target.value });
+  };
+  const handleCareSubmit = () => {
+    axiosInstance
+      .post(`user/1/cat/${catId}/catcare`, newCare, {
+        'Content-Type': 'application/json',
+      })
+      .then((res) => {
+        axiosInstance
+          .get(`/user/${user.id}/cat/${catId}/48hours-catcares`)
+          .then((res) => {
+            setCareHistory(res.data);
+          });
+      });
+  };
+  const openCareInput = () => {
+    showCareInput ? setShowCareInput(false) : setShowCareInput(true);
+  };
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
-	useEffect(() => {
-		console.log('CatCare');
-	}, []);
+  useEffect(() => {
+    console.log('CatCare');
+  }, []);
 
-	return (
-		<div className='care-container'>
-			<button
-				onClick={() => {
-					setShowModal(true);
-				}}>
-				캘린더 보기
-			</button>
-			<div className='new-care'>
-				<button className='care-add-button' onClick={openCareInput}>
-					돌봄기록추가
-				</button>
-				{showCareInput && (
-					<div className='care-input'>
-						<select name='type' onBlur={handleValueChange}>
-							<option selected disabled>
-								선택
-							</option>
-							<option value='0'>밥 주기</option>
-							<option value='1'>간식 주기</option>
-							<option value='2'>약 먹이기</option>
-							<option value='3'>병원 치료</option>
-							<option value='4'>기타</option>
-						</select>
-						<input
-							type='text'
-							name='message'
-							className='history-input-text'
-							onBlur={handleValueChange}></input>
-						<button onClick={handleCareSubmit}>등록</button>
-					</div>
-				)}
-				<div onClick={openModal}>
-					{careHistory.length === 0 ? (
-						<div>최근 48시간 내의 돌봄 내역이 없습니다.</div>
-					) : (
-						careHistory.map((v) => (
-							<div className='care'>
-								<img
-									src={require(`images/${careIcon[v.type]}`).default}
-									className='user-img'
-									alt='care'></img>
-								<span>{v.carer.userName} / </span>
-								<span>{v.createdAt} 시간 전/</span>
-								<span>
-									{v.type === 0
-										? '밥 주기'
-										: 1
-										? '간식 주기'
-											? 2
-											: '약 먹이기'
-										: 3
-										? '병원 치료'
-										: '기타'}{' '}
-									/{' '}
-								</span>
-								<span>{v.message}</span>
-							</div>
-						))
-					)}
-				</div>
-			</div>
+  return (
+    <div className='care-container'>
+      <button
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        캘린더 보기
+      </button>
+      <div className='new-care'>
+        <button className='care-add-button' onClick={openCareInput}>
+          돌봄기록추가
+        </button>
+        {showCareInput && (
+          <div className='care-input'>
+            <select name='type' onBlur={handleValueChange}>
+              <option selected disabled>
+                선택
+              </option>
+              <option value='0'>밥 주기</option>
+              <option value='1'>간식 주기</option>
+              <option value='2'>약 먹이기</option>
+              <option value='3'>병원 치료</option>
+              <option value='4'>기타</option>
+            </select>
+            <input
+              type='text'
+              name='message'
+              className='history-input-text'
+              onBlur={handleValueChange}
+            ></input>
+            <button onClick={handleCareSubmit}>등록</button>
+          </div>
+        )}
+        <div onClick={openModal}>
+          {careHistory.length === 0 ? (
+            <div>최근 48시간 내의 돌봄 내역이 없습니다.</div>
+          ) : (
+            careHistory.map((v) => (
+              <div className='care'>
+                <img
+                  src={require(`images/${careIcon[v.type]}`).default}
+                  className='user-img'
+                  alt='care'
+                ></img>
+                <span>{v.carer.userName} / </span>
+                <span>{v.createdAt} 시간 전/</span>
+                <span>
+                  {v.type === 0
+                    ? '밥 주기'
+                    : 1
+                    ? '간식 주기'
+                      ? 2
+                      : '약 먹이기'
+                    : 3
+                    ? '병원 치료'
+                    : '기타'}{' '}
+                  /{' '}
+                </span>
+                <span>{v.message}</span>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
 
-			{showModal && (
-				<Modal showModal={showModal} maskClosable={true} onClose={closeModal}>
-					<CareCalendar
-						careHistory={careHistory}
-						setCareHistory={setCareHistory}
-					/>
-				</Modal>
-			)}
-		</div>
-	);
+      {showModal && (
+        <Modal showModal={showModal} maskClosable={true} onClose={closeModal}>
+          <CareCalendar
+            careHistory={careHistory}
+            setCareHistory={setCareHistory}
+          />
+        </Modal>
+      )}
+    </div>
+  );
 };
 
 export default CatCare;

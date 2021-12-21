@@ -3,6 +3,7 @@ import axios from 'axios';
 import MyCat from 'components/MyCat/MyCat/MyCat';
 import MyLeftCat from 'components/MyCat/MyLeftCat/MyLeftCat';
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './MyCatPage.scss';
 import { useSelector } from 'react-redux';
@@ -20,7 +21,6 @@ const MyCatPage = (props) => {
 
 	const sortHandler = (e) => {
 		console.log(e.target.value);
-
 		const value = e.target.value;
 		switch (value) {
 			case 'mycat':

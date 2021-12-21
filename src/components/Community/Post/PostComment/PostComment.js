@@ -1,21 +1,24 @@
 import axiosInstance from 'api/customAxios';
 import WriteComment from 'components/Community/Writes/WriteComment/WriteComment';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import './PostComment.scss';
 
 const PostComment = (props) => {
-  const { postDetails, comment } = props;
+  const user = useSelector((state) => state.auth.user);
+  const { postDetails, comment, setLoaded } = props;
   const [newComment, setNewComment] = useState({
     newContent: comment.content,
     commentId: comment.commentId,
   });
-  console.log(newComment);
   const [commentUpdate, setCommentUpdate] = useState(false);
 
   const handleDelete = () => {
     axiosInstance
       .delete(`/post/${postDetails.postId}/comment/${comment.commentId}`) //여기 commentId 수정
-      .then()
+      .then((res) => {
+        setLoaded(true);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -42,17 +45,19 @@ const PostComment = (props) => {
         </div>
       )}
 
-      <div className='postcomment-btn'>
-        {commentUpdate === false ? (
-          <button className='postcomment-update-btn' onClick={handleUpdate}>
-            수정
-          </button>
-        ) : null}
+      {user.id === postDetails.writer.id ? (
+        <div className='postcomment-btn'>
+          {commentUpdate === false ? (
+            <button className='postcomment-update-btn' onClick={handleUpdate}>
+              수정
+            </button>
+          ) : null}
 
-        <button className='postcomment-delete-btn' onClick={handleDelete}>
-          삭제
-        </button>
-      </div>
+          <button className='postcomment-delete-btn' onClick={handleDelete}>
+            삭제
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };

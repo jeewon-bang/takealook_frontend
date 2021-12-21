@@ -12,12 +12,8 @@ import PostWritePage from 'pages/Community/PostWrite/PostWritePage';
 import PostUpdatePage from 'pages/Community/PostUpdate/PostUpdatePage';
 import PostListPage from 'pages/Community/PostList/PostListPage';
 import CatUpdatePage from 'pages/CatUpdatePage/CatUpdatePage';
-import RecomendationPage from 'pages/MatchingPage/Recomendation/RecomendationPage';
-import MyMatchingPage from 'pages/MatchingPage/MyMatch/MyMatchingPage';
-import MatchingPage from 'pages/MatchingPage/Match/MatchingPage';
 import MyLikePage from 'pages/MyPage/MyLikePage/MyLikePage';
 import MyPostPage from 'pages/MyPage/MyPostPage/MyPostPage';
-import Test from 'components/CatRegister/CatImageUpload/Test';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
@@ -32,7 +28,6 @@ function App() {
 			user: auth.user,
 		})
 	);
-	console.log('App.js');
 
 	useEffect(() => {
 		console.log('자동 재로그인');
@@ -63,7 +58,6 @@ function App() {
 						path='/community/update/:postId'
 						element={<PostUpdatePage />}
 					/>
-					<Route path='/test' element={<Test />} />
 				</Routes>
 			</div>
 		);
