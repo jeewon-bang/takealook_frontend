@@ -6,6 +6,8 @@ import CareCalendar from '../CareCalendar/CareCalendar';
 import axiosInstance from 'api/customAxios';
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 const CatCare = (props) => {
 	const { catId, careHistory, setCareHistory } = props;
@@ -44,7 +46,7 @@ const CatCare = (props) => {
 
 	// 돌봄기록 추가 입력창 열기
 	const openCareInput = () => {
-		showCareInput ? setShowCareInput(false) : setShowCareInput(true);
+		setShowCareInput(true);
 	};
 
 	// 돌봄기록 등록
@@ -54,6 +56,7 @@ const CatCare = (props) => {
 				'Content-Type': 'application/json',
 			})
 			.then((res) => {
+				setShowCareInput(false);
 				axiosInstance
 					.get(`/user/${user.id}/cat/${catId}/48hours-catcares`)
 					.then((res) => {
@@ -67,13 +70,14 @@ const CatCare = (props) => {
 		console.log(e.target.id);
 		axiosInstance
 			.delete(`user/${user.id}/cat/${catId}/catcare/${e.target.id}`)
-			.then(
+			.then((res) => {
 				axiosInstance
 					.get(`/user/${user.id}/cat/${catId}/48hours-catcares`)
 					.then((res) => {
+						console.log(res.data);
 						setCareHistory(res.data);
-					})
-			);
+					});
+			});
 	};
 
 	const openModal = () => {
@@ -90,18 +94,25 @@ const CatCare = (props) => {
 	return (
 		<div className='care-container'>
 			<button
+				className='calendar-button'
 				onClick={() => {
 					setShowModal(true);
 				}}>
-				캘린더 보기
+				{/* <FontAwesomeIcon icon={faCalendarAlt} className='search' /> 모든 내역
+				보기 */}
 			</button>
 			<div className='new-care'>
-				<button className='care-add-button' onClick={openCareInput}>
-					돌봄기록추가
-				</button>
+				{!showCareInput && (
+					<button className='care-add-button' onClick={openCareInput}>
+						+
+					</button>
+				)}
 				{showCareInput && (
 					<div className='care-input'>
-						<select name='type' onBlur={handleValueChange}>
+						<select
+							name='type'
+							className='care-input-select'
+							onBlur={handleValueChange}>
 							<option selected disabled>
 								선택
 							</option>
@@ -114,9 +125,12 @@ const CatCare = (props) => {
 						<input
 							type='text'
 							name='message'
-							className='history-input-text'
+							placeholder='고양이를 같이 돌보는 이웃들에게 남길 메세지를 적어주세요'
+							className='care-input-text'
 							onBlur={handleValueChange}></input>
-						<button onClick={handleCareSubmit}>등록</button>
+						<button className='care-input-button' onClick={handleCareSubmit}>
+							등록
+						</button>
 					</div>
 				)}
 				<div>
@@ -125,28 +139,40 @@ const CatCare = (props) => {
 					) : (
 						careHistory.map((v) => (
 							<div className='care'>
-								<img
-									src={require(`images/${careIcon[v.type]}`).default}
-									className='user-img'
-									alt='care'></img>
-								<span>{v.carer.userName} / </span>
-								<span>{timeDiff(v.createdAt)}/</span>
-								<span>
-									{v.type === 0
-										? '밥 주기'
-										: 1
-										? '간식 주기'
-											? 2
-											: '약 먹이기'
-										: 3
-										? '병원 치료'
-										: '기타'}{' '}
-									/{' '}
+								<span className='care-left'>
+									<img
+										src={require(`images/${careIcon[v.type]}`).default}
+										className='care-type-img'
+										alt='care'></img>
+									<div className='care-type'>
+										{v.type === 0
+											? '밥 주기'
+											: v.type === 1
+											? '간식 주기'
+											: v.type === 2
+											? '약 먹이기'
+											: v.type === 3
+											? '병원 치료'
+											: '기타'}
+									</div>
 								</span>
-								<span>{v.message}</span>
-								<button id={v.id} onClick={deleteCare}>
+								<span className='care-right'>
+									<div className='carer-info-time'>
+										<span>
+											<img
+												src={v.carer.userImage}
+												className='carer-img'
+												alt='profile'></img>
+										</span>
+										<span className='carer-name'>{v.carer.userName}</span>
+										<span className='care-time'>{timeDiff(v.createdAt)}</span>
+									</div>
+									<div>"{v.message}"</div>
+								</span>
+
+								{/* <button id={v.id} onClick={deleteCare}>
 									삭제
-								</button>
+								</button> */}
 							</div>
 						))
 					)}

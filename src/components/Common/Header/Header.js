@@ -18,6 +18,7 @@ const Header = (props) => {
     dispatch(logoutAction());
   };
 
+
   //   useUpdateEffect(() => {
   //     dispatch('/');
   //   }, [logoutDone]);
@@ -64,8 +65,6 @@ const Header = (props) => {
               </Link>
             </span>
           )}
-
-
           {!user ? (
             <span>
               <Link to='/login' className='menu'>

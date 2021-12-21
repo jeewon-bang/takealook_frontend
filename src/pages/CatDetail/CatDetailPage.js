@@ -17,33 +17,34 @@ import CatMoreInfoForm from 'components/CatRegister/CatMoreInfoForm/CatMoreInfoF
 import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 import { useSelector } from 'react-redux';
 
+
 let matchedCatData = [
-  {
-    id: 100,
-    name: '보리',
-    gender: 0,
-    neutered: 1,
-    pattern: 1,
-    locations: [
-      {
-        latitude: 37.54511236317026,
-        longitude: 126.86184575808647,
-      },
-    ],
-  },
-  {
-    id: 101,
-    name: '부비',
-    gender: 0,
-    neutered: 1,
-    pattern: 1,
-    locations: [
-      {
-        latitude: 37.54732777835966,
-        longitude: 126.8609590137254,
-      },
-    ],
-  },
+	{
+		id: 100,
+		name: '보리',
+		gender: 0,
+		neutered: 1,
+		pattern: 1,
+		locations: [
+			{
+				latitude: 37.54511236317026,
+				longitude: 126.86184575808647,
+			},
+		],
+	},
+	{
+		id: 101,
+		name: '부비',
+		gender: 0,
+		neutered: 1,
+		pattern: 1,
+		locations: [
+			{
+				latitude: 37.54732777835966,
+				longitude: 126.8609590137254,
+			},
+		],
+	},
 ];
 
 const CatDetailPage = () => {
@@ -75,10 +76,29 @@ const CatDetailPage = () => {
   });
   const [newCatImg, setNewCatImg] = useState([]);
 
-  // 내 도감에서 삭제
-  const deleteMyCat = () => {
-    alert('삭제한 고양이는 복구할 수 없습니다. 정말 삭제하시겠습니까?');
+	useEffect(() => {
+		console.log('CatDetailPage');
+		axios
+			.all([
+				axiosInstance.get(`/user/${user.id}/cat/${catId}`),
+				axiosInstance.get(`/user/${user.id}/cat/${catId}/images`),
+				axiosInstance.get(`/user/${user.id}/cat/${catId}/locations`),
+				axiosInstance.get(`/user/${user.id}/cat/${catId}/48hours-catcares`),
+			])
+			.then(
+				axios.spread((catInfoRes, catImgRes, catLocRes, careHistoryRes) => {
+					setCatInfo(catInfoRes.data);
+					setCatImg(catImgRes.data);
+					setCatLoc(catLocRes.data);
+					setCareHistory(careHistoryRes.data);
+					setLoaded(true);
+				})
+			);
+	}, []);
 
+	// 내 도감에서 삭제
+	const deleteMyCat = () => {
+		alert('삭제한 고양이는 복구할 수 없습니다. 정말 삭제하시겠습니까?');
     axiosInstance
       .patch(`user/${user.id}/cat/${catId}/selection/soft-delete`)
       .then((res) => {
@@ -91,28 +111,15 @@ const CatDetailPage = () => {
     setNewCatInfo({ ...newCatInfo, [e.target.name]: e.target.value });
   };
 
-  // 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
-  const openMatchedCatModal = () => {
-    // if (!newCatInfo.neutered || !newCatInfo.gender || !newCatInfo.pattern) {
-    // 	document.getElementById('message').innerText =
-    // 		'모든 항목을 입력해주세요!';
-    // } else {
-    // 	if (catLoc.length === 0) {
-    // 		document.getElementById('message').innerText =
-    // 			'1곳 이상의 위치를 선택해주세요!';
-    // 	} else {
-    // 		document.getElementById('message').innerText = '';
-    // 		// 동일 추정 고양이 모달 팝업
-    // 		setShowMatchedCatModal(true);
-    // 	}
-    // }
-
-    console.log(newCatInfo);
-    setShowModal(true);
-  };
-  const closeModal = () => {
-    setShowModal(false);
-  };
+	// 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
+	const openMatchedCatModal = () => {
+		console.log(newCatInfo);
+		setShowModal(true);
+	};
+  // 모달 
+	const closeModal = () => {
+		setShowModal(false);
+	};
 
   // 다른고양이로 등록 - 추천중에 동일고양이 없어서 새로운 고양이로 등록
   const handleSubmitNewCat = () => {
@@ -124,21 +131,6 @@ const CatDetailPage = () => {
 
       console.log(newCatInfo);
       console.log(newCatImg);
-
-      const formData = new FormData();
-      // 새로받은 이미지들은 저장 안하나...?
-      // for (let i = 0; i < newCatImg.length; i++) {
-      // 	formData.append('catImg', newCatImg[i]);
-      // }
-      // formData.append(
-      // 	'catInfo',
-      // 	new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
-      // );
-
-      // 콘솔에 찍어보기
-      // for (let pair of formData.entries()) {
-      // 	console.log(pair[0] + ', ' + pair[1]);
-      // }
 
       axiosInstance
         .patch(`/user/${user.id}/cat/${catId}/selection/new`, newCatInfo, {
@@ -154,37 +146,17 @@ const CatDetailPage = () => {
     }
   };
 
-  useEffect(() => {
-    console.log('CatDetailPage');
-    axios
-      .all([
-        axiosInstance.get(`/user/${user.id}/cat/${catId}`),
-        axiosInstance.get(`/user/${user.id}/cat/${catId}/images`),
-        axiosInstance.get(`/user/${user.id}/cat/${catId}/locations`),
-        axiosInstance.get(`/user/${user.id}/cat/${catId}/48hours-catcares`),
-      ])
-      .then(
-        axios.spread((catInfoRes, catImgRes, catLocRes, careHistoryRes) => {
-          setCatInfo(catInfoRes.data);
-          setCatImg(catImgRes.data);
-          setCatLoc(catLocRes.data);
-          setCareHistory(careHistoryRes.data);
-          setLoaded(true);
-        })
-      );
-  }, []);
-
-  return loaded ? (
-    /** 기본적으로 처음에 보여지는 고양이 상세페이지 화면 */
-    !showAnotherCatPage ? (
-      <div className='content-container'>
-        <CatInfo
-          catId={catId}
-          catInfo={catInfo}
-          setCatInfo={setCatInfo}
-          catImg={catImg}
-          setCatImg={setCatImg}
-        />
+	return loaded ? (
+		/** 기본적으로 처음에 보여지는 고양이 상세페이지 화면 */
+		!showAnotherCatPage ? (
+			<div className='content-container'>
+				<CatInfo
+					catId={catId}
+					catInfo={catInfo}
+					setCatInfo={setCatInfo}
+					catImg={catImg}
+					setCatImg={setCatImg}
+				/>
 
         <div className='title'>최근 발견된 위치</div>
         <CatMarkerMap
@@ -194,43 +166,44 @@ const CatDetailPage = () => {
           height={'500px'}
         />
 
-        <div>
-          <Link to={`/mycat/${catId}/update`}>
-            <button className='cat-info-update-button'>정보 수정하기</button>
-          </Link>
-        </div>
+				<div className='title'>최근 48시간의 돌봄 기록</div>
+				<CatCare
+					catId={catId}
+					careHistory={careHistory}
+					setCareHistory={setCareHistory}
+				/>
 
-        <div className='title'>최근 48시간의 돌봄 기록</div>
-        <CatCare
-          catId={catId}
-          careHistory={careHistory}
-          setCareHistory={setCareHistory}
-        />
+				<div className='cat-info-button-box'>
+					<Link to={`/mycat/${catId}/update`}>
+						<button className='cat-update-button'>고양이 정보 수정</button>
+					</Link>
+					<button className='cat-delete-button' onClick={deleteMyCat}>
+						내 도감에서 삭제
+					</button>
+				</div>
+				<div className='cat-other-button-box'>
+					<span>돌보는 고양이가 [{catInfo.name}] 이(가) 아닌 것 같으세요?</span>
+					<br />
+					<button
+						className='cat-other-button'
+						onClick={() => {
+							setShowAnotherCatPage(true);
+						}}>
+						다른 고양이로 등록
+					</button>
+				</div>
+			</div>
+		) : /** 다른 고양이 버튼 누르면 바뀔 화면 */
+		!moreInfo ? (
+			<div className='content-container'>
+				{/* 고양이 성별, 패턴, 중성화여부 수정받기 */}
+				<div className='cat-info-form-inner'>
+					<div>
+						돌보던 고양이가 [{catInfo.name}] 가 아닌 것 같다면 새로운 고양이로
+						등록해주세요!{' '}
+					</div>
+					<CatImageUpload image={newCatImg} setImage={setNewCatImg} />
 
-        <div className='button-box'>
-          <button className='cat-delete-button' onClick={deleteMyCat}>
-            내 도감에서 삭제
-          </button>
-          <button
-            className='cat-other-button'
-            onClick={() => {
-              setShowAnotherCatPage(true);
-            }}
-          >
-            다른 고양이로 등록
-          </button>
-        </div>
-      </div>
-    ) : /** 다른 고양이 버튼 누르면 바뀔 화면 */
-    !moreInfo ? (
-      <div className='content-container'>
-        {/* 고양이 성별, 패턴, 중성화여부 수정받기 */}
-        <div className='cat-info-form-inner'>
-          <div>
-            돌보던 고양이가 [{catInfo.name}] 가 아닌 것 같다면 새로운 고양이로
-            등록해주세요!{' '}
-          </div>
-          <CatImageUpload image={newCatImg} setImage={setNewCatImg} />
 
           {/* 이 아래에서부터 컴포넌트 분리해야겠다 수정폼 만든이후에 갖다써야지 */}
           <div className='input-label'>성별</div>
