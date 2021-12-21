@@ -33,7 +33,7 @@ const PostUpdatePage = () => {
       .then((res) => {
         // 코드를 수정하니까 input 태그에 title이 뜨넹..
         setPostText({
-          ...postText,
+          // ...postText, //여기가 다른가??? 나는 왜 깊은복사?
           title: res.data.title,
           content: res.data.content,
           imgUrl: res.data.thumbnail,
@@ -67,6 +67,7 @@ const PostUpdatePage = () => {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((res) => {
+          console.log(res);
           navigate(`/community/post/${postId}`);
         })
         .catch((err) => {

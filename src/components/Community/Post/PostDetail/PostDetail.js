@@ -63,16 +63,16 @@ const PostDetail = (props) => {
             alt='user'
           />
           <h5>{postDetails.writer.userName}</h5>
-          {/* {user.id === postDetails.writer.id ? ( */}
-          <div>
-            <Link to={`/community/update/${postDetails.postId}`}>
-              <button className='postdetail-btn'>글 수정</button>
-            </Link>
-            <button className='postdetail-btn' onClick={handleDelete}>
-              글 삭제
-            </button>
-          </div>
-          {/* ) : null} */}
+          {user.id === postDetails.writer.id ? (
+            <div>
+              <Link to={`/community/update/${postDetails.postId}`}>
+                <button className='postdetail-btn'>글 수정</button>
+              </Link>
+              <button className='postdetail-btn' onClick={handleDelete}>
+                글 삭제
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
       <hr />
