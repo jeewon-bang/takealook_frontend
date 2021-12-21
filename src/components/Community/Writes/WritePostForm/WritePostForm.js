@@ -7,7 +7,7 @@ import axiosInstance from 'api/customAxios';
 Quill.register('modules/ImageResize', ImageResize);
 
 const WritePostForm = (props) => {
-  const { postText, setPostText } = props;
+  const { postText, setPostText, updatePage } = props;
   const quillRef = useRef('');
 
   const imageHandler = () => {

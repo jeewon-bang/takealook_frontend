@@ -6,11 +6,12 @@ const axiosInstance = axios.create();
 // axiosInstance.defaults.baseURL = 'http://192.168.200.140';
 axiosInstance.defaults.baseURL = 'http://192.168.200.128';
 
-axiosInstance.defaults.headers.common['Authorization'] =
-  localStorage.getItem('jwt');
+// axiosInstance.defaults.headers.common['Authorization'] =
+//   localStorage.getItem('jwt');
 
 axiosInstance.interceptors.request.use(
   (request) => {
+    request.headers.common['Authorization'] = localStorage.getItem('jwt');
     console.log(request);
 
     return request;
