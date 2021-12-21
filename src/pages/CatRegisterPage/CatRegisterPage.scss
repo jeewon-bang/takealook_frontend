@@ -39,9 +39,9 @@
 }
 
 .cat-img-form {
-  display: inline-block;
-  width: 100%;
-  height: 400px;
+	display: inline-block;
+	width: 100%;
+	height: 400px;
 }
 
 .cat-map {
@@ -50,24 +50,28 @@
 }
 
 .warning-message {
-  text-align: center;
-  font-weight: 800;
-  font-size: 24px;
-  color: red;
+	text-align: center;
+	font-weight: 800;
+	font-size: 24px;
+	color: red;
+	margin-top: 50px;
 }
 
 .button-box {
-  width: 100%;
-  margin-top: 30px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 
-  .cancel-button {
-    @extend %button-square;
-    width: 50%;
-    background-color: $gray;
-  }
+	.cancel-button {
+		@extend %button-square;
+		width: 49%;
+		height: 40px;
+		background-color: $gray;
+	}
 
-  .submit-button {
-    @extend %button-square;
-    width: 50%;
-  }
+	.submit-button {
+		@extend %button-square;
+		width: 49%;
+		height: 40px;
+	}
 }

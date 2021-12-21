@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './HomePage.scss';
 import { Link } from 'react-router-dom';
 import axiosInstance from 'api/customAxios';
+import { useSelector } from 'react-redux';
 
 // let data = [
 // 	{
@@ -32,29 +33,35 @@ import axiosInstance from 'api/customAxios';
 // ];
 
 const HomePage = () => {
-  // https://cdn-icons-png.flaticon.com/512/3712/3712529.png
-  // 'https://cdn-icons.flaticon.com/png/512/207/premium/207929.png?token=exp=1639591002~hmac=1439f1e120d8862a656c56e1fbd3d924
-  const imageSrc = 'https://cdn-icons-png.flaticon.com/512/3712/3712529.png', // 마커이미지의 주소
-    imageSize = new kakao.maps.Size(45, 45), // 마커이미지의 크기
-    imageOption = { offset: new kakao.maps.Point(27, 69) }; //마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정
-  const [myCats, setMyCats] = useState([]);
-  const [error, setError] = useState(null);
-  const [loaded, setLoaded] = useState(false);
+	// https://cdn-icons-png.flaticon.com/512/3712/3712529.png
+	// 'https://cdn-icons.flaticon.com/png/512/207/premium/207929.png?token=exp=1639591002~hmac=1439f1e120d8862a656c56e1fbd3d924
+	const imageSrc = 'https://cdn-icons-png.flaticon.com/512/3712/3712529.png', // 마커이미지의 주소
+		imageSize = new kakao.maps.Size(45, 45), // 마커이미지의 크기
+		imageOption = { offset: new kakao.maps.Point(27, 69) }; //마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정
+	const [myCats, setMyCats] = useState([]);
+	const [error, setError] = useState(null);
+	const [loaded, setLoaded] = useState(false);
+	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
+		user: auth.user,
+		loginDone: auth.loginDone,
+		logoutDone: auth.logoutDone,
+	}));
 
-  useEffect(() => {
-    axiosInstance.get(`/user/1/cats/recent-location`).then((res) => {
-      setMyCats(res.data);
-      setLoaded(true);
-    });
-  }, []);
+	useEffect(() => {
+		if (user) {
+			axiosInstance.get(`/user/${user.id}/cats/recent-location`).then((res) => {
+				setMyCats(res.data);
+				setLoaded(true);
+			});
+		}
+	}, []);
 
-  useEffect(() => {
-    const markerImg = new kakao.maps.MarkerImage(
-      imageSrc,
-      imageSize,
-      imageOption
-    );
-    console.log(myCats);
+	useEffect(() => {
+		const markerImg = new kakao.maps.MarkerImage(
+			imageSrc,
+			imageSize,
+			imageOption
+		);
 
     // /*** 지도 생성하기 ***/
     let mapContainer = document.getElementById('home-map'); // 지도를 표시할 div
@@ -75,22 +82,20 @@ const HomePage = () => {
       });
     }
 
-    // /*** 지도에 마커 표시 ***/
-    myCats.forEach((cat) => {
-      let markerPosition = new kakao.maps.LatLng(
-        cat.recentLocation.latitude,
-        cat.recentLocation.longitude
-      );
-      console.log(markerPosition);
+		// /*** 지도에 마커 표시 ***/
+		myCats.forEach((cat) => {
+			let markerPosition = new kakao.maps.LatLng(
+				cat.recentLocation.latitude,
+				cat.recentLocation.longitude
+			);
 
-      // 결과값으로 받은 위치를 마커로 표시
-      let marker = new kakao.maps.Marker({
-        map: map,
-        image: markerImg,
-        position: markerPosition,
-      });
-      console.log(marker);
-      marker.setMap(map);
+			// 결과값으로 받은 위치를 마커로 표시
+			let marker = new kakao.maps.Marker({
+				map: map,
+				image: markerImg,
+				position: markerPosition,
+			});
+			marker.setMap(map);
 
       // 인포윈도우에 표시할 내용 정의
       let iwContent = `
@@ -119,33 +124,30 @@ const HomePage = () => {
 
   if (error) return <div>에러가 발생했습니다</div>;
 
-  return (
-    <div className='main-container'>
-      <div id='home-map' style={{ width: '100%', height: '100%' }}></div>
-      {myCats.length === 0 ? (
-        loaded ? (
-          <div className='message-box'>
-            <div className='message'>
-              아직 등록한 고양이가 없으신가요? // <br />
-              도감에 고양이를 등록해서 관리하고 이웃들과도 공유해보세요! //{' '}
-              <br />
-              <Link to='/mycat/new'>
-                <button className='message-button'>고양이 등록하기</button>
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <span></span>
-        )
-      ) : (
-        <Link to='/mycat/new'>
-          <button className='cat-add-button'>고양이 등록</button>
-        </Link>
-      )}
-    </div>
-    // ) : (
-    // 	<div>로딩중</div>
-  );
+	return (
+		<div className='main-container'>
+			<div id='home-map' style={{ width: '100%', height: '100%' }}></div>
+			{myCats.length === 0 ? (
+				loaded ? (
+					<div className='message-box'>
+						<span className='message'>
+							아직 등록한 고양이가 없으신가요? <br />
+							도감에 고양이를 등록해서 관리하고 이웃들과도 공유해보세요!
+							<Link to='/mycat/new'>
+								<button className='message-button'>고양이 등록하기</button>
+							</Link>
+						</span>
+					</div>
+				) : (
+					<span></span>
+				)
+			) : (
+				<Link to='/mycat/new'>
+					<button className='cat-add-button'>고양이 등록</button>
+				</Link>
+			)}
+		</div>
+	);
 };
 
 export default HomePage;
