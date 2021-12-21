@@ -6,27 +6,30 @@ import MyPost from 'components/MyPageForm/MyPost/MyPost';
 import Profile from 'components/MyPageForm/Profile/Profile';
 
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import '../MyPage.scss';
 
 const MyPage = () => {
-  const [user, setUser] = useState();
+  const [userInfo, setUserInfo] = useState();
   const [MyPosts, setMyPosts] = useState();
   const [likePosts, setLikePosts] = useState();
   const [alarm, setAlarm] = useState();
   const [loaded, setLoaded] = useState(false);
 
+  const user = useSelector((state) => state.auth.user);
+
   useEffect(() => {
-    console.log('MyPage');
     axios
+
       .all([
-        axiosInstance.get(`/user/1`),
-        axiosInstance.get(`/user/1/posts`),
-        axiosInstance.get(`/user/1/posts/like`),
-        axiosInstance.get(`/user/1/notifications`),
+        axiosInstance.get(`/user/${user.id}`),
+        axiosInstance.get(`/user/${user.id}/posts`),
+        axiosInstance.get(`/user/${user.id}/posts/like`),
+        axiosInstance.get(`/user/${user.id}/notifications`),
       ])
       .then(
         axios.spread((userRes, MyPostsRes, likePostsRes, alarmRes) => {
-          setUser(userRes.data);
+          setUserInfo(userRes.data);
           setMyPosts(MyPostsRes.data);
           setLikePosts(likePostsRes.data);
           setAlarm(alarmRes.data);
@@ -35,12 +38,10 @@ const MyPage = () => {
       );
   }, []);
 
-  console.log(user);
-
   return loaded ? (
     <div class='mypage-container'>
       <div class='section1'>
-        <Profile user={user} setUser={setUser} />
+        <Profile user={userInfo} setUser={setUserInfo} />
       </div>
       <div class='section2'>
         <MyPost MyPosts={MyPosts} setMyPosts={setMyPosts} />
