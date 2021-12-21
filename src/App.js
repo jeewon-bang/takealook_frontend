@@ -50,7 +50,7 @@ function App() {
 					<Route path='/mypage/mypost' element={<MyPostPage />} />
 					<Route path='/community' element={<PostListPage />} />
 					<Route path='/community/write' element={<PostWritePage />} />
-					<Route path='/community/post/:index' element={<PostDetailPage />} />
+					<Route path='/community/post/:postId' element={<PostDetailPage />} />
 					<Route
 						path='/community/update/:postId'
 						element={<PostUpdatePage />}

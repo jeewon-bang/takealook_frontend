@@ -97,9 +97,7 @@ const CatRegisterPage = () => {
 							`/user/${user.id}/cat/recommendation?latitude=${catLoc[0].latitude}&longitude=${catLoc[0].longitude}`
 						)
 						.then((res) => {
-							console.log(res.data);
 							setMatchedCatList(res.data);
-							document.getElementById('message').innerText = '';
 
 							if (res.data.length > 0) {
 								// 동일 추정 고양이 모달 팝업
@@ -107,6 +105,8 @@ const CatRegisterPage = () => {
 							} else {
 								setMoreInfo(true);
 							}
+
+							document.getElementById('message').innerText = '';
 						});
 				}
 			}

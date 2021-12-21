@@ -47,9 +47,12 @@ const CatInfo = (props) => {
 			});
 	};
 
+	// 고양이 입양 메세지 입력
 	const handleChangeAdoptionMsg = (e) => {
 		setAdoptionMsg(e.target.value);
 	};
+
+	// 고양이 입양 처리
 	const changeCatStatusAdopted = () => {
 		axiosInstance
 			.patch(`/user/${user.id}/cat/${catId}/adoptation?status=2`, {
@@ -60,6 +63,7 @@ const CatInfo = (props) => {
 			});
 	};
 
+	// 고양이 사망 처리
 	const changeCatStatusDead = () => {
 		axiosInstance
 			.patch(`/user/${user.id}/cat/${catId}/cat-star/3`)

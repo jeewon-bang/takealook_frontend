@@ -18,9 +18,9 @@ const Header = (props) => {
 		dispatch(logoutAction());
 	};
 
-	useUpdateEffect(() => {
-		dispatch('/');
-	}, [logoutDone]);
+	// useUpdateEffect(() => {
+	// 	dispatch('/');
+	// }, [logoutDone]);
 
 	return (
 		<div className='header-container'>

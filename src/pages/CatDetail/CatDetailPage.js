@@ -75,85 +75,6 @@ const CatDetailPage = () => {
 	});
 	const [newCatImg, setNewCatImg] = useState([]);
 
-	// 내 도감에서 삭제
-	const deleteMyCat = () => {
-		alert('삭제한 고양이는 복구할 수 없습니다. 정말 삭제하시겠습니까?');
-
-		axiosInstance
-			.patch(`user/${user.id}/cat/${catId}/selection/soft-delete`)
-			.then((res) => {
-				navigate('/mycat');
-			});
-	};
-
-	// 다른고양이로 등록 - 고양이 정보 다시받기
-	const handleChange = (e) => {
-		setNewCatInfo({ ...newCatInfo, [e.target.name]: e.target.value });
-	};
-
-	// 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
-	const openMatchedCatModal = () => {
-		// if (!newCatInfo.neutered || !newCatInfo.gender || !newCatInfo.pattern) {
-		// 	document.getElementById('message').innerText =
-		// 		'모든 항목을 입력해주세요!';
-		// } else {
-		// 	if (catLoc.length === 0) {
-		// 		document.getElementById('message').innerText =
-		// 			'1곳 이상의 위치를 선택해주세요!';
-		// 	} else {
-		// 		document.getElementById('message').innerText = '';
-		// 		// 동일 추정 고양이 모달 팝업
-		// 		setShowMatchedCatModal(true);
-		// 	}
-		// }
-
-		console.log(newCatInfo);
-		setShowModal(true);
-	};
-	const closeModal = () => {
-		setShowModal(false);
-	};
-
-	// 다른고양이로 등록 - 추천중에 동일고양이 없어서 새로운 고양이로 등록
-	const handleSubmitNewCat = () => {
-		if (!newCatInfo.name || !newCatInfo.status) {
-			document.getElementById('warning').innerText =
-				'모든 항목을 입력해주세요!';
-		} else {
-			document.getElementById('warning').innerText = '';
-
-			console.log(newCatInfo);
-			console.log(newCatImg);
-
-			const formData = new FormData();
-			// 새로받은 이미지들은 저장 안하나...?
-			// for (let i = 0; i < newCatImg.length; i++) {
-			// 	formData.append('catImg', newCatImg[i]);
-			// }
-			// formData.append(
-			// 	'catInfo',
-			// 	new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
-			// );
-
-			// 콘솔에 찍어보기
-			// for (let pair of formData.entries()) {
-			// 	console.log(pair[0] + ', ' + pair[1]);
-			// }
-
-			axiosInstance
-				.patch(`/user/${user.id}/cat/${catId}/selection/new`, newCatInfo, {
-					headers: { 'Content-Type': 'application/json' },
-				})
-				.then((res) => {
-					console.log(res);
-					navigate('/mycat');
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		}
-	};
-
 	useEffect(() => {
 		console.log('CatDetailPage');
 		axios
@@ -174,6 +95,57 @@ const CatDetailPage = () => {
 			);
 	}, []);
 
+	// 내 도감에서 삭제
+	const deleteMyCat = () => {
+		alert('삭제한 고양이는 복구할 수 없습니다. 정말 삭제하시겠습니까?');
+
+		axiosInstance
+			.patch(`user/${user.id}/cat/${catId}/selection/soft-delete`)
+			.then((res) => {
+				navigate('/mycat');
+			});
+	};
+
+	// 다른고양이로 등록 - 고양이 정보 다시받기
+	const handleChange = (e) => {
+		setNewCatInfo({ ...newCatInfo, [e.target.name]: e.target.value });
+	};
+
+	// 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
+	const openMatchedCatModal = () => {
+		console.log(newCatInfo);
+		setShowModal(true);
+	};
+	const closeModal = () => {
+		setShowModal(false);
+	};
+
+	// 다른고양이로 등록 - 추천중에 동일고양이 없어서 새로운 고양이로 등록
+	const handleSubmitNewCat = () => {
+		if (!newCatInfo.name || !newCatInfo.status) {
+			document.getElementById('warning').innerText =
+				'모든 항목을 입력해주세요!';
+		} else {
+			document.getElementById('warning').innerText = '';
+
+			console.log(newCatInfo);
+			console.log(newCatImg);
+
+			const formData = new FormData();
+
+			axiosInstance
+				.patch(`/user/${user.id}/cat/${catId}/selection/new`, newCatInfo, {
+					headers: { 'Content-Type': 'application/json' },
+				})
+				.then((res) => {
+					console.log(res);
+					navigate('/mycat');
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+	};
 
 	return loaded ? (
 		/** 기본적으로 처음에 보여지는 고양이 상세페이지 화면 */
@@ -195,12 +167,6 @@ const CatDetailPage = () => {
 					height={'500px'}
 				/>
 
-				<div>
-					<Link to={`/mycat/${catId}/update`}>
-						<button className='cat-info-update-button'>정보 수정하기</button>
-					</Link>
-				</div>
-
 				<div className='title'>최근 48시간의 돌봄 기록</div>
 				<CatCare
 					catId={catId}
@@ -208,10 +174,17 @@ const CatDetailPage = () => {
 					setCareHistory={setCareHistory}
 				/>
 
-				<div className='button-box'>
+				<div className='cat-info-button-box'>
+					<Link to={`/mycat/${catId}/update`}>
+						<button className='cat-update-button'>고양이 정보 수정</button>
+					</Link>
 					<button className='cat-delete-button' onClick={deleteMyCat}>
 						내 도감에서 삭제
 					</button>
+				</div>
+				<div className='cat-other-button-box'>
+					<span>돌보는 고양이가 [{catInfo.name}] 이(가) 아닌 것 같으세요?</span>
+					<br />
 					<button
 						className='cat-other-button'
 						onClick={() => {

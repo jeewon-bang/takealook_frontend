@@ -29,7 +29,7 @@ export const googleAction = createAction(GOOGLE_REQUEST, (data) => data);
 export const kakaoAction = createAction(KAKAO_REQUEST, (data) => data);
 export const logoutAction = createAction(LOGOUT_SUCCESS);
 export const loadUserAction = createAction(LOADUSER_REQUEST); // 새로고침해도 로그인 유지
-// export const loadUserAction = createAction(LOADUSER_SUCCESS);
+// export const withdrawlAction = createAction(RESTORE_WITHDRAWL);
 
 // 사가 creator - authApi에 정의한 작업을 실행할 것임
 const googleSaga = createRequestSaga(GOOGLE_REQUEST, authApi.googleLogin);
@@ -58,6 +58,7 @@ const initialState = {
 	logoutError: null,
 
 	user: null,
+	withdrawl: false,
 };
 
 const auth = handleActions(
@@ -65,13 +66,23 @@ const auth = handleActions(
 		[GOOGLE_REQUEST]: (state, { payload: response }) => ({
 			...state,
 			loginRequest: true,
-			// logoutDone: false,
 		}),
-		[GOOGLE_SUCCESS]: (state, { payload: response }) => ({
-			...state,
-			loginDone: true,
-			user: response.data,
-		}),
+		[GOOGLE_SUCCESS]: (state, { payload: response }) => {
+			const user = response.data;
+			// 탈퇴한 회원이 로그인했다면
+			if (user.dflag === true) {
+				return {
+					...state,
+					withdrawl: true,
+				};
+			} else {
+				return {
+					...state,
+					loginDone: true,
+					user: response.data,
+				};
+			}
+		},
 		[GOOGLE_FAILURE]: (state, { payload: error }) => ({
 			...state,
 			loginError: error,
@@ -82,11 +93,20 @@ const auth = handleActions(
 			// logoutDone: false,
 		}),
 		[KAKAO_SUCCESS]: (state, { payload: response }) => {
-			return {
-				...state,
-				loginDone: true,
-				user: response.data,
-			};
+			const user = response.data;
+			// 탈퇴한 회원이 로그인했다면
+			if (user.dflag === true) {
+				return {
+					...state,
+					withdrawl: true,
+				};
+			} else {
+				return {
+					...state,
+					loginDone: true,
+					user: response.data,
+				};
+			}
 		},
 		[KAKAO_FAILURE]: (state, { payload: error }) => ({
 			...state,
@@ -122,6 +142,10 @@ const auth = handleActions(
 			...state,
 			logoutError: error,
 		}),
+		// [RESTORE_WITHDRAWL]: (state, { payload: error }) => ({
+		// 	...state,
+		// 	withdrawl: false
+		// }),
 	},
 	initialState
 );
