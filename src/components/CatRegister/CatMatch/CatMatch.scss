@@ -6,6 +6,9 @@
   text-align: center;
   padding: 50px 80px 50px 80px;
   // overflow: auto;
+  overflow-y: scroll;
+  width: 800px;
+  height: 550px;
 
   .message {
     color: $main-orange;
@@ -49,4 +52,12 @@
     width: 90%;
     background-color: gray;
   }
+}
+
+.cat-match-modal::-webkit-scrollbar {
+  width: 8px; /*스크롤바의 너비*/
+}
+
+.cat-match-modal::-webkit-scrollbar-thumb {
+  background-color: #f7f8ec; /*스크롤바의 색상*/
 }
