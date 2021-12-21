@@ -10,14 +10,13 @@ import './LoginPage.scss';
 import useUpdateEffect from 'utils/useUpdateEffect';
 
 const LoginPage = () => {
-	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
-		user: auth.user,
-		loginDone: auth.loginDone,
-		logoutDone: auth.logoutDone,
-	}));
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
-
+  const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
+    user: auth.user,
+    loginDone: auth.loginDone,
+    logoutDone: auth.logoutDone,
+  }));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const kakaoLogin = (res) => {
     console.log(res);
@@ -29,55 +28,74 @@ const LoginPage = () => {
     dispatch(googleAction(res)); // auth reducer에서 만든 googleAction이라는 액션 호출한다
   };
 
-	useUpdateEffect(() => {
-		navigate('/');
-	}, [loginDone]);
+  useUpdateEffect(() => {
+    navigate('/');
+  }, [loginDone]);
 
-	return (
-		<div className='content-container'>
-			<div className='login-box'>
-				<KakaoLogin
-					token={KAKAO_JAVASCRIPT_KEY}
-					onSuccess={kakaoLogin}
-					onFaile={kakaoLogin}
-					onLogout={''}
-					render={(renderProps) => (
-						<button
-							className='kakao-login-button'
-							onClick={renderProps.onClick}
-							disabled={renderProps.disabled}>
-							<img
-								src={require('images/kakao.png').default}
-								style={{ width: '30px', marginRight: '10px' }}
-								alt='kakao'
-							/>
-							카카오 계정으로 로그인
-						</button>
-					)}
-				/>
-				<br />
-				<GoogleLogin
-					clientId={GOOGLE_CLIENTID}
-					onSuccess={googleLogin}
-					onFailure={googleLogin}
-					cookiePolicy={'single_host_origin'} // 구글로그인의 경우 넣어줘야함
-					render={(renderProps) => (
-						<button
-							className='google-login-button'
-							onClick={renderProps.onClick}
-							disabled={renderProps.disabled}>
-							<img
-								src={require('images/google.png').default}
-								style={{ width: '30px', marginRight: '10px' }}
-								alt='kakao'
-							/>
-							구글 계정으로 로그인
-						</button>
-					)}
-				/>
-			</div>
-		</div>
-	);
+  const getLoc = (e) => {
+    const x = e.nativeEvent.offsetX;
+    const y = e.nativeEvent.offsetY;
+    console.log(x + ',' + y);
+  };
+
+  return (
+    <div className='content-container'>
+      <div className='mainpage-container'>
+        <span className='mainpage-container-leftbox'>
+          <img
+            onClick={getLoc}
+            src={require('images/test.jpg').default}
+            alt='좌표'
+          />
+        </span>
+        <span className='mainpage-container-rightbox'>
+          <div className='login-box'>
+            <KakaoLogin
+              token={KAKAO_JAVASCRIPT_KEY}
+              onSuccess={kakaoLogin}
+              onFaile={kakaoLogin}
+              onLogout={''}
+              render={(renderProps) => (
+                <button
+                  className='kakao-login-button'
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <img
+                    src={require('images/kakao.png').default}
+                    style={{ width: '30px', marginRight: '10px' }}
+                    alt='kakao'
+                  />
+                  카카오 계정으로 로그인
+                </button>
+              )}
+            />
+            <br />
+            <GoogleLogin
+              clientId={GOOGLE_CLIENTID}
+              onSuccess={googleLogin}
+              onFailure={googleLogin}
+              cookiePolicy={'single_host_origin'} // 구글로그인의 경우 넣어줘야함
+              render={(renderProps) => (
+                <button
+                  className='google-login-button'
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <img
+                    src={require('images/google.png').default}
+                    style={{ width: '30px', marginRight: '10px' }}
+                    alt='kakao'
+                  />
+                  구글 계정으로 로그인
+                </button>
+              )}
+            />
+          </div>
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default LoginPage;

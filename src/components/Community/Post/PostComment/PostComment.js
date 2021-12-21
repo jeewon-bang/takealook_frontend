@@ -1,4 +1,3 @@
-import { faCommentSlash } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from 'api/customAxios';
 import axios from 'axios';
 import WriteComment from 'components/Community/Writes/WriteComment/WriteComment';
@@ -69,11 +68,11 @@ const PostComment = (props) => {
       )}
       {user.id === newComment.writerId ? (
         <div className='postcomment-btn'>
-          {commentUpdate === false ? (
+          {/* {commentUpdate === false ? (
             <button className='postcomment-update-btn' onClick={handleUpdate}>
               수정
             </button>
-          ) : null}
+          ) : null} */}
           <button className='postcomment-delete-btn' onClick={handleDelete}>
             삭제
           </button>

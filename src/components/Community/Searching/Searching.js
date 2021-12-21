@@ -3,18 +3,18 @@ import React, { useState } from 'react';
 import './Searching.scss';
 
 const Searching = (props) => {
-  const { search, setSearch, setPosts, setLoaded } = props;
+  const { search, setSearch, setPosts, setLoaded, setBoardId } = props;
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
   const handleEnter = () => {
+    document.getElementById('search').value = null;
     if (!search) {
       alert('검색어를 입력해주세요!');
     } else {
       console.log(search);
-
       axiosInstance
         .get(`/post/search?search=${search}`)
         .then((res) => {
@@ -33,6 +33,7 @@ const Searching = (props) => {
       <div class='list-search'>
         <i class='fas fa-search'></i>
         <input
+          id='search'
           className='list-searching-ipt'
           type='text'
           onChange={handleSearch}

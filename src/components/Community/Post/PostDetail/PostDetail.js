@@ -57,22 +57,34 @@ const PostDetail = (props) => {
         </div>
         <h1 className='postdetail-title'>{postDetails.title}</h1>
         <div className='postdetail-writer-info'>
-          <img
-            src={postDetails.writer.userImage}
-            className='postdetail-userimg'
-            alt='user'
-          />
-          <h5>{postDetails.writer.userName}</h5>
-          {user.id === postDetails.writer.id ? (
-            <div>
-              <Link to={`/community/update/${postDetails.postId}`}>
-                <button className='postdetail-btn'>글 수정</button>
-              </Link>
-              <button className='postdetail-btn' onClick={handleDelete}>
-                글 삭제
-              </button>
-            </div>
-          ) : null}
+          <span className='postdetail-writer-info-leftbox'>
+            <img
+              src={postDetails.writer.userImage}
+              className='postdetail-userimg'
+              alt='user'
+            />
+          </span>
+          <span className='postdetail-writer-info-middlebox'>
+            {postDetails.writer.dflag === false ? (
+              <h5 className='postdetail-writer-info-name'>
+                {postDetails.writer.userName}
+              </h5>
+            ) : (
+              <h5>탈퇴회원</h5>
+            )}
+          </span>
+          <span className='postdetail-writer-info-rightbox'>
+            {user.id === postDetails.writer.id ? (
+              <div>
+                <Link to={`/community/update/${postDetails.postId}`}>
+                  <button className='postdetail-btn'>글 수정</button>
+                </Link>
+                <button className='postdetail-btn' onClick={handleDelete}>
+                  글 삭제
+                </button>
+              </div>
+            ) : null}
+          </span>
         </div>
       </div>
       <hr />
