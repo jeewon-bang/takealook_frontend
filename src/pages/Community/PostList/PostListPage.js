@@ -55,7 +55,12 @@ const PostListPage = () => {
         </Link>
       </div>
       <div className='list-searching'>
-        <Searching search={search} setSearch={setSearch} setPosts={setPosts} />
+        <Searching
+          search={search}
+          setSearch={setSearch}
+          setPosts={setPosts}
+          setLoaded={setLoaded}
+        />
       </div>
       <div className='list-sorting'>
         <Sorting posts={posts} setPosts={setPosts} />

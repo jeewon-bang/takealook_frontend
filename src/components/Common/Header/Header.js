@@ -22,6 +22,7 @@ const Header = (props) => {
   //     dispatch('/');
   //   }, [logoutDone]);
 
+
   return (
     <div className='header-container'>
       <div className='menu-container'>
@@ -56,7 +57,6 @@ const Header = (props) => {
               />
             </span>
           )}
-
           {user && (
             <span>
               <Link to='/mypage' className='menu'>
@@ -64,6 +64,7 @@ const Header = (props) => {
               </Link>
             </span>
           )}
+
 
           {!user ? (
             <span>
