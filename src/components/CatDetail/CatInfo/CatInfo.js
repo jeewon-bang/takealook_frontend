@@ -52,7 +52,9 @@ const CatInfo = (props) => {
   };
   const changeCatStatusAdopted = () => {
     axiosInstance
-      .patch(`/user/${user.id}/cat/${catId}/adoptation?status=2`, 'adoptionMsg')
+      .patch(`/user/${user.id}/cat/${catId}/adoptation?status=2`, adoptionMsg, {
+        headers: { 'Content-Type': 'application/json' },
+      })
       .then((res) => {
         navigate('/mycat');
       });

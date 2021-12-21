@@ -6,7 +6,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './MyCatPage.scss';
-import useUpdateEffect from 'utils/useUpdateEffect';
 
 const MyCatPage = (props) => {
   const { loginDone, user } = useSelector(({ auth }) => ({

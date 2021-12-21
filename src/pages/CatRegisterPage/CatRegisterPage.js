@@ -100,8 +100,13 @@ const CatRegisterPage = () => {
               console.log(res.data);
               setMatchedCatList(res.data);
               document.getElementById('message').innerText = '';
-              // 동일 추정 고양이 모달 팝업
-              setShowModal(true);
+
+              if (res.data.length > 0) {
+                // 동일 추정 고양이 모달 팝업
+                setShowModal(true);
+              } else {
+                setMoreInfo(true);
+              }
             });
         }
       }
@@ -191,26 +196,23 @@ const CatRegisterPage = () => {
       {showModal && (
         <Modal showModal={showModal} onClose={closeModal} maskClosable={true}>
           <div style={{ width: '800px' }}>
-            {matchedCatList.length > 0 ? (
-              <Swiper
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-              >
-                {matchedCatList.map((matchedCat) => (
-                  <SwiperSlide>
-                    <CatMatch
-                      catId={matchedCat.id}
-                      moreInfo={moreInfo}
-                      setMoreInfo={setMoreInfo}
-                      matchedCat={matchedCat}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            ) : (
-              <div>추천 고양이 없음</div>
-            )}
+            <Swiper
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+            >
+              {matchedCatList.map((matchedCat) => (
+                <SwiperSlide>
+                  <CatMatch
+                    catId={matchedCat.id}
+                    moreInfo={moreInfo}
+                    setMoreInfo={setMoreInfo}
+                    matchedCat={matchedCat}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            ) :
           </div>
         </Modal>
       )}
