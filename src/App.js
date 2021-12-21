@@ -34,38 +34,38 @@ function App() {
     dispatch(loadUserAction());
   }, []);
 
-  if (user) {
-    return (
-      <div>
-        <Header />
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/mycat/' element={<MyCatPage />} />
-          <Route path='/mycat/:catId' element={<CatDetailPage />} />
-          <Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
-          <Route path='/mycat/new' element={<CatRegisterPage />} />
-          <Route path='/mypage' element={<MyPage />} />
-          <Route path='/mypage/mylike' element={<MyLikePage />} />
-          <Route path='/mypage/mypost' element={<MyPostPage />} />
-          <Route path='/community' element={<PostListPage />} />
-          <Route path='/community/write' element={<PostWritePage />} />
-          <Route path='/community/post/:postId' element={<PostDetailPage />} />
-          <Route
-            path='/community/update/:postId'
-            element={<PostUpdatePage />}
-          />
-        </Routes>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <Header />
-        <LoginPage />
-      </div>
-    );
-  }
+	if (user) {
+		return (
+			<div>
+				<Header />
+				<Routes>
+					<Route path='/' element={<HomePage />} />
+					<Route path='/login' element={<LoginPage />} />
+					<Route path='/mycat/' element={<MyCatPage />} />
+					<Route path='/mycat/:catId' element={<CatDetailPage />} />
+					<Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
+					<Route path='/mycat/new' element={<CatRegisterPage />} />
+					<Route path='/mypage' element={<MyPage />} />
+					<Route path='/mypage/mylike' element={<MyLikePage />} />
+					<Route path='/mypage/mypost' element={<MyPostPage />} />
+					<Route path='/community' element={<PostListPage />} />
+					<Route path='/community/write' element={<PostWritePage />} />
+					<Route path='/community/post/:postId' element={<PostDetailPage />} />
+					<Route
+						path='/community/update/:postId'
+						element={<PostUpdatePage />}
+					/>
+				</Routes>
+			</div>
+		);
+	} else {
+		return (
+			<div>
+				<Header />
+				<LoginPage />
+			</div>
+		);
+	}
 }
 
 export default App;

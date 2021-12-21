@@ -18,9 +18,11 @@ const Header = (props) => {
     dispatch(logoutAction());
   };
 
-  // useUpdateEffect(() => {
-  //   dispatch('/');
-  // }, [logoutDone]);
+
+  //   useUpdateEffect(() => {
+  //     dispatch('/');
+  //   }, [logoutDone]);
+
 
   return (
     <div className='header-container'>
@@ -56,7 +58,6 @@ const Header = (props) => {
               />
             </span>
           )}
-          {user && <span className='menu'></span>}
           {user && (
             <span>
               <Link to='/mypage' className='menu'>
@@ -64,7 +65,6 @@ const Header = (props) => {
               </Link>
             </span>
           )}
-
           {!user ? (
             <span>
               <Link to='/login' className='menu'>

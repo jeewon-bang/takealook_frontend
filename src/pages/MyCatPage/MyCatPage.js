@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import './MyCatPage.scss';
 import useUpdateEffect from 'utils/useUpdateEffect';
 
+
 const MyCatPage = (props) => {
   const { loginDone, user } = useSelector(({ auth }) => ({
     loginDone: auth.loginDone,
@@ -53,8 +54,9 @@ const MyCatPage = (props) => {
     axios
       .all([
         axiosInstance.get(`/user/${user.id}/cats`),
-        axiosInstance.get(`/user/${user.id}/cat-stars`),
         axiosInstance.get(`/user/${user.id}/adopted`),
+        axiosInstance.get(`/user/${user.id}/cat-stars`),
+
       ])
       .then(
         axios.spread((myCatsRes, adoptedCatsRes, deadCatsRes) => {
@@ -94,7 +96,9 @@ const MyCatPage = (props) => {
                   <MyLeftCat
                     catId={cat.id}
                     catName={cat.name}
-                    catImg={cat.image}
+                    catImg={cat.mainImage}
+                    message={cat.amsg}
+
                   />
                 ))}
               </div>
@@ -106,12 +110,12 @@ const MyCatPage = (props) => {
                   <MyLeftCat
                     catId={cat.id}
                     catName={cat.name}
-                    catImg={cat.image}
+                    catImg={cat.mainImage}
+                    message={cat.dmsg}
                   />
                 ))}
               </div>
             );
-
           default:
             return '잘못된 접근입니다.';
         }
