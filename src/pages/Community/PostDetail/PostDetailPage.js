@@ -81,6 +81,7 @@ const PostDetailPage = () => {
     postId: postId,
     userId: user.id,
   });
+  const [commentUpdate, setCommentUpdate] = useState(false);
 
   useEffect(() => {
     axios
@@ -150,7 +151,6 @@ const PostDetailPage = () => {
         <WriteComment
           postDetails={postDetails}
           setPostDetails={setPostDetails}
-          comments={comments}
           setComments={setComments}
           setLoaded={setLoaded}
         />
@@ -164,8 +164,12 @@ const PostDetailPage = () => {
           {comments.map((comment) => (
             <PostComment
               postDetails={postDetails}
+              setPostDetails={setPostDetails}
               comment={comment}
               setLoaded={setLoaded}
+              setComments={setComments}
+              commentUpdate={commentUpdate}
+              setCommentUpdate={setCommentUpdate}
             />
           ))}
         </div>

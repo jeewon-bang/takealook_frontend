@@ -1,11 +1,13 @@
 import axiosInstance from 'api/customAxios';
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './WriteComment.scss';
 
 const WriteComment = (props) => {
   const user = useSelector((state) => state.auth.user);
-  const { postDetails, setComments, setLoaded, newComment } = props;
+  const { postDetails, setPostDetails, setComments, setLoaded, newComment } =
+    props;
   const [commentId, setCommentId] = useState({
     writerId: user.id,
     content: '',
@@ -28,12 +30,18 @@ const WriteComment = (props) => {
           headers: { 'Content-Type': 'application/json' },
         })
         .then((res) => {
-          axiosInstance
-            .get(`/post/${postDetails.postId}/comment`)
-            .then((res) => {
-              setComments(res.data);
-              setLoaded(true);
-            });
+          axios
+            .all([
+              axiosInstance.get(`/post/${postDetails.postId}`),
+              axiosInstance.get(`/post/${postDetails.postId}/comment`),
+            ])
+            .then(
+              axios.spread((postDetailsRes, commentsRes) => {
+                setPostDetails(postDetailsRes.data);
+                setComments(commentsRes.data);
+                setLoaded(true);
+              })
+            );
         });
     }
   };

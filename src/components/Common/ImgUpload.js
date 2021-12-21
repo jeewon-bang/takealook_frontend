@@ -11,7 +11,6 @@ const ImgUpload = (props) => {
 
   const processImage = (e) => {
     setImg(e.target.files);
-
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setFileUrl(imageUrl);

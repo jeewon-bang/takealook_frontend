@@ -12,7 +12,7 @@ const PostListPage = () => {
   const [boardId, setBoardId] = useState(0);
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  // const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     if (boardId !== 0) {
@@ -55,7 +55,12 @@ const PostListPage = () => {
         </Link>
       </div>
       <div className='list-searching'>
-        <Searching />
+        <Searching
+          search={search}
+          setSearch={setSearch}
+          setPosts={setPosts}
+          setLoaded={setLoaded}
+        />
       </div>
       <div className='list-sorting'>
         <Sorting posts={posts} setPosts={setPosts} />

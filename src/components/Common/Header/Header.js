@@ -6,21 +6,17 @@ import { logoutAction } from 'reducer/auth';
 import useUpdateEffect from 'utils/useUpdateEffect';
 
 const Header = (props) => {
-	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
-		user: auth.user,
-		loginDone: auth.loginDone,
-		logoutDone: auth.logoutDone,
-	}));
-	const dispatch = useDispatch();
+  const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
+    user: auth.user,
+    loginDone: auth.loginDone,
+    logoutDone: auth.logoutDone,
+  }));
+  const dispatch = useDispatch();
 
-	const logout = () => {
-		console.log('로그아웃 버튼 누름');
-		dispatch(logoutAction());
-	};
-
-	// useUpdateEffect(() => {
-	// 	dispatch('/');
-	// }, [logoutDone]);
+  const logout = () => {
+    console.log('로그아웃 버튼 누름');
+    dispatch(logoutAction());
+  };
 
 	return (
 		<div className='header-container'>
@@ -72,22 +68,21 @@ const Header = (props) => {
 							</Link>
 						</span>
 					)}
-
-					{!user ? (
-						<span>
-							<Link to='/login' className='menu'>
-								로그인
-							</Link>
-						</span>
-					) : (
-						<span className='menu' onClick={logout}>
-							로그아웃
-						</span>
-					)}
-				</span>
-			</div>
-		</div>
-	);
+          {!user ? (
+            <span>
+              <Link to='/login' className='menu'>
+                로그인
+              </Link>
+            </span>
+          ) : (
+            <span className='menu' onClick={logout}>
+              로그아웃
+            </span>
+          )}
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default Header;

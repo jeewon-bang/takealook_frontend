@@ -19,20 +19,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
 
 function App() {
-	const dispatch = useDispatch();
-	const { logoutDone, loginDone, loadUserDone, user } = useSelector(
-		({ auth }) => ({
-			logoutDone: auth.logoutDone,
-			loginDone: auth.loginDone,
-			loadUserDone: auth.loadUserDone,
-			user: auth.user,
-		})
-	);
+  const dispatch = useDispatch();
+  const { logoutDone, loginDone, loadUserDone, user } = useSelector(
+    ({ auth }) => ({
+      logoutDone: auth.logoutDone,
+      loginDone: auth.loginDone,
+      loadUserDone: auth.loadUserDone,
+      user: auth.user,
+    })
+  );
 
-	useEffect(() => {
-		console.log('자동 재로그인');
-		dispatch(loadUserAction());
-	}, []);
+  useEffect(() => {
+    console.log('자동 재로그인');
+    dispatch(loadUserAction());
+  }, []);
 
 	if (user) {
 		return (
