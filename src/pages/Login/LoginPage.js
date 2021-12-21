@@ -27,9 +27,15 @@ const LoginPage = () => {
 		dispatch(googleAction(res)); // auth reducer에서 만든 googleAction이라는 액션 호출한다
 	};
 
-	useUpdateEffect(() => {
-		navigate('/');
-	}, [loginDone]);
+  useUpdateEffect(() => {
+    navigate('/');
+  }, [loginDone]);
+
+  const getLoc = (e) => {
+    const x = e.nativeEvent.offsetX;
+    const y = e.nativeEvent.offsetY;
+    console.log(x + ',' + y);
+  };
 
 	useUpdateEffect(() => {
 		if (window.confirm('탈퇴한 회원입니다. 계정을 복구하시겠습니까?')) {

@@ -33,19 +33,39 @@
 .postdetail-writer-info {
   @extend %user-info;
   display: flex;
-  .postdetail-btn {
-    @extend %button-square;
-    margin: 10px;
-    width: 80px;
-    border-radius: 8px;
+  .postdetail-writer-info-leftbox {
+    width: 7%;
+    .postdetail-userimg {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: gray;
+      margin-bottom: 10px;
+      margin-right: 10px;
+    }
   }
-  .postdetail-userimg {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: gray;
-    margin-bottom: 10px;
-    margin-right: 10px;
+  .postdetail-writer-info-middlebox {
+    width: 73%;
+    .postdetail-writer-info-name {
+      font-size: 20px;
+      margin-top: 15px;
+    }
+  }
+  .postdetail-writer-info-rightbox {
+    width: 20%;
+    .postdetail-btn {
+      margin: 10px;
+      margin-top: 15px;
+      font-size: 17px;
+      width: 80px;
+      border-radius: 8px;
+      background-color: white;
+      border: none;
+    }
+    .postdetail-btn:hover {
+      cursor: pointer;
+      color: $main-orange;
+    }
   }
 }
 

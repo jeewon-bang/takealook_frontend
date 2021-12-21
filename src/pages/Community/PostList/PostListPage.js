@@ -31,6 +31,7 @@ const PostListPage = () => {
         //모두보기
         .get(`/posts`)
         .then((res) => {
+          console.log('모두 불러와~~~');
           setPosts(res.data);
           setLoaded(true);
         })
@@ -43,7 +44,7 @@ const PostListPage = () => {
   return loaded ? (
     <div className='content-container'>
       <div className='list-top-nav'>
-        <Category setBoardId={setBoardId} />
+        <Category boardId={boardId} setBoardId={setBoardId} />
       </div>
       <div className='list-right-nav'>
         <Link to='/community/write'>
@@ -60,6 +61,7 @@ const PostListPage = () => {
           setSearch={setSearch}
           setPosts={setPosts}
           setLoaded={setLoaded}
+          setBoardId={setBoardId}
         />
       </div>
       <div className='list-sorting'>

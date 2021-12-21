@@ -98,7 +98,7 @@ const PostUpdatePage = () => {
             </font>
           </h3>
           <ImgUpload
-            pastImage={postText.imgUrl}
+            pastImg={postText.imgUrl}
             image={postImage}
             setImage={setPostImage}
           />

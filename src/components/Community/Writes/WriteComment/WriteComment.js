@@ -66,7 +66,7 @@ const WriteComment = (props) => {
           id='content'
           name='content'
           type='text'
-          placeholder='댓글을 작성하려면 TakeaLook! 에 로그인 해주세요.'
+          placeholder='댓글을 작성해주세요😸'
           onChange={writeComment}
         />
         <input
