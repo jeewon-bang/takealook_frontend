@@ -11,6 +11,7 @@ const ImgUpload = (props) => {
 
   const processImage = (e) => {
     setImg(e.target.files);
+
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setFileUrl(imageUrl);
@@ -22,7 +23,7 @@ const ImgUpload = (props) => {
 
   return (
     <div className='cat-img-upload'>
-      <div className='cat-img-upload-box'>
+      <div className='cat-img-upload-box' style={{ width: '280px' }}>
         <input
           ref={imgInput}
           className='img-input'

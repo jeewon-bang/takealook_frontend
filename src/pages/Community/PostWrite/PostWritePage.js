@@ -6,13 +6,16 @@ import WriteThumbnail from 'components/Community/Writes/WriteThumbnail/WriteThum
 import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
 import WritePostForm from 'components/Community/Writes/WritePostForm/WritePostForm';
+import { useSelector } from 'react-redux';
+import ImgUpload from 'components/Common/ImgUpload';
 
 const PostWritePage = () => {
+  const user = useSelector((state) => state.auth.user);
   const [showModal, setShowModal] = useState(false);
   //과연 이렇게 useState를 남용해도 되는 것인가.. 리액트 고수 구합니다
   const [postImage, setPostImage] = useState([]);
   const [postText, setPostText] = useState({
-    writerId: 1,
+    writerId: user.id,
     boardId: 1,
     title: '',
     content: '',
@@ -70,7 +73,7 @@ const PostWritePage = () => {
               &nbsp;파일첨부 필수
             </font>
           </h3>
-          <WriteThumbnail image={postImage} setImage={setPostImage} />
+          <ImgUpload image={postImage} setImage={setPostImage} />
         </div>
         <div className='write-footer'>
           <button className='register-btn' onClick={handleSubmit}>
