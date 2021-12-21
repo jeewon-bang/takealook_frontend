@@ -2,36 +2,50 @@ import React, { useState } from 'react';
 import { KAKAO_JAVASCRIPT_KEY, REDIRECT_URI } from 'config/config';
 import KakaoLogin from 'react-kakao-login';
 import GoogleLogin from 'react-google-login';
-import { googleAction, kakaoAction } from 'reducer/auth';
+import { googleAction, kakaoAction, withdrawlAction } from 'reducer/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { GOOGLE_CLIENTID } from 'config/config';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.scss';
 import useUpdateEffect from 'utils/useUpdateEffect';
+import axiosInstance from 'api/customAxios';
 
 const LoginPage = () => {
-	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
-		user: auth.user,
+	const { loginDone, withdrawl } = useSelector(({ auth }) => ({
 		loginDone: auth.loginDone,
-		logoutDone: auth.logoutDone,
+		withdrawl: auth.withdrawl,
 	}));
+	const user = localStorage.getItem('user');
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const kakaoLogin = (res) => {
+		dispatch(kakaoAction(res));
+	};
 
-  const kakaoLogin = (res) => {
-    console.log(res);
-    dispatch(kakaoAction(res));
-  };
+	const googleLogin = (res) => {
+		dispatch(googleAction(res)); // auth reducer에서 만든 googleAction이라는 액션 호출한다
+	};
 
-  const googleLogin = (res) => {
-    // console.log(res); // 구글이 로그인 다하고 준 정보
-    dispatch(googleAction(res)); // auth reducer에서 만든 googleAction이라는 액션 호출한다
+  useUpdateEffect(() => {
+    navigate('/');
+  }, [loginDone]);
+
+  const getLoc = (e) => {
+    const x = e.nativeEvent.offsetX;
+    const y = e.nativeEvent.offsetY;
+    console.log(x + ',' + y);
   };
 
 	useUpdateEffect(() => {
-		navigate('/');
-	}, [loginDone]);
+		if (window.confirm('탈퇴한 회원입니다. 계정을 복구하시겠습니까?')) {
+			axiosInstance.patch(`/user/${user.id}/restore`).then((res) => {
+				localStorage.clear();
+				alert('계정 복구가 완료되었습니다. 재로그인 해주세요.');
+				window.location.reload(); // 이러면..되나..?
+			});
+		}
+	}, [withdrawl]);
 
 	return (
 		<div className='content-container'>

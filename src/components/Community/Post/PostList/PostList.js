@@ -48,9 +48,11 @@ const PostList = (props) => {
           </p> */}
 
           <div class='card-body-footer'>
-            <i class='card-body-nickname'>
-              {post.writer.dflag === false ? post.writer.userName : '익명'}
-            </i>
+            {post.writer.dflag === false ? (
+              <i class='card-body-nickname'>{post.writer.userName}</i>
+            ) : (
+              <i class='card-body-nickname'>탈퇴회원</i>
+            )}
             <i class='icon icon-like_count'></i>
             <img
               class='image'

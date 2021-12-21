@@ -3,8 +3,10 @@ import './WritePostForm.scss';
 import ReactQuill, { Quill } from 'react-quill';
 import '../../../../../node_modules/react-quill/dist/quill.snow.css';
 import ImageResize from 'quill-image-resize';
+import ImageCompress from 'quill-image-compress';
 import axiosInstance from 'api/customAxios';
 Quill.register('modules/ImageResize', ImageResize);
+Quill.register('modules/ImageCompress', ImageCompress);
 
 const WritePostForm = (props) => {
   const { postText, setPostText, updatePage } = props;
@@ -33,8 +35,12 @@ const WritePostForm = (props) => {
           const quill = quillRef.current.getEditor();
           //현재 에디터 커서 위치를 알려준다.
           const range = quill.getSelection();
+          quill.formatText(0, 1, 'width', '300px');
           //에디터의 특정 위치에 원하는 요소를 넣어 준다.
           quill.insertEmbed(range, 'image', res.data);
+          // quill.clipboard.container.style.width = '30px';
+          // console.log(quill);
+          // document.getElementsByName('image').style.width = '50px';
         })
         .catch((err) => console.log(err));
     };
@@ -75,6 +81,11 @@ const WritePostForm = (props) => {
       },
       ImageResize: {
         parchment: Quill.import('parchment'),
+      },
+      ImageCompress: {
+        quality: 1,
+        maxWidth: 400,
+        maxHeight: 400,
       },
     }),
     []

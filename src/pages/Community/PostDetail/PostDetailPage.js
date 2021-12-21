@@ -70,7 +70,7 @@ import Spinner from 'components/Common/Spinner';
 // {id: 1, email: 'jiwonb@kakao.com', nickname: '지원', image: 'http://k.kakaocdn.net/dn/bGVboe/btrj2frkoGs/fgbttIiYINYevA3fiVroFk/img_640x640.jpg', providerType: 'KAKAO'}
 
 const PostDetailPage = () => {
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user); //내가 서버에 접속한 로그인한 정보
   const { postId } = useParams();
   const [postDetails, setPostDetails] = useState({});
   const [comments, setComments] = useState([]);
@@ -103,7 +103,6 @@ const PostDetailPage = () => {
     if (!doubleClickFlag) {
       setLike(like + 1);
       setDoubleClickFlag(true);
-      //like api
       axiosInstance
         .post(`/post/${postId}/like`, postLikeInfo, {
           headers: { 'Content-Type': 'application/json' },
@@ -113,11 +112,11 @@ const PostDetailPage = () => {
     } else {
       setLike(like - 1);
       setDoubleClickFlag(false);
-      //unlike api
       axiosInstance
-        .delete(`/post/${postId}/like`, postLikeInfo, {
-          headers: { 'Content-Type': 'application/json' },
-        })
+        .delete(`/post/${postId}/like`)
+        // .delete(`/post/${postId}/like`, postLikeInfo, {
+        //   headers: { 'Content-Type': 'application/json' },
+        // })
         .then()
         .catch((err) => console.log(err));
     }

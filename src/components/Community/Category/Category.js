@@ -2,7 +2,7 @@ import React from 'react';
 import './Category.scss';
 
 const Category = (props) => {
-  const { setBoardId } = props;
+  const { boardId, setBoardId } = props;
 
   const handleBoardId = (e) => {
     setBoardId(e.target.value);

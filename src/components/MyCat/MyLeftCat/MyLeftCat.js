@@ -6,6 +6,7 @@ import './MyLeftCat.scss';
 
 const MyLeftCat = (props) => {
   const { catId, catName, catImg, message } = props;
+  
   return (
     <div>
       <div class='catCard'>

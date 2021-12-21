@@ -4,27 +4,37 @@
 	.title {
 		font-size: 24px;
 		font-weight: 800;
-		margin-bottom: 10px;
+		margin: 10px 0px 20px 0px;
 	}
 
-	.button-box {
-		margin: 80px 0px 80px 0px;
+	.cat-info-button-box {
+		display: flex;
+		justify-content: flex-end;
+		margin: 20px 0px 80px 0px;
+
+		.cat-update-button {
+			margin-right: 20px;
+			background-color: white;
+			border: none;
+		}
 
 		.cat-delete-button {
-			@extend %button-square;
-			box-sizing: border-box;
-			width: 49%;
-			height: 40px;
-			background-color: gray;
-			margin-right: 1%;
+			background-color: white;
+			border: none;
 		}
+	}
+
+	.cat-other-button-box {
+		text-align: center;
+		margin-bottom: 80px;
 
 		.cat-other-button {
 			@extend %button-square;
 			box-sizing: border-box;
-			width: 49%;
+			width: 200px;
 			height: 40px;
-			margin-left: 1%;
+			line-height: 40px;
+			margin-top: 10px;
 		}
 	}
 }

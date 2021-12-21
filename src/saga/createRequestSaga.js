@@ -14,6 +14,12 @@ export function createRequestSaga(type, request) {
 
 			const token = response.headers.authorization;
 			const userData = response.data;
+			// // 탈퇴한 회원이 로그인한 경우
+			// if (userData.dflag === false) {
+			// 	localStorage.setItem('jwt', token);
+			// }
+
+			// 탙퇴했더라도 일단 유저정보 저장. 회원복구 할수도 있기때문
 			localStorage.setItem('jwt', token);
 			localStorage.setItem('user', JSON.stringify(response.data));
 
