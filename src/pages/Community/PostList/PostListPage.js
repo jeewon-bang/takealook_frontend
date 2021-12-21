@@ -6,6 +6,7 @@ import Category from 'components/Community/Category/Category';
 import Searching from 'components/Community/Searching/Searching';
 import axiosInstance from 'api/customAxios';
 import { Link } from 'react-router-dom';
+import Spinner from 'components/Common/Spinner';
 
 const PostListPage = () => {
   const [boardId, setBoardId] = useState(0);
@@ -20,7 +21,6 @@ const PostListPage = () => {
         .get(`/posts/${boardId}`)
         .then((res) => {
           setPosts(res.data);
-          // setPosts([...posts, content: res.data.content.replace(/(<([^>]+)>)/gi, '')])
           setLoaded(true);
         })
         .catch((err) => {
@@ -38,7 +38,7 @@ const PostListPage = () => {
           console.log(err);
         });
     }
-  }, []);
+  }, [boardId]);
 
   return loaded ? (
     <div className='content-container'>
@@ -70,7 +70,7 @@ const PostListPage = () => {
       </div>
     </div>
   ) : (
-    <div>로딩중</div>
+    <Spinner />
   );
 };
 

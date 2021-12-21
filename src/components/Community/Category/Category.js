@@ -1,8 +1,5 @@
-import axiosInstance from 'api/customAxios';
-import React, { useEffect, useState } from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import React from 'react';
 import './Category.scss';
-import CategoryBtn from './CategoryBtn';
 
 const Category = (props) => {
   const { setBoardId } = props;

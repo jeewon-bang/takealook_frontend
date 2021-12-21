@@ -7,9 +7,7 @@ import axiosInstance from 'api/customAxios';
 Quill.register('modules/ImageResize', ImageResize);
 
 const WritePostForm = (props) => {
-  const { postText, setPostText, updatePage } = props;
-  console.log(postText.title);
-  // const [value, setValue] = useState(postText.content);
+  const { postText, setPostText } = props;
   const quillRef = useRef('');
 
   const imageHandler = () => {
@@ -31,7 +29,6 @@ const WritePostForm = (props) => {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((res) => {
-          console.log(res.data); //url
           //에디터 정보를 가져올 수 있다.
           const quill = quillRef.current.getEditor();
           //현재 에디터 커서 위치를 알려준다.
@@ -52,6 +49,7 @@ const WritePostForm = (props) => {
   const handleContent = (e) => {
     // setValue(e);
     setPostText({ ...postText, content: e });
+    console.log('내용 수정해줘');
   };
 
   // useMemo를 사용한 이유는 modules가 렌더링마다 변하면 에디터에서 입력이 끊기는 버그가 발생
@@ -69,9 +67,8 @@ const WritePostForm = (props) => {
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
 
           [{ list: 'ordered' }, { list: 'bullet' }],
-          ['link', 'image', 'video'],
+          ['link', 'image'],
           ['clean'],
-          ['code-block'],
         ],
         handlers: {
           image: imageHandler,
