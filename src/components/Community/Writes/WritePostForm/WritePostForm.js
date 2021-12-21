@@ -49,7 +49,6 @@ const WritePostForm = (props) => {
   const handleContent = (e) => {
     // setValue(e);
     setPostText({ ...postText, content: e });
-    console.log('내용 수정해줘');
   };
 
   // useMemo를 사용한 이유는 modules가 렌더링마다 변하면 에디터에서 입력이 끊기는 버그가 발생
