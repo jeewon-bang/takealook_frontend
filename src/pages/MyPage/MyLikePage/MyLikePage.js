@@ -5,21 +5,24 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from 'api/customAxios';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MyLikePage = () => {
-  const [user, setUser] = useState();
+  const [userInfo, setUserInfo] = useState();
   const [likePosts, setLikePosts] = useState();
   const [loaded, setLoaded] = useState(false);
+
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     axios
       .all([
-        axiosInstance.get(`/user/1`),
-        axiosInstance.get(`/user/1/posts/like`),
+        axiosInstance.get(`/user/${user.id}`),
+        axiosInstance.get(`/user/${user.id}/posts/like`),
       ])
       .then(
         axios.spread((userRes, likePostsRes) => {
-          setUser(userRes.data);
+          setUserInfo(userRes.data);
           setLikePosts(likePostsRes.data);
           setLoaded(true);
         })
@@ -29,7 +32,7 @@ const MyLikePage = () => {
   return loaded ? (
     <div class='mypost-container'>
       <div class='mypost-section1'>
-        <Profile user={user} setUser={setUser} />
+        <Profile user={userInfo} setUser={setUserInfo} />
       </div>
       <div class='mypost-section2'>
         <div class='mypost-article'>

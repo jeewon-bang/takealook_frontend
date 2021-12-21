@@ -1,18 +1,28 @@
 @import 'components/Common/common';
 
 .category {
+  background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
+    0 100% repeat-x;
+
   .category-ul {
     list-style: none;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
     .category-li {
       float: left;
       margin-left: 20px;
       margin-right: 20px;
+      margin-bottom: 20px;
       font-size: xx-large;
       font-weight: bold;
     }
     .category-li:hover {
       color: $main-orange;
       cursor: pointer;
+    }
+    .category-li:active {
+      color: $main-orange;
     }
   }
 }

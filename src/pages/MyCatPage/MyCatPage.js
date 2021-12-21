@@ -3,10 +3,9 @@ import axios from 'axios';
 import MyCat from 'components/MyCat/MyCat/MyCat';
 import MyLeftCat from 'components/MyCat/MyLeftCat/MyLeftCat';
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './MyCatPage.scss';
-import { useSelector } from 'react-redux';
-import useUpdateEffect from 'utils/useUpdateEffect';
 
 const MyCatPage = (props) => {
 	const { loginDone, user } = useSelector(({ auth }) => ({

@@ -1,16 +1,11 @@
 @import 'components/Common/common';
 
-@font-face {
-  font-family: 'SurroundAir';
-  src: url('../../../fonts/Cafe24SsurroundAir.ttf');
-}
-
 .sorting {
-  width: 150px;
+  width: 200px;
   text-align: center;
-  height: 30px;
-  font-size: 15px;
-  border-radius: 5px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 7px;
   border-color: $line-gray;
   color: $gray;
   margin-right: 150px;

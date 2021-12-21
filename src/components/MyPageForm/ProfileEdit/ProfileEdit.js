@@ -1,10 +1,17 @@
 import axiosInstance from 'api/customAxios';
 import ImgUpload from 'components/Common/ImgUpload';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { logoutAction } from 'reducer/auth';
+import history from 'utils/history';
 import './ProfileEdit.scss';
 
 const ProfileEdit = (props) => {
   const { user, setUser, setShowModal } = props;
+  const [check, setCheck] = useState(false);
+
+  const userId = useSelector((state) => state.auth.user);
 
   // 캘린더 모달창 끄는 함수
   const closeModal = (e) => {
@@ -12,10 +19,10 @@ const ProfileEdit = (props) => {
       ? setShowModal(false)
       : setShowModal(true);
   };
-  const [newUserImg, setNewUserImg] = useState(null);
+
+  const [newUserImg, setNewUserImg] = useState();
   const [userInfo, setUserInfo] = useState({
     nickname: user.nickname,
-    phone: user.phone,
   });
 
   // form 내의 값들이 변경되었을때 실행
@@ -23,36 +30,49 @@ const ProfileEdit = (props) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const userInfosubmit = async () => {
-    console.log(newUserImg);
-    console.log(userInfo);
-
-    const formData = new FormData();
-
-    formData.append('profileImg', newUserImg);
-
-    formData.append(
-      'userInfo',
-      new Blob([JSON.stringify(userInfo)], { type: 'application/json' })
-    );
-
-    // 콘솔에 찍어보기
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-    axiosInstance
-      .put('/user/1', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-      .then((res) => {
-        console.log(res);
-        res.data === user.id
-          ? alert('수정이 완료되었습니다.')
-          : alert('오류가 발생하였습니다.');
-      })
-      .catch((err) => {});
+  const logout = () => {
+    console.log('로그아웃 버튼 누름');
+    dispatchEvent(logoutAction());
   };
 
+  const userInfosubmit = async () => {
+    if (userInfo.nickname.length === 0) {
+      alert('닉네임을 입력해주세요.');
+    } else if (userInfo.nickname === user.nickname || check === true) {
+      const formData = new FormData();
+
+      formData.append('profileImg', newUserImg[0]);
+
+      formData.append(
+        'userInfo',
+        new Blob([JSON.stringify(userInfo)], { type: 'application/json' })
+      );
+
+      console.log(userInfo.nickname);
+      console.log(newUserImg);
+
+      // 콘솔에 찍어보기
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
+      axiosInstance
+        .post(`/user/${userId.id}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((res) => {
+          console.log(res.data);
+          console.log(userId.id);
+          if (res.data === userId.id) {
+            window.location.replace('/mypage');
+          } else {
+            alert('오류가 발생하였습니다.');
+          }
+        })
+        .catch((err) => {});
+    } else {
+      alert('닉네임 중복을 확인해주세요.');
+    }
+  };
   const nicknameCheck = () => {
     let nickname = {
       nickname: userInfo.nickname,
@@ -63,25 +83,29 @@ const ProfileEdit = (props) => {
         headers: { 'Content-Type': 'application/json' },
       })
       .then((res) => {
-        console.log(res);
-        res.data
-          ? alert('사용가능한 닉네임입니다.')
-          : alert('이미 사용중인 닉네임입니다.');
+        if (res.data === true) {
+          setCheck(true);
+          alert('사용가능한 닉네임입니다.');
+        } else {
+          setCheck(false);
+          alert('이미 사용중인 닉네임입니다.');
+        }
       })
       .catch((err) => {});
-    // false일때 .(정보수정 버튼 클릭시 닉네임 중복알림 뜨도록 처리하기)
   };
 
   const withdrawalSubmit = () => {
     //탈퇴요청
     if (window.confirm('탈퇴하시겠습니까?')) {
       axiosInstance
-        .patch(`/user/{userId}`)
+        .patch(`/user/${userId.id}/delete`)
         .then((res) => {
-          console.log(res);
-          res.data === user.id
-            ? alert('탈퇴가 완료되었습니다.')
-            : alert('오류발생');
+          if (res.data === userId.id) {
+            Navigate('/');
+            logout();
+          } else {
+            alert('오류발생');
+          }
         })
         .catch((err) => {});
     } else {
@@ -101,15 +125,6 @@ const ProfileEdit = (props) => {
           </div>
           <div className='Profile-form'>
             <div className='input-label'>
-              <label className='profile-label'>아이디</label>
-              <input
-                className='id-input'
-                type='text'
-                name='login_id'
-                value={user.loginId}
-              />
-            </div>
-            <div className='input-label'>
               <label className='profile-label'>닉네임</label>
               <input
                 className='profile-input'
@@ -126,9 +141,9 @@ const ProfileEdit = (props) => {
             <div className='input-label'>
               <label className='profile-label'>프로필 사진</label>
               <ImgUpload
-                user={user}
-                newUserImg={newUserImg}
-                setNewUserImg={setNewUserImg}
+                pastImg={user.image}
+                img={newUserImg}
+                setImg={setNewUserImg}
               />
             </div>
             <button className='profile-update' onClick={userInfosubmit}>

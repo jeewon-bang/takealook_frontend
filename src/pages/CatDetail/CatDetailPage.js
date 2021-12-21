@@ -174,6 +174,7 @@ const CatDetailPage = () => {
 			);
 	}, []);
 
+
 	return loaded ? (
 		/** 기본적으로 처음에 보여지는 고양이 상세페이지 화면 */
 		!showAnotherCatPage ? (

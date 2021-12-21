@@ -6,6 +6,8 @@ import axiosInstance from 'api/customAxios';
 import { Link, useParams } from 'react-router-dom';
 import WriteComment from 'components/Community/Writes/WriteComment/WriteComment';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import Spinner from 'components/Common/Spinner';
 // {
 //   "board": {
 //       "id": 2,
@@ -65,7 +67,10 @@ import axios from 'axios';
 //   "commentListCount": 3
 // }
 
+// {id: 1, email: 'jiwonb@kakao.com', nickname: '지원', image: 'http://k.kakaocdn.net/dn/bGVboe/btrj2frkoGs/fgbttIiYINYevA3fiVroFk/img_640x640.jpg', providerType: 'KAKAO'}
+
 const PostDetailPage = () => {
+  const user = useSelector((state) => state.auth.user);
   const { postId } = useParams();
   const [postDetails, setPostDetails] = useState({});
   const [comments, setComments] = useState([]);
@@ -74,7 +79,7 @@ const PostDetailPage = () => {
   const [doubleClickFlag, setDoubleClickFlag] = useState(false);
   const [postLikeInfo, setPostLikeInfo] = useState({
     postId: postId,
-    userId: 1,
+    userId: user.id,
   });
 
   useEffect(() => {
@@ -119,7 +124,7 @@ const PostDetailPage = () => {
 
   return loaded ? (
     <div className='content-container'>
-      <div className='right-nav'>
+      <div className='detail-right-nav'>
         <img
           class='detail-like-btn'
           src={require('images/postlike.png').default}
@@ -157,13 +162,17 @@ const PostDetailPage = () => {
         </h2>
         <div className='detail-commentlist'>
           {comments.map((comment) => (
-            <PostComment postDetails={postDetails} comment={comment} />
+            <PostComment
+              postDetails={postDetails}
+              comment={comment}
+              setLoaded={setLoaded}
+            />
           ))}
         </div>
       </div>
     </div>
   ) : (
-    <div>로딩중</div>
+    <Spinner />
   );
 };
 
