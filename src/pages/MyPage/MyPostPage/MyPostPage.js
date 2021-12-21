@@ -3,20 +3,26 @@ import axios from 'axios';
 import PostList from 'components/Community/Post/PostList/PostList';
 import Profile from 'components/MyPageForm/Profile/Profile';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const MyPostPage = () => {
-  const [user, setUser] = useState();
+  const [userInfo, setUserInfo] = useState();
   const [myPosts, setMyPosts] = useState();
   const [loaded, setLoaded] = useState(false);
+
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     console.log('MyPage');
     axios
-      .all([axiosInstance.get(`/user/1`), axiosInstance.get(`/user/1/posts`)])
+      .all([
+        axiosInstance.get(`/user/${user.id}`),
+        axiosInstance.get(`/user/${user.id}/posts`),
+      ])
       .then(
         axios.spread((userRes, MyPostsRes) => {
-          setUser(userRes.data);
+          setUserInfo(userRes.data);
           setMyPosts(MyPostsRes.data);
           setLoaded(true);
         })
@@ -26,7 +32,7 @@ const MyPostPage = () => {
   return loaded ? (
     <div class='mypost-container'>
       <div class='mypost-section1'>
-        <Profile user={user} setUser={setUser} />
+        <Profile user={userInfo} setUser={setUserInfo} />
       </div>
 
       <div class='mypost-section2'>

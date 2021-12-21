@@ -160,10 +160,10 @@ const CatDetailPage = () => {
     console.log('CatDetailPage');
     axios
       .all([
-        axiosInstance.get(`/user/1/cat/${catId}`),
-        axiosInstance.get(`/user/1/cat/${catId}/images`),
-        axiosInstance.get(`/user/1/cat/${catId}/locations`),
-        axiosInstance.get(`/user/1/cat/${catId}/48hours-catcares`),
+        axiosInstance.get(`/user/${user.id}/cat/${catId}`),
+        axiosInstance.get(`/user/${user.id}/cat/${catId}/images`),
+        axiosInstance.get(`/user/${user.id}/cat/${catId}/locations`),
+        axiosInstance.get(`/user/${user.id}/cat/${catId}/48hours-catcares`),
       ])
       .then(
         axios.spread((catInfoRes, catImgRes, catLocRes, careHistoryRes) => {

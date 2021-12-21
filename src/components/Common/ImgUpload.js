@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const ImgUpload = (props) => {
-  const { pastImage, image, setImage } = props;
-  console.log(pastImage);
+  const { pastImg, img, setImg } = props;
   const [fileUrl, setFileUrl] = useState([]);
 
   const imgInput = useRef();
@@ -11,14 +10,15 @@ const ImgUpload = (props) => {
   };
 
   const processImage = (e) => {
-    setImage(e.target.files);
+    setImg(e.target.files);
+
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setFileUrl(imageUrl);
   };
 
   useEffect(() => {
-    setFileUrl(pastImage);
+    setFileUrl(pastImg);
   }, []);
 
   return (

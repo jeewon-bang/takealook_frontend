@@ -10,13 +10,13 @@ import { BrowserRouter } from 'react-router-dom';
 const store = configureStore();
 
 ReactDOM.render(
-	<Provider store={store}>
-		{/* BrowserRouter가 아니라 Router로 감싸줘야 사가 코드에서 페이지 이동이 정상적으로 작동함 */}
-		<BrowserRouter history={history}>
-			{/* <Router history={history}> */}
-			<App />
-			{/* </Router> */}
-		</BrowserRouter>
-	</Provider>,
-	document.getElementById('root')
+  <Provider store={store}>
+    {/* BrowserRouter가 아니라 Router로 감싸줘야 사가 코드에서 페이지 이동이 정상적으로 작동함 */}
+    <BrowserRouter history={history}>
+      {/* <Router history={history}> */}
+      <App />
+      {/* </Router> */}
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
 );

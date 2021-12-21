@@ -14,6 +14,8 @@ import 'swiper/components/pagination/pagination.scss';
 import CatMoreInfoForm from 'components/CatRegister/CatMoreInfoForm/CatMoreInfoForm';
 import { useNavigate } from 'react-router-dom';
 import { setDefaultLocale } from 'react-datepicker';
+import ImgUpload from 'components/Common/ImgUpload';
+import { useSelector } from 'react-redux';
 
 let matchedCatData = [
   {
@@ -55,6 +57,9 @@ const CatRegisterPage = () => {
   });
   const [catLoc, setCatLoc] = useState([]);
   const [catImg, setCatImg] = useState([]);
+  const [mainImg, setMainImg] = useState('');
+
+  const user = useSelector((state) => state.auth.user);
 
   // 새로 등록할 고양이와 매칭될 기존 고양이들 리스트
   const [matchedCatList, setMatchedCatList] = useState(matchedCatData);
@@ -108,10 +113,10 @@ const CatRegisterPage = () => {
       const formData = new FormData();
 
       // 고양이 대표이미지
-      formData.append('catMainImg', catImg[0]);
+      formData.append('catMainImg', mainImg[0]);
       // 고양이 이미지 나머지
       if (catImg.length > 1) {
-        for (let i = 1; i < catImg.length; i++) {
+        for (let i = 0; i < catImg.length; i++) {
           formData.append('catImg', catImg[i]);
         }
       }
@@ -132,7 +137,7 @@ const CatRegisterPage = () => {
       }
 
       axiosInstance
-        .post(`/user/1/cat/selection/`, formData, {
+        .post(`/user/${user.id}/cat/selection/`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((res) => {
@@ -143,6 +148,12 @@ const CatRegisterPage = () => {
 
   return !moreInfo ? (
     <div className='content-container'>
+      <span className='cat-mainImg-form'>
+        <div className='cat-mainImg-form-inner'>
+          <div className='input-label'>메인이미지</div>
+        </div>
+        <ImgUpload img={mainImg} setImg={setMainImg} />
+      </span>
       <span className='cat-img-form'>
         <CatImageUpload image={catImg} setImage={setCatImg} />
       </span>

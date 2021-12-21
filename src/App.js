@@ -12,15 +12,12 @@ import PostWritePage from 'pages/Community/PostWrite/PostWritePage';
 import PostUpdatePage from 'pages/Community/PostUpdate/PostUpdatePage';
 import PostListPage from 'pages/Community/PostList/PostListPage';
 import CatUpdatePage from 'pages/CatUpdatePage/CatUpdatePage';
-import RecomendationPage from 'pages/MatchingPage/Recomendation/RecomendationPage';
-import MyMatchingPage from 'pages/MatchingPage/MyMatch/MyMatchingPage';
-import MatchingPage from 'pages/MatchingPage/Match/MatchingPage';
 import MyLikePage from 'pages/MyPage/MyLikePage/MyLikePage';
 import MyPostPage from 'pages/MyPage/MyPostPage/MyPostPage';
 import Test from 'components/CatRegister/CatImageUpload/Test';
 import OauthRedirectHandler from 'pages/Login/OauthRedirectHandler';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
 
 function App() {
@@ -40,9 +37,6 @@ function App() {
         <Route path='/mycat/:catId' element={<CatDetailPage />} />
         <Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
         <Route path='/mycat/new' element={<CatRegisterPage />} />
-        <Route path='/recomendation' element={<RecomendationPage />} />
-        <Route path='/mymatch' element={<MyMatchingPage />} />
-        <Route path='/match' element={<MatchingPage />} />
         <Route path='/mypage' element={<MyPage />} />
         <Route path='/mypage/mylike' element={<MyLikePage />} />
         <Route path='/mypage/mypost' element={<MyPostPage />} />

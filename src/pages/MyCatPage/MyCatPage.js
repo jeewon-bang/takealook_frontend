@@ -3,6 +3,7 @@ import axios from 'axios';
 import MyCat from 'components/MyCat/MyCat/MyCat';
 import MyLeftCat from 'components/MyCat/MyLeftCat/MyLeftCat';
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './MyCatPage.scss';
 
@@ -12,6 +13,8 @@ const MyCatPage = () => {
   const [catStar, setCatStar] = useState([]);
   const [selectType, setSelectType] = useState('mycat');
   const [loaded, setLoaded] = useState(false);
+
+  const user = useSelector((state) => state.auth.user);
 
   const sortHandler = (e) => {
     console.log(e.target.value);
@@ -47,9 +50,9 @@ const MyCatPage = () => {
   useEffect(() => {
     axios
       .all([
-        axiosInstance.get(`/user/1/cats`),
-        axiosInstance.get(`/user/1/cat-stars`),
-        axiosInstance.get(`/user/1/adopted`),
+        axiosInstance.get(`/user/${user.id}/cats`),
+        axiosInstance.get(`/user/${user.id}/cat-stars`),
+        axiosInstance.get(`/user/${user.id}/adopted`),
       ])
       .then(
         axios.spread((myCatsRes, adoptedCatsRes, catStarRes) => {
@@ -61,7 +64,7 @@ const MyCatPage = () => {
       );
   }, []);
 
-  return (
+  return loaded ? (
     <div className='mycat-container'>
       <div className='mycat-sorting'>
         <select name='choice' className='sorting' onChange={sortHandler}>
@@ -113,6 +116,8 @@ const MyCatPage = () => {
         }
       })()}
     </div>
+  ) : (
+    <div>로딩중</div>
   );
 };
 
