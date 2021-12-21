@@ -3,30 +3,27 @@ import { useParams } from 'react-router-dom';
 import './PostUpdatePage.scss';
 import Writeguide from 'components/Community/Writes/WriteGuide/WriteGuide';
 import WriteGuidebtn from 'components/Community/Writes/WriteGuide/WriteGuidebtn';
-import WriteThumbnail from 'components/Community/Writes/WriteThumbnail/WriteThumbnail';
 import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
 import WritePostForm from 'components/Community/Writes/WritePostForm/WritePostForm';
+import { useSelector } from 'react-redux';
+import ImgUpload from 'components/Common/ImgUpload';
+import Spinner from 'components/Common/Spinner';
 
 const PostUpdatePage = () => {
+  const user = useSelector((state) => state.auth.user);
   const { postId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [postImage, setPostImage] = useState([]);
   const [postText, setPostText] = useState({
-    writerId: 1,
+    writerId: user.id,
     boardId: 1,
     title: '',
     content: '',
     imgUrl: '',
   });
-  // const [newPostText, setNewPostText] = useState({
-  //   writerId: 1,
-  //   boardId: 1,
-  //   title: '',
-  //   content: '',
-  //   imgUrl: '',
-  // });
   const [updatePage, setUpdatePage] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const navigate = useNavigate();
 
@@ -42,6 +39,7 @@ const PostUpdatePage = () => {
           imgUrl: res.data.thumbnail,
         });
         setUpdatePage(true);
+        setLoaded(true);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -77,7 +75,7 @@ const PostUpdatePage = () => {
     }
   };
 
-  return (
+  return loaded ? (
     <div className='content-container'>
       <div className='write-wrapper'>
         <div className='write-title-content'>
@@ -98,11 +96,10 @@ const PostUpdatePage = () => {
               &nbsp;파일첨부 필수
             </font>
           </h3>
-          <WriteThumbnail
+          <ImgUpload
+            pastImage={postText.imgUrl}
             image={postImage}
             setImage={setPostImage}
-            postText={postText}
-            updatePage={updatePage}
           />
         </div>
         <div className='write-footer'>
@@ -115,6 +112,8 @@ const PostUpdatePage = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <Spinner />
   );
 };
 

@@ -1,6 +1,6 @@
 @import 'components/Common/common';
 
-.right-nav {
+.detail-right-nav {
   float: right;
   width: 10%;
   height: 1500px;
@@ -8,7 +8,7 @@
     //브라우저 크기에 따라 이동 x
     width: 80px;
     height: 80px;
-    margin: 30px;
+    margin: 20px;
     top: 450px;
     position: fixed;
   }
@@ -17,10 +17,11 @@
   }
   .detail-write-btn {
     //브라우저 크기에 따라 이동 o
+    // display: inline-block;
     width: 80px;
     height: 80px;
+    margin: 20px;
     top: 580px;
-    right: 310px;
     position: fixed;
   }
 }

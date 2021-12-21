@@ -1,12 +1,13 @@
 import axiosInstance from 'api/customAxios';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import './PostDetail.scss';
 
 const PostDetail = (props) => {
+  const user = useSelector((state) => state.auth.user);
   const { postDetails, like, doubleClickFlag } = props;
   const navigate = useNavigate();
-  console.log('PostDetail 컴포넌트');
 
   //글 삭제
   const handleDelete = () => {
@@ -41,7 +42,6 @@ const PostDetail = (props) => {
               />
             )}
             {like}
-            {/* {postDetails.postLike} */}
           </span>
           <span className='postdetail-header-info-comment'>
             <img
@@ -63,12 +63,16 @@ const PostDetail = (props) => {
             alt='user'
           />
           <h5>{postDetails.writer.userName}</h5>
-          <Link to={`/community/update/${postDetails.postId}`}>
-            <button className='postdetail-btn'>글 수정</button>
-          </Link>
-          <button className='postdetail-btn' onClick={handleDelete}>
-            글 삭제
-          </button>
+          {/* {user.id === postDetails.writer.id ? ( */}
+          <div>
+            <Link to={`/community/update/${postDetails.postId}`}>
+              <button className='postdetail-btn'>글 수정</button>
+            </Link>
+            <button className='postdetail-btn' onClick={handleDelete}>
+              글 삭제
+            </button>
+          </div>
+          {/* ) : null} */}
         </div>
       </div>
       <hr />

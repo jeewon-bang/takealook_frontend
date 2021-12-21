@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const ImgUpload = (props) => {
-  const { user, newUserImg, setNewUserImg } = props;
+  const { pastImage, image, setImage } = props;
+  console.log(pastImage);
   const [fileUrl, setFileUrl] = useState([]);
 
   const imgInput = useRef();
@@ -10,19 +11,19 @@ const ImgUpload = (props) => {
   };
 
   const processImage = (e) => {
-    setNewUserImg(e.target.files);
+    setImage(e.target.files);
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setFileUrl(imageUrl);
   };
 
   useEffect(() => {
-    setFileUrl(user.image);
+    setFileUrl(pastImage);
   }, []);
 
   return (
     <div className='cat-img-upload'>
-      <div className='cat-img-upload-box'>
+      <div className='cat-img-upload-box' style={{ width: '280px' }}>
         <input
           ref={imgInput}
           className='img-input'

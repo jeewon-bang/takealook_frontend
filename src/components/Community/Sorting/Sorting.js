@@ -5,8 +5,6 @@ const Sorting = (props) => {
   const { posts, setPosts } = props;
 
   const sortHandler = (e) => {
-    console.log(e.target.value);
-
     const value = e.target.value;
     switch (value) {
       case 'lately':
@@ -67,7 +65,7 @@ const Sorting = (props) => {
         onChange={sortHandler}
       >
         <option defaultValue='' className='option' selected disabled hidden>
-          -정렬-
+          - 정렬 -
         </option>
         <option value='lately' className='option'>
           최근순

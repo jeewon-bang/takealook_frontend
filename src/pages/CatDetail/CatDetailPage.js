@@ -143,7 +143,7 @@ const CatDetailPage = () => {
       // }
 
       axiosInstance
-        .patch(`/user/2/cat/${catId}/selection/new`, newCatInfo, {
+        .patch(`/user/${user.id}/cat/${catId}/selection/new`, newCatInfo, {
           headers: { 'Content-Type': 'application/json' },
         })
         .then((res) => {
