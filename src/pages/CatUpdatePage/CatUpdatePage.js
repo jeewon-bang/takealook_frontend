@@ -19,7 +19,9 @@ const CatUpdatePage = () => {
   const [catImg, setCatImg] = useState([]); // 기존 이미지
   const [addImg, setAddImg] = useState([]); // 추가된 이미지
   const [catInfo, setCatInfo] = useState([]);
-  const [catLoc, setCatLoc] = useState([]);
+  const [catLoc, setCatLoc] = useState([]); // 기존 고양이 위치
+  const [newCatLoc, setNewCatLoc] = useState([]); // 추가된 고양이 위치
+
   const [loaded, setLoaded] = useState(false);
 
   const user = useSelector((state) => state.auth.user);
@@ -31,58 +33,63 @@ const CatUpdatePage = () => {
   };
 
   const handleSubmit = () => {
-    const formData = new FormData();
+    if (
+      !catInfo.name ||
+      !catInfo.gender ||
+      !catInfo.pattern ||
+      !catInfo.neutered
+    ) {
+      document.getElementById('message').innerText =
+        '모든 항목을 입력해주세요!';
+    } else {
+      const formData = new FormData();
 
-    //메인이미지
-    if (newMainImg[0]) {
-      formData.append('catMainImg', newMainImg[0]);
-    }
+      //메인이미지
+      if (newMainImg[0]) {
+        formData.append('catMainImg', newMainImg[0]);
+      }
 
-    //삭제된 이미지 더하기
-    for (let i = 0; i < deleteImgURl.length; i++) {
+      //삭제된 이미지 더하기
+      for (let i = 0; i < deleteImgURl.length; i++) {
+        formData.append(
+          'deletedImgUrl',
+          new Blob([JSON.stringify(deleteImgURl)], { type: 'application/json' })
+        );
+      }
+
+      let newCatInfo = {
+        name: catInfo.name,
+        gender: catInfo.gender,
+        neutered: catInfo.neutered,
+        status: catInfo.status,
+        pattern: catInfo.pattern,
+      };
+
+      // 고양이 정보들
       formData.append(
-        'deletedImgUrl',
-        new Blob([JSON.stringify(deleteImgURl)], { type: 'application/json' })
+        'catInfo',
+        new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
       );
+
+      // 고양이 추가된 위치
+      formData.append(
+        'catLoc',
+        new Blob([JSON.stringify(newCatLoc)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
+      );
+
+      // 콘솔에 찍어보기
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
+
+      axiosInstance
+        .post(`/user/${user.id}/cat/${catId}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((res) => {
+          navigate(`/mycat/${catId}`);
+        });
     }
-
-    //추가된 이미지 더하기
-    for (let i = 0; i < addImg.length; i++) {
-      formData.append('catImg', addImg[i]);
-    }
-
-    let newCatInfo = {
-      name: catInfo.name,
-      gender: catInfo.gender,
-      neutered: catInfo.neutered,
-      status: catInfo.status,
-      pattern: catInfo.pattern,
-    };
-
-    // 고양이 정보들
-    formData.append(
-      'catInfo',
-      new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
-    );
-
-    // 고양이 위치
-    formData.append(
-      'catLoc',
-      new Blob([JSON.stringify(catLoc)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
-    );
-
-    // 콘솔에 찍어보기
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-
-    axiosInstance
-      .post(`/user/${user.id}/cat/${catId}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-      .then((res) => {
-        navigate(`/mycat/${catId}`);
-      });
   };
 
   useEffect(() => {
@@ -93,7 +100,7 @@ const CatUpdatePage = () => {
           setCatInfo(pastInfoRes.data);
           setMainImg(pastInfoRes.data.mainImage);
           setCatImg(pastInfoRes.data.userUploadImages);
-          setCatLoc(pastInfoRes.data.userUploadLocations);
+          setCatLoc(pastInfoRes.data.catLocations);
           setLoaded(true);
         })
       );
@@ -102,7 +109,9 @@ const CatUpdatePage = () => {
   return loaded ? (
     <div className='content-container'>
       <span className='cat-mainImg-form'>
-        <div className='input-label'>메인이미지</div>
+        <div style={{ fontWeight: '800' }} className='input-label'>
+          고양이 사진
+        </div>
         <ImgUpload pastImg={mainImg} img={newMainImg} setImg={setNewMainImg} />
       </span>
       <span className='cat-img-form'>
@@ -131,7 +140,12 @@ const CatUpdatePage = () => {
         <CatRegisterForm catInfo={catInfo} setCatInfo={setCatInfo} />
       </span>
       <span className='cat-map'>
-        <CatLocationMap catLoc={catLoc} setCatLoc={setCatLoc} />
+        <CatLocationMap
+          catLoc={catLoc}
+          setCatLoc={setCatLoc}
+          newCatLoc={newCatLoc}
+          setNewCatLoc={setNewCatLoc}
+        />
       </span>
       <div id='message' className='warning-message'></div>
       <div className='button-box'>

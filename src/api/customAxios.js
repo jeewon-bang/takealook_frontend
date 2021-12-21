@@ -4,6 +4,7 @@ const axiosInstance = axios.create();
 
 // axiosInstance.defaults.baseURL = 'http://3.35.129.119';
 axiosInstance.defaults.baseURL = 'http://192.168.200.140';
+// axiosInstance.defaults.baseURL = 'http://192.168.200.128';
 
 axiosInstance.interceptors.request.use(
   (request) => {

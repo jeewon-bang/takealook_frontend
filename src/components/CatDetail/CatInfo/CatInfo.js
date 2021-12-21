@@ -50,6 +50,11 @@ const CatInfo = (props) => {
   const handleChangeAdoptionMsg = (e) => {
     setAdoptionMsg(e.target.value);
   };
+
+  const handleChangeDeathMsg = (e) => {
+    setDeathMsg(e.target.value);
+  };
+
   const changeCatStatusAdopted = () => {
     axiosInstance
       .patch(`/user/${user.id}/cat/${catId}/adoptation?status=2`, adoptionMsg, {
@@ -62,11 +67,11 @@ const CatInfo = (props) => {
 
   const changeCatStatusDead = () => {
     axiosInstance
-      .patch(`/user/${user.id}/cat/${catId}/cat-star/3`)
+      .patch(`/user/${user.id}/cat/${catId}/cat-star?status=3`, deathnMsg, {
+        headers: { 'Content-Type': 'application/json' },
+      })
       .then((res) => {
-        axiosInstance.get(`user/${user.id}/cat/${catId}`).then((res) => {
-          setCatInfo(res.data);
-        });
+        navigate('/mycat');
       });
   };
 
@@ -190,6 +195,24 @@ const CatInfo = (props) => {
             </div>
             <input type='text' onBlur={handleChangeAdoptionMsg}></input>
             <button onClick={changeCatStatusAdopted}>보내기</button>
+          </div>
+        </Modal>
+      )}
+
+      {/* 고양이 사망 모달 */}
+      {showDeathModal && (
+        <Modal
+          showModal={showDeathModal}
+          onClose={closeDeathModal}
+          maskClosable={true}
+        >
+          <div className='cat-status-modal'>
+            <div>
+              더이상 [{catInfo.name}]을(를) 보지 못할 이웃들에게 마지막 메세지를
+              남겨주세요.
+            </div>
+            <input type='text' onBlur={handleChangeDeathMsg}></input>
+            <button onClick={changeCatStatusDead}>보내기</button>
           </div>
         </Modal>
       )}

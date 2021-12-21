@@ -8,6 +8,7 @@ import axiosInstance from 'api/customAxios';
 import Modal from 'components/Common/Modal';
 import CatMatch from 'components/CatRegister/CatMatch/CatMatch';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Pagination } from 'swiper';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
@@ -47,6 +48,7 @@ import ImgUpload from 'components/Common/ImgUpload';
 // ];
 
 const CatRegisterPage = () => {
+  SwiperCore.use([Navigation, Pagination]);
   // 새로 등록할 고양이 정보
   const [catInfo, setCatInfo] = useState({
     name: '',
@@ -56,6 +58,7 @@ const CatRegisterPage = () => {
     pattern: '',
   });
   const [catLoc, setCatLoc] = useState([]);
+  const [newCatLoc, setNewCatLoc] = useState([]);
   const [catImg, setCatImg] = useState([]);
   const [mainImg, setMainImg] = useState([]);
 
@@ -64,6 +67,7 @@ const CatRegisterPage = () => {
   // 동일고양이 추천 모달을 보여줄지 여부
   const [showModal, setShowModal] = useState(false);
   // 일치하는 고양이가 없을때 추가정보 입력창을 보여줄지 여부
+
   const [moreInfo, setMoreInfo] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
@@ -79,36 +83,31 @@ const CatRegisterPage = () => {
     console.log(catInfo);
     console.log(catLoc); // 기본 array 타입
 
-    if (catImg.length === 0) {
+    if (!catInfo.neutered || !catInfo.gender || !catInfo.pattern) {
       document.getElementById('message').innerText =
-        '최소 1장 이상의 사진을 업로드해 주세요!';
+        '모든 항목을 입력해주세요!';
     } else {
-      if (!catInfo.neutered || !catInfo.gender || !catInfo.pattern) {
+      if (catLoc.length === 0) {
         document.getElementById('message').innerText =
-          '모든 항목을 입력해주세요!';
+          '1곳 이상의 위치를 선택해주세요!';
       } else {
-        if (catLoc.length === 0) {
-          document.getElementById('message').innerText =
-            '1곳 이상의 위치를 선택해주세요!';
-        } else {
-          console.log(catLoc[0]);
-          axiosInstance
-            .get(
-              `/user/${user.id}/cat/recommendation?latitude=${catLoc[0].latitude}&longitude=${catLoc[0].longitude}`
-            )
-            .then((res) => {
-              console.log(res.data);
-              setMatchedCatList(res.data);
-              document.getElementById('message').innerText = '';
+        console.log(catLoc[0]);
+        axiosInstance
+          .get(
+            `/user/${user.id}/cat/recommendation?latitude=${catLoc[0].latitude}&longitude=${catLoc[0].longitude}`
+          )
+          .then((res) => {
+            console.log(res.data);
+            setMatchedCatList(res.data);
+            document.getElementById('message').innerText = '';
 
-              if (res.data.length > 0) {
-                // 동일 추정 고양이 모달 팝업
-                setShowModal(true);
-              } else {
-                setMoreInfo(true);
-              }
-            });
-        }
+            if (res.data.length > 0) {
+              // 동일 추정 고양이 모달 팝업
+              setShowModal(true);
+            } else {
+              setMoreInfo(true);
+            }
+          });
       }
     }
   };
@@ -129,7 +128,8 @@ const CatRegisterPage = () => {
       // 고양이 대표이미지
       formData.append('catMainImg', mainImg[0]);
       // 고양이 이미지 나머지
-      if (catImg.length > 1) {
+      console.log(catImg.length);
+      if (catImg.length > 0) {
         for (let i = 0; i < catImg.length; i++) {
           formData.append('catImg', catImg[i]);
         }
@@ -165,7 +165,7 @@ const CatRegisterPage = () => {
     <div className='content-container'>
       <span className='cat-mainImg-form'>
         <div className='cat-mainImg-form-inner'>
-          <div className='input-label'>메인이미지</div>
+          <div className='input-label'>고양이 사진</div>
         </div>
         <ImgUpload img={mainImg} setImg={setMainImg} />
       </span>
@@ -176,7 +176,12 @@ const CatRegisterPage = () => {
         <CatRegisterForm catInfo={catInfo} setCatInfo={setCatInfo} />
       </span>
       <span className='cat-map'>
-        <CatLocationMap catLoc={catLoc} setCatLoc={setCatLoc} />
+        <CatLocationMap
+          catLoc={catLoc}
+          setCatLoc={setCatLoc}
+          newCatLoc={newCatLoc}
+          setNewCatLoc={setNewCatLoc}
+        />
       </span>
       <div id='message' className='warning-message'></div>
       <div className='button-box'>
@@ -212,7 +217,6 @@ const CatRegisterPage = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            ) :
           </div>
         </Modal>
       )}
@@ -222,7 +226,7 @@ const CatRegisterPage = () => {
       <CatMoreInfoForm
         catInfo={catInfo}
         setCatInfo={setCatInfo}
-        catImg={catImg}
+        mainImg={mainImg}
         catLoc={catLoc}
       />
       <div id='warning' className='warning-message'></div>

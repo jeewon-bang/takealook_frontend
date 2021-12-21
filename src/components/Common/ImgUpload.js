@@ -21,25 +21,23 @@ const ImgUpload = (props) => {
   }, []);
 
   return (
-    <div className='cat-img-upload'>
-      <div className='cat-img-upload-box' style={{ width: '280px' }}>
-        <input
-          ref={imgInput}
-          className='img-input'
-          type='file'
-          multiple
-          accept='image/*'
-          name='file'
-          style={{ display: 'none' }}
-          onChange={processImage}
-        />
-        <button className='oneimg-upload-button' onClick={handleClick}>
-          <div
-            className='img-preview'
-            style={{ backgroundImage: `url(${fileUrl})` }}
-          ></div>
-        </button>
-      </div>
+    <div className='cat-img-upload-box'>
+      <input
+        ref={imgInput}
+        className='img-input'
+        type='file'
+        multiple
+        accept='image/*'
+        name='file'
+        style={{ display: 'none' }}
+        onChange={processImage}
+      />
+      <button className='oneimg-upload-button' onClick={handleClick}>
+        <div
+          className='img-preview'
+          style={{ backgroundImage: `url(${fileUrl})` }}
+        ></div>
+      </button>
     </div>
   );
 };
