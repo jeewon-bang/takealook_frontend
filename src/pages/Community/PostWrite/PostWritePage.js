@@ -73,7 +73,7 @@ const PostWritePage = () => {
               &nbsp;파일첨부 필수
             </font>
           </h3>
-          <ImgUpload image={postImage} setImage={setPostImage} />
+          <ImgUpload img={postImage} setImg={setPostImage} />
         </div>
         <div className='write-footer'>
           <button className='register-btn' onClick={handleSubmit}>

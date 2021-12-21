@@ -22,7 +22,7 @@ const Alarm = (props) => {
         {alarm.map((alarm) => (
           <div class='alarmListV15'>
             <div class='almTodayV15'>
-              <p class='boxRd0V15'>{timeDiff(alarm.created_at)}시간 전</p>
+              <p class='boxRd0V15'>{timeDiff(alarm.modifiedAt)}시간 전</p>
             </div>
             <div class='alarmUnitV15'>
               <div class='evtPartV15'>
