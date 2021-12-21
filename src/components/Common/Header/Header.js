@@ -5,9 +5,14 @@ import AlarmModal from './Alarm/AlarmModal';
 import './Header.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutAction } from 'reducer/auth';
+import useUpdateEffect from 'utils/useUpdateEffect';
 
 const Header = (props) => {
-	const user = useSelector((state) => state.auth.user);
+	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
+		user: auth.user,
+		loginDone: auth.loginDone,
+		logoutDone: auth.logoutDone,
+	}));
 	const dispatch = useDispatch();
 
 	const [showModal, setShowModal] = useState(false);
@@ -24,6 +29,10 @@ const Header = (props) => {
 		console.log('로그아웃 버튼 누름');
 		dispatch(logoutAction());
 	};
+
+	// useUpdateEffect(() => {
+	// 	dispatch('/');
+	// }, [logoutDone]);
 
 	return (
 		<div className='header-container'>

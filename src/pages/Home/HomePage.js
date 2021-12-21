@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './HomePage.scss';
 import { Link } from 'react-router-dom';
 import axiosInstance from 'api/customAxios';
+import { useSelector } from 'react-redux';
 
 // let data = [
 // 	{
@@ -40,12 +41,19 @@ const HomePage = () => {
 	const [myCats, setMyCats] = useState([]);
 	const [error, setError] = useState(null);
 	const [loaded, setLoaded] = useState(false);
+	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
+		user: auth.user,
+		loginDone: auth.loginDone,
+		logoutDone: auth.logoutDone,
+	}));
 
 	useEffect(() => {
-		axiosInstance.get(`/user/1/cats/recent-location`).then((res) => {
-			setMyCats(res.data);
-			setLoaded(true);
-		});
+		if (user) {
+			axiosInstance.get(`/user/${user.id}/cats/recent-location`).then((res) => {
+				setMyCats(res.data);
+				setLoaded(true);
+			});
+		}
 	}, []);
 
 	useEffect(() => {
@@ -54,7 +62,6 @@ const HomePage = () => {
 			imageSize,
 			imageOption
 		);
-		console.log(myCats);
 
 		// /*** 지도 생성하기 ***/
 		let mapContainer = document.getElementById('home-map'); // 지도를 표시할 div
@@ -81,7 +88,6 @@ const HomePage = () => {
 				cat.recentLocation.latitude,
 				cat.recentLocation.longitude
 			);
-			console.log(markerPosition);
 
 			// 결과값으로 받은 위치를 마커로 표시
 			let marker = new kakao.maps.Marker({
@@ -89,7 +95,6 @@ const HomePage = () => {
 				image: markerImg,
 				position: markerPosition,
 			});
-			console.log(marker);
 			marker.setMap(map);
 
 			// 인포윈도우에 표시할 내용 정의
@@ -125,14 +130,13 @@ const HomePage = () => {
 			{myCats.length === 0 ? (
 				loaded ? (
 					<div className='message-box'>
-						<div className='message'>
-							아직 등록한 고양이가 없으신가요? // <br />
-							도감에 고양이를 등록해서 관리하고 이웃들과도 공유해보세요! //{' '}
-							<br />
+						<span className='message'>
+							아직 등록한 고양이가 없으신가요? <br />
+							도감에 고양이를 등록해서 관리하고 이웃들과도 공유해보세요!
 							<Link to='/mycat/new'>
 								<button className='message-button'>고양이 등록하기</button>
 							</Link>
-						</div>
+						</span>
 					</div>
 				) : (
 					<span></span>
@@ -143,8 +147,6 @@ const HomePage = () => {
 				</Link>
 			)}
 		</div>
-		// ) : (
-		// 	<div>로딩중</div>
 	);
 };
 

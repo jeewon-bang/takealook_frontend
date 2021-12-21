@@ -16,12 +16,18 @@ const CatMarkerMap = (props) => {
 		};
 		let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
 
+		let imgSrc = 'https://cdn-icons-png.flaticon.com/512/2865/2865755.png';
+		let imgSize = new kakao.maps.Size(64, 69);
+		let imgOption = { offset: new kakao.maps.Point(27, 69) };
+		let markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize, imgOption);
+
 		// 고양이 마커 찍기
 		if (catLoc.length > 0) {
 			catLoc.forEach((v) => {
 				let marker = new kakao.maps.Marker({
 					map: map,
 					position: new kakao.maps.LatLng(v.latitude, v.longitude),
+					image: markerImage,
 				});
 			});
 			map.setCenter(

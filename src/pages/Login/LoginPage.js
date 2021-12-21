@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import axiosInstance from 'api/customAxios';
 import { KAKAO_JAVASCRIPT_KEY, REDIRECT_URI } from 'config/config';
 import KakaoLogin from 'react-kakao-login';
 import GoogleLogin from 'react-google-login';
-import NaverLogin from 'react-naver-login';
 import { googleAction, kakaoAction } from 'reducer/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { GOOGLE_CLIENTID } from 'config/config';
-import { NAVER_CLIENTID } from 'config/config';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.scss';
+import useUpdateEffect from 'utils/useUpdateEffect';
 
 const LoginPage = () => {
+	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
+		user: auth.user,
+		loginDone: auth.loginDone,
+		logoutDone: auth.logoutDone,
+	}));
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -25,13 +28,13 @@ const LoginPage = () => {
 		dispatch(googleAction(res)); // auth reducer에서 만든 googleAction이라는 액션 호출한다
 	};
 
-	const naverLogin = (res) => {
-		console.log(res);
-	};
+	useUpdateEffect(() => {
+		navigate('/');
+	}, [loginDone]);
 
 	return (
 		<div className='content-container'>
-			<div className='content-inner'>
+			<div className='login-box'>
 				<KakaoLogin
 					token={KAKAO_JAVASCRIPT_KEY}
 					onSuccess={kakaoLogin}

@@ -2,6 +2,8 @@ import { createAction, handleActions } from 'redux-actions';
 import { createRequestSaga } from 'saga/createRequestSaga';
 import * as authApi from 'api/auth';
 import { takeLatest } from '@redux-saga/core/effects';
+import history from 'utils/history';
+import { useNavigate } from 'react-router-dom';
 
 /** 액션 타입 생성 */
 // type을 인자로 받아서 type_REQUEST, type_SUCCESS, type_FAILURE 형태로 만들어주는 함수
@@ -27,11 +29,9 @@ export const googleAction = createAction(GOOGLE_REQUEST, (data) => data);
 export const kakaoAction = createAction(KAKAO_REQUEST, (data) => data);
 export const logoutAction = createAction(LOGOUT_SUCCESS);
 export const loadUserAction = createAction(LOADUSER_REQUEST); // 새로고침해도 로그인 유지
+// export const loadUserAction = createAction(LOADUSER_SUCCESS);
 
 // 사가 creator - authApi에 정의한 작업을 실행할 것임
-const test = () => {
-	console.log('로그아웃왜안돼!!');
-};
 const googleSaga = createRequestSaga(GOOGLE_REQUEST, authApi.googleLogin);
 const kakaoSaga = createRequestSaga(KAKAO_REQUEST, authApi.kakaoLogin);
 const loadUserSaga = createRequestSaga(LOADUSER_REQUEST, authApi.loadUser);
@@ -54,8 +54,7 @@ const initialState = {
 	loadUserDone: false,
 	loadUserError: null,
 
-	logoutRequest: false,
-	logoutDone: false,
+	logoutDone: true,
 	logoutError: null,
 
 	user: null,
@@ -66,6 +65,7 @@ const auth = handleActions(
 		[GOOGLE_REQUEST]: (state, { payload: response }) => ({
 			...state,
 			loginRequest: true,
+			// logoutDone: false,
 		}),
 		[GOOGLE_SUCCESS]: (state, { payload: response }) => ({
 			...state,
@@ -79,29 +79,36 @@ const auth = handleActions(
 		[KAKAO_REQUEST]: (state, { payload: response }) => ({
 			...state,
 			loginRequest: true,
+			// logoutDone: false,
 		}),
-		[KAKAO_SUCCESS]: (state, { payload: response }) => ({
-			...state,
-			loginDone: true,
-			user: response.data,
-		}),
+		[KAKAO_SUCCESS]: (state, { payload: response }) => {
+			return {
+				...state,
+				loginDone: true,
+				user: response.data,
+			};
+		},
 		[KAKAO_FAILURE]: (state, { payload: error }) => ({
 			...state,
 			loginError: error,
+		}),
+		[LOADUSER_REQUEST]: (state, { payload: response }) => ({
+			...state,
+			loadUserRequest: true,
+			logoutDone: false,
 		}),
 		[LOADUSER_SUCCESS]: (state, { payload: response }) => ({
 			...state,
 			loadUserDone: true,
 			loginDone: true,
-			user: response.data,
+			// user: response.data,
+			user: JSON.parse(localStorage.getItem('user')),
 		}),
 		[LOADUSER_FAILURE]: (state, { payload: error }) => ({
 			...state,
 			loadUserError: error,
 		}),
-
 		[LOGOUT_SUCCESS]: (state, { payload: data }) => {
-			console.log('LOGOUT_SUCCESS 액션타입 실행???');
 			localStorage.clear(); // 백에서 받은 jwt 토큰 삭제
 
 			return {
