@@ -6,8 +6,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './MyCatPage.scss';
-import useUpdateEffect from 'utils/useUpdateEffect';
-
 
 const MyCatPage = (props) => {
   const { loginDone, user } = useSelector(({ auth }) => ({
@@ -56,7 +54,6 @@ const MyCatPage = (props) => {
         axiosInstance.get(`/user/${user.id}/cats`),
         axiosInstance.get(`/user/${user.id}/adopted`),
         axiosInstance.get(`/user/${user.id}/cat-stars`),
-
       ])
       .then(
         axios.spread((myCatsRes, adoptedCatsRes, deadCatsRes) => {
@@ -98,7 +95,6 @@ const MyCatPage = (props) => {
                     catName={cat.name}
                     catImg={cat.mainImage}
                     message={cat.amsg}
-
                   />
                 ))}
               </div>
