@@ -110,6 +110,15 @@ const CatDetailPage = () => {
     setNewCatInfo({ ...newCatInfo, [e.target.name]: e.target.value });
   };
 
+  // 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
+  const openMatchedCatModal = () => {
+    console.log(newCatInfo);
+    setShowModal(true);
+  };
+  // 모달
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
 	// 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
 	const openMatchedCatModal = () => {

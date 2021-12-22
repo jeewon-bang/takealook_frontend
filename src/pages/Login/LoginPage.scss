@@ -1,15 +1,18 @@
 @import 'components/Common/common';
 
 .mainpage-container {
-  display: flex;
-  .mainpage-container-leftbox {
-    .mainpage-container-leftbox-img {
-      width: 500px;
+  // display: flex;
+  .mainpage-container-topbox {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    .mainpage-container-topbox-img {
     }
   }
 
-  .mainpage-container-rightbox {
-    width: 100%;
+  .mainpage-container-bottombox {
+    height: 50%;
     .login-box {
       width: 400px;
       margin: 0 auto;

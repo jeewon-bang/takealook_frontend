@@ -1,17 +1,16 @@
+import React from 'react';
 import axiosInstance from 'api/customAxios';
-import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import './PostDetail.scss';
 
 const PostDetail = (props) => {
   const user = useSelector((state) => state.auth.user);
-  const { postDetails, like, doubleClickFlag } = props;
+  const { postDetails, like } = props;
   const navigate = useNavigate();
 
   //글 삭제
   const handleDelete = () => {
-    console.log(postDetails.postId);
     axiosInstance
       .delete(`/post/${postDetails.postId}`)
       .then((res) => {
@@ -28,7 +27,7 @@ const PostDetail = (props) => {
         </h5>
         <div className='postdetail-header-info'>
           <span className='postdetail-header-info-like'>
-            {doubleClickFlag === true ? (
+            {postDetails.checkLike === true ? (
               <img
                 class='image'
                 src={require('images/heart_like.png').default}

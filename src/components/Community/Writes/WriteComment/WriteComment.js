@@ -46,6 +46,7 @@ const WriteComment = (props) => {
     }
   };
 
+  //댓글 수정..?
   const handleUpdate = (e) => {
     axiosInstance
       .patch(

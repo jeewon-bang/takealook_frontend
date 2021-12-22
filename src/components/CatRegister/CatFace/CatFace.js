@@ -36,7 +36,6 @@ const CatFace = (props) => {
     setMouseDownCnt(0);
   };
 
-
   const getLoc = (e) => {
     const x = e.nativeEvent.offsetX;
     const y = e.nativeEvent.offsetY;
@@ -81,6 +80,7 @@ const CatFace = (props) => {
   };
 
   return (
+
     <div className='catface-content-container'>
       <div className='catface-background-sample-container'>
         <img
@@ -114,7 +114,6 @@ const CatFace = (props) => {
           </button>
         </div>
       </div>
-
       {/* <div className='catface-marker-btn-container'>
 				<button className='catface-marker-btn' onClick={handleSubmit}>
 					이 사진을 이용하겠습니다
