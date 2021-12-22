@@ -19,7 +19,7 @@ import MarkedCatFace from 'components/CatRegister/MarkedCatFace/MarkedCatFace';
 
 const CatRegisterPage = () => {
 	SwiperCore.use([Navigation, Pagination]);
-	// 새로 등록할 고양이 정보
+	// 새로 등록할 고양이 정보 - catInfo, catLoc, catImg, mainImg,
 	const [catInfo, setCatInfo] = useState({
 		name: '',
 		gender: '',
@@ -28,12 +28,24 @@ const CatRegisterPage = () => {
 		pattern: '',
 	});
 	const [catLoc, setCatLoc] = useState([]);
-	const [newCatLoc, setNewCatLoc] = useState([]);
+	const [newCatLoc, setNewCatLoc] = useState([]); //?????
 	const [catImg, setCatImg] = useState([]);
 	const [mainImg, setMainImg] = useState([]);
-	const [markedImg, setMarkedImg] = useState('');
 
-	// 새로 등록할 고양이와 매칭될 기존 고양이들 리스트
+	// AI 이후 받을 점찍힌 이미지 및 랜드마크 좌표
+	const [markedImg, setMarkedImg] = useState('');
+	const [catMark, setCatMark] = useState({
+		leftEyeX: 0,
+		leftEyeY: 0,
+		leftEarX: 0,
+		leftEarY: 0,
+		rightEyeX: 0,
+		rightEyeY: 0,
+		rightEarX: 0,
+		rightEarY: 0,
+	});
+
+	// 추천된 동일고양이 리스트
 	const [matchedCatList, setMatchedCatList] = useState([]);
 	// 동일고양이 추천 모달을 보여줄지 여부
 	const [showModal, setShowModal] = useState(false);
@@ -68,7 +80,7 @@ const CatRegisterPage = () => {
 				//     setMatchedCatList(res.data);
 				//     document.getElementById('message').innerText = '';
 
-				// 메인이미지 1장 보내기 (점찍어주세요!)
+				// 메인이미지 1장 보내기
 				console.log(mainImg);
 				const formData = new FormData();
 				formData.append('image', mainImg[0]);
@@ -79,7 +91,8 @@ const CatRegisterPage = () => {
 					})
 					.then((res) => {
 						// 딥러닝 결과로 랜드마크 점찍힌 이미지가 오면
-						setMarkedImg(res.data);
+						setMarkedImg(res.data); // 이미지
+						// setNewMark(res.data.mark????);  // 랜드마크 좌표
 						setShowMarkedCat(true); // 추천모달 내 내용 셋팅
 						setShowModal(true); // 추천모달 열기
 					});
@@ -126,6 +139,12 @@ const CatRegisterPage = () => {
 			formData.append(
 				'catInfo',
 				new Blob([JSON.stringify(catInfo)], { type: 'application/json' })
+			);
+
+			// 고양이 랜드마크
+			formData.append(
+				'catPoints',
+				new Blob([JSON.stringify(catMark)], { type: 'application/json' })
 			);
 
 			// 콘솔에 찍어보기
@@ -190,9 +209,13 @@ const CatRegisterPage = () => {
 							<MarkedCatFace
 								setShowMarkedCat={setShowMarkedCat}
 								markedImg={markedImg}
+								catMark={catMark}
+								setCatMark={setCatMark}
 								catInfo={catInfo}
 								catLoc={catLoc}
 								setMatchedCatList={setMatchedCatList}
+								setShowModal={setShowModal}
+								setMoreInfo={setMoreInfo}
 							/>
 						) : (
 							<div>
