@@ -15,10 +15,7 @@
     "bootstrap": "^5.1.3",
     "moment": "^2.29.1",
     "node-sass": "^6.0.1",
-<<<<<<< HEAD
     "quill-image-compress": "^1.2.19",
-=======
->>>>>>> 51103090faeff943b5a7442566886ffbaca2f918
     "quill-image-resize": "^3.0.9",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
@@ -69,5 +66,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://192.168.200.140"
+  "proxy": "http://3.35.129.119"
 }
