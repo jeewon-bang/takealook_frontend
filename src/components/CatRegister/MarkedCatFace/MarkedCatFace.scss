@@ -1,0 +1,13 @@
+@import 'components/Common/common';
+
+.marked-cat-modal {
+	height: 600px;
+	text-align: center;
+
+	.marked-cat-img {
+		display: inline-block;
+		width: 400px;
+		height: 400px;
+		background-color: $white-gray;
+	}
+}

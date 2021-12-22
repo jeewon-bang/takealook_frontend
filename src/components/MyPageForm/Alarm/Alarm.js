@@ -1,28 +1,55 @@
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Alarm.scss';
 
 const Alarm = (props) => {
-  const { alarm } = props;
+  const { alarm, setAlarm } = props;
+  const [alarmCount, setAlarmCount] = useState(0);
 
   const today = moment();
   const timeDiff = (date) => {
-    return Math.floor(
+    const hourDiff = Math.floor(
       moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asHours()
     );
+    const minuteDiff = Math.floor(
+      moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asMinutes()
+    );
+    if (hourDiff === 0) {
+      return minuteDiff + '분 전';
+    } else {
+      return hourDiff + '시간 전';
+    }
   };
+  // for (let i = 0; i < alarm.length; i++) {
+  //   if (alarm[i].checked === true) {
+  //     console.log(i);
+  //     console.log(alarm[i].checked);
+  //     console.log(alarmCount);
+  //     setAlarmCount(alarmCount + 1);
+  //   }
+  // }
+
+  useEffect(() => {
+    const sorted = [...alarm];
+    sorted.sort(function (a, b) {
+      return b.id - a.id;
+    });
+    setAlarm(sorted);
+  }, [alarmCount]);
 
   return (
     <div class='alarm-container'>
       <h3>
-        <span></span>MY 알림
+        <span className='alarm-icon'>🔔</span>
+        MY 알림
+        <span className='alarm-count'>{alarmCount}+</span>
       </h3>
       <div class='alarmListBox'>
         {alarm.map((alarm) => (
           <div class='alarmListV15'>
             <div class='almTodayV15'>
-              <p class='boxRd0V15'>{timeDiff(alarm.modifiedAt)}시간 전</p>
+              <p class='boxRd0V15'>{timeDiff(alarm.modifiedAt)}</p>
             </div>
             <div class='alarmUnitV15'>
               <div class='evtPartV15'>
@@ -34,13 +61,18 @@ const Alarm = (props) => {
                     case 3:
                     case 4:
                     case 5:
-                    case 6:
-                    case 7:
                       return (
                         <Link
                           class='cat-detail'
                           to={`/mycat/${alarm.linkedId}`}
                         >
+                          <p>{alarm.message}</p>
+                        </Link>
+                      );
+                    case 6:
+                    case 7:
+                      return (
+                        <Link class='cat-detail' to={`/mycat`}>
                           <p>{alarm.message}</p>
                         </Link>
                       );

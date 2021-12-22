@@ -18,7 +18,7 @@ const LikePost = (props) => {
       {likePosts &&
         likePosts.map((post, index) =>
           index < 5 ? (
-            <Link to={'/community/post/' + 1} className='link'>
+            <Link to={`/community/post/${post.postId}`} className='link'>
               <div class='PostList'>
                 <ul class='Board'>
                   <li class='active'>

@@ -28,18 +28,26 @@ const CatCare = (props) => {
 	};
 
 	const timeDiff = (date) => {
+		const dayDiff = Math.floor(
+			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asDays()
+		);
 		const hourDiff = Math.floor(
 			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asHours()
 		);
 		const minuteDiff = Math.floor(
 			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asMinutes()
 		);
-		if (hourDiff === 0) {
-			return minuteDiff + '분 전';
+		if (dayDiff === 0) {
+			if (hourDiff === 0) {
+				return minuteDiff + '분 전';
+			} else {
+				return hourDiff + '시간 전';
+			}
 		} else {
-			return hourDiff + '시간 전';
+			return dayDiff + '일 전';
 		}
 	};
+
 	const handleValueChange = (e) => {
 		setNewCare({ ...newCare, [e.target.name]: e.target.value });
 	};
@@ -97,10 +105,7 @@ const CatCare = (props) => {
 				className='calendar-button'
 				onClick={() => {
 					setShowModal(true);
-				}}>
-				{/* <FontAwesomeIcon icon={faCalendarAlt} className='search' /> 모든 내역
-				보기 */}
-			</button>
+				}}></button>
 			<div className='new-care'>
 				{!showCareInput && (
 					<button className='care-add-button' onClick={openCareInput}>
@@ -114,7 +119,7 @@ const CatCare = (props) => {
 							className='care-input-select'
 							onBlur={handleValueChange}>
 							<option selected disabled>
-								선택
+								돌봄 타입 선택
 							</option>
 							<option value='0'>밥 주기</option>
 							<option value='1'>간식 주기</option>
@@ -138,7 +143,11 @@ const CatCare = (props) => {
 						<div>최근 48시간 내의 돌봄 내역이 없습니다.</div>
 					) : (
 						careHistory.map((v) => (
-							<div className='care'>
+							<div
+								className='care'
+								onClick={() => {
+									setShowModal(true);
+								}}>
 								<span className='care-left'>
 									<img
 										src={require(`images/${careIcon[v.type]}`).default}
@@ -181,10 +190,7 @@ const CatCare = (props) => {
 
 			{showModal && (
 				<Modal showModal={showModal} maskClosable={true} onClose={closeModal}>
-					<CareCalendar
-						careHistory={careHistory}
-						setCareHistory={setCareHistory}
-					/>
+					<CareCalendar catId={catId} />
 				</Modal>
 			)}
 		</div>

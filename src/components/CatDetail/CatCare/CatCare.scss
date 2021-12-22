@@ -11,7 +11,7 @@
 	}
 
 	.new-care {
-		position: inherit;
+		position: relative;
 
 		.care-add-button {
 			@extend %button-round;
@@ -20,7 +20,8 @@
 			position: absolute;
 			font-weight: 800;
 			font-size: 60px;
-			right: 10%;
+			right: 5%;
+			top: 5%;
 		}
 
 		.care-input {
@@ -55,6 +56,7 @@
 		justify-content: flex-start;
 		align-items: center;
 		margin: 10px;
+		cursor: pointer;
 
 		.care-left {
 			margin-right: 20px;
