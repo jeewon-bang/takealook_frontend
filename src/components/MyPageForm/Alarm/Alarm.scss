@@ -36,6 +36,7 @@
   overflow-y: scroll;
   height: 800px;
   margin-bottom: 50px;
+  margin-top: -20px;
 
   .alarmListV15 {
     padding-top: 20px;
@@ -43,6 +44,7 @@
     padding: 0 20px;
 
     .almTodayV15 {
+      margin-top: 20px;
       padding-top: 0;
       padding-bottom: 0;
       background: none;
@@ -66,7 +68,13 @@
     }
   }
 }
-
+.alarm-msg {
+  margin-top: 30px;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  background-color: white;
+}
 .alarmListBox::-webkit-scrollbar {
   width: 8px; /*스크롤바의 너비*/
 }

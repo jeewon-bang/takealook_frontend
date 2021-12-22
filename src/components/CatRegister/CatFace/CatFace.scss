@@ -1,43 +1,81 @@
 @import 'components/Common/common';
 
-.catface-background-sample-container {
-  background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
-    0 100% repeat-x;
-  margin-bottom: 20px;
-  .catface-background-sample {
-    width: 300px;
-    height: 300px;
-    border-radius: 30px;
-    margin-bottom: 30px;
+.catface-content-container {
+  width: 800px;
+  height: 550px;
+  overflow-y: scroll;
+
+  .catface-background-sample-container {
+    background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
+      0 100% repeat-x;
+    margin-bottom: 20px;
+    text-align: center;
+
+    .catface-background-sample {
+      margin-top: 30px;
+      width: 300px;
+      height: 300px;
+      border-radius: 30px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .catface-description-container {
+    .catface-description {
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .map-box {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      text-align: center;
+
+      .catface-background {
+        position: relative;
+        height: 400px;
+        width: 700px;
+        // margin-top: 20px;
+        text-align: center;
+        vertical-align: middle;
+        display: inline-block;
+        background-color: rgb(192, 191, 191);
+        background-size: 400px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        border-radius: 10px;
+        margin: 10px;
+
+        .catface-marker {
+          text-align: center;
+          position: absolute;
+          display: none;
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          background-color: red;
+        }
+      }
+      .catface-markerInit-btn {
+        @extend %button-round;
+        font-size: 18px;
+        font-weight: 800;
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        top: 70%;
+        left: 80%;
+        z-index: 999;
+      }
+    }
   }
 }
 
-.catface-description-container {
-  .catface-description {
-    font-size: 20px;
-  }
-  .catface-markerInit-btn {
-    // @extend %button-square;
-    width: 500px;
-    height: 50px;
-    margin-top: 20px;
-  }
+.catface-content-container::-webkit-scrollbar {
+  width: 8px; /*스크롤바의 너비*/
 }
 
-.catface-background {
-  position: relative;
-  display: grid;
-  height: 400px;
-  width: 400px;
-  background-repeat: none;
-  margin-top: 20px;
-
-  .catface-marker {
-    position: absolute;
-    display: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: red;
-  }
+.catface-content-container::-webkit-scrollbar-thumb {
+  background-color: #f7f8ec; /*스크롤바의 색상*/
 }

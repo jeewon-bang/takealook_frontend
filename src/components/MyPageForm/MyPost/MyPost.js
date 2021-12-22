@@ -9,7 +9,9 @@ const MyPost = (props) => {
     return date.substring(0, 10);
   };
 
-  return (
+  let postLen = MyPosts.length;
+
+  return postLen > 0 ? (
     <div class='article'>
       <div class='block-title'>
         <h2>나의 게시글</h2>
@@ -56,6 +58,18 @@ const MyPost = (props) => {
             </Link>
           ) : null
         )}
+    </div>
+  ) : (
+    <div class='article'>
+      <div class='block-title'>
+        <h2>나의 게시글</h2>
+        <Link to='/mypage/mypost'>
+          <button onclick='/'>더보기</button>
+        </Link>
+      </div>
+      <div className='mypage-msg'>
+        <div className='content'>작성한 게시글이 없습니다.</div>
+      </div>
     </div>
   );
 };
