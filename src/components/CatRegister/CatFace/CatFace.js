@@ -4,12 +4,11 @@ import { useSelector } from 'react-redux';
 import './CatFace.scss';
 
 const CatFace = (props) => {
-	const { markedImg, catMark, setCatMark } = props;
-	const user = useSelector((state) => state.auth.user);
-	//고양이 원본이미지
-	const [catImg, setCatImg] = useState([]);
-	//고양이 얼굴 좌표값
-
+  const { markedImg, catMark, setCatMark } = props;
+  const user = useSelector((state) => state.auth.user);
+  //고양이 원본이미지
+  const [catImg, setCatImg] = useState([]);
+  //고양이 얼굴 좌표값
 
   const [mouseDownCnt, setMouseDownCnt] = useState(0);
 
@@ -22,8 +21,8 @@ const CatFace = (props) => {
     document.getElementById('marker2').style.display = 'none';
     document.getElementById('marker3').style.display = 'none';
     document.getElementById('marker4').style.display = 'none';
-    setNewMark({
-      ...newMark,
+    setCatMark({
+      ...catMark,
       leftEyeX: 0,
       leftEyeY: 0,
       leftEarX: 0,
@@ -40,13 +39,13 @@ const CatFace = (props) => {
     const x = e.nativeEvent.offsetX;
     const y = e.nativeEvent.offsetY;
     console.log(x, y);
-    
+
     if (mouseDownCnt === 0) {
       //왼쪽귀
       document.getElementById('marker1').style.left = x + 'px';
       document.getElementById('marker1').style.top = y + 'px';
       document.getElementById('marker1').style.display = 'inline-block';
-      setNewMark({ ...newMark, leftEarX: x, leftEarY: y });
+      setCatMark({ ...catMark, leftEarX: x, leftEarY: y });
       setMouseDownCnt(mouseDownCnt + 1);
       document.getElementById('catface-description').innerText =
         '왼쪽 눈 앞부분을 찍어주세요!';
@@ -55,7 +54,7 @@ const CatFace = (props) => {
       document.getElementById('marker2').style.left = x + 'px';
       document.getElementById('marker2').style.top = y + 'px';
       document.getElementById('marker2').style.display = 'inline-block';
-      setNewMark({ ...newMark, leftEyeX: x, leftEyeY: y });
+      setCatMark({ ...catMark, leftEyeX: x, leftEyeY: y });
       setMouseDownCnt(mouseDownCnt + 1);
       document.getElementById('catface-description').innerText =
         '오른쪽 귀 앞부분을 찍어주세요!';
@@ -64,7 +63,7 @@ const CatFace = (props) => {
       document.getElementById('marker3').style.left = x + 'px';
       document.getElementById('marker3').style.top = y + 'px';
       document.getElementById('marker3').style.display = 'inline-block';
-      setNewMark({ ...newMark, rightEarX: x, rightEarY: y });
+      setCatMark({ ...catMark, rightEarX: x, rightEarY: y });
       setMouseDownCnt(mouseDownCnt + 1);
       document.getElementById('catface-description').innerText =
         '오른쪽 눈 앞부분을 찍어주세요!';
@@ -73,14 +72,13 @@ const CatFace = (props) => {
       document.getElementById('marker4').style.left = x + 'px';
       document.getElementById('marker4').style.top = y + 'px';
       document.getElementById('marker4').style.display = 'inline-block';
-      setNewMark({ ...newMark, rightEyeX: x, rightEyeY: y });
+      setCatMark({ ...catMark, rightEyeX: x, rightEyeY: y });
       setMouseDownCnt(mouseDownCnt + 1);
       document.getElementById('catface-description').innerText = '완성!😻';
     }
   };
 
   return (
-
     <div className='catface-content-container'>
       <div className='catface-background-sample-container'>
         <img
