@@ -5,47 +5,90 @@ import './MarkedCatFace.scss';
 import { useSelector } from 'react-redux';
 
 const MarkedCatImage = (props) => {
-	const { setShowMarkedCat, markedImg, catInfo, catLoc, setMatchedCatList } =
-		props;
+	const {
+		setShowMarkedCat,
+		markedImg,
+		origImgUrl,
+		catMark,
+		setCatMark,
+		catLoc,
+		setMatchedCatList,
+		setMoreInfo,
+	} = props;
 	const user = useSelector((state) => state.auth.user);
 	const [showNewMark, setShowNewMark] = useState(false);
-	const [newMark, setNewMark] = useState({
-		leftEyeX: 0,
-		leftEyeY: 0,
-		leftEarX: 0,
-		leftEarY: 0,
-		rightEyeX: 0,
-		rightEyeY: 0,
-		rightEarX: 0,
-		rightEarY: 0,
-	});
 
 	const useThisMark = () => {
-		// 사진 외 정보(위치, 패턴? 보내기)
-		// console.log(catInfo);
-		console.log(catLoc);
-
-		// axiosInstance.post(`주소알려줘`, catLoc).then((res) => {
-		// 	// 추천고양이를 드디어 받아온다
-		// 	setMatchedCatList(res.data);
-		// 	setShowMarkedCat(false);
-		// });
-		// setShowMarkedCat(false);
-	};
-	const modifyMark = () => {
-		// 새로찍은 랜드마크 좌표 + 고양이 위치 좌표 보내기
 		const formData = new FormData();
 		formData.append(
 			'catPoints',
-			new Blob([JSON.stringify(newMark)], { type: 'application/json' })
+			new Blob([JSON.stringify(catMark)], { type: 'application/json' })
 		);
 		formData.append(
 			'catLoc',
-			new Blob([JSON.stringify(catLoc)], { type: 'application/json' })
+			new Blob([JSON.stringify(catLoc[0])], { type: 'application/json' })
 		);
-		axiosInstance.post(`/user/${user.id}/test2`, formData).then((res) => {
-			console.log(res.data);
-		});
+		formData.append(
+			'catImgUrl',
+			new Blob([JSON.stringify(origImgUrl)], { type: 'text/plain' })
+		); // 원본이미지 url도 다시 보내준다
+
+		axiosInstance
+			.post(`/user/${user.id}/test2`, formData, {
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
+			.then((res) => {
+				// 추천고양이 리스트 받기
+				console.log(res.data);
+				setMatchedCatList(res.data);
+				if (res.data.length > 0) {
+					// 랜드마크 찍는 화면 꺼버리기 (매칭된 고양이 보여주기)
+					setShowMarkedCat(false);
+				} else {
+					setMoreInfo(true);
+				}
+			});
+	};
+	const modifyMark = () => {
+		// 새로찍은 랜드마크 좌표 + 고양이 위치 좌표 보내기
+		console.log(catMark);
+		console.log(catLoc[0]);
+		console.log(origImgUrl);
+
+		const formData = new FormData();
+		formData.append(
+			'catPoints',
+			new Blob([JSON.stringify(catMark)], { type: 'application/json' })
+		);
+		formData.append(
+			'catLoc',
+			new Blob([JSON.stringify(catLoc[0])], { type: 'application/json' })
+		);
+		formData.append(
+			'catImgUrl',
+			new Blob([JSON.stringify(origImgUrl)], { type: 'text/plain' })
+		); // 원본이미지 url도 다시 보내준다
+
+		// 콘솔에 찍어보기
+		for (let pair of formData.entries()) {
+			console.log(pair[0] + ', ' + pair[1]);
+		}
+
+		axiosInstance
+			.post(`/user/${user.id}/test2`, formData, {
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
+			.then((res) => {
+				// 추천고양이 리스트 받기
+				console.log(res.data);
+				setMatchedCatList(res.data);
+				if (res.data.length > 0) {
+					// 랜드마크 찍는 화면 꺼버리기 (매칭된 고양이 보여주기)
+					setShowMarkedCat(false);
+				} else {
+					setMoreInfo(true);
+				}
+			});
 	};
 
 	return !showNewMark ? (
@@ -66,8 +109,8 @@ const MarkedCatImage = (props) => {
 			새로찍자
 			<CatFace
 				markedImg={markedImg}
-				newMark={newMark}
-				setNewMark={setNewMark}
+				catMark={catMark}
+				setCatMark={setCatMark}
 			/>
 			<button onClick={modifyMark}>마크 수정하기</button>
 		</div>

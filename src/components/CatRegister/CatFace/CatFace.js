@@ -5,7 +5,7 @@ import './CatFace.scss';
 import Background from 'images/yulmu2.jpg';
 
 const CatFace = (props) => {
-	const { markedImg, newMark, setNewMark } = props;
+	const { markedImg, catMark, setCatMark } = props;
 	const user = useSelector((state) => state.auth.user);
 	//고양이 원본이미지
 	const [catImg, setCatImg] = useState([]);
@@ -16,25 +16,25 @@ const CatFace = (props) => {
 	useEffect(() => {
 		console.log('CatFace 모달입니다~~~');
 	}, []);
-  
-  const handleInitialization = () => {
-    document.getElementById('marker1').style.display = 'none';
-    document.getElementById('marker2').style.display = 'none';
-    document.getElementById('marker3').style.display = 'none';
-    document.getElementById('marker4').style.display = 'none';
-    setCatFace({
-      ...catFace,
-      leftEyeX: 0,
-      leftEyeY: 0,
-      leftEarX: 0,
-      leftEarY: 0,
-      rightEyeX: 0,
-      rightEyeY: 0,
-      rightEarX: 0,
-      rightEarY: 0,
-    });
-    setMouseDownCnt(0);
-  };
+
+	const handleInitialization = () => {
+		document.getElementById('marker1').style.display = 'none';
+		document.getElementById('marker2').style.display = 'none';
+		document.getElementById('marker3').style.display = 'none';
+		document.getElementById('marker4').style.display = 'none';
+		setCatMark({
+			...catMark,
+			leftEyeX: 0,
+			leftEyeY: 0,
+			leftEarX: 0,
+			leftEarY: 0,
+			rightEyeX: 0,
+			rightEyeY: 0,
+			rightEarX: 0,
+			rightEarY: 0,
+		});
+		setMouseDownCnt(0);
+	};
 
 	const getLoc = (e) => {
 		const x = e.nativeEvent.offsetX;
@@ -46,7 +46,7 @@ const CatFace = (props) => {
 			document.getElementById('marker1').style.left = x + 'px';
 			document.getElementById('marker1').style.top = y + 'px';
 			document.getElementById('marker1').style.display = 'inline-block';
-			setNewMark({ ...newMark, leftEarX: x, leftEarY: y });
+			setCatMark({ ...catMark, leftEarX: x, leftEarY: y });
 			setMouseDownCnt(mouseDownCnt + 1);
 			document.getElementById('catface-description').innerText =
 				'왼쪽 눈 앞부분을 찍어주세요!';
@@ -55,7 +55,7 @@ const CatFace = (props) => {
 			document.getElementById('marker2').style.left = x + 'px';
 			document.getElementById('marker2').style.top = y + 'px';
 			document.getElementById('marker2').style.display = 'inline-block';
-			setNewMark({ ...newMark, leftEyeX: x, leftEyeY: y });
+			setCatMark({ ...catMark, leftEyeX: x, leftEyeY: y });
 			setMouseDownCnt(mouseDownCnt + 1);
 			document.getElementById('catface-description').innerText =
 				'오른쪽 귀 앞부분을 찍어주세요!';
@@ -64,7 +64,7 @@ const CatFace = (props) => {
 			document.getElementById('marker3').style.left = x + 'px';
 			document.getElementById('marker3').style.top = y + 'px';
 			document.getElementById('marker3').style.display = 'inline-block';
-			setNewMark({ ...newMark, rightEarX: x, rightEarY: y });
+			setCatMark({ ...catMark, rightEarX: x, rightEarY: y });
 			setMouseDownCnt(mouseDownCnt + 1);
 			document.getElementById('catface-description').innerText =
 				'오른쪽 눈 앞부분을 찍어주세요!';
@@ -73,7 +73,7 @@ const CatFace = (props) => {
 			document.getElementById('marker4').style.left = x + 'px';
 			document.getElementById('marker4').style.top = y + 'px';
 			document.getElementById('marker4').style.display = 'inline-block';
-			setNewMark({ ...newMark, rightEyeX: x, rightEyeY: y });
+			setCatMark({ ...catMark, rightEyeX: x, rightEyeY: y });
 			setMouseDownCnt(mouseDownCnt + 1);
 			document.getElementById('catface-description').innerText = '완성!😻';
 		}
@@ -90,16 +90,15 @@ const CatFace = (props) => {
 				/>
 			</div>
 			<div className='catface-description-container'>
-        <div id='catface-description' className='catface-description'>
-          왼쪽 귀 앞부분을 찍어주세요!
-        </div>
-        <button
-          className='catface-markerInit-btn'
-          onClick={handleInitialization}
-        >
-          마커 초기화
-        </button>
-      </div>
+				<div id='catface-description' className='catface-description'>
+					왼쪽 귀 앞부분을 찍어주세요!
+				</div>
+				<button
+					className='catface-markerInit-btn'
+					onClick={handleInitialization}>
+					마커 초기화
+				</button>
+			</div>
 			<div
 				className='catface-background'
 				onClick={getLoc}
