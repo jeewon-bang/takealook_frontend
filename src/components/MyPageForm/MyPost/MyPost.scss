@@ -27,6 +27,17 @@
       float: right;
     }
   }
+  .mypage-msg {
+    display: table;
+    width: 600px;
+    height: 250px;
+
+    .content {
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
 }
 
 .PostList {

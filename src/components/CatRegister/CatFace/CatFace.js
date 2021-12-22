@@ -2,14 +2,14 @@ import axiosInstance from 'api/customAxios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './CatFace.scss';
-import Background from 'images/yulmu2.jpg';
 
 const CatFace = (props) => {
-  const { markedImg, newMark, setNewMark } = props;
-  const user = useSelector((state) => state.auth.user);
-  //고양이 원본이미지
-  const [catImg, setCatImg] = useState([]);
-  //고양이 얼굴 좌표값
+	const { markedImg, catMark, setCatMark } = props;
+	const user = useSelector((state) => state.auth.user);
+	//고양이 원본이미지
+	const [catImg, setCatImg] = useState([]);
+	//고양이 얼굴 좌표값
+
 
   const [mouseDownCnt, setMouseDownCnt] = useState(0);
 
@@ -40,7 +40,7 @@ const CatFace = (props) => {
     const x = e.nativeEvent.offsetX;
     const y = e.nativeEvent.offsetY;
     console.log(x, y);
-
+    
     if (mouseDownCnt === 0) {
       //왼쪽귀
       document.getElementById('marker1').style.left = x + 'px';
@@ -80,7 +80,8 @@ const CatFace = (props) => {
   };
 
   return (
-    <div className='content-container'>
+
+    <div className='catface-content-container'>
       <div className='catface-background-sample-container'>
         <img
           id='catface-sample'
@@ -93,22 +94,25 @@ const CatFace = (props) => {
         <div id='catface-description' className='catface-description'>
           왼쪽 귀 앞부분을 찍어주세요!
         </div>
-        <button
-          className='catface-markerInit-btn'
-          onClick={handleInitialization}
-        >
-          마커 초기화
-        </button>
-      </div>
-      <div
-        className='catface-background'
-        onClick={getLoc}
-        style={{ backgroundImage: `url(${markedImg})` }}
-      >
-        <span id='marker1' className='catface-marker' alt='마커1' />
-        <span id='marker2' className='catface-marker' alt='마커2' />
-        <span id='marker3' className='catface-marker' alt='마커3' />
-        <span id='marker4' className='catface-marker' alt='마커4' />
+        <div className='map-box'>
+          <div
+            className='catface-background'
+            onClick={getLoc}
+            style={{ backgroundImage: `url(${markedImg})` }}
+          >
+            <span id='marker1' className='catface-marker' alt='마커1' />
+            <span id='marker2' className='catface-marker' alt='마커2' />
+            <span id='marker3' className='catface-marker' alt='마커3' />
+            <span id='marker4' className='catface-marker' alt='마커4' />
+          </div>
+          <button
+            className='catface-markerInit-btn'
+            onClick={handleInitialization}
+          >
+            마커 <br />
+            초기화
+          </button>
+        </div>
       </div>
       {/* <div className='catface-marker-btn-container'>
 				<button className='catface-marker-btn' onClick={handleSubmit}>
