@@ -22,7 +22,7 @@ code {
 
 .content-container {
 	margin: 0 auto;
-	padding-top: 80px;
+	padding: 80px 0px 80px 0px;
 	width: 1180px;
 }
 

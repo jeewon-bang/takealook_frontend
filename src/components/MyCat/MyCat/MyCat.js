@@ -7,10 +7,26 @@ const MyCat = (props) => {
 	const { cats } = props;
 	const today = moment();
 	const timeDiff = (date) => {
-		return Math.floor(
+		const dayDiff = Math.floor(
+			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asDays()
+		);
+		const hourDiff = Math.floor(
 			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asHours()
 		);
+		const minuteDiff = Math.floor(
+			moment.duration(today.diff(moment(date, 'yyyy-MM-DD HH:mm'))).asMinutes()
+		);
+		if (dayDiff === 0) {
+			if (hourDiff === 0) {
+				return minuteDiff + '분 전';
+			} else {
+				return hourDiff + '시간 전';
+			}
+		} else {
+			return dayDiff + '일 전';
+		}
 	};
+
 	return (
 		<div>
 			{cats ? (
@@ -82,7 +98,7 @@ const MyCat = (props) => {
 												}
 											})()}
 
-											<div class='time'>{timeDiff(care.createdAt)}시간 전</div>
+											<div class='time'>{timeDiff(care.createdAt)}</div>
 											<div class='message'>{care.message}</div>
 										</div>
 									))

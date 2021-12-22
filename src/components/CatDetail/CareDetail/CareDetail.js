@@ -35,13 +35,13 @@ const CareDetail = (props) => {
 					className='care-icon'
 					onClick={(e) => {
 						setShowTooltip(true);
-						setLeft(e.clientX - 450);
-						setTop(e.clientY - 150);
+						setLeft(e.clientX - 60);
+						setTop(e.clientY - 40);
 					}}>
 					<img
 						src={require(`images/${careIcon[careType]}`).default}
 						alt='care-icon'
-						style={{ width: '30px' }}
+						style={{ width: '25px' }}
 					/>
 				</span>
 			)}
@@ -54,8 +54,11 @@ const CareDetail = (props) => {
 							return (
 								<div className='care-tooltip-list'>
 									<div className='list-top'>
-										<span className='list-user-img'>{v.userImg}</span>
-										<span className='list-user'>{v.user}</span>
+										<img
+											src={v.carer.userImage}
+											className='list-user-img'
+											alt='profile'></img>
+										<span className='list-user'>{v.carer.userName}</span>
 										<span className='list-datetime'>
 											{v.createdAt.split('T')[1].split('.')[0]}
 										</span>
