@@ -1,12 +1,8 @@
-import axiosInstance from 'api/customAxios';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import './MyLeftCat.scss';
 
 const MyLeftCat = (props) => {
-  const { catId, catName, catImg, message } = props;
-  
+  const { catName, catImg, message } = props;
+
   return (
     <div>
       <div class='catCard'>

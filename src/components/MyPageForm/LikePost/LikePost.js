@@ -7,7 +7,9 @@ const LikePost = (props) => {
     return date.substring(0, 10);
   };
 
-  return (
+  let postLen = likePosts.length;
+
+  return postLen > 0 ? (
     <div class='article'>
       <div class='block-title'>
         <h2>좋아한 게시글</h2>
@@ -40,6 +42,18 @@ const LikePost = (props) => {
             </Link>
           ) : null
         )}
+    </div>
+  ) : (
+    <div class='article'>
+      <div class='block-title'>
+        <h2>좋아한 게시글</h2>
+        <Link to='/mypage/mylike'>
+          <button onclick='/'>더보기</button>
+        </Link>
+      </div>
+      <div className='mypage-msg'>
+        <div className='content'>좋아한 게시글이 없습니다.</div>
+      </div>
     </div>
   );
 };
