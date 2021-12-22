@@ -142,48 +142,52 @@ const CatCare = (props) => {
 					{careHistory.length === 0 ? (
 						<div>최근 48시간 내의 돌봄 내역이 없습니다.</div>
 					) : (
-						careHistory.map((v) => (
-							<div
-								className='care'
-								onClick={() => {
-									setShowModal(true);
-								}}>
-								<span className='care-left'>
-									<img
-										src={require(`images/${careIcon[v.type]}`).default}
-										className='care-type-img'
-										alt='care'></img>
-									<div className='care-type'>
-										{v.type === 0
-											? '밥 주기'
-											: v.type === 1
-											? '간식 주기'
-											: v.type === 2
-											? '약 먹이기'
-											: v.type === 3
-											? '병원 치료'
-											: '기타'}
-									</div>
-								</span>
-								<span className='care-right'>
-									<div className='carer-info-time'>
-										<span>
-											<img
-												src={v.carer.userImage}
-												className='carer-img'
-												alt='profile'></img>
-										</span>
-										<span className='carer-name'>{v.carer.userName}</span>
-										<span className='care-time'>{timeDiff(v.createdAt)}</span>
-									</div>
-									<div>"{v.message}"</div>
-								</span>
-
-								{/* <button id={v.id} onClick={deleteCare}>
-									삭제
-								</button> */}
-							</div>
-						))
+						<div>
+							<button className='open-calendar-button' onClick={openModal}>
+								<FontAwesomeIcon icon={faCalendarAlt} size='2x' />
+								모든 내역 보기
+							</button>
+							{careHistory.map((v) => (
+								<div className='care'>
+									<span className='care-left'>
+										<img
+											src={require(`images/${careIcon[v.type]}`).default}
+											className='care-type-img'
+											alt='care'></img>
+										<div className='care-type'>
+											{v.type === 0
+												? '밥 주기'
+												: v.type === 1
+												? '간식 주기'
+												: v.type === 2
+												? '약 먹이기'
+												: v.type === 3
+												? '병원 치료'
+												: '기타'}
+										</div>
+									</span>
+									<span className='care-right'>
+										<div className='carer-info-time'>
+											<span>
+												<img
+													src={v.carer.userImage}
+													className='carer-img'
+													alt='profile'></img>
+											</span>
+											<span className='carer-name'>{v.carer.userName}</span>
+											<span className='care-time'>{timeDiff(v.createdAt)}</span>
+											<button
+												id={v.id}
+												className='care-delete-button'
+												onClick={deleteCare}>
+												X
+											</button>
+										</div>
+										<div>"{v.message}"</div>
+									</span>
+								</div>
+							))}
+						</div>
 					)}
 				</div>
 			</div>

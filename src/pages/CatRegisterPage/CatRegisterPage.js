@@ -19,6 +19,7 @@ import MarkedCatFace from 'components/CatRegister/MarkedCatFace/MarkedCatFace';
 
 const CatRegisterPage = () => {
 	SwiperCore.use([Navigation, Pagination]);
+
 	// 새로 등록할 고양이 정보 - catInfo, catLoc, catImg, mainImg,
 	const [catInfo, setCatInfo] = useState({
 		name: '',
@@ -32,8 +33,9 @@ const CatRegisterPage = () => {
 	const [catImg, setCatImg] = useState([]);
 	const [mainImg, setMainImg] = useState([]);
 
-	// AI 이후 받을 점찍힌 이미지 및 랜드마크 좌표
+	// AI 추천 이후 받을 점찍힌 이미지 및 랜드마크 좌표
 	const [markedImg, setMarkedImg] = useState('');
+	const [origImgUrl, setOrigImgUrl] = useState('');
 	const [catMark, setCatMark] = useState({
 		leftEyeX: 0,
 		leftEyeY: 0,
@@ -44,6 +46,19 @@ const CatRegisterPage = () => {
 		rightEarX: 0,
 		rightEarY: 0,
 	});
+	// // 사용자가 수정할 고양이 랜드마크 좌표
+	// const [catNewMark, setCatNewMark] = useState({
+	// 	leftEyeX: 0,
+	// 	leftEyeY: 0,
+	// 	leftEarX: 0,
+	// 	leftEarY: 0,
+	// 	rightEyeX: 0,
+	// 	rightEyeY: 0,
+	// 	rightEarX: 0,
+	// 	rightEarY: 0,
+	// });
+	// // 랜드마크를 수정 했는지 여부
+	// const [isMarkModified, setIsMarkModified] = useState(false);
 
 	// 추천된 동일고양이 리스트
 	const [matchedCatList, setMatchedCatList] = useState([]);
@@ -51,7 +66,7 @@ const CatRegisterPage = () => {
 	const [showModal, setShowModal] = useState(false);
 	// ai서버에서 랜드마크 찍혀서 온 이미지를 보여줄지 여부
 	const [showMarkedCat, setShowMarkedCat] = useState(false);
-	// 일치하는 고양이가 없을때 추가정보 입력창을 보여줄지 여부
+	// 추천 중 일치하는 고양이가 없을때 추가정보 입력창을 보여줄지 여부
 	const [moreInfo, setMoreInfo] = useState(false);
 
 	const navigate = useNavigate();
@@ -91,8 +106,17 @@ const CatRegisterPage = () => {
 					})
 					.then((res) => {
 						// 딥러닝 결과로 랜드마크 점찍힌 이미지가 오면
-						setMarkedImg(res.data); // 이미지
-						// setNewMark(res.data.mark????);  // 랜드마크 좌표
+						console.log('then');
+						console.log(res.data);
+						console.log(res.data.url);
+						// console.log(typeof res);
+						// console.log(res.data);
+						// console.log(typeof res.data);
+						// // console.log(res.data.data.url);
+						// // console.log(res.data.data.catPoint);
+						setMarkedImg(res.data.dstUrl); // 랜드마크 찍힌 이미지
+						setOrigImgUrl(res.data.orgUrl);
+						setCatMark(res.data.catPoint); // 랜드마크 좌표
 						setShowMarkedCat(true); // 추천모달 내 내용 셋팅
 						setShowModal(true); // 추천모달 열기
 					});
@@ -135,13 +159,24 @@ const CatRegisterPage = () => {
 				'catLoc',
 				new Blob([JSON.stringify(catLoc)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
 			);
-			// 고양이 정보들
+			// 고양이 기본정보들
 			formData.append(
 				'catInfo',
 				new Blob([JSON.stringify(catInfo)], { type: 'application/json' })
 			);
 
-			// 고양이 랜드마크
+			// 고양이 랜드마크  - 수정을 안한경우 catMark, 수정을 한경우 catNewMark를 보낸다
+			// if (isMarkModified) {
+			// 	formData.append(
+			// 		'catPoints',
+			// 		new Blob([JSON.stringify(catNewMark)], { type: 'application/json' })
+			// 	);
+			// } else {
+			// 	formData.append(
+			// 		'catPoints',
+			// 		new Blob([JSON.stringify(catMark)], { type: 'application/json' })
+			// 	);
+			// }
 			formData.append(
 				'catPoints',
 				new Blob([JSON.stringify(catMark)], { type: 'application/json' })
@@ -209,12 +244,11 @@ const CatRegisterPage = () => {
 							<MarkedCatFace
 								setShowMarkedCat={setShowMarkedCat}
 								markedImg={markedImg}
+								origImgUrl={origImgUrl}
 								catMark={catMark}
 								setCatMark={setCatMark}
-								catInfo={catInfo}
 								catLoc={catLoc}
 								setMatchedCatList={setMatchedCatList}
-								setShowModal={setShowModal}
 								setMoreInfo={setMoreInfo}
 							/>
 						) : (

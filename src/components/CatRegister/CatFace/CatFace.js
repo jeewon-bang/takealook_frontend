@@ -16,25 +16,25 @@ const CatFace = (props) => {
 	useEffect(() => {
 		console.log('CatFace 모달입니다~~~');
 	}, []);
-  
-  const handleInitialization = () => {
-    document.getElementById('marker1').style.display = 'none';
-    document.getElementById('marker2').style.display = 'none';
-    document.getElementById('marker3').style.display = 'none';
-    document.getElementById('marker4').style.display = 'none';
-    setCatFace({
-      ...catFace,
-      leftEyeX: 0,
-      leftEyeY: 0,
-      leftEarX: 0,
-      leftEarY: 0,
-      rightEyeX: 0,
-      rightEyeY: 0,
-      rightEarX: 0,
-      rightEarY: 0,
-    });
-    setMouseDownCnt(0);
-  };
+
+	const handleInitialization = () => {
+		document.getElementById('marker1').style.display = 'none';
+		document.getElementById('marker2').style.display = 'none';
+		document.getElementById('marker3').style.display = 'none';
+		document.getElementById('marker4').style.display = 'none';
+		setCatMark({
+			...catMark,
+			leftEyeX: 0,
+			leftEyeY: 0,
+			leftEarX: 0,
+			leftEarY: 0,
+			rightEyeX: 0,
+			rightEyeY: 0,
+			rightEarX: 0,
+			rightEarY: 0,
+		});
+		setMouseDownCnt(0);
+	};
 
 	const getLoc = (e) => {
 		const x = e.nativeEvent.offsetX;
@@ -90,16 +90,15 @@ const CatFace = (props) => {
 				/>
 			</div>
 			<div className='catface-description-container'>
-        <div id='catface-description' className='catface-description'>
-          왼쪽 귀 앞부분을 찍어주세요!
-        </div>
-        <button
-          className='catface-markerInit-btn'
-          onClick={handleInitialization}
-        >
-          마커 초기화
-        </button>
-      </div>
+				<div id='catface-description' className='catface-description'>
+					왼쪽 귀 앞부분을 찍어주세요!
+				</div>
+				<button
+					className='catface-markerInit-btn'
+					onClick={handleInitialization}>
+					마커 초기화
+				</button>
+			</div>
 			<div
 				className='catface-background'
 				onClick={getLoc}
