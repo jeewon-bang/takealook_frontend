@@ -1,40 +1,48 @@
 @import 'components/Common/common';
 
 .content-container {
-	.title {
-		font-size: 24px;
-		font-weight: 800;
-		margin: 10px 0px 20px 0px;
-	}
+  .title {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 10px 0px 20px 0px;
+  }
 
-	.cat-info-button-box {
-		display: flex;
-		justify-content: flex-end;
-		margin: 20px 0px 80px 0px;
+  .cat-info-button-box {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0px 80px 0px;
 
-		.cat-update-button {
-			margin-right: 20px;
-			background-color: white;
-			border: none;
-		}
+    .cat-update-button {
+      margin-right: 20px;
+      background-color: white;
+      border: none;
+    }
 
-		.cat-delete-button {
-			background-color: white;
-			border: none;
-		}
-	}
+    .cat-delete-button {
+      background-color: white;
+      border: none;
+    }
+  }
 
-	.cat-other-button-box {
-		text-align: center;
-		margin-bottom: 80px;
+  .cat-other-button-box {
+    text-align: center;
+    margin-bottom: 80px;
 
-		.cat-other-button {
-			@extend %button-square;
-			box-sizing: border-box;
-			width: 200px;
-			height: 40px;
-			line-height: 40px;
-			margin-top: 10px;
-		}
-	}
+    .cat-other-button {
+      @extend %button-square;
+      box-sizing: border-box;
+      width: 200px;
+      height: 40px;
+      line-height: 40px;
+      margin-top: 10px;
+    }
+  }
+}
+
+:root {
+  --swiper-navigation-size: 44px;
+  /* --swiper-navigation-color: var(--swiper-theme-color); */
+}
+:root {
+  --swiper-theme-color: #f5de5b;
 }

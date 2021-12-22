@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import axiosInstance from 'api/customAxios';
+import axios from 'axios';
+import CatImgUpdate from 'components/CatRegister/CatImgUpdate/CatImgUpdate';
 import CatRegisterForm from 'components/CatRegister/CatRegisterForm/CatRegisterForm';
 import CatLocationMap from 'components/CatRegister/CatLocationMap/CatLocationMap';
-import axios from 'axios';
-import axiosInstance from 'api/customAxios';
-import { useNavigate } from 'react-router';
-import { useParams } from 'react-router';
-import CatImgUpdate from 'components/CatRegister/CatImgUpdate/CatImgUpdate';
-import { useSelector } from 'react-redux';
 import ImgUpload from 'components/Common/ImgUpload';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const CatUpdatePage = () => {
+const CatReRegisterPage = () => {
   const { catId } = useParams();
 
   const [deleteImgURl, setDeleteImgUrl] = useState([]); // 삭제된 기존 이미지 url
@@ -104,14 +103,18 @@ const CatUpdatePage = () => {
           setCatInfo(pastInfoRes.data);
           setMainImg(pastInfoRes.data.mainImage);
           setCatImg(pastInfoRes.data.userUploadImages);
-          setCatLoc(pastInfoRes.data.catLocations);
+          setCatLoc(null);
           setLoaded(true);
         })
       );
   }, []);
-
+  console.log(catLoc);
   return loaded ? (
     <div className='content-container'>
+      <div>
+        돌보던 고양이가 [{catInfo.name}] 가 아닌 것 같다면 새로운 고양이로
+        등록해주세요!{' '}
+      </div>
       <span className='cat-mainImg-form'>
         <div style={{ fontWeight: '800' }} className='input-label'>
           고양이 사진
@@ -157,7 +160,7 @@ const CatUpdatePage = () => {
           취소하기
         </button>
         <button className='submit-button' onClick={handleSubmit}>
-          수정하기
+          등록하기
         </button>
       </div>
     </div>
@@ -166,4 +169,4 @@ const CatUpdatePage = () => {
   );
 };
 
-export default CatUpdatePage;
+export default CatReRegisterPage;

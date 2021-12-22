@@ -63,6 +63,29 @@
       .cat-info-body-text {
         margin-bottom: 10px;
       }
+      .adopt-button {
+        display: inline-block;
+        height: 24px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        padding: 0 10px;
+        font-size: 20px;
+        line-height: 24px;
+        border: none;
+        border-radius: 12px;
+        background-color: rgb(253, 245, 207);
+      }
+      .death-button {
+        display: inline-block;
+        height: 24px;
+        margin-bottom: 10px;
+        padding: 0 10px;
+        font-size: 20px;
+        line-height: 24px;
+        border: none;
+        border-radius: 12px;
+        background-color: rgb(253, 245, 207);
+      }
     }
 
     @include mobile {
@@ -107,5 +130,45 @@
 @include mobile {
   .info-content {
     display: block;
+  }
+}
+
+.cat-status-modal {
+  width: 700px;
+  height: 300px;
+  text-align: center;
+
+  .cat-msg {
+    margin-top: 100px;
+    .msgInput {
+      margin-top: 10px;
+      margin-right: 10px;
+      height: 80px;
+      width: 500px;
+      padding: 5px 10px;
+      font-size: 12px;
+      border: 1px solid #bbb;
+      color: #666;
+      vertical-align: middle;
+    }
+  }
+  .button-box {
+    width: 100%;
+    height: 80px;
+    justify-content: space-between;
+    .msg-button {
+      margin-bottom: 40px;
+      width: 50%;
+      margin: auto;
+      background-color: #ffa800;
+      color: white;
+      box-shadow: none;
+      border-radius: 10px;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      outline: none;
+      cursor: pointer;
+    }
   }
 }

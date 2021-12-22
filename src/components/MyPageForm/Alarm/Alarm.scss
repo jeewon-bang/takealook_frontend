@@ -8,19 +8,30 @@
     padding: 11px 10px 11px 29px;
     background: #f5cf70;
     color: rgb(255, 255, 255);
+    .alarm-icon {
+      margin-right: 20px;
+    }
 
-    span {
+    .alarm-count {
+      font-size: 5px;
       position: absolute;
-      top: 11px;
-      left: 10px;
-      width: 13px;
-      height: 14px;
-      background-image: url(http://fiximage.10x10.co.kr/web2015/layout/element.png);
-      background-repeat: no-repeat;
-      background-position: 0 0;
+      top: 5px;
+      left: 40px;
+      color: rgb(255, 255, 255);
+      background-color: rgb(255, 77, 77);
+      border: 2px solid var(--yt-spec-brand-background-primary);
+      padding: 0 4px;
+      min-width: 8px;
+      max-width: 18px;
+      height: 16px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 8px;
+      line-height: 20px;
     }
   }
 }
+
 .alarmListBox {
   overflow-y: scroll;
   height: 800px;
