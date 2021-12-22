@@ -16,6 +16,25 @@ const CatFace = (props) => {
 	useEffect(() => {
 		console.log('CatFace 모달입니다~~~');
 	}, []);
+  
+  const handleInitialization = () => {
+    document.getElementById('marker1').style.display = 'none';
+    document.getElementById('marker2').style.display = 'none';
+    document.getElementById('marker3').style.display = 'none';
+    document.getElementById('marker4').style.display = 'none';
+    setCatFace({
+      ...catFace,
+      leftEyeX: 0,
+      leftEyeY: 0,
+      leftEarX: 0,
+      leftEarY: 0,
+      rightEyeX: 0,
+      rightEyeY: 0,
+      rightEarX: 0,
+      rightEarY: 0,
+    });
+    setMouseDownCnt(0);
+  };
 
 	const getLoc = (e) => {
 		const x = e.nativeEvent.offsetX;
@@ -23,7 +42,7 @@ const CatFace = (props) => {
 		console.log(x, y);
 
 		if (mouseDownCnt === 0) {
-			//왼쪽눈
+			//왼쪽귀
 			document.getElementById('marker1').style.left = x + 'px';
 			document.getElementById('marker1').style.top = y + 'px';
 			document.getElementById('marker1').style.display = 'inline-block';
@@ -32,7 +51,7 @@ const CatFace = (props) => {
 			document.getElementById('catface-description').innerText =
 				'왼쪽 눈 앞부분을 찍어주세요!';
 		} else if (mouseDownCnt === 1) {
-			//왼쪽귀
+			//왼쪽눈
 			document.getElementById('marker2').style.left = x + 'px';
 			document.getElementById('marker2').style.top = y + 'px';
 			document.getElementById('marker2').style.display = 'inline-block';
@@ -41,7 +60,7 @@ const CatFace = (props) => {
 			document.getElementById('catface-description').innerText =
 				'오른쪽 귀 앞부분을 찍어주세요!';
 		} else if (mouseDownCnt === 2) {
-			//오른쪽눈
+			//오른쪽귀
 			document.getElementById('marker3').style.left = x + 'px';
 			document.getElementById('marker3').style.top = y + 'px';
 			document.getElementById('marker3').style.display = 'inline-block';
@@ -50,7 +69,7 @@ const CatFace = (props) => {
 			document.getElementById('catface-description').innerText =
 				'오른쪽 눈 앞부분을 찍어주세요!';
 		} else if (mouseDownCnt === 3) {
-			//오른쪽귀
+			//오른쪽눈
 			document.getElementById('marker4').style.left = x + 'px';
 			document.getElementById('marker4').style.top = y + 'px';
 			document.getElementById('marker4').style.display = 'inline-block';
@@ -59,32 +78,6 @@ const CatFace = (props) => {
 			document.getElementById('catface-description').innerText = '완성!😻';
 		}
 	};
-
-	// const handleSubmit = () => {
-	// 	if (!newMark) {
-	// 		document.getElementById('warning').innerText =
-	// 			'좌표를 4개 모두 찍어주세요!';
-	// 	} else {
-	// 		const formData = new FormData();
-
-	// 		// 고양이 이미지
-	// 		formData.append('catImg', catImg[0]);
-
-	// 		//고양이 얼굴 좌표값
-	// 		formData.append(
-	// 			'catFace',
-	// 			new Blob([JSON.stringify(newMark)], { type: 'application/json' })
-	// 		);
-
-	// 		axiosInstance
-	// 			.post(`??`, formData, {
-	// 				headers: { 'Content-Type': 'multipart/form-data' },
-	// 			})
-	// 			.then((res) => {
-	// 				//   navigate('/mycat');
-	// 			});
-	// 	}
-	// };
 
 	return (
 		<div className='content-container'>
@@ -96,7 +89,17 @@ const CatFace = (props) => {
 					alt='좌표찍을 고양이_sample'
 				/>
 			</div>
-			<div id='catface-description'>왼쪽 귀 앞부분을 찍어주세요!</div>
+			<div className='catface-description-container'>
+        <div id='catface-description' className='catface-description'>
+          왼쪽 귀 앞부분을 찍어주세요!
+        </div>
+        <button
+          className='catface-markerInit-btn'
+          onClick={handleInitialization}
+        >
+          마커 초기화
+        </button>
+      </div>
 			<div
 				className='catface-background'
 				onClick={getLoc}
