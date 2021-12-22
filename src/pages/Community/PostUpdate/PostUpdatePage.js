@@ -99,8 +99,8 @@ const PostUpdatePage = () => {
           </h3>
           <ImgUpload
             pastImg={postText.imgUrl}
-            image={postImage}
-            setImage={setPostImage}
+            img={postImage}
+            setImg={setPostImage}
           />
         </div>
         <div className='write-footer'>

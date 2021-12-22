@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
 import CatReRegisterPage from 'pages/CatReRegisterPage/CatReRegisterPage';
+import CatFace from 'components/CatRegister/CatFace/CatFace';
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function App() {
             path='/community/update/:postId'
             element={<PostUpdatePage />}
           />
+          <Route path='/catface' element={<CatFace />} />
         </Routes>
       </div>
     );
