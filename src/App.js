@@ -17,6 +17,7 @@ import MyPostPage from 'pages/MyPage/MyPostPage/MyPostPage';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
+import CatReRegisterPage from 'pages/CatReRegisterPage/CatReRegisterPage';
 import CatFace from 'components/CatRegister/CatFace/CatFace';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Route path='/mycat/:catId' element={<CatDetailPage />} />
           <Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
           <Route path='/mycat/new' element={<CatRegisterPage />} />
+          <Route path='/mycat/re-register' element={<CatReRegisterPage />} />
           <Route path='/mypage' element={<MyPage />} />
           <Route path='/mypage/mylike' element={<MyLikePage />} />
           <Route path='/mypage/mypost' element={<MyPostPage />} />
