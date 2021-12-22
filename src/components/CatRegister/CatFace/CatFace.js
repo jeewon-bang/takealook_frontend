@@ -69,30 +69,23 @@ const CatFace = () => {
     }
   };
 
-  const handleSubmit = () => {
-    if (!catFace) {
-      document.getElementById('warning').innerText =
-        '좌표를 4개 모두 찍어주세요!';
-    } else {
-      const formData = new FormData();
-
-      // 고양이 이미지
-      formData.append('catImg', catImg[0]);
-
-      //고양이 얼굴 좌표값
-      formData.append(
-        'catFace',
-        new Blob([JSON.stringify(catFace)], { type: 'application/json' })
-      );
-
-      axiosInstance
-        .post(`??`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then((res) => {
-          //   navigate('/mycat');
-        });
-    }
+  const handleInitialization = () => {
+    document.getElementById('marker1').style.display = 'none';
+    document.getElementById('marker2').style.display = 'none';
+    document.getElementById('marker3').style.display = 'none';
+    document.getElementById('marker4').style.display = 'none';
+    setCatFace({
+      ...catFace,
+      leftEyeX: 0,
+      leftEyeY: 0,
+      leftEarX: 0,
+      leftEarY: 0,
+      rightEyeX: 0,
+      rightEyeY: 0,
+      rightEarX: 0,
+      rightEarY: 0,
+    });
+    setMouseDownCnt(0);
   };
 
   return (
@@ -105,7 +98,17 @@ const CatFace = () => {
           alt='좌표찍을 고양이_sample'
         />
       </div>
-      <div id='catface-description'>왼쪽 귀 앞부분을 찍어주세요!</div>
+      <div className='catface-description-container'>
+        <div id='catface-description' className='catface-description'>
+          왼쪽 귀 앞부분을 찍어주세요!
+        </div>
+        <button
+          className='catface-markerInit-btn'
+          onClick={handleInitialization}
+        >
+          마커 초기화
+        </button>
+      </div>
       <div
         className='catface-background'
         onClick={getLoc}
@@ -115,11 +118,6 @@ const CatFace = () => {
         <span id='marker2' className='catface-marker' alt='마커2' />
         <span id='marker3' className='catface-marker' alt='마커3' />
         <span id='marker4' className='catface-marker' alt='마커4' />
-      </div>
-      <div className='catface-marker-btn-container'>
-        <button className='catface-marker-btn' onClick={handleSubmit}>
-          이 사진을 이용하겠습니다
-        </button>
       </div>
     </div>
   );
