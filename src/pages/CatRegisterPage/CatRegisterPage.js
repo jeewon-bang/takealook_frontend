@@ -133,6 +133,7 @@ const CatRegisterPage = () => {
 				console.log(pair[0] + ', ' + pair[1]);
 			}
 
+			// 새로운 고양이로 등록 요청
 			axiosInstance
 				.post(`/user/${user.id}/cat/selection/`, formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },

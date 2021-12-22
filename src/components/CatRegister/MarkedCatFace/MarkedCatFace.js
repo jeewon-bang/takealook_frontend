@@ -1,12 +1,24 @@
 import axiosInstance from 'api/customAxios';
 import React, { useState } from 'react';
+import CatFace from '../CatFace/CatFace';
 import './MarkedCatFace.scss';
+import { useSelector } from 'react-redux';
 
 const MarkedCatImage = (props) => {
 	const { setShowMarkedCat, markedImg, catInfo, catLoc, setMatchedCatList } =
 		props;
+	const user = useSelector((state) => state.auth.user);
 	const [showNewMark, setShowNewMark] = useState(false);
-	const [newMark, setNewMark] = useState([]);
+	const [newMark, setNewMark] = useState({
+		leftEyeX: 0,
+		leftEyeY: 0,
+		leftEarX: 0,
+		leftEarY: 0,
+		rightEyeX: 0,
+		rightEyeY: 0,
+		rightEarX: 0,
+		rightEarY: 0,
+	});
 
 	const useThisMark = () => {
 		// 사진 외 정보(위치, 패턴? 보내기)
@@ -21,10 +33,19 @@ const MarkedCatImage = (props) => {
 		// setShowMarkedCat(false);
 	};
 	const modifyMark = () => {
-		// 새로찍은 랜드마크 좌표 보내기
-		// axiosInstance.post(`주소`, newMark)
-		// .then(res => {
-		// });
+		// 새로찍은 랜드마크 좌표 + 고양이 위치 좌표 보내기
+		const formData = new FormData();
+		formData.append(
+			'catPoints',
+			new Blob([JSON.stringify(newMark)], { type: 'application/json' })
+		);
+		formData.append(
+			'catLoc',
+			new Blob([JSON.stringify(catLoc)], { type: 'application/json' })
+		);
+		axiosInstance.post(`/user/${user.id}/test2`, formData).then((res) => {
+			console.log(res.data);
+		});
 	};
 
 	return !showNewMark ? (
@@ -43,7 +64,11 @@ const MarkedCatImage = (props) => {
 	) : (
 		<div>
 			새로찍자
-			{/* 지원이가 만들어준 컴포넌트 */}
+			<CatFace
+				markedImg={markedImg}
+				newMark={newMark}
+				setNewMark={setNewMark}
+			/>
 			<button onClick={modifyMark}>마크 수정하기</button>
 		</div>
 	);
