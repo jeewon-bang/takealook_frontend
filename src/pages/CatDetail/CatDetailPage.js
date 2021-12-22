@@ -18,32 +18,32 @@ import { useSelector } from 'react-redux';
 import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 
 let matchedCatData = [
-  {
-    id: 100,
-    name: '보리',
-    gender: 0,
-    neutered: 1,
-    pattern: 1,
-    locations: [
-      {
-        latitude: 37.54511236317026,
-        longitude: 126.86184575808647,
-      },
-    ],
-  },
-  {
-    id: 101,
-    name: '부비',
-    gender: 0,
-    neutered: 1,
-    pattern: 1,
-    locations: [
-      {
-        latitude: 37.54732777835966,
-        longitude: 126.8609590137254,
-      },
-    ],
-  },
+	{
+		id: 100,
+		name: '보리',
+		gender: 0,
+		neutered: 1,
+		pattern: 1,
+		locations: [
+			{
+				latitude: 37.54511236317026,
+				longitude: 126.86184575808647,
+			},
+		],
+	},
+	{
+		id: 101,
+		name: '부비',
+		gender: 0,
+		neutered: 1,
+		pattern: 1,
+		locations: [
+			{
+				latitude: 37.54732777835966,
+				longitude: 126.8609590137254,
+			},
+		],
+	},
 ];
 
 const CatDetailPage = () => {
@@ -75,25 +75,25 @@ const CatDetailPage = () => {
   });
   const [newCatImg, setNewCatImg] = useState([]);
 
-  useEffect(() => {
-    console.log('CatDetailPage');
-    axios
-      .all([
-        axiosInstance.get(`/user/${user.id}/cat/${catId}`),
-        axiosInstance.get(`/user/${user.id}/cat/${catId}/images`),
-        axiosInstance.get(`/user/${user.id}/cat/${catId}/locations`),
-        axiosInstance.get(`/user/${user.id}/cat/${catId}/48hours-catcares`),
-      ])
-      .then(
-        axios.spread((catInfoRes, catImgRes, catLocRes, careHistoryRes) => {
-          setCatInfo(catInfoRes.data);
-          setCatImg(catImgRes.data);
-          setCatLoc(catLocRes.data);
-          setCareHistory(careHistoryRes.data);
-          setLoaded(true);
-        })
-      );
-  }, []);
+	useEffect(() => {
+		console.log('CatDetailPage');
+		axios
+			.all([
+				axiosInstance.get(`/user/${user.id}/cat/${catId}`),
+				axiosInstance.get(`/user/${user.id}/cat/${catId}/images`),
+				axiosInstance.get(`/user/${user.id}/cat/${catId}/locations`),
+				axiosInstance.get(`/user/${user.id}/cat/${catId}/48hours-catcares`),
+			])
+			.then(
+				axios.spread((catInfoRes, catImgRes, catLocRes, careHistoryRes) => {
+					setCatInfo(catInfoRes.data);
+					setCatImg(catImgRes.data);
+					setCatLoc(catLocRes.data);
+					setCareHistory(careHistoryRes.data);
+					setLoaded(true);
+				})
+			);
+	}, []);
 
   // 내 도감에서 삭제
   const deleteMyCat = () => {
@@ -110,24 +110,16 @@ const CatDetailPage = () => {
     setNewCatInfo({ ...newCatInfo, [e.target.name]: e.target.value });
   };
 
-  // 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
-  const openMatchedCatModal = () => {
-    console.log(newCatInfo);
-    setShowModal(true);
-  };
-  // 모달
-  const closeModal = () => {
-    setShowModal(false);
-  };
 
-  // 다른고양이로 등록 - 추천중에 동일고양이 없어서 새로운 고양이로 등록
-  const handleSubmitNewCat = () => {
-    if (!newCatInfo.name || !newCatInfo.status) {
-      document.getElementById('warning').innerText =
-        '모든 항목을 입력해주세요!';
-    } else {
-      document.getElementById('warning').innerText = '';
-
+	// 다른고양이로 등록 - 사진입력후 동일고양이 재추천하는 모달 열기
+	const openMatchedCatModal = () => {
+		console.log(newCatInfo);
+		setShowModal(true);
+	};
+	// 모달
+	const closeModal = () => {
+		setShowModal(false);
+	};
       console.log(newCatInfo);
       console.log(newCatImg);
 
@@ -145,32 +137,32 @@ const CatDetailPage = () => {
     }
   };
 
-  return loaded ? (
-    /** 기본적으로 처음에 보여지는 고양이 상세페이지 화면 */
-    !showAnotherCatPage ? (
-      <div className='content-container'>
-        <CatInfo
-          catId={catId}
-          catInfo={catInfo}
-          setCatInfo={setCatInfo}
-          catImg={catImg}
-          setCatImg={setCatImg}
-        />
+	return loaded ? (
+		/** 기본적으로 처음에 보여지는 고양이 상세페이지 화면 */
+		!showAnotherCatPage ? (
+			<div className='content-container'>
+				<CatInfo
+					catId={catId}
+					catInfo={catInfo}
+					setCatInfo={setCatInfo}
+					catImg={catImg}
+					setCatImg={setCatImg}
+				/>
 
-        <div className='title'>최근 발견된 위치</div>
-        <CatMarkerMap
-          mapId={'cat-detail-map'}
-          catLoc={catLoc}
-          width={'100%'}
-          height={'500px'}
-        />
+				<div className='title'>최근 발견된 위치</div>
+				<CatMarkerMap
+					mapId={'cat-detail-map'}
+					catLoc={catLoc}
+					width={'100%'}
+					height={'500px'}
+				/>
 
-        <div className='title'>최근 48시간의 돌봄 기록</div>
-        <CatCare
-          catId={catId}
-          careHistory={careHistory}
-          setCareHistory={setCareHistory}
-        />
+				<div className='title'>최근 48시간의 돌봄 기록</div>
+				<CatCare
+					catId={catId}
+					careHistory={careHistory}
+					setCareHistory={setCareHistory}
+				/>
 
         <div className='cat-info-button-box'>
           <Link to={`/mycat/${catId}/update`}>

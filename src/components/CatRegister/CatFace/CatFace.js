@@ -4,10 +4,12 @@ import { useSelector } from 'react-redux';
 import './CatFace.scss';
 
 const CatFace = (props) => {
-  const { markedImg, newMark, setNewMark } = props;
-  const user = useSelector((state) => state.auth.user);
-  //고양이 원본이미지
-  const [catImg, setCatImg] = useState([]);
+	const { markedImg, catMark, setCatMark } = props;
+	const user = useSelector((state) => state.auth.user);
+	//고양이 원본이미지
+	const [catImg, setCatImg] = useState([]);
+	//고양이 얼굴 좌표값
+
 
   const [mouseDownCnt, setMouseDownCnt] = useState(0);
 
@@ -34,11 +36,12 @@ const CatFace = (props) => {
     setMouseDownCnt(0);
   };
 
+
   const getLoc = (e) => {
     const x = e.nativeEvent.offsetX;
     const y = e.nativeEvent.offsetY;
     console.log(x, y);
-
+    
     if (mouseDownCnt === 0) {
       //왼쪽귀
       document.getElementById('marker1').style.left = x + 'px';
