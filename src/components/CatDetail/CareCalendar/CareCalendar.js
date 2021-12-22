@@ -1,14 +1,30 @@
+import axiosInstance from 'api/customAxios';
 import moment from 'moment';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CareDetail from '../CareDetail/CareDetail';
 import './CareCalendar.scss';
+import { useSelector } from 'react-redux';
 
 const CareCalendar = (props) => {
-	const { careHistory, setCareHistory } = props;
+	const { catId } = props;
+	const user = useSelector((state) => state.auth.user);
+	const [careHistoryMonthly, setCareHistoryMonthly] = useState([]);
 
 	// 달력의 기준날짜가 될 변수 - 초기값: 현재날짜
 	const [date, setDate] = useState(moment());
+
+	useEffect(() => {
+		axiosInstance
+			.get(
+				`user/${user.id}/cat/${catId}/monthly-catcares?year=${date.format(
+					'Y'
+				)}&month=${date.format('MM')}`
+			)
+			.then((res) => {
+				setCareHistoryMonthly(res.data);
+			});
+	}, []);
 
 	// 이전달, 다음달 보여주는 함수
 	const jumpToMonth = (num) => {
@@ -16,7 +32,19 @@ const CareCalendar = (props) => {
 			setDate(date.clone().add(30, 'day'));
 		} else {
 			setDate(date.clone().subtract(30, 'day'));
-			console.log('axios 요청전송'); // 이전달 눌렀을 때 이전 달 돌봄기록 요청 전송
+			axiosInstance
+				.get(
+					`user/${user.id}/cat/${catId}/monthly-catcares?year=${date
+						.clone()
+						.subtract(30, 'day')
+						.format('Y')}&month=${date
+						.clone()
+						.subtract(30, 'day')
+						.format('MM')}`
+				)
+				.then((res) => {
+					setCareHistoryMonthly(res.data);
+				});
 		}
 	};
 
@@ -68,31 +96,38 @@ const CareCalendar = (props) => {
 									<div>
 										<CareDetail
 											careType={0}
-											careList={careHistory.filter(
+											careList={careHistoryMonthly.filter(
 												(v) =>
 													v.createdAt.split('T')[0] ===
 														current.format('yyyy-MM-DD') && v.type === 0
 											)}></CareDetail>
 										<CareDetail
 											careType={1}
-											careList={careHistory.filter(
+											careList={careHistoryMonthly.filter(
 												(v) =>
 													v.createdAt.split('T')[0] ===
 														current.format('yyyy-MM-DD') && v.type === 1
 											)}></CareDetail>
 										<CareDetail
 											careType={2}
-											careList={careHistory.filter(
+											careList={careHistoryMonthly.filter(
 												(v) =>
 													v.createdAt.split('T')[0] ===
 														current.format('yyyy-MM-DD') && v.type === 2
 											)}></CareDetail>
 										<CareDetail
 											careType={3}
-											careList={careHistory.filter(
+											careList={careHistoryMonthly.filter(
 												(v) =>
 													v.createdAt.split('T')[0] ===
 														current.format('yyyy-MM-DD') && v.type === 3
+											)}></CareDetail>
+										<CareDetail
+											careType={4}
+											careList={careHistoryMonthly.filter(
+												(v) =>
+													v.createdAt.split('T')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 4
 											)}></CareDetail>
 									</div>
 								</div>
@@ -108,9 +143,17 @@ const CareCalendar = (props) => {
 		<div className='calendar'>
 			<div className='calendar-head'>
 				<div className='head'>
-					<button onClick={() => jumpToMonth(0)}>◁</button>
-					<span className='title'>{date.format('MMMM YYYY')}</span>
-					<button onClick={() => jumpToMonth(1)}>▷</button>
+					<button
+						className='calendar-move-button'
+						onClick={() => jumpToMonth(0)}>
+						◀
+					</button>
+					<span className='calendar-month'>{date.format('MMMM YYYY')}</span>
+					<button
+						className='calendar-move-button'
+						onClick={() => jumpToMonth(1)}>
+						▶
+					</button>
 				</div>
 			</div>
 

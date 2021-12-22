@@ -1,8 +1,8 @@
 import React from 'react';
-import './CatRegisterForm.scss';
+import 'components/CatRegister/CatRegisterForm/CatRegisterForm.scss';
 
-const CatRegisterForm = (props) => {
-	const { catInfo, setCatInfo } = props;
+const CatUpdateForm = (props) => {
+	const { catInfo, setCatInfo, gender, neutered } = props;
 
 	const handleChange = (e) => {
 		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
@@ -103,4 +103,4 @@ const CatRegisterForm = (props) => {
 	);
 };
 
-export default CatRegisterForm;
+export default CatUpdateForm;
