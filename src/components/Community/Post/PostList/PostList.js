@@ -4,6 +4,7 @@ import './PostList.scss';
 
 const PostList = (props) => {
   const { post } = props;
+  console.log(post.checkLike);
   const newContent = post.content.replace(/(<([^>]+)>)/gi, '');
 
   let today = new Date();
@@ -28,9 +29,6 @@ const PostList = (props) => {
               <div class='card-header-text'>new!</div>
             </div>
           ) : null}
-          {/* <div class='card-header-number'> 2 / 5 </div> */}
-          {/* <img src={post.img} alt='img' /> */}
-          {/* <img class='headerimage' src={backgroundimgs} alt='img' /> */}
         </div>
 
         <div class='card-body'>
@@ -43,9 +41,6 @@ const PostList = (props) => {
             <h1 className='card-body-header-title'>{post.title}</h1>
             <p>{newContent}</p>
           </div>
-          {/* <p class='card-body-description'>
-            {newContent} hover할때 내용부분
-          </p> */}
 
           <div class='card-body-footer'>
             {post.writer.dflag === false ? (
@@ -54,11 +49,19 @@ const PostList = (props) => {
               <i class='card-body-nickname'>탈퇴회원</i>
             )}
             <i class='icon icon-like_count'></i>
-            <img
-              class='image'
-              src={require('images/heart.png').default}
-              alt='like'
-            />
+            {post.checkLike === true ? (
+              <img
+                class='image'
+                src={require('images/heart_like.png').default}
+                alt='like'
+              />
+            ) : (
+              <img
+                class='image'
+                src={require('images/heart.png').default}
+                alt='like'
+              />
+            )}
             {post.postLike}
             <i class='icon icon-comments_count'></i>
             <img

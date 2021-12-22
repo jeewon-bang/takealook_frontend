@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import './LoginPage.scss';
 import useUpdateEffect from 'utils/useUpdateEffect';
 import axiosInstance from 'api/customAxios';
+import Footer from 'components/Common/Footer/Footer';
 
 const LoginPage = () => {
   const { loginDone, withdrawl } = useSelector(({ auth }) => ({
@@ -42,66 +43,64 @@ const LoginPage = () => {
   }, [withdrawl]);
 
   return (
-    <div className='content-container'>
-      <div className='mainpage-container'>
-        <div className='mainpage-container-leftbox'>
-          <img
-            src={require('images/main1.png').default}
-            className='mainpage-container-leftbox-img'
-            alt='main1'
-          />
-          <img
-            src={require('images/main2.png').default}
-            className='mainpage-container-leftbox-img'
-            alt='main2'
-          />
-        </div>
-        <div className='mainpage-container-rightbox'>
-          <div className='login-box'>
-            <KakaoLogin
-              token={KAKAO_JAVASCRIPT_KEY}
-              onSuccess={kakaoLogin}
-              onFaile={kakaoLogin}
-              onLogout={''}
-              render={(renderProps) => (
-                <button
-                  className='kakao-login-button'
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                >
-                  <img
-                    src={require('images/kakao.png').default}
-                    style={{ width: '30px', marginRight: '10px' }}
-                    alt='kakao'
-                  />
-                  카카오 계정으로 로그인
-                </button>
-              )}
+    <div>
+      <div className='content-container'>
+        <div className='mainpage-container'>
+          <div className='mainpage-container-topbox'>
+            <img
+              src={require('images/main1.png').default}
+              className='mainpage-container-topbox-img'
+              alt='main1'
             />
-            <br />
-            <GoogleLogin
-              clientId={GOOGLE_CLIENTID}
-              onSuccess={googleLogin}
-              onFailure={googleLogin}
-              cookiePolicy={'single_host_origin'} // 구글로그인의 경우 넣어줘야함
-              render={(renderProps) => (
-                <button
-                  className='google-login-button'
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                >
-                  <img
-                    src={require('images/google.png').default}
-                    style={{ width: '30px', marginRight: '10px' }}
-                    alt='kakao'
-                  />
-                  구글 계정으로 로그인
-                </button>
-              )}
-            />
+          </div>
+          <div className='mainpage-container-bottombox'>
+            <div className='login-box'>
+              <KakaoLogin
+                token={KAKAO_JAVASCRIPT_KEY}
+                onSuccess={kakaoLogin}
+                onFaile={kakaoLogin}
+                onLogout={''}
+                render={(renderProps) => (
+                  <button
+                    className='kakao-login-button'
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    <img
+                      src={require('images/kakao.png').default}
+                      style={{ width: '30px', marginRight: '10px' }}
+                      alt='kakao'
+                    />
+                    카카오 계정으로 로그인
+                  </button>
+                )}
+              />
+              <br />
+              <GoogleLogin
+                clientId={GOOGLE_CLIENTID}
+                onSuccess={googleLogin}
+                onFailure={googleLogin}
+                cookiePolicy={'single_host_origin'} // 구글로그인의 경우 넣어줘야함
+                render={(renderProps) => (
+                  <button
+                    className='google-login-button'
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    <img
+                      src={require('images/google.png').default}
+                      style={{ width: '30px', marginRight: '10px' }}
+                      alt='kakao'
+                    />
+                    구글 계정으로 로그인
+                  </button>
+                )}
+              />
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -8,66 +8,6 @@ import WriteComment from 'components/Community/Writes/WriteComment/WriteComment'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Spinner from 'components/Common/Spinner';
-// {
-//   "board": {
-//       "id": 2,
-//       "name": "가출냥 찾기"
-//   },
-//   "postId": 17,
-//   "writer": {
-//       "id": 1,
-//       "userName": "신지혜",
-//       "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
-//       "dflag": false
-//   },
-//   "thumbnail": "https://takealook-bucket.s3.ap-northeast-2.amazonaws.com/static/8f31ec06-b73a-45bd-8af4-b28852122685s.jpg",
-//   "title": "테스트테스트",
-//   "content": "테스트ㅇ",
-//   "createdAt": "2021-12-19T02:25:48.287",
-//   "modifiedAt": "2021-12-19T02:25:48.287",
-//   "postLike": 1,
-//   "commentList": [
-//       {
-//           "writer": {
-//               "id": 1,
-//               "userName": "신지혜",
-//               "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
-//               "dflag": false
-//           },
-//           "commentId": 40,
-//           "content": "댓글",
-//           "modifiedAt": "2021-12-19T02:37:25.101",
-//           "commentLike": 0
-//       },
-//       {
-//           "writer": {
-//               "id": 1,
-//               "userName": "신지혜",
-//               "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
-//               "dflag": false
-//           },
-//           "commentId": 41,
-//           "content": "댓글이다",
-//           "modifiedAt": "2021-12-19T12:04:20.07",
-//           "commentLike": 0
-//       },
-//       {
-//           "writer": {
-//               "id": 1,
-//               "userName": "신지혜",
-//               "userImage": "http://k.kakaocdn.net/dn/ThUCQ/btq6AcUDIj8/CejFJKZUa4LAmANQ92FJL0/img_640x640.jpg",
-//               "dflag": false
-//           },
-//           "commentId": 42,
-//           "content": "고양이 최고",
-//           "modifiedAt": "2021-12-19T12:07:48.909",
-//           "commentLike": 0
-//       }
-//   ],
-//   "commentListCount": 3
-// }
-
-// {id: 1, email: 'jiwonb@kakao.com', nickname: '지원', image: 'http://k.kakaocdn.net/dn/bGVboe/btrj2frkoGs/fgbttIiYINYevA3fiVroFk/img_640x640.jpg', providerType: 'KAKAO'}
 
 const PostDetailPage = () => {
   const user = useSelector((state) => state.auth.user); //내가 서버에 접속한 로그인한 정보
@@ -76,7 +16,6 @@ const PostDetailPage = () => {
   const [comments, setComments] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [like, setLike] = useState(0);
-  const [doubleClickFlag, setDoubleClickFlag] = useState(false);
   const [postLikeInfo, setPostLikeInfo] = useState({
     postId: postId,
     userId: user.id,
@@ -91,6 +30,7 @@ const PostDetailPage = () => {
       ])
       .then(
         axios.spread((postDetailsRes, commentsRes) => {
+          console.log(postDetailsRes.data.checkLike);
           setPostDetails(postDetailsRes.data);
           setLike(postDetailsRes.data.postLike);
           setComments(commentsRes.data);
@@ -100,24 +40,35 @@ const PostDetailPage = () => {
   }, []);
 
   const handlePostLike = () => {
-    if (!doubleClickFlag) {
+    if (!postDetails.checkLike) {
       setLike(like + 1);
-      setDoubleClickFlag(true);
       axiosInstance
         .post(`/post/${postId}/like`, postLikeInfo, {
           headers: { 'Content-Type': 'application/json' },
         })
-        .then()
+        .then((res) =>
+          axiosInstance
+            .get(`/post/${postId}`)
+            .then((res) => {
+              setPostDetails(res.data);
+              setLoaded(true);
+            })
+            .catch((err) => console.log(err))
+        )
         .catch((err) => console.log(err));
     } else {
       setLike(like - 1);
-      setDoubleClickFlag(false);
       axiosInstance
         .delete(`/post/${postId}/like`)
-        // .delete(`/post/${postId}/like`, postLikeInfo, {
-        //   headers: { 'Content-Type': 'application/json' },
-        // })
-        .then()
+        .then((res) =>
+          axiosInstance
+            .get(`/post/${postId}`)
+            .then((res) => {
+              setPostDetails(res.data);
+              setLoaded(true);
+            })
+            .catch((err) => console.log(err))
+        )
         .catch((err) => console.log(err));
     }
   };
@@ -140,11 +91,7 @@ const PostDetailPage = () => {
         </Link>
       </div>
       <div className='detail-postdetail'>
-        <PostDetail
-          postDetails={postDetails}
-          like={like}
-          doubleClickFlag={doubleClickFlag}
-        />
+        <PostDetail postDetails={postDetails} like={like} />
       </div>
       <div className='detail-commentwrite'>
         <WriteComment

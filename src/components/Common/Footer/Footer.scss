@@ -1,0 +1,10 @@
+@import 'components/Common/common';
+
+.footer-container {
+  background-color: $light-pink;
+  height: 140px;
+  .footer-info {
+    font-weight: bolder;
+    font-size: 18px;
+  }
+}

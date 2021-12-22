@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Category.scss';
 
 const Category = (props) => {
@@ -11,40 +11,19 @@ const Category = (props) => {
   return (
     <div className='category'>
       <ul className='category-ul' onClick={handleBoardId}>
-        <li className='category-li' value='0'>
+        <li className='category-li' value='0' name='모두보기'>
           모두보기
         </li>
-        <li className='category-li' value='1'>
+        <li className='category-li' value='1' name='전국고양이자랑'>
           전국고양이자랑
         </li>
-        <li className='category-li' value='2'>
+        <li className='category-li' value='2' name='가출냥찾기'>
           가출냥찾기
         </li>
-        <li className='category-li' value='3'>
+        <li className='category-li' value='3' name='도와주세요'>
           도와주세요
         </li>
       </ul>
-      {/* <CategoryBtn
-              name='모두보기'
-              catActive={activeCat === '모두보기' ? true : false}
-              handleSetCat={setActivateCat}
-            />
-            <CategoryBtn
-              name='전국고양이자랑'
-              catActive={activeCat === '전국고양이자랑' ? true : false}
-              handleSetCat={setActivateCat}
-            /> */}
-      {/*
-            <CategoryBtn
-              name='가출냥찾기'
-              catActive={activateCat === '가출냥찾기' ? true : false}
-              handleSetCat={setActivateCat}
-            />
-            <CategoryBtn
-              name='도와주세요'
-              catActive={activateCat === '도와주세요' ? true : false}
-              handleSetCat={setActivateCat}
-            /> */}
     </div>
   );
 };

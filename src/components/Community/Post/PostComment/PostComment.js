@@ -3,7 +3,6 @@ import axios from 'axios';
 import WriteComment from 'components/Community/Writes/WriteComment/WriteComment';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import './PostComment.scss';
 
 const PostComment = (props) => {
@@ -22,10 +21,8 @@ const PostComment = (props) => {
     newContent: comment.content,
     commentId: comment.commentId,
   });
-  const navigate = useNavigate();
 
   const handleDelete = () => {
-    // setLoaded(false);
     axiosInstance
       .delete(`/post/${postDetails.postId}/comment/${comment.commentId}`)
       .then((res) => {
@@ -63,10 +60,10 @@ const PostComment = (props) => {
         <div className='postcomment-content'>{comment.content}</div>
       ) : (
         <div className='postcomment-content-update'>
-          <WriteComment newComment={newComment} commentUpdate={commentUpdate} />
+          <WriteComment newComment={newComment} />
         </div>
       )}
-      {user.id === newComment.writerId ? (
+      {user.id === comment.writer.id ? (
         <div className='postcomment-btn'>
           {/* {commentUpdate === false ? (
             <button className='postcomment-update-btn' onClick={handleUpdate}>
