@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Header from './components/Common/Header/Header';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
@@ -19,57 +19,64 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
 import CatReRegisterPage from 'pages/CatReRegisterPage/CatReRegisterPage';
 import CatFace from 'components/CatRegister/CatFace/CatFace';
+import useUpdateEffect from 'utils/useUpdateEffect';
+import Spinner from 'components/Common/Spinner';
 
 function App() {
-  const dispatch = useDispatch();
-  const { logoutDone, loginDone, loadUserDone, user } = useSelector(
-    ({ auth }) => ({
-      logoutDone: auth.logoutDone,
-      loginDone: auth.loginDone,
-      loadUserDone: auth.loadUserDone,
-      user: auth.user,
-    })
-  );
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const { logoutDone, loginDone, loadUserDone, user } = useSelector(
+		({ auth }) => ({
+			logoutDone: auth.logoutDone,
+			loginDone: auth.loginDone,
+			loadUserDone: auth.loadUserDone,
+			user: auth.user,
+		})
+	);
 
-  useEffect(() => {
-    console.log('자동 재로그인');
-    dispatch(loadUserAction());
-  }, []);
+	// 자동 재로그인
+	useEffect(() => {
+		dispatch(loadUserAction());
+	}, []);
 
-  if (user) {
-    return (
-      <div>
-        <Header />
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/mycat/' element={<MyCatPage />} />
-          <Route path='/mycat/:catId' element={<CatDetailPage />} />
-          <Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
-          <Route path='/mycat/new' element={<CatRegisterPage />} />
-          <Route path='/mycat/re-register' element={<CatReRegisterPage />} />
-          <Route path='/mypage' element={<MyPage />} />
-          <Route path='/mypage/mylike' element={<MyLikePage />} />
-          <Route path='/mypage/mypost' element={<MyPostPage />} />
-          <Route path='/community' element={<PostListPage />} />
-          <Route path='/community/write' element={<PostWritePage />} />
-          <Route path='/community/post/:postId' element={<PostDetailPage />} />
-          <Route
-            path='/community/update/:postId'
-            element={<PostUpdatePage />}
-          />
-          <Route path='/catface' element={<CatFace />} />
-        </Routes>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <Header />
-        <LoginPage />
-      </div>
-    );
-  }
+	if (user) {
+		return (
+			<div>
+				<Header />
+				<Routes>
+					<Route path='/' element={<HomePage />} />
+					<Route path='/login' element={<LoginPage />} />
+					<Route path='/mycat/' element={<MyCatPage />} />
+					<Route path='/mycat/:catId' element={<CatDetailPage />} />
+					<Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
+					<Route path='/mycat/new' element={<CatRegisterPage />} />
+					<Route path='/mycat/re-register' element={<CatReRegisterPage />} />
+					<Route path='/mypage' element={<MyPage />} />
+					<Route path='/mypage/mylike' element={<MyLikePage />} />
+					<Route path='/mypage/mypost' element={<MyPostPage />} />
+					<Route path='/community' element={<PostListPage />} />
+					<Route path='/community/write' element={<PostWritePage />} />
+					<Route path='/community/post/:postId' element={<PostDetailPage />} />
+					<Route
+						path='/community/update/:postId'
+						element={<PostUpdatePage />}
+					/>
+					<Route path='/catface' element={<CatFace />} />
+				</Routes>
+			</div>
+		);
+	} else {
+		if (!loadUserDone) {
+			return <Spinner />;
+		} else {
+			return (
+				<div>
+					<Header />
+					<LoginPage />
+				</div>
+			);
+		}
+	}
 }
 
 export default App;

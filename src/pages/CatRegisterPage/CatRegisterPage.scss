@@ -1,82 +1,70 @@
 @import 'components/Common/common';
 
-.cat-mainImg-form {
-  .cat-mainImg-form-inner {
-    width: 100%;
-    .input-label {
-      font-weight: 800;
-      margin: 30px 0px 10px 0px;
-    }
-  }
-
-  .cat-img-upload-box {
-    float: left;
-    width: 355px;
-    display: flex;
-    height: 350px;
-    background-color: #ffffff;
-    text-align: center;
-    vertical-align: middle;
-    border-radius: 5px;
-    margin-left: -30px;
-    .oneimg-upload-button {
-      border: none;
-      background-color: #ffffff;
-      // border-color: #d5d5d5;
-      .img-preview {
-        vertical-align: middle;
-        font-size: 24px;
-        color: #a8a8a8;
-        border: 2px solid #c9c9c9;
-        background-color: #f9f8f6;
-        width: 250px;
-        height: 250px;
-        border-radius: 10px;
-        margin: 10px;
-        cursor: pointer;
-      }
-    }
-  }
+.input-label {
+	font-weight: 800;
+	margin: 30px 0px 10px 0px;
 }
+.cat-image-form {
+	box-sizing: border-box;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 
-.cat-img-form {
-  display: inline-block;
-  width: 60%;
-  height: 350px;
-  .cat-img-upload {
-    margin-top: 45px;
-    width: 850px;
-  }
+	.cat-mainimg {
+		width: 25%;
+
+		.cat-mainimg-upload-box {
+			width: 250px;
+			height: 250px;
+			background-color: $white-gray;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.oneimg-upload-button {
+				@extend %img-upload-button;
+
+				.mainimg-preview {
+					width: 200px;
+					height: 200px;
+				}
+			}
+		}
+	}
+
+	.cat-imgs {
+		width: 75%;
+	}
 }
 
 .cat-map {
-  width: 350px;
-  height: 400px;
+	width: 350px;
+	height: 400px;
 }
 
 .warning-message {
-  text-align: center;
-  font-weight: 800;
-  font-size: 24px;
-  color: red;
-  margin-top: 50px;
+	text-align: center;
+	font-weight: 800;
+	font-size: 24px;
+	color: red;
+	margin-top: 50px;
 }
 
 .button-box {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 
-  .cancel-button {
-    @extend %button-square;
-    width: 49%;
-    height: 40px;
-    background-color: $gray;
-  }
+	.cancel-button {
+		@extend %button-square;
+		width: 49%;
+		height: 40px;
+		background-color: $gray;
+	}
 
-  .submit-button {
-    @extend %button-square;
-    width: 49%;
-    height: 40px;
-  }
+	.submit-button {
+		@extend %button-square;
+		width: 49%;
+		height: 40px;
+	}
 }
