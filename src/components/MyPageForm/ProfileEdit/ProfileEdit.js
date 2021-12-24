@@ -21,7 +21,7 @@ const ProfileEdit = (props) => {
 			: setShowModal(true);
 	};
 
-	const [newUserImg, setNewUserImg] = useState();
+	const [newUserImg, setNewUserImg] = useState([]);
 	const [userInfo, setUserInfo] = useState({
 		nickname: user.nickname,
 	});
@@ -111,45 +111,49 @@ const ProfileEdit = (props) => {
 	};
 
 	return (
-		<div className='editModal-background' onClick={closeModal}>
-			<div className='modal-wrapper'>
-				<div className='MyProfileEdit'>
-					<div className='edit-titleBox'>
-						<h2 className='edit-title'>정보수정</h2>
-						<button className='submitButton' onClick={withdrawalSubmit}>
-							회원탈퇴하기
-						</button>
+		// <div className='editModal-background' onClick={closeModal}>
+		// <div className='modal-wrapper'>
+		<div className='MyProfileEdit'>
+			<div className='edit-titleBox'>
+				<h2 className='edit-title'>정보수정</h2>
+			</div>
+			<div className='Profile-form'>
+				<div className='profile-label'>닉네임</div>
+				<div className='nickname-box'>
+					<input
+						className='profile-input'
+						type='text'
+						name='nickname'
+						placeholder={user.nickname}
+						onChange={handleChange}
+					/>
+					<button className='checkButton' onClick={nicknameCheck}>
+						중복확인
+					</button>
+				</div>
+				<div className='profile-label'>프로필 사진</div>
+				<div className='profile-img-box'>
+					<div className='profile-img-preview'>
+						<ImgUpload
+							pastImg={user.image}
+							img={newUserImg}
+							setImg={setNewUserImg}
+						/>
 					</div>
-					<div className='Profile-form'>
-						<div className='input-label'>
-							<label className='profile-label'>닉네임</label>
-							<input
-								className='profile-input'
-								type='text'
-								name='nickname'
-								placeholder={user.nickname}
-								onChange={handleChange}
-							/>
-							<button className='checkButton' onClick={nicknameCheck}>
-								중복확인
-							</button>
-						</div>
-
-						<div className='input-label'>
-							<label className='profile-label'>프로필 사진</label>
-							<ImgUpload
-								pastImg={user.image}
-								img={newUserImg}
-								setImg={setNewUserImg}
-							/>
-						</div>
-						<button className='profile-update' onClick={userInfosubmit}>
-							정보수정
-						</button>
-					</div>
+				</div>
+				<div className='profile-update-button-box'>
+					<button className='profile-update' onClick={userInfosubmit}>
+						정보수정
+					</button>
+					<br />
+					<button className='submitButton' onClick={withdrawalSubmit}>
+						회원탈퇴하기
+					</button>
 				</div>
 			</div>
 		</div>
+		// </div>
+		// </div>
 	);
 };
 
