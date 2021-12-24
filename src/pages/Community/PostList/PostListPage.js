@@ -31,7 +31,6 @@ const PostListPage = () => {
         //모두보기
         .get(`/posts`)
         .then((res) => {
-          console.log(res.data.checkLike);
           setPosts(res.data);
           setLoaded(true);
         })

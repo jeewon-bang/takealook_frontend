@@ -4,6 +4,27 @@
   background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
     0 100% repeat-x;
 
+  .category-radio input[type='radio'] {
+    display: none;
+
+    & + span {
+      display: inline-flex;
+      justify-content: center;
+      border-radius: 5px;
+      background-color: none;
+      border: none;
+      font-size: xx-large;
+      margin-bottom: 20px;
+      cursor: pointer;
+      width: 25%;
+      height: 40px;
+    }
+
+    &:checked + span {
+      color: $main-orange;
+    }
+  }
+
   .category-ul {
     list-style: none;
     display: table;

@@ -41,10 +41,10 @@ const MarkedCatImage = (props) => {
 			new Blob([JSON.stringify(origImgUrl)], { type: 'text/plain' })
 		); // 원본이미지 url도 다시 보내준다
 
-		// 콘솔에 찍어보기
-		for (let pair of formData.entries()) {
-			console.log(pair[0] + ', ' + pair[1]);
-		}
+    // 콘솔에 찍어보기
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
 
 		axiosInstance
 			.post(`/user/${user.id}/cat/recommendation`, formData, {

@@ -4,7 +4,6 @@ import './PostList.scss';
 
 const PostList = (props) => {
   const { post } = props;
-  console.log(post.checkLike);
   const newContent = post.content.replace(/(<([^>]+)>)/gi, '');
 
   let today = new Date();
@@ -43,25 +42,30 @@ const PostList = (props) => {
           </div>
 
           <div class='card-body-footer'>
+            <img
+              src={post.writer.userImage}
+              className='postlist-userimg'
+              alt='user'
+            />
             {post.writer.dflag === false ? (
               <i class='card-body-nickname'>{post.writer.userName}</i>
             ) : (
               <i class='card-body-nickname'>탈퇴회원</i>
             )}
             <i class='icon icon-like_count'></i>
-            {post.checkLike === true ? (
+            {/* {post.checkLike === true ? (
               <img
                 class='image'
                 src={require('images/heart_like.png').default}
                 alt='like'
               />
-            ) : (
-              <img
-                class='image'
-                src={require('images/heart.png').default}
-                alt='like'
-              />
-            )}
+            ) : ( */}
+            <img
+              class='image'
+              src={require('images/heart.png').default}
+              alt='like'
+            />
+            {/* )} */}
             {post.postLike}
             <i class='icon icon-comments_count'></i>
             <img
