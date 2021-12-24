@@ -12,7 +12,6 @@ import ImgUpload from 'components/Common/ImgUpload';
 const PostWritePage = () => {
   const user = useSelector((state) => state.auth.user);
   const [showModal, setShowModal] = useState(false);
-  //과연 이렇게 useState를 남용해도 되는 것인가.. 리액트 고수 구합니다
   const [postImage, setPostImage] = useState([]);
   const [postText, setPostText] = useState({
     writerId: user.id,
@@ -44,7 +43,6 @@ const PostWritePage = () => {
       axiosInstance
         .post('/post', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
-          // headers: { 'Content-Type': 'application/json' },
         })
         .then((res) => {
           console.log(res);

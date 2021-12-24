@@ -104,13 +104,22 @@
 
     .card-body-footer {
       position: absolute;
-      margin-top: 15px;
+      // margin-top: 15px;
       margin-bottom: 6px;
       bottom: 0;
       width: 314px;
       font-size: 14px;
       color: #9fa5a8;
       padding: 0 15px;
+
+      .postlist-userimg {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: gray;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
 
       .icon {
         display: inline-block;

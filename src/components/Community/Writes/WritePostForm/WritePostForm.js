@@ -118,7 +118,7 @@ const WritePostForm = (props) => {
           onChange={handleChange}
         >
           <option defaultValue='' className='option' selected disabled hidden>
-            -카테고리 선택-
+            - 카테고리 선택(필수) -
           </option>
           <option value='1' className='option'>
             전국고양이자랑
@@ -147,9 +147,6 @@ const WritePostForm = (props) => {
           />
           <h3>
             글작성<font color='#ff0505'>*</font>
-            <font size='2' color='#deddda'>
-              &nbsp;파일첨부 필수
-            </font>
           </h3>
         </span>
       </div>
