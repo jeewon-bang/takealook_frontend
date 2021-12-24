@@ -11,6 +11,7 @@ const MarkedCatImage = (props) => {
 		origImgUrl,
 		catMark,
 		setCatMark,
+		catInfo,
 		catLoc,
 		setMatchedCatList,
 		setMoreInfo,
@@ -18,51 +19,22 @@ const MarkedCatImage = (props) => {
 	const user = useSelector((state) => state.auth.user);
 	const [showNewMark, setShowNewMark] = useState(false);
 
-	const useThisMark = () => {
+	const sendThisMark = () => {
 		const formData = new FormData();
+		// 사용자가 다시 직접 찍은 랜드마크 좌표
 		formData.append(
 			'catPoints',
 			new Blob([JSON.stringify(catMark)], { type: 'application/json' })
 		);
+		// 고양이 최근발견위치
 		formData.append(
 			'catLoc',
 			new Blob([JSON.stringify(catLoc[0])], { type: 'application/json' })
 		);
+		// 고양이 패턴
 		formData.append(
-			'catImgUrl',
-			new Blob([JSON.stringify(origImgUrl)], { type: 'text/plain' })
-		); // 원본이미지 url도 다시 보내준다
-
-		axiosInstance
-			.post(`/user/${user.id}/test2`, formData, {
-				headers: { 'Content-Type': 'multipart/form-data' },
-			})
-			.then((res) => {
-				// 추천고양이 리스트 받기
-				console.log(res.data);
-				setMatchedCatList(res.data);
-				if (res.data.length > 0) {
-					// 랜드마크 찍는 화면 꺼버리기 (매칭된 고양이 보여주기)
-					setShowMarkedCat(false);
-				} else {
-					setMoreInfo(true);
-				}
-			});
-	};
-	const modifyMark = () => {
-		// 새로찍은 랜드마크 좌표 + 고양이 위치 좌표 보내기
-		console.log(catMark);
-		console.log(catLoc[0]);
-		console.log(origImgUrl);
-
-		const formData = new FormData();
-		formData.append(
-			'catPoints',
-			new Blob([JSON.stringify(catMark)], { type: 'application/json' })
-		);
-		formData.append(
-			'catLoc',
-			new Blob([JSON.stringify(catLoc[0])], { type: 'application/json' })
+			'catPattern',
+			new Blob([JSON.stringify(catInfo.pattern)], { type: 'text/plain' })
 		);
 		formData.append(
 			'catImgUrl',
@@ -75,17 +47,17 @@ const MarkedCatImage = (props) => {
 		}
 
 		axiosInstance
-			.post(`/user/${user.id}/test2`, formData, {
+			.post(`/user/${user.id}/cat/recommendation`, formData, {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			})
 			.then((res) => {
 				// 추천고양이 리스트 받기
-				console.log(res.data);
 				setMatchedCatList(res.data);
 				if (res.data.length > 0) {
-					// 랜드마크 찍는 화면 꺼버리기 (매칭된 고양이 보여주기)
+					// 랜드마크 찍는 화면 종료 ( -> 매칭된 고양이 보여주기)
 					setShowMarkedCat(false);
 				} else {
+					// 추천된 고양이가 하나도 없으면 바로 새로운 고양이 등록 화면
 					setMoreInfo(true);
 				}
 			});
@@ -93,26 +65,41 @@ const MarkedCatImage = (props) => {
 
 	return !showNewMark ? (
 		<div className='marked-cat-modal'>
-			<div>예시와 같이 마크가 잘 찍혔나요?</div>
-			<img src={markedImg} className='marked-cat-img' alt='marked-face'></img>
+			<div className='sample'>
+				<img
+					src={require('images/catface_sample.png').default}
+					alt='sample'
+					className='catface-sample'
+				/>
+				<span className='message'>
+					예시와 같이 &nbsp;
+					<span className='message-highlight'>양쪽 귀 앞머리, 눈 앞머리</span>에
+					<br /> 마크가 잘 표시되어 있나요?
+				</span>
+			</div>
+			<div className='marked-cat-img-box'>
+				<img src={markedImg} className='marked-cat-img' alt='marked-face'></img>
+			</div>
 			<br />
-			<button onClick={useThisMark}>네, 그대로 사용할래요</button>
+			<button className='yes-button' onClick={sendThisMark}>
+				네, 그대로 사용할래요
+			</button>
 			<button
+				className='no-button'
 				onClick={() => {
 					setShowNewMark(true);
 				}}>
-				아니오, 그지같이 찍혔어요
+				아니오, 수정할래요
 			</button>
 		</div>
 	) : (
 		<div>
-			새로찍자
 			<CatFace
 				markedImg={markedImg}
 				catMark={catMark}
 				setCatMark={setCatMark}
+				sendThisMark={sendThisMark}
 			/>
-			<button onClick={modifyMark}>마크 수정하기</button>
 		</div>
 	);
 };

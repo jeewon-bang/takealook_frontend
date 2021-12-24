@@ -1,20 +1,26 @@
 .mypage-profile {
-  margin-top: 20px;
-  padding-top: 29px;
-  background-color: #fff;
-  text-align: center;
+	width: 250px;
+	margin-top: 20px;
+	padding-top: 29px;
+	background-color: #fff;
+	text-align: center;
 
-  .hello {
-    color: #000;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 1.25em;
+	.hello {
+		color: #000;
+		font-size: 14px;
+		font-weight: bold;
+		line-height: 1.25em;
+	}
 
-    .img-circle {
-      border-radius: 50%;
-      margin: 10px 10px 0px 10px;
-      width: 150px;
-      height: 130px;
-    }
-  }
+	.user-profile-img {
+		border-radius: 50%;
+		margin: 10px 10px 0px 10px;
+		width: 200px;
+		height: 200px;
+	}
+
+	.my-profile-update {
+		font-weight: 800;
+		cursor: pointer;
+	}
 }

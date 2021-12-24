@@ -106,6 +106,7 @@ const HomePage = () => {
 						<span className='message'>
 							아직 등록한 고양이가 없으신가요? <br />
 							도감에 고양이를 등록해서 관리하고 이웃들과도 공유해보세요!
+							<br />
 							<Link to='/mycat/new'>
 								<button className='message-button'>고양이 등록하기</button>
 							</Link>
