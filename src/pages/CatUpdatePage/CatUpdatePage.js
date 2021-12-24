@@ -26,7 +26,7 @@ const CatUpdatePage = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [markedImg, setMarkedImg] = useState([]);
-  const [newMark, setNewMark] = useState({
+  const [catMark, setCatMark] = useState({
     leftEyeX: 0,
     leftEyeY: 0,
     leftEarX: 0,
@@ -83,7 +83,7 @@ const CatUpdatePage = () => {
     //고양이 이마 좌표
     formData.append(
       'catPoints',
-      new Blob([JSON.stringify(newMark)], { type: 'application/json' })
+      new Blob([JSON.stringify(catMark)], { type: 'application/json' })
     );
 
     axiosInstance
@@ -234,8 +234,8 @@ const CatUpdatePage = () => {
             <div>
               <CatFace
                 markedImg={markedImg}
-                newMark={newMark}
-                setNewMark={setNewMark}
+                catMark={catMark}
+                setCatMark={setCatMark}
               />
               <button onClick={modifyMark}>마크 수정하기</button>
             </div>

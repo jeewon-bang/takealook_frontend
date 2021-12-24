@@ -3,7 +3,7 @@
   width: 300px;
   margin-left: 40px;
 
-  h3 {
+  .alarm-header {
     position: relative;
     padding: 11px 10px 11px 29px;
     background: #f5cf70;
@@ -30,6 +30,11 @@
       line-height: 20px;
     }
   }
+}
+.alarm-header-msg {
+  margin-top: 100px;
+  height: 200px;
+  text-align: center;
 }
 
 .alarmListBox {
