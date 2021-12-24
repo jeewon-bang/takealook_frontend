@@ -13,9 +13,10 @@ const MyPage = () => {
   const [userInfo, setUserInfo] = useState();
   const [MyPosts, setMyPosts] = useState();
   const [likePosts, setLikePosts] = useState();
-  const [alarm, setAlarm] = useState();
+  const [alarms, setAlarms] = useState();
   const [alarmCount, setAlarmCount] = useState();
   const [loaded, setLoaded] = useState(false);
+  const [notiId, setNotiId] = useState();
 
   const user = useSelector((state) => state.auth.user);
 
@@ -34,7 +35,7 @@ const MyPage = () => {
             setUserInfo(userRes.data);
             setMyPosts(MyPostsRes.data);
             setLikePosts(likePostsRes.data);
-            setAlarm(alarmRes.data);
+            setAlarms(alarmRes.data);
             setAlarmCount(countRes.data);
             setLoaded(true);
           }
@@ -54,7 +55,13 @@ const MyPage = () => {
         <LikePost likePosts={likePosts} setLikePosts={setLikePosts} />
       </div>
       <div class='section-alarm'>
-        <Alarm alarm={alarm} setAlarm={setAlarm} alarmCount={alarmCount} />
+        <Alarm
+          alarms={alarms}
+          setAlarms={setAlarms}
+          notiId={notiId}
+          setNotiId={setNotiId}
+          alarmCount={alarmCount}
+        />
       </div>
     </div>
   ) : (
