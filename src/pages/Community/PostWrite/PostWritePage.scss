@@ -14,34 +14,34 @@
   }
 
   .write-thumbnail {
-    height: auto;
-    margin-bottom: 60px;
-    position: static;
+    box-sizing: border-box;
+    width: 100%;
 
-    .cat-img-upload-box {
-      width: 330px;
-      display: flex;
-      height: 350px;
-      background-color: #ffffff;
-      text-align: center;
-      vertical-align: middle;
-      border-radius: 5px;
+    .write-thumbnail-upload {
+      .cat-mainimg-upload-box {
+        width: 250px;
+        height: 250px;
+        background-color: $white-gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-      .oneimg-upload-button {
-        border: none;
-        background-color: #ffffff;
-
-        .img-preview {
-          vertical-align: middle;
-          font-size: 24px;
-          color: #a8a8a8;
-          border: 2px solid #c9c9c9;
-          background-color: #f9f8f6;
-          width: 250px;
-          height: 250px;
-          border-radius: 10px;
-          margin: 10px;
+        .oneimg-upload-button {
+          @extend %img-upload-button;
           cursor: pointer;
+
+          .mainimg-preview {
+            vertical-align: middle;
+            font-size: 24px;
+            color: #a8a8a8;
+            border: 2px solid #c9c9c9;
+            background-color: #f9f8f6;
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
+            margin: 10px;
+            background-repeat: none;
+          }
         }
       }
     }

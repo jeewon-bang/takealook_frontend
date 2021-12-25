@@ -38,9 +38,6 @@ const WritePostForm = (props) => {
           quill.formatText(0, 1, 'width', '300px');
           //에디터의 특정 위치에 원하는 요소를 넣어 준다.
           quill.insertEmbed(range, 'image', res.data);
-          // quill.clipboard.container.style.width = '30px';
-          // console.log(quill);
-          // document.getElementsByName('image').style.width = '50px';
         })
         .catch((err) => console.log(err));
     };
@@ -53,7 +50,6 @@ const WritePostForm = (props) => {
 
   //내용 - quill
   const handleContent = (e) => {
-    // setValue(e);
     setPostText({ ...postText, content: e });
   };
 
@@ -70,7 +66,6 @@ const WritePostForm = (props) => {
           ],
           [{ size: [] }, { color: [] }],
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-
           [{ list: 'ordered' }, { list: 'bullet' }],
           ['link', 'image'],
           ['clean'],
@@ -117,16 +112,23 @@ const WritePostForm = (props) => {
           className='selects'
           onChange={handleChange}
         >
-          <option defaultValue='' className='option' selected disabled hidden>
+          <option
+            defaultValue=''
+            className='option'
+            name='boardId'
+            selected
+            disabled
+            hidden
+          >
             - 카테고리 선택(필수) -
           </option>
-          <option value='1' className='option'>
+          <option value='1' className='option' name='boardId'>
             전국고양이자랑
           </option>
-          <option value='2' className='option'>
+          <option value='2' className='option' name='boardId'>
             가출냥찾기
           </option>
-          <option value='3' className='option'>
+          <option value='3' className='option' name='boardId'>
             도와주세요
           </option>
         </select>

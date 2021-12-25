@@ -67,11 +67,13 @@ const Alarm = (props) => {
 
           default:
             return (
-              <h3>
-                <span className='alarm-icon'>🔔</span>
-                MY 알림
-                <span className='alarm-count'>{alarmCount}+</span>
-              </h3>
+              <div>
+                <h3 className='alarm-header'>
+                  <span className='alarm-icon'>🔔</span>
+                  MY 알림
+                  <span className='alarm-count'>{alarmCount}+</span>
+                </h3>
+              </div>
             );
         }
       })()}
