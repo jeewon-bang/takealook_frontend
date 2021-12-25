@@ -31,9 +31,9 @@ const PostUpdatePage = () => {
     axiosInstance
       .get(`/post/${postId}`)
       .then((res) => {
-        // 코드를 수정하니까 input 태그에 title이 뜨넹..
+        // console.log(res.data.board.id);
         setPostText({
-          // ...postText, //여기가 다른가??? 나는 왜 깊은복사?
+          // boardId: res.data.board.id,
           title: res.data.title,
           content: res.data.content,
           imgUrl: res.data.thumbnail,
@@ -54,6 +54,7 @@ const PostUpdatePage = () => {
         'postText',
         new Blob([JSON.stringify(postText)], { type: 'application/json' })
       );
+
       for (let i = 0; i < postImage.length; i++) {
         formData.append('postImage', postImage[i]);
       }
@@ -67,7 +68,6 @@ const PostUpdatePage = () => {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((res) => {
-          console.log(res);
           navigate(`/community/post/${postId}`);
         })
         .catch((err) => {
