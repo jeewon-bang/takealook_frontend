@@ -18,6 +18,7 @@ const Header = (props) => {
 	};
 
 	useUpdateEffect(() => {
+		console.log('로그아웃');
 		navigate('/');
 	}, [logoutDone]);
 

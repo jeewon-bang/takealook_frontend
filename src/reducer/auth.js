@@ -79,6 +79,7 @@ const auth = handleActions(
 				return {
 					...state,
 					loginDone: true,
+					logoutDone: false,
 					user: response.data,
 				};
 			}
@@ -90,7 +91,6 @@ const auth = handleActions(
 		[KAKAO_REQUEST]: (state, { payload: response }) => ({
 			...state,
 			loginRequest: true,
-			// logoutDone: false,
 		}),
 		[KAKAO_SUCCESS]: (state, { payload: response }) => {
 			const user = response.data;
@@ -104,6 +104,7 @@ const auth = handleActions(
 				return {
 					...state,
 					loginDone: true,
+					logoutDone: false,
 					user: response.data,
 				};
 			}
