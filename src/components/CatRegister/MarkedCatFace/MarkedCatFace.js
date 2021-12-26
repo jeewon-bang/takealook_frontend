@@ -20,6 +20,10 @@ const MarkedCatImage = (props) => {
 	const [showNewMark, setShowNewMark] = useState(false);
 
 	const sendThisMark = () => {
+		console.log(catMark);
+		console.log(catLoc[0]);
+		console.log(catInfo);
+		console.log(origImgUrl);
 		const formData = new FormData();
 		// 사용자가 다시 직접 찍은 랜드마크 좌표
 		formData.append(
@@ -32,8 +36,6 @@ const MarkedCatImage = (props) => {
 			new Blob([JSON.stringify(catLoc[0])], { type: 'application/json' })
 		);
 		// 고양이 패턴
-		console.log('MarkedCatFace: newCatInfo 패턴', catInfo.pattern);
-		console.log('패턴 데이터타입', typeof catInfo.pattern);
 		formData.append(
 			'catPattern',
 			new Blob([JSON.stringify(catInfo.pattern)], { type: 'text/plain' })
@@ -113,6 +115,11 @@ const MarkedCatImage = (props) => {
 				setCatMark={setCatMark}
 				sendThisMark={sendThisMark}
 			/>
+			<button
+				className='mark-submit-button cancel'
+				onClick={() => setShowNewMark(false)}>
+				취소하기
+			</button>
 			<button className='mark-submit-button' onClick={handleSubmit}>
 				마커 수정 완료
 			</button>

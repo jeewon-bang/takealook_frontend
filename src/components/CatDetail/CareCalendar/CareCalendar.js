@@ -70,10 +70,10 @@ const CareCalendar = (props) => {
 							// 오늘 => 주어진 주의 시작 => n + i일 만큼 더해서 각 주의 '일'을 표기한다.
 							let current = today
 								.clone()
+								.startOf('year')
 								.week(week)
 								.startOf('week')
 								.add(n + i, 'day');
-							console.log(today.clone().week(week).format('YYYYMMDD'));
 
 							// 오늘이 current와 같다면 우선 '선택'으로 두자
 							let isSelected =

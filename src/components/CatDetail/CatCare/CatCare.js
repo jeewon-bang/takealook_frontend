@@ -107,6 +107,11 @@ const CatCare = (props) => {
 					setShowModal(true);
 				}}></button>
 			<div className='new-care'>
+				<button className='open-calendar-button' onClick={openModal}>
+					{/* <FontAwesomeIcon icon={faCalendarAlt} size='2x' />
+								모든 내역 보기 */}
+					all
+				</button>
 				{!showCareInput && (
 					<button className='care-add-button' onClick={openCareInput}>
 						+
@@ -143,10 +148,6 @@ const CatCare = (props) => {
 						<div>최근 48시간 내의 돌봄 내역이 없습니다.</div>
 					) : (
 						<div>
-							<button className='open-calendar-button' onClick={openModal}>
-								<FontAwesomeIcon icon={faCalendarAlt} size='2x' />
-								모든 내역 보기
-							</button>
 							{careHistory.map((v) => (
 								<div className='care'>
 									<span className='care-left'>
@@ -176,12 +177,14 @@ const CatCare = (props) => {
 											</span>
 											<span className='carer-name'>{v.carer.userName}</span>
 											<span className='care-time'>{timeDiff(v.createdAt)}</span>
-											<button
-												id={v.id}
-												className='care-delete-button'
-												onClick={deleteCare}>
-												X
-											</button>
+											{v.carer.id === user.id && (
+												<button
+													id={v.id}
+													className='care-delete-button'
+													onClick={deleteCare}>
+													X
+												</button>
+											)}
 										</div>
 										<div>"{v.message}"</div>
 									</span>

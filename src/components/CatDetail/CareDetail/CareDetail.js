@@ -35,8 +35,12 @@ const CareDetail = (props) => {
 					className='care-icon'
 					onClick={(e) => {
 						setShowTooltip(true);
-						setLeft(e.clientX - 60);
-						setTop(e.clientY - 40);
+						e.clientX > window.innerWidth / 2
+							? setLeft(e.clientX - 660)
+							: setLeft(e.clientX - 320);
+						e.clientY > window.innerHeight / 2
+							? setTop(e.clientY - 200)
+							: setTop(e.clientY - 100);
 					}}>
 					<img
 						src={require(`images/${careIcon[careType]}`).default}
