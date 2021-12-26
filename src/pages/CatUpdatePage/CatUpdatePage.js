@@ -9,6 +9,7 @@ import ImgUpload from 'components/Common/ImgUpload';
 import CatUpdateForm from 'components/CatUpdate/CatUpdateForm';
 import Modal from 'components/Common/Modal';
 import CatFace from 'components/CatRegister/CatFace/CatFace';
+import './CatUpdatePage.scss';
 
 const CatUpdatePage = () => {
   const { catId } = useParams();

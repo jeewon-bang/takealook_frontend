@@ -1,1 +1,52 @@
+@import 'components/Common/common';
 
+.input-label {
+  font-weight: 800;
+  margin: 30px 0px 10px 0px;
+}
+.cat-image-form {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .cat-mainimg {
+    width: 25%;
+  }
+
+  .cat-imgs {
+    width: 75%;
+  }
+}
+
+.cat-map {
+  width: 350px;
+  height: 400px;
+}
+
+.warning-message {
+  text-align: center;
+  font-weight: 800;
+  font-size: 24px;
+  color: red;
+  margin-top: 50px;
+}
+
+.button-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .cancel-button {
+    @extend %button-square;
+    width: 49%;
+    height: 40px;
+    background-color: $gray;
+  }
+
+  .submit-button {
+    @extend %button-square;
+    width: 49%;
+    height: 40px;
+  }
+}
