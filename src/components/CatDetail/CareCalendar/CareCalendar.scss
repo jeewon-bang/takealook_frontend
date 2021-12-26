@@ -14,9 +14,9 @@
 	align-items: center;
 
 	.calendar-month {
-		font-size: 24px;
+		font-size: 20px;
 		font-weight: 800;
-		margin: 20px;
+		margin: 10px;
 	}
 	.calendar-move-button {
 		color: $main-orange;
@@ -32,13 +32,15 @@
 
 .box-head {
 	width: 120px;
-	height: 50px;
+	height: 20px;
 	text-align: center;
+	border-bottom: 1px solid $line-gray;
+	margin-bottom: 10px;
 }
 
 .box {
 	width: 80px;
-	height: 80px;
+	height: 65px;
 	margin: 10px;
 
 	&.grayed {

@@ -108,9 +108,7 @@ const CatCare = (props) => {
 				}}></button>
 			<div className='new-care'>
 				<button className='open-calendar-button' onClick={openModal}>
-					{/* <FontAwesomeIcon icon={faCalendarAlt} size='2x' />
-								모든 내역 보기 */}
-					all
+					<FontAwesomeIcon icon={faCalendarAlt} /> &nbsp;모든 내역 보기
 				</button>
 				{!showCareInput && (
 					<button className='care-add-button' onClick={openCareInput}>
