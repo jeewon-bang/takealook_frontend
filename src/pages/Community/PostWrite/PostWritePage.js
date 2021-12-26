@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import WritePostForm from 'components/Community/Writes/WritePostForm/WritePostForm';
 import { useSelector } from 'react-redux';
 import ImgUpload from 'components/Common/ImgUpload';
+import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 
 const PostWritePage = () => {
   const user = useSelector((state) => state.auth.user);
@@ -71,7 +72,10 @@ const PostWritePage = () => {
               &nbsp;파일첨부 필수
             </font>
           </h3>
-          <ImgUpload img={postImage} setImg={setPostImage} />
+          <div className='write-thumbnail-upload'>
+            {/* <CatImageUpload image={postImage} setImage={setPostImage} /> */}
+            <ImgUpload img={postImage} setImg={setPostImage} />
+          </div>
         </div>
         <div className='write-footer'>
           <button className='register-btn' onClick={handleSubmit}>

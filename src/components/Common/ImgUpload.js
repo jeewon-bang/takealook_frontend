@@ -1,6 +1,7 @@
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 const ImgUpload = (props) => {
 	const { pastImg, img, setImg } = props;
@@ -20,7 +21,7 @@ const ImgUpload = (props) => {
 
 	return (
 		<div>
-			<div className='cat-mainimg-upload-box'>
+			<StyledMainImgBox>
 				<input
 					ref={imgInput}
 					className='img-input'
@@ -32,44 +33,67 @@ const ImgUpload = (props) => {
 					onChange={processImage}
 				/>
 				{!fileUrl ? (
-					<button
-						className='oneimg-upload-button'
-						onClick={handleClick}
-						style={{
-							backgroundColor: 'transparent',
-							padding: '0',
-						}}>
+					<StyledUploadBtn>
 						{!pastImg ? (
-							<div>
+							<div onClick={handleClick}>
 								<FontAwesomeIcon icon={faCamera} />
 								<br />0 / 1
 							</div>
 						) : (
 							<div
+								onClick={handleClick}
 								style={{
+									backgroundColor: 'gray',
+									borderRadius: '5px',
 									backgroundImage: `url(${pastImg})`,
 									width: '200px',
 									height: '200px',
 									backgroundSize: '200px',
 									backgroundPosition: 'center center',
-									borderRadius: '5px',
+									backgroundRepeat: 'no-repeat',
 								}}></div>
 						)}
-					</button>
+					</StyledUploadBtn>
 				) : (
 					<div
+						onClick={handleClick}
 						className='mainimg-preview'
 						style={{
+							backgroundColor: 'gray',
+							borderRadius: '5px',
 							backgroundImage: `url(${fileUrl})`,
 							width: '200px',
 							height: '200px',
 							backgroundSize: '200px',
 							backgroundPosition: 'center',
+							backgroundRepeat: 'no-repeat',
 						}}></div>
 				)}
-			</div>
+			</StyledMainImgBox>
 		</div>
 	);
 };
+
+const StyledMainImgBox = styled.div`
+	width: 250px;
+	height: 250px;
+	background-color: #f9f8f6;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+const StyledUploadBtn = styled.button`
+	background-color: transparent;
+	border: none;
+	width: 200px;
+	height: 200px;
+	color: rgb(180, 180, 180);
+	font-size: 24px;
+	text-align: center;
+	border: 3px solid #deddda;
+	border-radius: 10px;
+	padding: 0;
+`;
 
 export default ImgUpload;
