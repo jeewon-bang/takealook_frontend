@@ -6,9 +6,8 @@ import { logoutAction } from 'reducer/auth';
 import useUpdateEffect from 'utils/useUpdateEffect';
 
 const Header = (props) => {
-	const { user, loginDone, logoutDone } = useSelector(({ auth }) => ({
+	const { user, logoutDone } = useSelector(({ auth }) => ({
 		user: auth.user,
-		loginDone: auth.loginDone,
 		logoutDone: auth.logoutDone,
 	}));
 	const dispatch = useDispatch();
@@ -48,13 +47,11 @@ const Header = (props) => {
 				</span>
 				<span className='menu-right'>
 					{user && (
-						<span className='menu'>
-							<img
-								src={`${user.image}`}
-								style={{ width: '50px', height: '50px', borderRadius: '50%' }}
-								alt='profile'
-							/>
-						</span>
+						<img
+							src={`${user.image}`}
+							style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+							alt='profile'
+						/>
 					)}
 					{user && (
 						<span>

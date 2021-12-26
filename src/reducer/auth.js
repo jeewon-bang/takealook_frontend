@@ -119,6 +119,7 @@ const auth = handleActions(
 		}),
 		[LOADUSER_SUCCESS]: (state, { payload: response }) => ({
 			...state,
+			loadUserRequest: false,
 			loadUserDone: true,
 			loginDone: true,
 			// user: response.data,

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Header from './components/Common/Header/Header';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
@@ -14,7 +14,7 @@ import PostListPage from 'pages/Community/PostList/PostListPage';
 import CatUpdatePage from 'pages/CatUpdatePage/CatUpdatePage';
 import MyLikePage from 'pages/MyPage/MyLikePage/MyLikePage';
 import MyPostPage from 'pages/MyPage/MyPostPage/MyPostPage';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
 import CatReRegisterPage from 'pages/CatReRegisterPage/CatReRegisterPage';
@@ -23,21 +23,23 @@ import useUpdateEffect from 'utils/useUpdateEffect';
 import Spinner from 'components/Common/Spinner';
 
 function App() {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { logoutDone, loginDone, loadUserDone, user } = useSelector(
-		({ auth }) => ({
-			logoutDone: auth.logoutDone,
-			loginDone: auth.loginDone,
-			loadUserDone: auth.loadUserDone,
-			user: auth.user,
-		})
-	);
+	const { logoutDone, loadUserRequest, user } = useSelector(({ auth }) => ({
+		logoutDone: auth.logoutDone,
+		loadUserRequest: auth.loadUserRequest,
+		user: auth.user,
+	}));
 
 	// 자동 재로그인
-	useEffect(() => {
+	// useEffect(() => {
+	// 	if (localStorage.getItem('jwt')) {
+	// 		console.log('자동재로그인');
+	// 		dispatch(loadUserAction());
+	// 	}
+	// }, []);
+	useUpdateEffect(() => {
 		dispatch(loadUserAction());
-	}, []);
+	}, [logoutDone]);
 
 	if (user) {
 		return (
@@ -66,7 +68,7 @@ function App() {
 			</div>
 		);
 	} else {
-		if (!loadUserDone) {
+		if (loadUserRequest) {
 			return <Spinner />;
 		} else {
 			return (
