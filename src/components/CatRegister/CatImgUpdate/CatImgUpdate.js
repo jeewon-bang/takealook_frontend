@@ -87,26 +87,25 @@ const CatImgUpdate = (props) => {
           style={{ display: 'none' }}
           onChange={handleChange}
         />
-        <div>
-          <button className='img-upload-button' onClick={handleClick}>
-            <FontAwesomeIcon icon={faCamera} />
-            <br />
-            {imgUrlList.length} / 10
-          </button>
-          {imgUrlList.map((v) => (
-            <span
-              id={v.id}
-              className='img-preview'
-              style={{ backgroundImage: `url(${v.url})` }}
-            >
-              <button className='img-delete-button' onClick={deleteImg}>
-                X
-              </button>
-            </span>
-          ))}
 
+        <button className='img-upload-button' onClick={handleClick}>
+          <FontAwesomeIcon icon={faCamera} />
           <br />
-        </div>
+          {imgUrlList.length} / 10
+        </button>
+        {imgUrlList.map((v) => (
+          <span
+            id={v.id}
+            className='img-preview'
+            style={{ backgroundImage: `url(${v.url})` }}
+          >
+            <button className='img-delete-button' onClick={deleteImg}>
+              X
+            </button>
+          </span>
+        ))}
+
+        <br />
       </div>
     </div>
   );
