@@ -31,15 +31,15 @@ function App() {
 	}));
 
 	// 자동 재로그인
-	// useEffect(() => {
-	// 	if (localStorage.getItem('jwt')) {
-	// 		console.log('자동재로그인');
-	// 		dispatch(loadUserAction());
-	// 	}
-	// }, []);
-	useUpdateEffect(() => {
-		dispatch(loadUserAction());
-	}, [logoutDone]);
+	useEffect(() => {
+		if (localStorage.getItem('jwt')) {
+			console.log('자동재로그인');
+			dispatch(loadUserAction());
+		}
+	}, []);
+	// useUpdateEffect(() => {
+	// 	dispatch(loadUserAction());
+	// }, [logoutDone]);
 
 	if (user) {
 		return (
