@@ -165,7 +165,7 @@ const CatInfo = (props) => {
 					</div>
 
 					<div className='carer-box'>
-						<div className='cat-info-title-text'>돌보는 사람들</div>
+						<div className='cat-info-title-text'>함께 돌보는 이웃들</div>
 						<div className='carer-wrapper'>
 							{catInfo.carers.map((v) => (
 								<span className='carer'>
