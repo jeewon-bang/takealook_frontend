@@ -14,7 +14,7 @@ const CatLocation = (props) => {
 		/** 지도 생성하기 */
 		let mapContainer = document.getElementById('register-map'); // 지도를 표시할 div
 		let mapOption = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			center: new kakao.maps.LatLng(37.61501807386411, 127.0805784348522), // 지도의 중심좌표
 			level: 2, // 지도의 확대 레벨
 		};
 		let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
@@ -65,13 +65,11 @@ const CatLocation = (props) => {
 			newMarkers.push(newMarker);
 		});
 	}, []);
-	console.log(catLoc);
 
 	// 마커 초기화
 	const deleteMarker = () => {
 		newMarkers.forEach((v) => {
 			v.setMap(null); // 지도에서 지우기
-			console.log(newMarkers);
 		});
 		newMarkers.length = 0; // 배열에서도 삭제
 		handleClick(); // 초기화된 데이터 다시 부모 페이지로 보내기

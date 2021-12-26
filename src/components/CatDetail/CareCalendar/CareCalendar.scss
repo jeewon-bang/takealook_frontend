@@ -40,4 +40,11 @@
 	width: 80px;
 	height: 80px;
 	margin: 10px;
+
+	&.grayed {
+		color: $gray;
+	}
+	&.selected {
+		color: $main-orange;
+	}
 }

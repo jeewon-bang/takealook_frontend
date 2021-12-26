@@ -7,175 +7,163 @@ import './CareCalendar.scss';
 import { useSelector } from 'react-redux';
 
 const CareCalendar = (props) => {
-  const { catId } = props;
-  const user = useSelector((state) => state.auth.user);
-  const [careHistoryMonthly, setCareHistoryMonthly] = useState([]);
+	const { catId } = props;
+	const user = useSelector((state) => state.auth.user);
+	const [careHistoryMonthly, setCareHistoryMonthly] = useState([]);
 
-  // 달력의 기준날짜가 될 변수 - 초기값: 현재날짜
-  const [date, setDate] = useState(moment());
+	// 달력의 기준날짜가 될 변수 - 초기값: 현재날짜
+	const [date, setDate] = useState(moment());
 
-  useEffect(() => {
-    axiosInstance
-      .get(
-        `user/${user.id}/cat/${catId}/monthly-catcares?year=${date.format(
-          'Y'
-        )}&month=${date.format('MM')}`
-      )
-      .then((res) => {
-        setCareHistoryMonthly(res.data);
-      });
-  }, []);
+	const fetchMonthlyCares = () => {
+		axiosInstance
+			.get(
+				`user/${user.id}/cat/${catId}/monthly-catcares?year=${date.format(
+					'Y'
+				)}&month=${date.format('MM')}`
+			)
+			.then((res) => {
+				setCareHistoryMonthly(res.data);
+			});
+	};
 
-  // 이전달, 다음달 보여주는 함수
-  const jumpToMonth = (num) => {
-    if (num) {
-      setDate(date.clone().add(30, 'day'));
-    } else {
-      setDate(date.clone().subtract(30, 'day'));
-      axiosInstance
-        .get(
-          `user/${user.id}/cat/${catId}/monthly-catcares?year=${date
-            .clone()
-            .subtract(30, 'day')
-            .format('Y')}&month=${date
-            .clone()
-            .subtract(30, 'day')
-            .format('MM')}`
-        )
-        .then((res) => {
-          setCareHistoryMonthly(res.data);
-        });
-    }
-  };
+	useEffect(() => {
+		console.log('date', date);
+		fetchMonthlyCares();
+	}, []);
 
-  // 달력 생성하는 함수
-  const generate = () => {
-    const today = date;
+	// 이전달, 다음달 보여주는 함수
+	const jumpToMonth = (num) => {
+		if (num) {
+			setDate(date.clone().add(30, 'day'));
+		} else {
+			setDate(date.clone().subtract(30, 'day'));
+		}
+		fetchMonthlyCares();
+	};
 
-    // startOf('month') : 이번 달의 첫번 째 날로 설정
-    // week() : 이번 년도의 몇번째 주인지 반환
-    const startWeek = today.clone().startOf('month').week();
+	// 달력 생성하는 함수
+	const generate = () => {
+		const today = date;
+		console.log('today', today.format('YYYYMMDD'));
 
-    // endOf('month').week() : 이번 달의 마지막 날로 설정 한 후 그것이 이번 년도의 몇번째 주인지 체크
-    // 만약 이번 해의 첫번째 주(1월 1일이 속한 주)라면 53으로 세팅, 아니라면 그대로 유지
-    const endWeek =
-      today.clone().endOf('month').week() === 1
-        ? 53
-        : today.clone().endOf('month').week();
+		// startOf('month') : 이번 달의 첫번 째 날로 설정
+		// week() : 이번 년도의 몇번째 주인지 반환
+		const startWeek = today.clone().startOf('month').week();
 
-    let calendar = [];
+		// endOf('month').week() : 이번 달의 마지막 날로 설정 한 후 그것이 이번 년도의 몇번째 주인지 체크
+		// 만약 이번 해의 첫번째 주(1월 1일이 속한 주)라면 53으로 세팅, 아니라면 그대로 유지
+		const endWeek =
+			today.clone().endOf('month').week() === 1
+				? 53
+				: today.clone().endOf('month').week();
 
-    // 시작 주부터 마지막 주까지 +1 씩 증가시킴
-    // 주마다 일을 표기해야 하므로 len이 7인 arr를 생성 후 index를 기반으로 day를 표기
-    for (let week = startWeek; week <= endWeek; week++) {
-      calendar.push(
-        <div className='row' key={week}>
-          {Array(7)
-            .fill(0)
-            .map((n, i) => {
-              // 오늘 => 주어진 주의 시작 => n + i일 만큼 더해서 각 주의 '일'을 표기한다.
-              let current = today
-                .clone()
-                .week(week)
-                .startOf('week')
-                .add(n + i, 'day');
+		let calendar = [];
 
-              // 오늘이 current와 같다면 우선 '선택'으로 두자
-              let isSelected =
-                today.format('YYYYMMDD') === current.format('YYYYMMDD')
-                  ? 'selected'
-                  : '';
+		// 시작 주부터 마지막 주까지 +1 씩 증가시킴
+		// 주마다 일을 표기해야 하므로 len이 7인 arr를 생성 후 index를 기반으로 day를 표기
+		for (let week = startWeek; week <= endWeek; week++) {
+			calendar.push(
+				<div className='row' key={week}>
+					{Array(7)
+						.fill(0)
+						.map((n, i) => {
+							// 오늘 => 주어진 주의 시작 => n + i일 만큼 더해서 각 주의 '일'을 표기한다.
+							let current = today
+								.clone()
+								.week(week)
+								.startOf('week')
+								.add(n + i, 'day');
+							console.log(today.clone().week(week).format('YYYYMMDD'));
 
-              // 이번 달이 아닌 다른 달의 날짜라면 회색으로 표시
-              let isGrayed =
-                current.format('MM') !== today.format('MM') ? 'grayed' : '';
+							// 오늘이 current와 같다면 우선 '선택'으로 두자
+							let isSelected =
+								today.format('YYYYMMDD') === current.format('YYYYMMDD')
+									? 'selected'
+									: '';
 
-              return (
-                <div className={`box ${isSelected} ${isGrayed}`} key={i}>
-                  <span className='text'>{current.format('D')}</span>
-                  <div>
-                    <CareDetail
-                      careType={0}
-                      careList={careHistoryMonthly.filter(
-                        (v) =>
-                          v.createdAt.split('T')[0] ===
-                            current.format('yyyy-MM-DD') && v.type === 0
-                      )}
-                    ></CareDetail>
-                    <CareDetail
-                      careType={1}
-                      careList={careHistoryMonthly.filter(
-                        (v) =>
-                          v.createdAt.split('T')[0] ===
-                            current.format('yyyy-MM-DD') && v.type === 1
-                      )}
-                    ></CareDetail>
-                    <CareDetail
-                      careType={2}
-                      careList={careHistoryMonthly.filter(
-                        (v) =>
-                          v.createdAt.split('T')[0] ===
-                            current.format('yyyy-MM-DD') && v.type === 2
-                      )}
-                    ></CareDetail>
-                    <CareDetail
-                      careType={3}
-                      careList={careHistoryMonthly.filter(
-                        (v) =>
-                          v.createdAt.split('T')[0] ===
-                            current.format('yyyy-MM-DD') && v.type === 3
-                      )}
-                    ></CareDetail>
-                    <CareDetail
-                      careType={4}
-                      careList={careHistoryMonthly.filter(
-                        (v) =>
-                          v.createdAt.split('T')[0] ===
-                            current.format('yyyy-MM-DD') && v.type === 4
-                      )}
-                    ></CareDetail>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-      );
-    }
-    return calendar;
-  };
+							// 이번 달이 아닌 다른 달의 날짜라면 회색으로 표시
+							let isGrayed =
+								current.format('MM') !== today.format('MM') ? 'grayed' : '';
 
-  return (
-    <div className='calendar'>
-      <div className='calendar-head'>
-        <div className='head'>
-          <button
-            className='calendar-move-button'
-            onClick={() => jumpToMonth(0)}
-          >
-            ◀
-          </button>
-          <span className='calendar-month'>{date.format('MMMM YYYY')}</span>
-          <button
-            className='calendar-move-button'
-            onClick={() => jumpToMonth(1)}
-          >
-            ▶
-          </button>
-        </div>
-      </div>
+							return (
+								<div className={`box ${isSelected} ${isGrayed}`} key={i}>
+									<span className='text'>{current.format('D')}</span>
+									<div>
+										<CareDetail
+											careType={0}
+											careList={careHistoryMonthly.filter(
+												(v) =>
+													v.createdAt.split('T')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 0
+											)}></CareDetail>
+										<CareDetail
+											careType={1}
+											careList={careHistoryMonthly.filter(
+												(v) =>
+													v.createdAt.split('T')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 1
+											)}></CareDetail>
+										<CareDetail
+											careType={2}
+											careList={careHistoryMonthly.filter(
+												(v) =>
+													v.createdAt.split('T')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 2
+											)}></CareDetail>
+										<CareDetail
+											careType={3}
+											careList={careHistoryMonthly.filter(
+												(v) =>
+													v.createdAt.split('T')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 3
+											)}></CareDetail>
+										<CareDetail
+											careType={4}
+											careList={careHistoryMonthly.filter(
+												(v) =>
+													v.createdAt.split('T')[0] ===
+														current.format('yyyy-MM-DD') && v.type === 4
+											)}></CareDetail>
+									</div>
+								</div>
+							);
+						})}
+				</div>
+			);
+		}
+		return calendar;
+	};
 
-      <div className='calendar-body'>
-        <div className='row'>
-          {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((el) => (
-            <div className='box-head' key={el}>
-              <span className='text'>{el}</span>
-            </div>
-          ))}
-        </div>
-        {generate()}
-      </div>
-    </div>
-  );
+	return (
+		<div className='calendar'>
+			<div className='calendar-head'>
+				<div className='head'>
+					<button
+						className='calendar-move-button'
+						onClick={() => jumpToMonth(0)}>
+						◀
+					</button>
+					<span className='calendar-month'>{date.format('MMMM YYYY')}</span>
+					<button
+						className='calendar-move-button'
+						onClick={() => jumpToMonth(1)}>
+						▶
+					</button>
+				</div>
+			</div>
+
+			<div className='calendar-body'>
+				<div className='row'>
+					{['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((el) => (
+						<div className='box-head' key={el}>
+							<span className='text'>{el}</span>
+						</div>
+					))}
+				</div>
+				{generate()}
+			</div>
+		</div>
+	);
 };
 
 export default CareCalendar;

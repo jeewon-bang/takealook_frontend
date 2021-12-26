@@ -9,6 +9,8 @@ import ImgUpload from 'components/Common/ImgUpload';
 import CatUpdateForm from 'components/CatUpdate/CatUpdateForm';
 import Modal from 'components/Common/Modal';
 import CatFace from 'components/CatRegister/CatFace/CatFace';
+import './CatUpdatePage.scss';
+import Spinner from 'components/Common/Spinner';
 
 const CatUpdatePage = () => {
 	const { catId } = useParams();
@@ -24,7 +26,7 @@ const CatUpdatePage = () => {
 
 	const [showModal, setShowModal] = useState(false);
 	const [markedImg, setMarkedImg] = useState([]);
-	const [newMark, setNewMark] = useState({
+	const [catMark, setCatMark] = useState({
 		leftEyeX: 0,
 		leftEyeY: 0,
 		leftEarX: 0,
@@ -36,61 +38,12 @@ const CatUpdatePage = () => {
 	});
 
 	const [loaded, setLoaded] = useState(false);
-
 	const user = useSelector((state) => state.auth.user);
-
 	const navigate = useNavigate();
+	const [checkMark, setCheckMark] = useState(false);
 
 	const closeModal = () => {
 		setShowModal(false);
-	};
-
-	const modifyMark = () => {
-		const formData = new FormData();
-
-		//메인이미지
-		if (newMainImg[0]) {
-			formData.append('catMainImg', newMainImg[0]);
-		}
-
-		// 추가한 이미지
-		for (let i = 0; i < addImg.length; i++) {
-			formData.append('catImg', addImg[i]);
-		}
-
-		//삭제된 이미지 url 더하기
-		for (let i = 0; i < deleteImgURl.length; i++) {
-			formData.append(
-				'deletedImgUrl',
-				new Blob([JSON.stringify(deleteImgURl)], { type: 'application/json' })
-			);
-		}
-
-		// 고양이 정보들
-		formData.append(
-			'catInfo',
-			new Blob([JSON.stringify(catInfo)], { type: 'application/json' })
-		);
-
-		// 고양이 추가된 위치
-		formData.append(
-			'catLoc',
-			new Blob([JSON.stringify(newCatLoc)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
-		);
-
-		//고양이 이마 좌표
-		formData.append(
-			'catPoints',
-			new Blob([JSON.stringify(newMark)], { type: 'application/json' })
-		);
-
-		axiosInstance
-			.post(`/user/${user.id}/cat/${catId}`, formData, {
-				headers: { 'Content-Type': 'multipart/form-data' },
-			})
-			.then((res) => {
-				navigate(`/mycat/${catId}`);
-			});
 	};
 
 	// 기존 정보 불러오기
@@ -109,65 +62,81 @@ const CatUpdatePage = () => {
 		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
 	};
 
+	const submitCatInfo = () => {
+		if (newMainImg.length > 0 && !checkMark) {
+			// 메인이미지를 수정했다면
+			setShowModal(true);
+			setMarkedImg(URL.createObjectURL(newMainImg[0]));
+		} else {
+			handleSubmit();
+		}
+	};
+	const submitMark = () => {
+		if (
+			document.getElementById('catface-description').innerText !== '완성!😻'
+		) {
+			document.getElementById('warning-message').innerText =
+				'안내에 따라 마크 4개를 모두 찍어주세요!';
+		} else {
+			handleSubmit();
+		}
+	};
+
 	const handleSubmit = () => {
 		console.log(catInfo);
+		console.log(newCatLoc);
 		console.log(newMainImg);
 		console.log(addImg);
-		console.log(newCatLoc);
-		if (!catInfo.name) {
-			document.getElementById('message').innerText =
-				'모든 항목을 입력해주세요!';
-		} else {
-			const formData = new FormData();
+		console.log(deleteImgURl);
+		console.log(catMark);
 
-			//메인이미지
-			if (newMainImg[0]) {
-				formData.append('catMainImg', newMainImg[0]);
-			}
+		const formData = new FormData();
 
-			// 추가한 이미지
-			for (let i = 0; i < addImg.length; i++) {
-				formData.append('catImg', addImg[i]);
-			}
-
-			//삭제된 이미지 url 더하기
-			for (let i = 0; i < deleteImgURl.length; i++) {
-				formData.append(
-					'deletedImgUrl',
-					new Blob([JSON.stringify(deleteImgURl)], { type: 'application/json' })
-				);
-			}
-
-			// 고양이 정보들
-			formData.append(
-				'catInfo',
-				new Blob([JSON.stringify(catInfo)], { type: 'application/json' })
-			);
-
-			// 고양이 추가된 위치
-			formData.append(
-				'catLoc',
-				new Blob([JSON.stringify(newCatLoc)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
-			);
-
-			// 콘솔에 찍어보기
-			for (let pair of formData.entries()) {
-				console.log(pair[0] + ', ' + pair[1]);
-			}
-
-			if (newMainImg[0]) {
-				setShowModal(true);
-				setMarkedImg(URL.createObjectURL(newMainImg[0]));
-			} else {
-				axiosInstance
-					.post(`/user/${user.id}/cat/${catId}`, formData, {
-						headers: { 'Content-Type': 'multipart/form-data' },
-					})
-					.then((res) => {
-						navigate(`/mycat/${catId}`);
-					});
-			}
+		// 고양이 정보들
+		formData.append(
+			'catInfo',
+			new Blob([JSON.stringify(catInfo)], { type: 'application/json' })
+		);
+		// 고양이 추가된 위치
+		formData.append(
+			'catLoc',
+			new Blob([JSON.stringify(newCatLoc)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
+		);
+		//메인이미지
+		if (newMainImg[0]) {
+			formData.append('catMainImg', newMainImg[0]);
 		}
+		// 추가한 이미지
+		for (let i = 0; i < addImg.length; i++) {
+			formData.append('catImg', addImg[i]);
+		}
+		//삭제된 이미지 url 더하기
+		for (let i = 0; i < deleteImgURl.length; i++) {
+			formData.append(
+				'deletedImgUrl',
+				new Blob([JSON.stringify(deleteImgURl)], {
+					type: 'application/json',
+				})
+			);
+		}
+		// 고양이 얼굴 랜드마크 좌표
+		formData.append(
+			'catPoints',
+			new Blob([JSON.stringify(catMark)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
+		);
+
+		// 콘솔에 찍어보기
+		for (let pair of formData.entries()) {
+			console.log(pair[0] + ', ' + pair[1]);
+		}
+
+		axiosInstance
+			.post(`/user/${user.id}/cat/${catId}`, formData, {
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
+			.then((res) => {
+				navigate(`/mycat/${catId}`);
+			});
 	};
 
 	return loaded ? (
@@ -185,18 +154,18 @@ const CatUpdatePage = () => {
 						setImg={setNewMainImg}
 					/>
 				</span>
+				<span className='cat-imgs'>
+					<div>추가 사진 (선택)</div>
+					<CatImgUpdate
+						catImg={catImg}
+						setCatImg={setCatImg}
+						deleteImgURl={deleteImgURl}
+						setDeleteImgUrl={setDeleteImgUrl}
+						addImg={addImg}
+						setAddImg={setAddImg}
+					/>
+				</span>
 			</div>
-			<span className='cat-imgs'>
-				<div>추가 사진 (선택)</div>
-				<CatImgUpdate
-					catImg={catImg}
-					setCatImg={setCatImg}
-					deleteImgURl={deleteImgURl}
-					setDeleteImgUrl={setDeleteImgUrl}
-					addImg={addImg}
-					setAddImg={setAddImg}
-				/>
-			</span>
 			<span className='cat-name-form'>
 				<div className='cat-info-form-inner'>
 					<div className='input-label'>이름</div>
@@ -230,27 +199,41 @@ const CatUpdatePage = () => {
 				<button className='cancel-button' onClick={() => navigate(-1)}>
 					취소하기
 				</button>
-				<button className='submit-button' onClick={handleSubmit}>
+				<button className='submit-button' onClick={submitCatInfo}>
 					수정하기
 				</button>
 			</div>
 
 			{showModal && (
 				<Modal showModal={showModal} onClose={closeModal} maskClosable={true}>
-					<div style={{ width: '800px', height: '600px', padding: '30px' }}>
+					<div
+						style={{
+							width: '800px',
+							height: '650px',
+							padding: '30px',
+							textAlign: 'center',
+						}}>
 						<div>
+							<div className='mark-request-message'>
+								새로 업로드한 얼굴 사진에 마커를 등록해주세요! <br />
+								사진 유사도를 기준으로 [{catInfo.name}]을(를) 함께 돌보는 이웃을
+								찾아드려요.
+							</div>
 							<CatFace
 								markedImg={markedImg}
-								newMark={newMark}
-								setNewMark={setNewMark}
+								catMark={catMark}
+								setCatMark={setCatMark}
 							/>
 						</div>
+						<button className='mark-submit-button' onClick={submitMark}>
+							마커 등록 완료
+						</button>
 					</div>
 				</Modal>
 			)}
 		</div>
 	) : (
-		<div>로딩중</div>
+		<Spinner />
 	);
 };
 

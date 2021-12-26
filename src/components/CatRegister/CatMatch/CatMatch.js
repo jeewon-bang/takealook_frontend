@@ -25,11 +25,7 @@ const CatMatch = (props) => {
 			<div className='cat-match-slide'>
 				<div className='message'>비슷한 고양이가 이미 등록되어 있어요!</div>
 				<div>혹시 이 고양이를 발견하셨나요?</div>
-				<img
-					className='cat-image'
-					src={require('images/bori2.jpg').default}
-					alt='img'
-				/>
+				<img className='cat-image' src={matchedCat.mainImage} alt='img' />
 				<div className='cat-name'>{matchedCat.name}</div>
 				<div className='cat-info'>
 					{matchedCat.gender === 0 ? '♂' : 1 ? '♀' : '성별 모름'}&nbsp;·&nbsp;
@@ -54,7 +50,9 @@ const CatMatch = (props) => {
 						: '기타'}
 					&nbsp;·&nbsp;중성화
 					{matchedCat.neutered === 0 ? '미완료' : 1 ? '완료' : '모름'}
-					<div style={{ fontSize: '30px' }}>{matchedCat.score}</div>
+					<div>
+						유사도 점수: <span className='match-score'>{matchedCat.score}</span>
+					</div>
 				</div>
 
 				<div className='cat-location-map'>

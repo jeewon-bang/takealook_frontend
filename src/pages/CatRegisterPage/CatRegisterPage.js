@@ -30,7 +30,6 @@ const CatRegisterPage = () => {
 		pattern: '',
 	});
 	const [catLoc, setCatLoc] = useState([]);
-	const [newCatLoc, setNewCatLoc] = useState([]); //?????
 	const [catImg, setCatImg] = useState([]);
 	const [mainImg, setMainImg] = useState([]);
 
@@ -178,10 +177,10 @@ const CatRegisterPage = () => {
 			</span>
 			<span className='cat-map'>
 				<CatLocationMap
-					catLoc={catLoc}
-					setCatLoc={setCatLoc}
-					newCatLoc={newCatLoc}
-					setNewCatLoc={setNewCatLoc}
+					catLoc={[]}
+					setCatLoc={[]}
+					newCatLoc={catLoc}
+					setNewCatLoc={setCatLoc}
 				/>
 			</span>
 			<div id='message' className='warning-message'></div>

@@ -65,7 +65,7 @@ const ImgUpload = (props) => {
 							width: '200px',
 							height: '200px',
 							backgroundSize: '200px',
-							backgroundPosition: 'center',
+							backgroundPosition: 'center center',
 							backgroundRepeat: 'no-repeat',
 						}}></div>
 				)}
@@ -85,7 +85,6 @@ const StyledMainImgBox = styled.div`
 
 const StyledUploadBtn = styled.button`
 	background-color: transparent;
-	border: none;
 	width: 200px;
 	height: 200px;
 	color: rgb(180, 180, 180);

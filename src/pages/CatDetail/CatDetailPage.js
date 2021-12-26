@@ -147,27 +147,56 @@ const CatDetailPage = () => {
 		setShowModal(false);
 	};
 
-	// 다른고양이로 등록 - 추천중에 동일고양이 없어서 새로운 고양이로 등록
+	// 새로운 고양이로 등록 - 추천중에 동일고양이 없어서 새로운 고양이로 등록
 	const handleSubmitNewCat = () => {
+		console.log(newCatInfo);
+		console.log(newCatMainImg);
+		console.log(newCatImg);
+		console.log(newCatLoc);
+		console.log(catMark);
+
 		if (!newCatInfo.name || !newCatInfo.status) {
 			document.getElementById('warning').innerText =
 				'모든 항목을 입력해주세요!';
 		} else {
 			document.getElementById('warning').innerText = '';
+			const formData = new FormData();
 
-			console.log(newCatInfo);
-			console.log(newCatImg);
+			// 고양이 대표이미지
+			formData.append('catMainImg', newCatMainImg[0]);
+			// 고양이 이미지 나머지
+			if (newCatImg.length > 0) {
+				for (let i = 0; i < newCatImg.length; i++) {
+					formData.append('catImg', newCatImg[i]);
+				}
+			}
+			// 고양이 위치
+			formData.append(
+				'catLoc',
+				new Blob([JSON.stringify(newCatLoc)], { type: 'application/json' }) // 객체 추가하고 싶을때 blob 안에 JSON.stringfy 해서 넣어야 되는듯
+			);
+			// 고양이 기본정보들
+			formData.append(
+				'catInfo',
+				new Blob([JSON.stringify(newCatInfo)], { type: 'application/json' })
+			);
+			// 사용자가 직접 찍은 고양이 랜드마크
+			formData.append(
+				'catPoints',
+				new Blob([JSON.stringify(catMark)], { type: 'application/json' })
+			);
+
+			// 콘솔에 찍어보기
+			for (let pair of formData.entries()) {
+				console.log(pair[0] + ', ' + pair[1]);
+			}
 
 			axiosInstance
-				.patch(`/user/${user.id}/cat/${catId}/selection/new`, newCatInfo, {
+				.post(`/user/${user.id}/cat/${catId}/selection/new`, formData, {
 					headers: { 'Content-Type': 'application/json' },
 				})
 				.then((res) => {
-					console.log(res);
 					navigate('/mycat');
-				})
-				.catch((err) => {
-					console.log(err);
 				});
 		}
 	};
@@ -214,6 +243,10 @@ const CatDetailPage = () => {
 						className='cat-other-button'
 						onClick={() => {
 							setShowAnotherCatPage(true);
+							window.scrollTo({
+								top: 0,
+								left: 0,
+							});
 						}}>
 						다른 고양이로 등록
 					</button>
@@ -224,9 +257,9 @@ const CatDetailPage = () => {
 			<div className='content-container'>
 				{/* 고양이 성별, 패턴, 중성화여부 수정받기 */}
 				<div className='cat-info-form-inner'>
-					<div>
-						돌보던 고양이가 [{catInfo.name}] 가 아닌 것 같다면 새로운 고양이로
-						등록해주세요!{' '}
+					<div className='new-cat-message'>
+						돌보던 고양이가 [{catInfo.name}] 이(가) 아닌 것 같다면 새로운
+						고양이로 등록해주세요!{' '}
 					</div>
 					<div className='input-label'>고양이 사진</div>
 					<div className='cat-image-form'>
@@ -250,9 +283,20 @@ const CatDetailPage = () => {
 						setNewCatLoc={setNewCatLoc}
 					/>
 					<div id='message'></div>
-					<button className='submit-button' onClick={requestCatMatch}>
-						등록하기
-					</button>
+					<div className='othercat-submit-button-box'>
+						<button
+							className='othercat-cancel-button'
+							onClick={() => {
+								navigate(`/mycat/${catInfo.id}`);
+							}}>
+							취소하기
+						</button>
+						<button
+							className='othercat-submit-button'
+							onClick={requestCatMatch}>
+							등록하기
+						</button>
+					</div>
 				</div>
 				{showModal && (
 					<Modal showModal={showModal} onClose={closeModal} maskClosable={true}>
@@ -268,8 +312,8 @@ const CatDetailPage = () => {
 										origImgUrl={origImgUrl}
 										catMark={catMark}
 										setCatMark={setCatMark}
-										catInfo={catInfo}
-										catLoc={catLoc}
+										catInfo={newCatInfo}
+										catLoc={newCatLoc}
 										setMatchedCatList={setMatchedCatList}
 										setMoreInfo={setMoreInfo}
 									/>
