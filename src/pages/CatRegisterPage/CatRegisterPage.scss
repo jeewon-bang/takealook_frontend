@@ -12,24 +12,6 @@
 
 	.cat-mainimg {
 		width: 25%;
-
-		.cat-mainimg-upload-box {
-			width: 250px;
-			height: 250px;
-			background-color: $white-gray;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			.oneimg-upload-button {
-				@extend %img-upload-button;
-
-				.mainimg-preview {
-					width: 200px;
-					height: 200px;
-				}
-			}
-		}
 	}
 
 	.cat-imgs {

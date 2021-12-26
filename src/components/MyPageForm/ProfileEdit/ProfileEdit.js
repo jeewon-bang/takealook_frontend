@@ -2,16 +2,21 @@ import axiosInstance from 'api/customAxios';
 import ImgUpload from 'components/Common/ImgUpload';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { logoutAction } from 'reducer/auth';
 import history from 'utils/history';
+import useUpdateEffect from 'utils/useUpdateEffect';
 import './ProfileEdit.scss';
 
 const ProfileEdit = (props) => {
 	const { user, setUser, setShowModal } = props;
 	const [check, setCheck] = useState(false);
 
-	const userId = useSelector((state) => state.auth.user);
+	const navigate = useNavigate();
+	const { loginUser, logoutDone } = useSelector(({ auth }) => ({
+		loginUser: auth.user,
+		logoutDone: auth.logoutDone,
+	}));
 	const dispatch = useDispatch();
 
 	// 캘린더 모달창 끄는 함수
@@ -26,14 +31,13 @@ const ProfileEdit = (props) => {
 		nickname: user.nickname,
 	});
 
+	useUpdateEffect(() => {
+		navigate('/');
+	}, [logoutDone]);
+
 	// form 내의 값들이 변경되었을때 실행
 	const handleChange = (e) => {
 		setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-	};
-
-	const logout = () => {
-		console.log('로그아웃 버튼 누름');
-		dispatchEvent(logoutAction());
 	};
 
 	const userInfosubmit = async () => {
@@ -57,13 +61,13 @@ const ProfileEdit = (props) => {
 				console.log(pair[0] + ', ' + pair[1]);
 			}
 			axiosInstance
-				.post(`/user/${userId.id}`, formData, {
+				.post(`/user/${loginUser.id}`, formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				})
 				.then((res) => {
 					console.log(res.data);
-					console.log(userId.id);
-					if (res.data === userId.id) {
+					console.log(loginUser.id);
+					if (res.data === loginUser.id) {
 						window.location.replace('/mypage');
 					} else {
 						alert('오류가 발생하였습니다.');
@@ -97,9 +101,9 @@ const ProfileEdit = (props) => {
 
 	const withdrawalSubmit = () => {
 		//탈퇴요청
-		if (window.confirm('탈퇴하시겠습니까?')) {
+		if (window.confirm('정말 탈퇴하시겠습니까?')) {
 			axiosInstance
-				.patch(`/user/${userId.id}/delete`)
+				.patch(`/user/${loginUser.id}/delete`)
 				.then((res) => {
 					// 로그아웃처리
 					dispatch(logoutAction());

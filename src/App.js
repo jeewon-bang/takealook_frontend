@@ -25,18 +25,16 @@ import Spinner from 'components/Common/Spinner';
 function App() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { logoutDone, loginDone, loadUserDone, user } = useSelector(
-		({ auth }) => ({
-			logoutDone: auth.logoutDone,
-			loginDone: auth.loginDone,
-			loadUserDone: auth.loadUserDone,
-			user: auth.user,
-		})
-	);
+	const { loadUserRequest, user } = useSelector(({ auth }) => ({
+		loadUserRequest: auth.loadUserRequest,
+		user: auth.user,
+	}));
 
 	// 자동 재로그인
 	useEffect(() => {
-		dispatch(loadUserAction());
+		if (localStorage.getItem('jwt')) {
+			dispatch(loadUserAction());
+		}
 	}, []);
 
 	if (user) {
@@ -66,7 +64,7 @@ function App() {
 			</div>
 		);
 	} else {
-		if (!loadUserDone) {
+		if (loadUserRequest) {
 			return <Spinner />;
 		} else {
 			return (
