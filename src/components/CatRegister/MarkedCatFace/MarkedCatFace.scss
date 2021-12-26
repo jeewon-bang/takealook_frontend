@@ -52,3 +52,15 @@
 		background-color: gray;
 	}
 }
+
+.mark-submit-button {
+	@extend %button-square;
+	width: 200px;
+	margin: 10px;
+}
+.mark-cancel-button {
+	@extend %button-square;
+	background-color: gray;
+	width: 200px;
+	margin: 10px;
+}

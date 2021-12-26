@@ -116,7 +116,7 @@ const MarkedCatImage = (props) => {
 				sendThisMark={sendThisMark}
 			/>
 			<button
-				className='mark-submit-button cancel'
+				className='mark-cancel-button'
 				onClick={() => setShowNewMark(false)}>
 				취소하기
 			</button>
