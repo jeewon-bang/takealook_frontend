@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import CareDetail from '../CareDetail/CareDetail';
 import './CareCalendar.scss';
 import { useSelector } from 'react-redux';
+import Spinner from 'components/Common/Spinner';
 
 const CareCalendar = (props) => {
 	const { catId } = props;
@@ -25,9 +26,7 @@ const CareCalendar = (props) => {
 				setCareHistoryMonthly(res.data);
 			});
 	};
-
 	useEffect(() => {
-		console.log('date', date);
 		fetchMonthlyCares();
 	}, []);
 
@@ -38,13 +37,13 @@ const CareCalendar = (props) => {
 		} else {
 			setDate(date.clone().subtract(30, 'day'));
 		}
-		fetchMonthlyCares();
+		// console.log('달변경');
+		// fetchMonthlyCares();
 	};
 
 	// 달력 생성하는 함수
 	const generate = () => {
 		const today = date;
-		console.log('today', today.format('YYYYMMDD'));
 
 		// startOf('month') : 이번 달의 첫번 째 날로 설정
 		// week() : 이번 년도의 몇번째 주인지 반환
