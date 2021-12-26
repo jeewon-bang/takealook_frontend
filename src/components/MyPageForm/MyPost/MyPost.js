@@ -4,26 +4,26 @@ import { Link } from 'react-router-dom';
 import './MyPost.scss';
 
 const MyPost = (props) => {
-  const { MyPosts, setMyPosts } = props;
-  const timeDiff = (date) => {
-    return date.substring(0, 10);
-  };
+	const { MyPosts, setMyPosts } = props;
+	const timeDiff = (date) => {
+		return date.substring(0, 10);
+	};
 
-  let postLen = MyPosts.length;
+	let postLen = MyPosts.length;
 
-  return postLen > 0 ? (
-    <div class='article'>
-      <div class='block-title'>
-        <h2>나의 게시글</h2>
-        <Link to='/mypage/mypost'>
-          <button onclick='/'>더보기</button>
-        </Link>
-      </div>
-      {MyPosts &&
-        MyPosts.map((post, index) =>
-          index < 5 ? (
-            <Link to={`/community/post/${post.postId}`} className='link'>
-              <div class='PostList'>
+	return postLen > 0 ? (
+		<div class='article'>
+			<div class='block-title'>
+				<h2>나의 게시글</h2>
+				<Link to='/mypage/mypost'>
+					<button onclick='/'>더보기</button>
+				</Link>
+			</div>
+			{MyPosts &&
+				MyPosts.map((post, index) =>
+					index < 5 ? (
+						<Link to={`/community/post/${post.postId}`} className='link'>
+							{/* <div class='PostList'>
                 <ul class='Board'>
                   <li class='active'>
                     <div class='list-title'>
@@ -54,24 +54,49 @@ const MyPost = (props) => {
                     </div>
                   </li>
                 </ul>
-              </div>
-            </Link>
-          ) : null
-        )}
-    </div>
-  ) : (
-    <div class='article'>
-      <div class='block-title'>
-        <h2>나의 게시글</h2>
-        <Link to='/mypage/mypost'>
-          <button onclick='/'>더보기</button>
-        </Link>
-      </div>
-      <div className='mypage-msg'>
-        <div className='content'>작성한 게시글이 없습니다.</div>
-      </div>
-    </div>
-  );
+              </div> */}
+							<div className='my-post-list'>
+								<div className='my-post-list-left'>
+									<span className='post-list-board'>[{post.board.name}]</span>
+									<span className='post-list-title'>{post.title}</span>
+								</div>
+								<div className='my-post-list-right'>
+									<span className='post-modified-at'>
+										{timeDiff(post.modifiedAt)}
+									</span>
+									<img
+										class='image'
+										src={require('images/heart.png').default}
+										alt='like'
+									/>
+									<span className='post-list-like'>{post.postLike}</span>
+									<img
+										class='image'
+										src={require('images/chat.png').default}
+										alt='cmt'
+									/>
+									<span className='post-list-comment'>
+										{post.commentListCount}
+									</span>
+								</div>
+							</div>
+						</Link>
+					) : null
+				)}
+		</div>
+	) : (
+		<div class='article'>
+			<div class='block-title'>
+				<h2>나의 게시글</h2>
+				<Link to='/mypage/mypost'>
+					<button onclick='/'>더보기</button>
+				</Link>
+			</div>
+			<div className='mypage-msg'>
+				<div className='content'>작성한 게시글이 없습니다.</div>
+			</div>
+		</div>
+	);
 };
 
 export default MyPost;

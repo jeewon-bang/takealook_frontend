@@ -137,7 +137,7 @@ const CatDetailPage = () => {
 							setOrigImgUrl(res.data.orgUrl);
 							setCatMark(res.data.catPoint); // 랜드마크 좌표
 							setShowMarkedCat(true); // 추천모달 내용 셋팅 (마크표시된 이미지 보여주기)
-							setLoaded(true);
+							setAILoaded(true);
 						});
 				}
 			}
@@ -303,7 +303,7 @@ const CatDetailPage = () => {
 						<div
 							className='cat-register-modal'
 							style={{ width: '800px', height: '600px', padding: '30px' }}>
-							{loaded ? (
+							{AILoaded ? (
 								showMarkedCat ? (
 									// 랜드마크 잘찍혔는지 확인 => 이상할 경우 직접 다시 찍기
 									<MarkedCatFace

@@ -92,7 +92,7 @@ const CatFace = (props) => {
 				<img
 					id='catface-sample'
 					className='catface-sample'
-					src={require('images/catface_sample.png').default}
+					src={require('images/catface_marker_sample.png').default}
 					alt='좌표찍을 고양이_sample'
 				/>
 				<div id='catface-description' className='catface-description'>
