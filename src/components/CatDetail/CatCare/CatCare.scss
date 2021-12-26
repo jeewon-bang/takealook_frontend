@@ -3,7 +3,7 @@
 .care-container {
 	background-color: $white-gray;
 	padding: 30px;
-	min-height: 100px;
+	min-height: 200px;
 
 	.calendar-button {
 		background-color: none;
@@ -31,16 +31,18 @@
 				margin-right: 10px;
 				width: 20%;
 				height: 25px;
-				border: 1px solid gray;
+				border: 1px solid $gray;
 				border-radius: 5px;
+				font-size: 16px;
 			}
 
 			.care-input-text {
 				margin-right: 10px;
 				width: 70%;
 				height: 22px;
-				border: 1px solid gray;
+				border: 1px solid $gray;
 				border-radius: 5px;
+				font-size: 16px;
 			}
 
 			.care-input-button {
@@ -52,9 +54,14 @@
 	}
 
 	.open-calendar-button {
-		background-color: transparent;
-		border: none;
+		@extend %button-round;
+		width: 60px;
+		height: 60px;
+		position: absolute;
 		font-weight: 800;
+		font-size: 24px;
+		right: 5%;
+		top: 30%;
 	}
 
 	.care {
@@ -62,7 +69,6 @@
 		justify-content: flex-start;
 		align-items: center;
 		margin: 10px;
-		cursor: pointer;
 
 		.care-left {
 			margin-right: 20px;

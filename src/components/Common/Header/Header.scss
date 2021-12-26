@@ -2,13 +2,13 @@
 
 .header-container {
 	height: 80px;
-  	background-color: $light-orange;
-  	z-index: 1;
-  	position: fixed;
-  	top: 0;
-  	left: 0;
-  	right: 0;
-  	z-index: 99999;
+	background-color: $light-orange;
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 500;
 
 	.menu-container {
 		width: 100%;

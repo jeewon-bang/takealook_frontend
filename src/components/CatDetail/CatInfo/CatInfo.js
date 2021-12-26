@@ -97,7 +97,7 @@ const CatInfo = (props) => {
 					<div className='cat-info-head'>
 						<span className='cat-name'>{catInfo.name}</span>
 						<button
-							className='cat-status'
+							className={'cat-status'}
 							onMouseOver={() => setShowTooltip(true)}
 							onMouseLeave={() => setShowTooltip(false)}>
 							{catInfo.status === 0 ? '건강함' : '치료 필요'}
