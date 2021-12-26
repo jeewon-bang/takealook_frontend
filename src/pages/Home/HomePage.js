@@ -4,6 +4,7 @@ import './HomePage.scss';
 import { Link } from 'react-router-dom';
 import axiosInstance from 'api/customAxios';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
 	const imageSrc = 'https://cdn-icons-png.flaticon.com/512/2865/2865755.png', // 마커이미지의 주소
@@ -18,6 +19,7 @@ const HomePage = () => {
 		loginDone: auth.loginDone,
 		logoutDone: auth.logoutDone,
 	}));
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (user) {
@@ -90,7 +92,7 @@ const HomePage = () => {
 				infowindow.close();
 			});
 			kakao.maps.event.addListener(marker, 'click', function () {
-				document.location.href = `http://localhost:3000/mycat/${cat.id}`;
+				navigate(`/mycat/${cat.id}`);
 			});
 		});
 	}, [myCats]);

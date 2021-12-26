@@ -47,22 +47,24 @@ const MyPage = () => {
 	console.log(alarmCount);
 
 	return loaded ? (
-		<div class='mypage-container'>
-			<div class='section1'>
-				<Profile user={userInfo} setUser={setUserInfo} />
-			</div>
-			<div class='section2'>
-				<MyPost MyPosts={MyPosts} setMyPosts={setMyPosts} />
-				<LikePost likePosts={likePosts} setLikePosts={setLikePosts} />
-			</div>
-			<div class='section-alarm'>
-				<Alarm
-					alarms={alarms}
-					setAlarms={setAlarms}
-					notiId={notiId}
-					setNotiId={setNotiId}
-					alarmCount={alarmCount}
-				/>
+		<div class='content-container'>
+			<div class='mypage-container'>
+				<div class='section1'>
+					<Profile user={userInfo} setUser={setUserInfo} />
+				</div>
+				<div class='section2'>
+					<MyPost MyPosts={MyPosts} setMyPosts={setMyPosts} />
+					<LikePost likePosts={likePosts} setLikePosts={setLikePosts} />
+				</div>
+				<div class='section-alarm'>
+					<Alarm
+						alarms={alarms}
+						setAlarms={setAlarms}
+						notiId={notiId}
+						setNotiId={setNotiId}
+						alarmCount={alarmCount}
+					/>
+				</div>
 			</div>
 		</div>
 	) : (
