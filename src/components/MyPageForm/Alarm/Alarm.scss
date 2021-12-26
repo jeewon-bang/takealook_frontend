@@ -1,89 +1,90 @@
 .section-alarm {
-  padding-top: 60px;
-  width: 300px;
-  margin-left: 40px;
+	padding-top: 60px;
+	width: 300px;
+	margin-left: 40px;
 
-  .alarm-header {
-    position: relative;
-    padding: 11px 10px 11px 29px;
-    background: #f5cf70;
-    color: rgb(255, 255, 255);
-    .alarm-icon {
-      margin-right: 20px;
-    }
+	.alarm-header {
+		position: relative;
+		padding: 11px 10px 11px 29px;
+		background: #f5cf70;
+		color: rgb(255, 255, 255);
+		.alarm-icon {
+			margin-right: 20px;
+		}
 
-    .alarm-count {
-      font-size: 5px;
-      position: absolute;
-      top: 5px;
-      left: 40px;
-      color: rgb(255, 255, 255);
-      background-color: rgb(255, 77, 77);
-      border: 2px solid var(--yt-spec-brand-background-primary);
-      padding: 0 4px;
-      min-width: 8px;
-      max-width: 18px;
-      height: 16px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 8px;
-      line-height: 20px;
-    }
-  }
+		.alarm-count {
+			font-size: 5px;
+			position: absolute;
+			top: 5px;
+			left: 40px;
+			color: rgb(255, 255, 255);
+			background-color: rgb(255, 77, 77);
+			border: 2px solid var(--yt-spec-brand-background-primary);
+			padding: 0 4px;
+			min-width: 8px;
+			max-width: 18px;
+			height: 16px;
+			border-radius: 8px;
+			text-align: center;
+			font-size: 8px;
+			line-height: 20px;
+		}
+	}
 }
 .alarm-header-msg {
-  margin-top: 100px;
-  height: 200px;
-  text-align: center;
+	margin-top: 100px;
+	height: 200px;
+	text-align: center;
 }
 
 .alarmListBox {
-  overflow-y: scroll;
-  height: 800px;
-  margin-bottom: 50px;
-  margin-top: -20px;
+	overflow-y: scroll;
+	height: 800px;
+	margin-bottom: 50px;
+	margin-top: -20px;
 
-  .alarmListV15 {
-    padding-top: 20px;
-    position: relative;
-    padding: 0 20px;
+	.alarmListV15 {
+		padding-top: 20px;
+		position: relative;
+		padding: 0 20px;
 
-    .almTodayV15 {
-      margin-top: 20px;
-      padding-top: 0;
-      padding-bottom: 0;
-      background: none;
-      padding: 15px 0;
-      background: url(//fiximage.10x10.co.kr/web2015/common/dotline01.gif) 0
-        100% repeat-x;
+		.almTodayV15 {
+			margin-top: 20px;
+			padding-top: 0;
+			padding-bottom: 0;
+			background: none;
+			padding: 15px 0;
+			background: url(//fiximage.10x10.co.kr/web2015/common/dotline01.gif) 0
+				100% repeat-x;
 
-      .boxRd0V15 {
-        margin: 0 auto;
-        width: 140px;
-        height: 22px;
-        text-align: center;
-        font-weight: bold;
-        color: #333;
-        font-size: 12px;
-        line-height: 22px;
-        vertical-align: middle;
-        background: url(//fiximage.10x10.co.kr/web2015/common/box_round00.png)
-          50% 50% no-repeat;
-      }
-    }
-  }
+			.boxRd0V15 {
+				margin: 0 auto;
+				width: 140px;
+				height: 22px;
+				text-align: center;
+				font-weight: bold;
+				color: #333;
+				font-size: 12px;
+				line-height: 22px;
+				vertical-align: middle;
+				background: url(//fiximage.10x10.co.kr/web2015/common/box_round00.png)
+					50% 50% no-repeat;
+			}
+		}
+	}
 }
 .alarm-msg {
-  margin-top: 30px;
-  outline: none;
-  box-shadow: none;
-  border: none;
-  background-color: white;
+	margin-top: 30px;
+	outline: none;
+	box-shadow: none;
+	border: none;
+	background-color: white;
+	cursor: pointer;
 }
 .alarmListBox::-webkit-scrollbar {
-  width: 8px; /*스크롤바의 너비*/
+	width: 8px; /*스크롤바의 너비*/
 }
 
 .alarmListBox::-webkit-scrollbar-thumb {
-  background-color: #f7f8ec; /*스크롤바의 색상*/
+	background-color: #f7f8ec; /*스크롤바의 색상*/
 }

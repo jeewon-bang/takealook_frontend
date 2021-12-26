@@ -118,9 +118,9 @@ const CatFace = (props) => {
 				</button>
 			</div>
 			<div id='warning-message'></div>
-			<button className='marker-submit-button' onClick={handleSubmit}>
+			{/* <button className='marker-submit-button' onClick={handleSubmit}>
 				마커 수정 완료
-			</button>
+			</button> */}
 		</div>
 	);
 };

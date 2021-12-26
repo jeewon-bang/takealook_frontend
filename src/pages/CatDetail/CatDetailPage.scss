@@ -1,49 +1,73 @@
 @import 'components/Common/common';
 
 .content-container {
+	.new-cat-message {
+		font-size: 20px;
+		font-weight: 800;
+		margin-bottom: 60px;
+		color: $main-orange;
+	}
+
 	.title {
 		font-size: 24px;
 		font-weight: 800;
 		margin: 60px 0px 20px 0px;
 	}
 
+	.cat-info-button-box {
+		display: flex;
+		justify-content: flex-end;
+		margin: 20px 0px 80px 0px;
 
-  .cat-info-button-box {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 0px 80px 0px;
+		.cat-update-button {
+			margin-right: 20px;
+			background-color: white;
+			border: none;
+		}
 
-    .cat-update-button {
-      margin-right: 20px;
-      background-color: white;
-      border: none;
-    }
+		.cat-delete-button {
+			background-color: white;
+			border: none;
+		}
+	}
 
-    .cat-delete-button {
-      background-color: white;
-      border: none;
-    }
-  }
+	.cat-other-button-box {
+		text-align: center;
+		margin-bottom: 80px;
 
-  .cat-other-button-box {
-    text-align: center;
-    margin-bottom: 80px;
+		.cat-other-button {
+			@extend %button-square;
+			box-sizing: border-box;
+			width: 200px;
+			height: 40px;
+			line-height: 40px;
+			margin-top: 10px;
+		}
+	}
 
-    .cat-other-button {
-      @extend %button-square;
-      box-sizing: border-box;
-      width: 200px;
-      height: 40px;
-      line-height: 40px;
-      margin-top: 10px;
-    }
-  }
+	.othercat-submit-button-box {
+		margin-top: 50px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.othercat-cancel-button {
+		@extend %button-square;
+		width: 49%;
+		height: 40px;
+		background-color: gray;
+	}
+	.othercat-submit-button {
+		@extend %button-square;
+		width: 49%;
+		height: 40px;
+	}
 }
 
 :root {
-  --swiper-navigation-size: 44px;
-  /* --swiper-navigation-color: var(--swiper-theme-color); */
+	--swiper-navigation-size: 44px;
+	/* --swiper-navigation-color: var(--swiper-theme-color); */
 }
 :root {
-  --swiper-theme-color: #f5de5b;
+	--swiper-theme-color: #f5de5b;
 }

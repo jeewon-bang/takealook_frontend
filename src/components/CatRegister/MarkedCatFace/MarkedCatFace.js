@@ -32,11 +32,12 @@ const MarkedCatImage = (props) => {
 			new Blob([JSON.stringify(catLoc[0])], { type: 'application/json' })
 		);
 		// 고양이 패턴
+		console.log('MarkedCatFace: newCatInfo 패턴', catInfo.pattern);
+		console.log('패턴 데이터타입', typeof catInfo.pattern);
 		formData.append(
 			'catPattern',
 			new Blob([JSON.stringify(catInfo.pattern)], { type: 'text/plain' })
 		);
-
 		formData.append(
 			'catImgUrl',
 			new Blob([JSON.stringify(origImgUrl)], { type: 'text/plain' })
@@ -62,6 +63,17 @@ const MarkedCatImage = (props) => {
 					setMoreInfo(true);
 				}
 			});
+	};
+
+	const handleSubmit = () => {
+		if (
+			document.getElementById('catface-description').innerText !== '완성!😻'
+		) {
+			document.getElementById('warning-message').innerText =
+				'안내에 따라 마크 4개를 모두 찍어주세요!';
+		} else {
+			sendThisMark();
+		}
 	};
 
 	return !showNewMark ? (
@@ -94,13 +106,16 @@ const MarkedCatImage = (props) => {
 			</button>
 		</div>
 	) : (
-		<div>
+		<div style={{ textAlign: 'center' }}>
 			<CatFace
 				markedImg={markedImg}
 				catMark={catMark}
 				setCatMark={setCatMark}
 				sendThisMark={sendThisMark}
 			/>
+			<button className='mark-submit-button' onClick={handleSubmit}>
+				마커 수정 완료
+			</button>
 		</div>
 	);
 };

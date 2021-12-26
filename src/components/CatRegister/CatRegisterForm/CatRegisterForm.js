@@ -5,6 +5,8 @@ const CatRegisterForm = (props) => {
 	const { catInfo, setCatInfo } = props;
 
 	const handleChange = (e) => {
+		console.log(catInfo);
+		console.log(typeof catInfo.pattern);
 		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
 	};
 

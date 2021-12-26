@@ -11,7 +11,7 @@ const CatMarkerMap = (props) => {
 		/*** 지도 생성하기 ***/
 		const mapContainer = document.getElementById(mapId); // 지도를 표시할 div
 		const mapOption = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			center: new kakao.maps.LatLng(37.61501807386411, 127.0805784348522), // 지도의 중심좌표
 			level: 2, // 지도의 확대 레벨
 		};
 		let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 표시할 div와 지도 옵션으로 지도를 생성
