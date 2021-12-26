@@ -105,7 +105,6 @@ const CatUpdatePage = () => {
       setLoaded(true);
     });
   }, []);
-  console.log(catInfo);
 
   const handleChange = (e) => {
     setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
@@ -174,22 +173,32 @@ const CatUpdatePage = () => {
 
   return loaded ? (
     <div className='content-container'>
-      <span className='cat-mainImg-form'>
-        <div style={{ fontWeight: '800' }} className='input-label'>
-          고양이 사진
-        </div>
-        <ImgUpload pastImg={mainImg} img={newMainImg} setImg={setNewMainImg} />
-      </span>
-      <span className='cat-img-form'>
-        <CatImgUpdate
-          catImg={catImg}
-          setCatImg={setCatImg}
-          deleteImgURl={deleteImgURl}
-          setDeleteImgUrl={setDeleteImgUrl}
-          addImg={addImg}
-          setAddImg={setAddImg}
-        />
-      </span>
+      <div className='input-label'>고양이 사진</div>
+      <div className='cat-image-form'>
+        <span className='cat-mainimg'>
+          <div>
+            <span style={{ color: 'red' }}>* </span>
+            얼굴 정면이 잘 나온 대표사진
+          </div>
+          <ImgUpload
+            pastImg={mainImg}
+            img={newMainImg}
+            setImg={setNewMainImg}
+          />
+        </span>
+
+        <span className='cat-imgs'>
+          <div>추가 사진 (선택)</div>
+          <CatImgUpdate
+            catImg={catImg}
+            setCatImg={setCatImg}
+            deleteImgURl={deleteImgURl}
+            setDeleteImgUrl={setDeleteImgUrl}
+            addImg={addImg}
+            setAddImg={setAddImg}
+          />
+        </span>
+      </div>
       <span className='cat-name-form'>
         <div className='cat-info-form-inner'>
           <div className='input-label'>이름</div>

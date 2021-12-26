@@ -17,7 +17,6 @@ import MyPostPage from 'pages/MyPage/MyPostPage/MyPostPage';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAction } from 'reducer/auth';
-import CatReRegisterPage from 'pages/CatReRegisterPage/CatReRegisterPage';
 import CatFace from 'components/CatRegister/CatFace/CatFace';
 import useUpdateEffect from 'utils/useUpdateEffect';
 import Spinner from 'components/Common/Spinner';
@@ -52,7 +51,6 @@ function App() {
           <Route path='/mycat/:catId' element={<CatDetailPage />} />
           <Route path='/mycat/:catId/update' element={<CatUpdatePage />} />
           <Route path='/mycat/new' element={<CatRegisterPage />} />
-          <Route path='/mycat/re-register' element={<CatReRegisterPage />} />
           <Route path='/mypage' element={<MyPage />} />
           <Route path='/mypage/mylike' element={<MyLikePage />} />
           <Route path='/mypage/mypost' element={<MyPostPage />} />
