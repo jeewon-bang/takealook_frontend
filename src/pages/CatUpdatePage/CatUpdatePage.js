@@ -237,14 +237,13 @@ const CatUpdatePage = () => {
 
 			{showModal && (
 				<Modal showModal={showModal} onClose={closeModal} maskClosable={true}>
-					<div style={{ width: '800px' }}>
+					<div style={{ width: '800px', height: '600px', padding: '30px' }}>
 						<div>
 							<CatFace
 								markedImg={markedImg}
 								newMark={newMark}
 								setNewMark={setNewMark}
 							/>
-							<button onClick={modifyMark}>마크 수정하기</button>
 						</div>
 					</div>
 				</Modal>

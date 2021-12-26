@@ -19,20 +19,20 @@ import MarkedCatFace from 'components/CatRegister/MarkedCatFace/MarkedCatFace';
 import Spinner from 'components/Common/Spinner';
 
 const CatRegisterPage = () => {
-  SwiperCore.use([Navigation, Pagination]);
+	SwiperCore.use([Navigation, Pagination]);
 
-  // 새로 등록할 고양이 정보 - catInfo, catLoc, catImg, mainImg,
-  const [catInfo, setCatInfo] = useState({
-    name: '',
-    gender: '',
-    neutered: '',
-    status: '',
-    pattern: '',
-  });
-  const [catLoc, setCatLoc] = useState([]);
-  const [newCatLoc, setNewCatLoc] = useState([]); //?????
-  const [catImg, setCatImg] = useState([]);
-  const [mainImg, setMainImg] = useState([]);
+	// 새로 등록할 고양이 정보 - catInfo, catLoc, catImg, mainImg,
+	const [catInfo, setCatInfo] = useState({
+		name: '',
+		gender: '',
+		neutered: '',
+		status: '',
+		pattern: '',
+	});
+	const [catLoc, setCatLoc] = useState([]);
+	const [newCatLoc, setNewCatLoc] = useState([]); //?????
+	const [catImg, setCatImg] = useState([]);
+	const [mainImg, setMainImg] = useState([]);
 
 	// AI 추천 이후 받을 점찍힌 이미지 및 랜드마크 좌표
 	const [markedImg, setMarkedImg] = useState('');
@@ -60,9 +60,9 @@ const CatRegisterPage = () => {
 	const user = useSelector((state) => state.auth.user);
 	const [loaded, setLoaded] = useState(false);
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+	const closeModal = () => {
+		setShowModal(false);
+	};
 
 	// '등록하기' => 사진으로 동일고양이 추천 요청
 	const handleSubmit = () => {
@@ -113,7 +113,7 @@ const CatRegisterPage = () => {
 			console.log(catLoc);
 			console.log(catImg);
 
-      const formData = new FormData();
+			const formData = new FormData();
 
 			// 고양이 대표이미지
 			formData.append('catMainImg', mainImg[0]);
@@ -140,21 +140,21 @@ const CatRegisterPage = () => {
 				new Blob([JSON.stringify(catMark)], { type: 'application/json' })
 			);
 
-      // 콘솔에 찍어보기
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-      }
+			// 콘솔에 찍어보기
+			for (let pair of formData.entries()) {
+				console.log(pair[0] + ', ' + pair[1]);
+			}
 
-      // 새로운 고양이로 등록 요청
-      axiosInstance
-        .post(`/user/${user.id}/cat/selection/`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then((res) => {
-          navigate('/mycat');
-        });
-    }
-  };
+			// 새로운 고양이로 등록 요청
+			axiosInstance
+				.post(`/user/${user.id}/cat/selection/`, formData, {
+					headers: { 'Content-Type': 'multipart/form-data' },
+				})
+				.then((res) => {
+					navigate('/mycat');
+				});
+		}
+	};
 
 	return !moreInfo ? (
 		/** 처음에 보여지는 고양이 정보 입력 화면 */

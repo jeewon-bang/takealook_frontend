@@ -2,7 +2,7 @@ import React from 'react';
 import 'components/CatRegister/CatRegisterForm/CatRegisterForm.scss';
 
 const CatUpdateForm = (props) => {
-	const { catInfo, setCatInfo, gender, neutered } = props;
+	const { catInfo, setCatInfo } = props;
 
 	const handleChange = (e) => {
 		setCatInfo({ ...catInfo, [e.target.name]: e.target.value });
