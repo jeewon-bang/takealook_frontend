@@ -36,7 +36,7 @@ const Sorting = (props) => {
     const sorted = [...posts];
     sorted.sort(function (a, b) {
       return a.postId - b.postId;
-    }); //왜 과거순은 안되는거같지???
+    });
     setPosts(sorted);
   };
 

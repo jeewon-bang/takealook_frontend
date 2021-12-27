@@ -4,6 +4,7 @@ import './PostList.scss';
 
 const PostList = (props) => {
   const { post } = props;
+  //<> 태그 제거 + 이미지도 제거
   const newContent = post.content.replace(/(<([^>]+)>)/gi, '');
 
   let today = new Date();

@@ -1,6 +1,5 @@
 @import 'components/Common/common';
 
-//WriteCategory.scss
 .selects {
   width: 300px;
   text-align: center;
@@ -22,7 +21,6 @@
   }
 }
 
-//WriteTitle.scss
 .title-input {
   @extend %input-text;
   border-bottom: 1px solid black;

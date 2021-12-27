@@ -1,9 +1,9 @@
 import axiosInstance from 'api/customAxios';
-import React, { useState } from 'react';
+import React from 'react';
 import './Searching.scss';
 
 const Searching = (props) => {
-  const { search, setSearch, setPosts, setLoaded, setBoardId } = props;
+  const { search, setSearch, setPosts, setLoaded } = props;
 
   const handleSearch = (e) => {
     setSearch(e.target.value);

@@ -1,14 +1,5 @@
 @import 'components/Common/common';
 
-// q {
-//   quotes: none;
-// }
-
-// table {
-//   border-collapse: collapse;
-//   border-spacing: 0;
-// }
-
 .link {
   text-decoration: none; //밑줄 제거
   color: inherit; //파란글씨 제거
@@ -25,21 +16,6 @@
   position: relative;
   box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
-
-  // .card:hover .card-header {
-  //   opacity: 0.8;
-  //   height: 100px;
-  // }
-
-  // .card:hover .card-body-description {
-  //   opacity: 1;
-  //   -webkit-transition: 0.5s ease-in-out;
-  //   -moz-transition: 0.5s ease-in-out;
-  //   -ms-transition: 0.5s ease-in-out;
-  //   -o-transition: 0.5s ease-in-out;
-  //   transition: 0.5s ease-in-out;
-  //   /* overflow: scroll; */
-  // }
 
   .card-header {
     -webkit-transition: 0.5s; /*사파리 & 크롬*/
@@ -104,7 +80,6 @@
 
     .card-body-footer {
       position: absolute;
-      // margin-top: 15px;
       margin-bottom: 6px;
       bottom: 0;
       width: 314px;
@@ -145,11 +120,6 @@
     }
   }
 }
-
-// .card-body-hashtag {
-//   color: #2478ff;
-//   font-style: italic;
-// }
 
 .image {
   width: 13px;
