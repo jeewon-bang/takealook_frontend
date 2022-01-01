@@ -1,0 +1,24 @@
+@import 'components/Common/common';
+
+.list-search {
+  position: relative;
+  // text-align: center;
+  width: 400px;
+  height: 80px;
+  margin: 0 auto;
+  margin: 0;
+
+  .list-searching-ipt {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #bbb;
+    margin: 30px 0;
+    padding: 10px 12px;
+  }
+  .fa-search {
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    margin: 0;
+  }
+}

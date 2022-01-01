@@ -1,0 +1,94 @@
+// colors
+$light-pink: #ffccbe;
+$pink: #fd8a69;
+$dark-orange: #eb7100;
+$main-orange: #ffa800;
+$light-orange: #ffdd9a;
+$white-gray: #f9f8f6;
+$line: 1px solid #deddda;
+$line-gray: #deddda;
+$gray: #9b9b9b;
+$dark-gray: rgb(77, 77, 77);
+$red: #ff0505;
+
+// 반응형 화면을 위한 Breakpoints
+$breakpoint-mobile: 335px;
+$breakpoint-tablet: 758px;
+$breakpoint-desktop: 1024px;
+
+@mixin mobile {
+	@media (max-width: #{$breakpoint-tablet - 1px}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$breakpoint-desktop}) {
+		@content;
+	}
+}
+
+// 멀티라인 말줄임 표시
+@mixin ellipsis($line-cnt, $line-height) {
+	overflow: hidden;
+	text-overflow: ellipsis; //넘치는 텍스트를 숨긴 후 '...' 처리
+	white-space: nowrap; //줄바꿈 처리 => 금지
+	-webkit-line-clamp: $line-cnt; /* 라인수 */
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	line-height: $line-height;
+	height: $line-cnt * $line-height;
+}
+
+// 재사용할 디자인들
+%button-square {
+	height: 30px;
+	font-size: 18px;
+	background-color: $main-orange;
+	color: white;
+	box-shadow: none;
+	border-radius: 10px;
+	border: none;
+	font-size: 18px;
+	font-weight: bold;
+	outline: none;
+	cursor: pointer;
+}
+
+%button-round {
+	background-color: $main-orange;
+	color: white;
+	border-radius: 50%;
+	border: none;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+%img-upload-button {
+	background-color: transparent;
+	border: none;
+	width: 200px;
+	height: 200px;
+	color: rgb(180, 180, 180);
+	font-size: 24px;
+	text-align: center;
+	border: 3px solid $line-gray;
+	border-radius: 10px;
+}
+
+%input-text {
+	border: $line;
+	border-radius: 3px;
+	height: 40px;
+}
+
+%user-info {
+	//   float: left;
+	width: 100%;
+}

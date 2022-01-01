@@ -1,0 +1,41 @@
+@import 'components/Common/common';
+
+.cat-info-form-inner {
+	width: 100%;
+
+	.input-label {
+		font-weight: 800;
+		margin: 30px 0px 10px 0px;
+	}
+
+	.input-text {
+		@extend %input-text;
+		width: 100%;
+	}
+
+	.input-select {
+		@extend %input-text;
+		width: 100%;
+		font-size: 18px;
+	}
+
+	.input-radio input[type='radio'] {
+		display: none;
+
+		& + span {
+			display: inline-block;
+			border: $line;
+			border-radius: 5px;
+			background-color: $white-gray;
+			text-align: center;
+			cursor: pointer;
+			width: 33%;
+			height: 40px;
+			line-height: 40px;
+		}
+
+		&:checked + span {
+			background-color: $light-orange;
+		}
+	}
+}

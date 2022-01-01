@@ -1,0 +1,163 @@
+.article {
+	position: relative;
+	padding-top: 16px;
+	border-top: 1px solid rgb(177, 176, 176);
+
+	.block-title {
+		position: relative;
+		margin-bottom: 10px;
+		height: 50px;
+		h2 {
+			float: left;
+			font-size: 18px;
+		}
+		button {
+			line-height: 28px;
+			color: #b0b0b0;
+			font-size: 10px;
+			font-weight: 300;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			border: 0;
+			background: none;
+			float: right;
+		}
+	}
+
+	.my-post-list {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10px;
+
+		.my-post-list-left {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			.post-list-board {
+				margin-right: 10px;
+			}
+
+			.post-list-title {
+				// display: inline-block;
+				width: 300px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				margin-right: 10px;
+				font-weight: bold;
+			}
+		}
+
+		.my-post-list-right {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			.post-modified-at {
+				font-size: 12px;
+				color: gray;
+				margin-right: 10px;
+			}
+
+			.post-list-like {
+				margin-right: 10px;
+			}
+		}
+	}
+
+	.mypage-msg {
+		display: table;
+		width: 600px;
+		height: 250px;
+
+		.content {
+			text-align: center;
+			display: table-cell;
+			vertical-align: middle;
+		}
+	}
+}
+
+.PostList {
+	display: block;
+	margin-top: 0;
+	height: 80px;
+
+	.Board {
+		list-style: none;
+		margin: 40px 10px 10px 10px;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font-family: 'Noto Sans KR', sans-serif;
+
+		.active {
+			padding: 8px 10px;
+			border-top: 1px solid rgba(228, 228, 228, 0.5);
+			margin: 0;
+			padding: 0;
+
+			.list-title {
+				float: left;
+				width: 150px;
+				margin-bottom: 0;
+				height: 60px;
+				display: flex;
+				align-items: center;
+			}
+			.postList2 {
+				float: left;
+
+				.title {
+					width: 350px;
+					float: right;
+					font-size: 17px;
+					color: #48484d;
+					text-align: left;
+					margin-bottom: 10px;
+				}
+				.modified_at {
+					font-size: 10px;
+				}
+			}
+			.profile {
+				float: right;
+
+				.icon {
+					margin-left: 5px;
+					width: 25px;
+					height: 17px;
+				}
+			}
+		}
+
+		.subject {
+			font-size: 15px;
+			font-weight: 400;
+			line-height: 22px;
+			color: #48484d;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			.title {
+				float: left;
+				max-width: calc(100% - 50px);
+				color: #48484d;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				word-wrap: normal;
+				overflow: hidden;
+			}
+		}
+	}
+}

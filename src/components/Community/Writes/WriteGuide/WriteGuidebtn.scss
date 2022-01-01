@@ -1,0 +1,27 @@
+@import 'components/Common/common';
+
+@font-face {
+  font-family: 'SurroundAir';
+  src: url('../../../../fonts/Cafe24SsurroundAir.ttf');
+}
+
+.guide-btn {
+  float: right;
+  font-size: 20px;
+  height: 40px;
+  background: none;
+  border: none;
+  font-weight: bolder;
+}
+
+.guide-btn:hover {
+  //hover는 안에 넣으면 안되나봄..
+  cursor: pointer;
+}
+
+.guide-img {
+  float: right;
+  width: 35px;
+  height: 35px;
+  margin-left: 7px;
+}

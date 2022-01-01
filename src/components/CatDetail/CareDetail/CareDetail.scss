@@ -1,0 +1,69 @@
+@import 'components/Common/common';
+
+.calendar-care {
+	.care-icon {
+		cursor: pointer;
+	}
+
+	.care-tooltip-wrapper {
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: 9999;
+
+		.care-tooltip {
+			width: 300px;
+			z-index: 10000;
+			position: absolute;
+			background-color: $white-gray;
+			box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.3);
+			padding: 10px;
+			overflow: auto;
+
+			.care-tooltip-list {
+				background-color: white;
+				border-radius: 10px;
+				padding: 5px;
+				margin-bottom: 10px;
+
+				.list-top {
+					height: 30px;
+					display: flex;
+					align-items: center;
+				}
+
+				.list-bottom {
+					padding: 5px;
+					margin-top: 10px;
+				}
+
+				.list-user-img {
+					width: 30px;
+					height: 30px;
+					border-radius: 50%;
+					background-color: gray;
+					margin-right: 5px;
+					float: left;
+				}
+
+				.list-user {
+					font-weight: 800;
+					margin-right: 10px;
+					color: black;
+				}
+
+				.list-datetime {
+					font-size: 14px;
+					color: $gray;
+					float: right;
+				}
+
+				.list-message {
+					color: black;
+				}
+			}
+		}
+	}
+}

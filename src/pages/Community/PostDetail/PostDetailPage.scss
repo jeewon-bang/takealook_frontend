@@ -1,0 +1,45 @@
+@import 'components/Common/common';
+
+.detail-right-nav {
+  float: right;
+  width: 10%;
+  height: 1500px;
+  .detail-like-btn {
+    //브라우저 크기에 따라 이동 x
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+    top: 450px;
+    position: fixed;
+  }
+  .detail-like-btn:hover {
+    cursor: pointer;
+  }
+  .detail-write-btn {
+    //브라우저 크기에 따라 이동 o
+    // display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+    top: 580px;
+    position: fixed;
+  }
+}
+
+.detail-postdetail {
+  height: auto;
+}
+
+.detail-commentwrite {
+  width: 90%;
+  height: 100px;
+  margin-top: 80px;
+}
+
+.detail-commentlist-info {
+}
+
+.detail-commentlist {
+  // height: auto;
+  // margin-bottom: 20px;
+}

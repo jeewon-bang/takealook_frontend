@@ -1,0 +1,66 @@
+@import 'components/Common/common';
+
+.marked-cat-modal {
+	margin: 0 auto;
+	text-align: center;
+
+	.sample {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.catface-sample {
+			width: 100px;
+			height: 100px;
+			border-radius: 30px;
+			border: 5px solid $main-orange;
+			margin-right: 30px;
+		}
+
+		.message {
+			text-align: left;
+
+			.message-highlight {
+				color: $main-orange;
+				font-size: 20px;
+				font-weight: 800;
+			}
+		}
+	}
+	.marked-cat-img-box {
+		display: flex;
+		justify-content: center;
+		border-radius: 30px;
+		overflow: hidden;
+
+		.marked-cat-img {
+			display: inline-block;
+			height: 400px;
+		}
+	}
+
+	.yes-button {
+		@extend %button-square;
+		width: 30%;
+		margin: 5px;
+	}
+
+	.no-button {
+		@extend %button-square;
+		width: 30%;
+		margin: 5px;
+		background-color: gray;
+	}
+}
+
+.mark-submit-button {
+	@extend %button-square;
+	width: 200px;
+	margin: 10px;
+}
+.mark-cancel-button {
+	@extend %button-square;
+	background-color: gray;
+	width: 200px;
+	margin: 10px;
+}

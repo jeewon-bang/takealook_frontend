@@ -1,0 +1,56 @@
+.mypost-container {
+	// width: 1080px;
+	// margin: 0 auto;
+	display: flex;
+
+	.mypost-section1 {
+		// padding-top: 80px;
+		float: left;
+		width: 180px;
+		height: 400px;
+		margin-right: 40px;
+	}
+	.mypost-section2 {
+		// padding-top: 80px;
+		width: 900px;
+		position: relative;
+		margin-left: 40px;
+
+		.mypost-article {
+			position: relative;
+
+			padding-top: 16px;
+			border-top: 2px solid #555;
+
+			.block-title {
+				position: relative;
+				margin-bottom: 10px;
+				height: 35px;
+				h2 {
+					float: left;
+					font-size: 18px;
+				}
+			}
+		}
+		.MyPostList {
+			width: 1050px;
+			display: grid;
+			grid-template-columns: repeat(2, 365px);
+			grid-column-gap: 3px;
+			column-gap: 3px;
+			grid-row-gap: 5px;
+			row-gap: 5px;
+			justify-content: center;
+			width: 90%;
+			float: left;
+			padding-left: 40px;
+		}
+	}
+}
+
+.img-circle {
+	margin: 10px 10px 0px 10px;
+	width: 140px;
+	height: 120px;
+	border-radius: 30px;
+}

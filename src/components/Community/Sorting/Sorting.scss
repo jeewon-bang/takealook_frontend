@@ -1,0 +1,27 @@
+@import 'components/Common/common';
+
+.sorting {
+  width: 200px;
+  text-align: center;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 7px;
+  border-color: $line-gray;
+  color: $gray;
+  margin-right: 150px;
+}
+
+.sorting:focus {
+  outline: none;
+}
+
+.sorting .option {
+  color: black;
+  //   height: 200px;
+  //   border-radius: 5px;
+}
+
+// .sorting .option:hover {
+//   background-color: $pink;
+//   cursor: pointer;
+// }

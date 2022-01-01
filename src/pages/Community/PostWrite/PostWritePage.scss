@@ -1,0 +1,79 @@
+@import 'components/Common/common';
+
+.write-wrapper {
+  padding-top: 30px;
+  position: relative;
+  padding-bottom: 100px;
+  width: 70%;
+  padding: auto;
+  margin: auto;
+
+  .write-title-content {
+    height: auto;
+    margin-bottom: 100px;
+  }
+
+  .write-thumbnail {
+    box-sizing: border-box;
+    width: 100%;
+
+    .write-thumbnail-upload {
+      .cat-mainimg-upload-box {
+        width: 250px;
+        height: 250px;
+        background-color: $white-gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .oneimg-upload-button {
+          @extend %img-upload-button;
+          cursor: pointer;
+
+          .mainimg-preview {
+            vertical-align: middle;
+            font-size: 24px;
+            color: #a8a8a8;
+            border: 2px solid #c9c9c9;
+            background-color: #f9f8f6;
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
+            margin: 10px;
+            background-repeat: none;
+          }
+        }
+      }
+    }
+  }
+
+  .write-footer {
+    position: static;
+  }
+
+  .register-btn {
+    @extend %button-square;
+    width: 350px;
+    height: 50px;
+    border: none;
+    box-shadow: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 25px;
+    margin: 20px;
+  }
+
+  .cancel-btn {
+    @extend %button-square;
+    background-color: $gray;
+    width: 350px;
+    height: 50px;
+    border: none;
+    box-shadow: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 25px;
+    color: $white-gray;
+    margin: 20px;
+  }
+}

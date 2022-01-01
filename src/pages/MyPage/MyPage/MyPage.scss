@@ -1,0 +1,19 @@
+.mypage-container {
+	display: flex;
+
+	.section1 {
+		float: left;
+		width: 180px;
+		height: 400px;
+	}
+	.section2 {
+		width: 600px;
+		margin-left: 100px;
+		height: 800px;
+		margin-top: 20px;
+	}
+}
+
+.MyPost {
+	display: flex;
+}

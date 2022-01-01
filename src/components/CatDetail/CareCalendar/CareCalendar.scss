@@ -1,0 +1,52 @@
+@import 'components/Common/common';
+
+.calendar {
+	width: 1000px;
+	height: 600px;
+	padding: 30px;
+}
+
+.head {
+	height: 50px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.calendar-month {
+		font-size: 20px;
+		font-weight: 800;
+		margin: 10px;
+	}
+	.calendar-move-button {
+		color: $main-orange;
+		background-color: white;
+		border: none;
+		font-size: 24px;
+	}
+}
+.row {
+	display: flex;
+	justify-content: space-around;
+}
+
+.box-head {
+	width: 120px;
+	height: 20px;
+	text-align: center;
+	border-bottom: 1px solid $line-gray;
+	margin-bottom: 10px;
+}
+
+.box {
+	width: 80px;
+	height: 65px;
+	margin: 10px;
+
+	&.grayed {
+		color: $gray;
+	}
+	&.selected {
+		color: $main-orange;
+	}
+}

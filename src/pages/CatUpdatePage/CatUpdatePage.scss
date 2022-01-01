@@ -1,0 +1,26 @@
+@import 'components/Common/common';
+
+.cat-image-form {
+	box-sizing: border-box;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+
+	.cat-mainimg {
+		width: 25%;
+	}
+
+	.cat-imgs {
+		width: 75%;
+	}
+}
+
+.mark-request-message {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+// .mark-submit-button {
+// 	@extend %button-square;
+// 	width: 200px;
+// }

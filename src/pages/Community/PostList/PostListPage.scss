@@ -1,0 +1,38 @@
+@import 'components/Common/common';
+
+.list-top-nav {
+}
+
+.list-right-nav {
+  float: right;
+  width: 6%;
+  .list-write-btn {
+    //브라우저 크기에 따라 이동 o
+    width: 100px;
+    height: 100px;
+    top: 580px;
+    position: fixed;
+    z-index: 9999;
+  }
+}
+
+.list-searching {
+}
+
+.list-sorting {
+  float: right;
+  margin-right: 5px;
+  margin-top: 50px;
+}
+
+.postlist {
+  display: grid;
+  grid-template-columns: repeat(3, 365px);
+  column-gap: 3px;
+  row-gap: 5px;
+  justify-content: center;
+  width: 90%;
+  float: left;
+  padding-left: 20px;
+  margin: 0;
+}

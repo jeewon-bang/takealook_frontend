@@ -1,0 +1,89 @@
+@import 'components/Common/common';
+
+.content-inner {
+  text-align: center;
+  padding: 0px 50px 0px 50px;
+
+  .input-info {
+    .img-preview {
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+      background-color: $dark-gray;
+      background-size: 200px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      border-radius: 10px;
+      margin: 10px;
+    }
+  }
+
+  .more-info {
+    text-align: left;
+    margin: 30px 0px 100px 0px;
+
+    .input-label {
+      font-weight: 800;
+      margin: 30px 0px 10px 0px;
+    }
+
+    .input-text {
+      @extend %input-text;
+      width: 100%;
+    }
+
+    .input-select {
+      @extend %input-text;
+      width: 100%;
+    }
+
+    .input-radio input[type='radio'] {
+      display: none;
+
+      & + span {
+        display: inline-block;
+        border: $line;
+        border-radius: 5px;
+        background-color: $white-gray;
+        text-align: center;
+        cursor: pointer;
+        height: 40px;
+        line-height: 30px;
+        margin: 3px;
+
+        &.status {
+          width: 48%;
+        }
+
+        &.neutered,
+        &.gender {
+          width: 32.5%;
+        }
+      }
+
+      &:checked + span {
+        background-color: $light-orange;
+      }
+    }
+  }
+
+  .message-highlight {
+    font-size: 24px;
+    font-weight: 800;
+    color: $main-orange;
+    margin-bottom: 10px;
+  }
+
+  #warning {
+    font-size: 20px;
+    font-weight: 800;
+    color: red;
+    margin-top: 30px;
+  }
+
+  .submit-button {
+    @extend %button-square;
+    width: 100%;
+    margin: 50px 0px 80px 0px;
+  }
+}

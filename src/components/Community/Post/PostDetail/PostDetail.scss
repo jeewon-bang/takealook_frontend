@@ -1,0 +1,75 @@
+@import 'components/Common/common';
+
+.postdetail {
+  display: grid; // ??뭘까
+  background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
+    0 100% repeat-x;
+
+  .postdetail-header {
+    background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png)
+      0 100% repeat-x;
+  }
+}
+
+.postdetail-header-info {
+  display: flex;
+  .postdetail-header-info-like {
+    margin-right: 50px;
+  }
+  .postdetail-header-info-comment {
+    margin-right: 50px;
+  }
+  .postdetail-header-info-created_at {
+    margin-right: 50px;
+  }
+}
+
+.postdetail-title {
+  display: flex;
+  margin-right: 100px;
+  font-size: 30px;
+}
+
+.postdetail-writer-info {
+  @extend %user-info;
+  display: flex;
+  .postdetail-writer-info-leftbox {
+    width: 7%;
+    .postdetail-userimg {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: gray;
+      margin-bottom: 10px;
+      margin-right: 10px;
+    }
+  }
+  .postdetail-writer-info-middlebox {
+    width: 73%;
+    .postdetail-writer-info-name {
+      font-size: 20px;
+      margin-top: 15px;
+    }
+  }
+  .postdetail-writer-info-rightbox {
+    width: 20%;
+    .postdetail-btn {
+      margin: 10px;
+      margin-top: 15px;
+      font-size: 17px;
+      width: 80px;
+      border-radius: 8px;
+      background-color: white;
+      border: none;
+    }
+    .postdetail-btn:hover {
+      cursor: pointer;
+      color: $main-orange;
+    }
+  }
+}
+
+.postdetail-content {
+  margin: 0 auto;
+  width: 1000px;
+}
