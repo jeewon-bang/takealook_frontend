@@ -52,6 +52,7 @@
 <br>
 
 ## 🕹 실행 방법
+TakeaLook! 도메인 주소로 접근 👉 http://takealook.ekg.kr/
 
 
 <br>
@@ -62,8 +63,14 @@
 ### 로그인 및 마이페이지
 
 - OAuth2.0 프로토콜을 사용한 Google, Kakao 로그인
-- 내가 작성/좋아요 누른 글 모아보기
+- 소셜로그인 정보로 회원 정보 수정 가능
+  - 닉네임 중복 여부 확인 가능
+  - 회원 사진 정보 수정 가능
+- 내가 작성/좋아요 누른 글 리스트 모아보기
+  - '더보기' 클릭시 내가 작성/좋아요 누른 전체 글 카드 형식으로 조회
 - 내 도감에 등록된 고양이, 내가 작성한 글에 대한 변경사항 알람 제공
+  - 아직 클릭하지 않은 알람 수 상단에 🔔아이콘과 함께 표시
+  - 현시점으로부터 역순으로 '~ 시간 전' 표시
 
 <br>
 
@@ -100,8 +107,19 @@
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/25cd30f2-6b80-482c-a40a-c23674f93544/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220101%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220101T062349Z&X-Amz-Expires=86400&X-Amz-Signature=71e714c6a879cad33e03c749ada96047b613af2921c63a24c85bbd5950df46a0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
 
 ### 커뮤니티
-- 카테고리에 맞는 글 작성 및 조회 
-- 댓글 작성 및 좋아요 기능
+- 게시글 카테고리별 조회 가능
+    - `전국고양이자랑`: 사용자 본인의 애완고양이이거나 직접 돌보는 길고양이들의 귀여운 모습을 다른 사용자에게 자랑하고 공유함으로써 takealook! 사이트만의 문화와 공감대 형성
+    - `가출냥찾기`: 사용자 본인의 애완고양이나 돌보는 길고양이가 집을 나가거나 발견 지역에 나타나지 않을 때 이웃들과 정보 공유 가능
+    - `도와주세요`: 추후 크라우드펀딩 기능 추가시 소규모 후원을 통해 길고양이 돌봄 생태계 안정 도모
+- 게시글 제목 기준으로 검색 가능
+- 글 작성시 React-Quill 에디터 사용
+    - quill-image-resize 모듈 통해 이미지 등록후 사용자 직접 사이즈 조정 가능
+    - quill-image-compress 모듈 통해 이미지 등록시 처음 사이즈 고정
+- 글 상세 조회시 카테고리, 좋아요 수, 댓글 수, 작성자, 작성날짜, 댓글리스트 조회
+    - 글 상세 하단 부분에 댓글 작성 및 삭제(댓글 작성자일 경우) 가능
+    - 사용자가 좋아요 한 게시글일 경우 ❤하트 표시, 사용자가 좋아요 취소시 🤍하트 표시로 좋아요 클릭 여부 구분 가능
+- 글 수정시 내용, 썸네일 수정 가능, 수정 완료후 글 상세페이지로 바로 이동
+- 글 삭제시 게시글 리스트에서 확인 가능
 
 
 <br>
