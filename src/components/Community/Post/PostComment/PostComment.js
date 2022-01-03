@@ -14,7 +14,6 @@ const PostComment = (props) => {
     setLoaded,
     setComments,
     commentUpdate,
-    setCommentUpdate,
   } = props;
   const [newComment, setNewComment] = useState({
     writerId: comment.writer.id,
@@ -40,10 +39,6 @@ const PostComment = (props) => {
           );
       })
       .catch((err) => console.log(err));
-  };
-
-  const handleUpdate = () => {
-    setCommentUpdate(true);
   };
 
   return (

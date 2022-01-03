@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './PostWritePage.scss';
 import Writeguide from 'components/Community/Writes/WriteGuide/WriteGuide';
 import WriteGuidebtn from 'components/Community/Writes/WriteGuide/WriteGuidebtn';
-import WriteThumbnail from 'components/Community/Writes/WriteThumbnail/WriteThumbnail';
 import axiosInstance from 'api/customAxios';
 import { useNavigate } from 'react-router';
 import WritePostForm from 'components/Community/Writes/WritePostForm/WritePostForm';
 import { useSelector } from 'react-redux';
 import ImgUpload from 'components/Common/ImgUpload';
-import CatImageUpload from 'components/CatRegister/CatImageUpload/CatImageUpload';
 
 const PostWritePage = () => {
   const user = useSelector((state) => state.auth.user);
