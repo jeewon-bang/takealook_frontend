@@ -9,7 +9,7 @@ Quill.register('modules/ImageResize', ImageResize);
 Quill.register('modules/ImageCompress', ImageCompress);
 
 const WritePostForm = (props) => {
-  const { postText, setPostText, updatePage } = props;
+  const { postText, setPostText } = props;
   const quillRef = useRef('');
 
   const imageHandler = () => {
