@@ -62,7 +62,7 @@ TakeaLook! 도메인 주소로 접근 👉 http://takealook.ekg.kr/
 <br>
 
 ## 🧬 서비스 구조
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a9347822-3989-4971-aa55-e65a93e8baf2/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220101%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220101T063615Z&X-Amz-Expires=86400&X-Amz-Signature=aaa040d37d544c00bb0e896773ba34989b4b649a058a437ce7a78e1241dfc9f6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+![image](https://user-images.githubusercontent.com/87870107/148776503-d27b8924-a731-47d7-ac05-43e3fae3299b.png)
 
 ### 로그인 및 마이페이지
 
@@ -78,7 +78,8 @@ TakeaLook! 도메인 주소로 접근 👉 http://takealook.ekg.kr/
 
 <br>
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a5501b26-9fcb-4f59-bb41-7cb7e8925129/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220101%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220101T063633Z&X-Amz-Expires=86400&X-Amz-Signature=35b33edf3cf0418a23148d4ce4e576894a109575f9cb0dd98849022ded4ee2c9&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+![image](https://user-images.githubusercontent.com/87870107/148776590-4f0fbf7e-204e-4274-acaa-2110c0bd29a9.png)
+
 
 ### 고양이 등록
 
@@ -93,7 +94,7 @@ TakeaLook! 도메인 주소로 접근 👉 http://takealook.ekg.kr/
 
 <br>
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8f919825-7ea3-4289-84d2-973cef5a6a3e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220101%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220101T063655Z&X-Amz-Expires=86400&X-Amz-Signature=276af5f477363e1e04c6cecbc2ceae01069563010dc661261b6c0894bec76930&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+![image](https://user-images.githubusercontent.com/87870107/148776670-da77f072-4411-45a1-aa9c-449c311ad922.png)
 
 ### 고양이 관리
 - 고양이 관리에 대한 모든 정보는 해당 고양이를 함께 돌보는 이웃들과 공유 가능
@@ -108,7 +109,7 @@ TakeaLook! 도메인 주소로 접근 👉 http://takealook.ekg.kr/
   
  <br>
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/25cd30f2-6b80-482c-a40a-c23674f93544/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220101%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220101T062349Z&X-Amz-Expires=86400&X-Amz-Signature=71e714c6a879cad33e03c749ada96047b613af2921c63a24c85bbd5950df46a0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+![image](https://user-images.githubusercontent.com/87870107/148776717-0dffe4be-c271-4136-9091-79538669cf78.png)
 
 ### 커뮤니티
 - 게시글 카테고리별 조회 가능
