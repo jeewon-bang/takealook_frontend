@@ -1,5 +1,5 @@
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8a2e888b-178b-4d62-9fea-2f36c90b7850/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220101%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220101T063721Z&X-Amz-Expires=86400&X-Amz-Signature=26b9296ba8df25500bc9bc7272e81e7454851658b2ea0393f4d3a689ca9482f8&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F513c596f-5dfe-490f-923a-2f40fd8f9658%2FUntitled.png?table=block&id=fe0a94fb-407e-441a-b0d9-b70a678ef956&spaceId=46893005-a3d8-4104-82d2-29cae068e951&width=2000&userId=c4ad560d-d5be-4c58-a250-7be34ce655d8&cache=v2">
 
 ❣ [Take a Look! 서비스 바로가기](http://takealook.ekg.kr)
 
@@ -52,11 +52,6 @@
 
 - Communication Tools : <img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white"> <img src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white">
 
-
-<br>
-
-## 🕹 실행 방법
-TakeaLook! 도메인 주소로 접근 👉 http://takealook.ekg.kr/
 
 
 <br>
